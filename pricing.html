@@ -1221,7 +1221,7 @@
                                     <i class="fa-solid fa-circle-info"></i>
                                 </span>
                             </label>
-                            <input type="email" id="orderEmail" placeholder="yourname@gmail.com" required
+                            <input type="email" id="orderEmail" placeholder="name@email.com" required
                                    oninput="validateEmailHint()">
                             <div class="field-note" id="emailNote"></div>
                         </div>
@@ -2114,6 +2114,7 @@
         //  Email validation hint
         // ─────────────────────────────────────────────────────────────────
         const GOOGLE_DOMAINS = ['gmail.com', 'googlemail.com'];
+        const SQU_DOMAINS = ['squ.edu.om', 'student.squ.edu.om'];
 
         function validateEmailHint() {
             const emailEl = document.getElementById('orderEmail');
@@ -2122,15 +2123,21 @@
 
             if (!val) { noteEl.textContent = ''; noteEl.className = 'field-note'; return; }
 
-            const domain = val.split('@')[1] || '';
-            if (GOOGLE_DOMAINS.includes(domain.toLowerCase())) {
+            const domain = val.split('@')[1]?.toLowerCase() || '';
+            
+            // Check for SQU domain
+            if (SQU_DOMAINS.includes(domain)) {
+                noteEl.textContent = '✓ SQU affiliates get free access! Sign in with Google at /auth to access NexCore Labs.';
+                noteEl.className = 'field-note ok';
+                emailEl.classList.remove('warning');
+            } else if (GOOGLE_DOMAINS.includes(domain)) {
                 noteEl.textContent = '✓ Looks like a Google account — perfect.';
                 noteEl.className = 'field-note ok';
                 emailEl.classList.remove('warning');
             } else {
-                noteEl.textContent = 'Make sure this is the email you use with Google Sign-In — it will be linked to your NexCore account.';
-                noteEl.className = 'field-note warn';
-                emailEl.classList.add('warning');
+                noteEl.textContent = 'Enter the email you use with Google Sign-In — it will be linked to your NexCore account.';
+                noteEl.className = 'field-note';
+                emailEl.classList.remove('warning');
             }
         }
 
@@ -2162,6 +2169,16 @@
             if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
                 emailNote.textContent = 'Please enter a valid email address.';
                 emailNote.className = 'field-note err';
+                emailEl.classList.add('invalid');
+                emailEl.focus();
+                return;
+            }
+
+            // Check if SQU email — they get free access
+            const domain = email.split('@')[1]?.toLowerCase() || '';
+            if (SQU_DOMAINS.includes(domain)) {
+                emailNote.textContent = 'SQU affiliates have free access. Please sign in with Google at /auth to access NexCore Labs for free.';
+                emailNote.className = 'field-note ok';
                 emailEl.classList.add('invalid');
                 emailEl.focus();
                 return;
