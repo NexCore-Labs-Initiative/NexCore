@@ -542,7 +542,7 @@ button {
     box-shadow: 0 8px 24px rgba(3, 6, 12, .6);
     backdrop-filter: blur(3px);
     -webkit-backdrop-filter: blur(3px);
-        flex: 1 1 220px;
+    flex: 1 1 220px;
     max-width: calc(100% - 14px);
 }
 

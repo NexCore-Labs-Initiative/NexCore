@@ -39,42 +39,39 @@
             align-items: center;
             gap: 8px;
             padding: 8px 16px;
-            background: rgba(255, 180, 50, 0.1);
-            border: 1px solid rgba(255, 180, 50, 0.3);
+            background: rgba(57, 255, 50, 0.1);
+            border: 1px solid rgba(57, 255, 50, 0.3);
             border-radius: 20px;
-            color: #ffb432;
+            color: green;
             font-size: 13px;
             font-weight: 600;
         }
 
         .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
             gap: 20px;
             margin-bottom: 40px;
         }
 
         .stat-card {
-            background: linear-gradient(135deg, rgba(110, 231, 243, 0.08), rgba(110, 231, 243, 0.03));
-            border: 1px solid rgba(110, 231, 243, 0.2);
+            border: 1px solid rgba(255,255,255,0.08);
             border-radius: 16px;
             padding: 24px;
             text-align: center;
-            backdrop-filter: blur(6px);
-            -webkit-backdrop-filter: blur(6px);
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px);
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            flex: 1 1 220px;
+            max-width: calc(100% - 14px);
         }
 
         .stat-card:hover {
-            border-color: rgba(110, 231, 243, 0.4);
+            border-color: rgba(255,255,255,0.2);
             transform: scale(1.01);
-        }
-
-        .stat-card.admin {
-            background: linear-gradient(135deg, rgba(255, 180, 50, 0.08), rgba(255, 180, 50, 0.03));
-            border-color: rgba(255, 180, 50, 0.2);
         }
 
         .stat-card .stat-icon {
@@ -86,12 +83,12 @@
         .stat-card .stat-value {
             font-size: 2.5rem;
             font-weight: 800;
-            color: #6ee7f3;
+            color: #fff;
             margin-bottom: 8px;
         }
 
-        .stat-card.admin .stat-value {
-            color: #ffb432;
+        .stat-card.order {
+            background:linear-gradient(135deg,rgba(255,180,50,0.08),rgba(255,180,50,0.03));border-color:rgba(255,180,50,0.2);
         }
 
         .stat-card .stat-label {
@@ -130,6 +127,7 @@
         .admin-tab.active {
             color: #6ee7f3;
             border-bottom-color: #6ee7f3;
+            border-radius: 16px;
         }
 
         .tab-content {
@@ -141,8 +139,7 @@
         }
 
         .admin-section {
-            background: rgba(10, 11, 28, 0.6);
-            border: 1px solid rgba(110, 231, 243, 0.15);
+            border: 1px solid rgba(255,255,255,0.08);
             border-radius: 16px;
             padding: 30px;
             margin-bottom: 30px;
@@ -172,47 +169,6 @@
             font-size: 14px;
         }
 
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            width: 100%;
-            max-width: 100%;
-            padding: 12px 16px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(110, 231, 243, 0.2);
-            border-radius: 8px;
-            color: #eaf6fb;
-            font-family: Inter, sans-serif;
-            font-size: 14px;
-            box-sizing: border-box;
-            transition: all 0.2s ease;
-        }
-
-        .form-group textarea {
-            min-height: 80px;
-            resize: vertical;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: #6ee7f3;
-            box-shadow: 0 0 0 4px rgba(110, 231, 243, 0.15);
-            transform: translateY(-1px);
-        }
-
-        .form-group input::placeholder,
-        .form-group textarea::placeholder {
-            color: rgba(255, 255, 255, 0.3);
-            transition: opacity 0.2s;
-        }
-
-        .form-group input:focus::placeholder,
-        .form-group textarea:focus::placeholder {
-            opacity: 0.5;
-        }
-
         .form-actions {
             display: flex;
             gap: 12px;
@@ -224,23 +180,6 @@
             position: relative;
         }
 
-        .search-bar input {
-            width: 100%;
-            padding: 12px 16px 12px 45px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(110, 231, 243, 0.2);
-            border-radius: 8px;
-            color: #eaf6fb;
-            font-size: 14px;
-        }
-
-        .search-bar i {
-            position: absolute;
-            left: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--muted);
-        }
 
         .data-table {
             width: 100%;
@@ -1031,6 +970,25 @@
             animation: spin 0.5s ease-in-out;
         }
 
+        .export-btn.modal-triggering {
+            animation: modalTriggerPulse 0.24s ease;
+        }
+
+        @keyframes modalTriggerPulse {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+            50% {
+                opacity: 0.72;
+                transform: translateY(1px) scale(0.985);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
         .quick-actions {
             display: flex;
             gap: 12px;
@@ -1142,29 +1100,74 @@
         /* Confirmation Modal */
         .modal-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
+            inset: 0;
+            background: rgba(2, 6, 23, 0.58);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
             display: flex;
             align-items: center;
             justify-content: center;
             z-index: 9999;
-            animation: fadeIn 0.2s ease-out;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.28s ease;
+            padding: 16px;
+        }
+
+        .modal-overlay.is-open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-overlay:not(.hidden) {
+            opacity: 1;
+            pointer-events: auto;
         }
 
         .modal {
-            background: linear-gradient(135deg, rgba(15, 16, 40, 0.98), rgba(10, 11, 28, 0.98));
-            border: 1px solid rgba(110, 231, 243, 0.3);
+            position: relative;
+            background: linear-gradient(135deg, rgba(8, 10, 24, 0.98), rgba(6, 8, 20, 0.98));
+            border: 1px solid rgba(110, 231, 243, 0.2);
             border-radius: 16px;
-            padding: 32px;
+            padding: 30px;
             max-width: 480px;
             width: 90%;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
-            animation: modalSlideUp 0.3s ease-out;
+            box-shadow: 0 24px 72px rgba(2, 6, 23, 0.85), 0 0 0 1px rgba(110, 231, 243, 0.06);
+            transform: translateY(26px) scale(0.97);
+            opacity: 0;
+            transition: transform 0.32s cubic-bezier(0.2, 0.9, 0.3, 1), opacity 0.28s ease;
+        }
+
+        .modal::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 10%;
+            right: 10%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(110, 231, 243, 0.75), transparent);
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .modal-overlay.is-open .modal {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+
+        .modal-overlay:not(.hidden) .modal {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+
+        .modal-overlay.is-closing {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .modal-overlay.is-closing .modal {
+            transform: translateY(16px) scale(0.985);
+            opacity: 0;
         }
 
         .modal-header {
@@ -1240,22 +1243,6 @@
             transform: translateY(-1px);
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes modalSlideUp {
-            from {
-                transform: translateY(30px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
         /* Loading Skeleton */
         .skeleton {
             background: linear-gradient(
@@ -1304,46 +1291,6 @@
             color: #7fff7f;
         }
 
-        /* Better button hover effects */
-        .btn.primary {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn.primary::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
-
-        .btn.primary:hover::before {
-            width: 300px;
-            height: 300px;
-        }
-
-        .btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            pointer-events: none;
-        }
-
-        .btn .btn-spinner {
-            display: inline-block;
-            width: 14px;
-            height: 14px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-top-color: #fff;
-            border-radius: 50%;
-            animation: spin 0.6s linear infinite;
-        }
-
         @media (max-width: 768px) {
             .admin-container {
                 margin-top: 80px;
@@ -1369,17 +1316,33 @@
             }
 
             .admin-tabs {
-                overflow-x: auto;
-                gap: 6px;
-                padding-bottom: 4px;
-                -webkit-overflow-scrolling: touch;
-                scrollbar-width: thin;
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 10px;
+                border-bottom: none;
+                padding-bottom: 0;
+                margin-bottom: 24px;
             }
 
             .admin-tab {
-                padding: 10px 16px;
-                font-size: 14px;
+                width: 100%;
+                justify-content: center;
+                padding: 12px 10px;
+                font-size: 15px;
                 white-space: nowrap;
+                border: 1px solid rgba(110, 231, 243, 0.18);
+                border-radius: 10px;
+                margin-bottom: 0;
+                background: rgba(10, 11, 28, 0.45);
+            }
+
+            .admin-tab.active {
+                border-color: rgba(110, 231, 243, 0.6);
+                background: rgba(110, 231, 243, 0.14);
+            }
+
+            .admin-tab i {
+                font-size: 13px;
             }
 
             .admin-section {
@@ -1614,7 +1577,7 @@
             }
 
             .search-bar input {
-                padding: 10px 12px 10px 38px;
+                padding: 10px 12px 10px;
                 font-size: 13px;
             }
 
@@ -1625,13 +1588,6 @@
 
             /* Form improvements */
             .form-group label {
-                font-size: 13px;
-            }
-
-            .form-group input,
-            .form-group textarea,
-            .form-group select {
-                padding: 10px 14px;
                 font-size: 13px;
             }
 
@@ -1820,6 +1776,17 @@
                 min-height: 280px;
             }
         }
+
+        @media (max-width: 420px) {
+            .admin-tabs {
+                gap: 8px;
+            }
+
+            .admin-tab {
+                font-size: 13px;
+                padding: 11px 8px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1849,27 +1816,32 @@
                 </div>
 
                 <div id="myDropdown" class="dropdown-content">
-                    <a href="dashboard.html" class="fade" title="Dashboard"><i class="fa-solid fa-gauge"></i> Dashboard</a>
-                    <a href="admin-users.html" class="fade" title="User Management" style="color:#6ee7f3;"><i class="fa-solid fa-users-gear"></i> User Management</a>
-                    <a href="ai-chat.html" class="fade" title="NexCore AI"><i class="fa-solid fa-wand-magic-sparkles"></i> NexCore AI</a>
+                    <a href="auth.html" class="magic-signup fade" title="Sign in to your account"><i class="fa-solid fa-key"></i> Access the Core</a>
+                    <input type="search" placeholder="What?..." id="myInput" onkeyup="filterFunction()" title="Search...">
+
+                    <a href="hub.html" class="fade" title="NexCore Labs Hub"><i class="fa-solid fa-house"></i> Hub</a>
+                    <a href="hub.html#projects" class="fade" title="Projects"><i class="fa-solid fa-diagram-project"></i> Projects</a>
+                    <a href="ai-chat.html" class="fade" title="NexCore AI — Ask Anything"><i class="fa-solid fa-wand-magic-sparkles"></i> NexCore AI</a>
 
                     <div class="div-menu-line"></div>
 
-                    <a href="hub.html" class="mt-0" title="Hub"><i class="fa-solid fa-house"></i> Hub</a>
-                    <a href="hub.html#projects" title="Projects"><i class="fa-solid fa-diagram-project"></i> Projects</a>
-                    <a href="index.html#about" title="About"><i class="fa-solid fa-circle-info"></i> About</a>
-                    <a href="index.html#contact" title="Contact"><i class="fa-solid fa-paper-plane"></i> Contact</a>
+                    <a href="index.html#tools" class="mt-0" title="Tools & Systems"><i class="fa-solid fa-screwdriver-wrench"></i> Tools & Systems</a>
+                    <a href="index.html#about" title="About NexCore Labs"><i class="fa-solid fa-circle-info"></i> About Us</a>
+                    <a href="index.html#team" title="NexCore Labs Team"><i class="fa-solid fa-users"></i> Our Team</a>
+                    <a href="index.html#contact" title="Contact NexCore Labs"><i class="fa-solid fa-paper-plane"></i> Contact Us</a>
+
+                    <div class="div-menu-line"></div>
+
+                    <a href="roadmap.html" class="fade mt-0" title="Feature requests and roadmap board"><i class="fa-solid fa-route"></i> Feature Board</a>
+                    <a href="releases.html" class="fade" title="Releases & Updates"><i class="fa-solid fa-clock-rotate-left"></i> Releases / Updates</a>
 
                     <div class="div-menu-line"></div>
 
                     <a href="pricing.html" class="fade mt-0" title="Pricing Plans"><i class="fa-solid fa-tag"></i> Pricing <span class="new-badge">New</span></a>
-                    <a href="faq.html" class="fade" title="FAQ"><i class="fa-solid fa-circle-question"></i> FAQ</a>
-                    <a href="how-to-use.html" class="fade" title="How to Use"><i class="fa-solid fa-book-open"></i> How to Use</a>
+                    <a href="faq.html" class="fade" title="FAQ & Support"><i class="fa-solid fa-circle-question"></i> FAQ</a>
+                    <a href="how-to-use.html" class="fade" title="How to Use NexCore Labs"><i class="fa-solid fa-book-open"></i> How to Use</a>
+                    <a href="terms.html" class="fade" title="Terms of Service"><i class="fa-solid fa-file-contract"></i> Terms</a>
                     <a href="privacy-policy.html" class="fade" title="Privacy Policy"><i class="fa-solid fa-shield-halved"></i> Privacy Policy</a>
-
-                    <div class="div-menu-line"></div>
-
-                    <input type="search" placeholder="Search menu..." id="myInput" onkeyup="filterFunction()" title="Search menu">
                 </div>
             </div>
         </div>
@@ -1878,7 +1850,7 @@
     <div class="admin-container">
         <!-- Header -->
         <div class="admin-header">
-            <h1 class="title">User Management</h1>
+            <h1 class="title">Control Panel</h1>
             <div class="admin-badge">
                 <i class="fa-solid fa-shield-halved"></i>
                 <span id="currentAdminEmail">Loading...</span>
@@ -1887,22 +1859,22 @@
 
         <!-- Statistics -->
         <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-icon">👥</div>
-                <div class="stat-value" id="statApprovedUsers">-</div>
-                <div class="stat-label">Approved Users</div>
-            </div>
             <div class="stat-card admin">
                 <div class="stat-icon">🛡️</div>
                 <div class="stat-value" id="statAdmins">-</div>
                 <div class="stat-label">Platform Admins</div>
             </div>
             <div class="stat-card">
+                <div class="stat-icon">👥</div>
+                <div class="stat-value" id="statApprovedUsers">-</div>
+                <div class="stat-label">Approved Users</div>
+            </div>
+            <div class="stat-card">
                 <div class="stat-icon">📊</div>
                 <div class="stat-value" id="statTotal">-</div>
                 <div class="stat-label">Total Access Users</div>
             </div>
-            <div class="stat-card" style="background:linear-gradient(135deg,rgba(255,180,50,0.08),rgba(255,180,50,0.03));border-color:rgba(255,180,50,0.2);">
+            <div class="stat-card order">
                 <div class="stat-icon">🧾</div>
                 <div class="stat-value" id="statPendingOrders" style="color:#ffb432;">-</div>
                 <div class="stat-label">Pending Orders</div>
@@ -1994,7 +1966,6 @@
                 </div>
 
                 <div class="search-bar">
-                    <i class="fa-solid fa-magnifying-glass"></i>
                     <input
                         type="text"
                         id="searchUsers"
@@ -2143,7 +2114,6 @@
                 </div>
 
                 <div class="search-bar">
-                    <i class="fa-solid fa-magnifying-glass"></i>
                     <input
                         type="text"
                         id="searchAdmins"
@@ -2262,7 +2232,6 @@
 
                 <!-- Search -->
                 <div class="search-bar">
-                    <i class="fa-solid fa-magnifying-glass"></i>
                     <input type="text" id="searchSubscriptions" placeholder="Search by Bill ID, name, or email...">
                 </div>
 
@@ -2445,7 +2414,6 @@
 
                 <!-- Search -->
                 <div class="search-bar">
-                    <i class="fa-solid fa-magnifying-glass"></i>
                     <input
                         type="text"
                         id="searchActivity"
@@ -2464,10 +2432,10 @@
                     <button class="export-btn" onclick="exportActivityPDF()">
                         <i class="fa-solid fa-file-pdf"></i> Export PDF
                     </button>
-                    <button class="export-btn" onclick="clearOldLogs()" title="Clear logs older than 90 days">
+                    <button class="export-btn" onclick="clearOldLogs(this)" title="Clear logs older than 90 days">
                         <i class="fa-solid fa-broom"></i> Clear Old Logs
                     </button>
-                    <button class="export-btn" onclick="scheduleAutoCleanup()" title="Schedule automatic cleanup">
+                    <button class="export-btn" onclick="scheduleAutoCleanup(this)" title="Schedule automatic cleanup">
                         <i class="fa-solid fa-clock"></i> Auto Cleanup
                     </button>
                 </div>
@@ -2511,6 +2479,7 @@
 
     <script src="assets/js/supabase-client.js"></script>
     <script src="assets/js/script.js"></script>
+    <script src="assets/js/auth-ui-db.js"></script>
 
     <script>
         const sb = window.supabaseClient;
@@ -2583,7 +2552,12 @@
         }
 
         // Confirmation Modal System
-        function showConfirmModal(title, message, onConfirm) {
+        function showConfirmModal(title, message, onConfirm, triggerEl = null) {
+            if (triggerEl && triggerEl.classList && triggerEl.classList.contains('export-btn')) {
+                triggerEl.classList.add('modal-triggering');
+                setTimeout(() => triggerEl.classList.remove('modal-triggering'), 260);
+            }
+
             const overlay = document.createElement('div');
             overlay.className = 'modal-overlay';
 
@@ -2595,11 +2569,11 @@
                     </div>
                     <div class="modal-body">${message}</div>
                     <div class="modal-actions">
-                        <button class="modal-btn modal-btn-cancel" onclick="this.closest('.modal-overlay').remove()">
+                        <button class="modal-btn modal-btn-cancel" data-modal-cancel>
                             <i class="fa-solid fa-xmark"></i>
                             Cancel
                         </button>
-                        <button class="modal-btn modal-btn-confirm" id="confirmBtn">
+                        <button class="modal-btn modal-btn-confirm" data-modal-confirm>
                             <i class="fa-solid fa-check"></i>
                             Confirm
                         </button>
@@ -2607,15 +2581,26 @@
                 </div>
             `;
 
-            document.body.appendChild(overlay);
-
-            document.getElementById('confirmBtn').onclick = () => {
-                overlay.remove();
-                onConfirm();
+            const closeModal = (runConfirm = false) => {
+                if (overlay.classList.contains('is-closing')) return;
+                overlay.classList.add('is-closing');
+                setTimeout(() => {
+                    overlay.remove();
+                    if (runConfirm) onConfirm();
+                }, 280);
             };
 
+            document.body.appendChild(overlay);
+            requestAnimationFrame(() => overlay.classList.add('is-open'));
+
+            const confirmBtn = overlay.querySelector('[data-modal-confirm]');
+            const cancelBtn = overlay.querySelector('[data-modal-cancel]');
+
+            confirmBtn.onclick = () => closeModal(true);
+            cancelBtn.onclick = () => closeModal(false);
+
             overlay.onclick = (e) => {
-                if (e.target === overlay) overlay.remove();
+                if (e.target === overlay) closeModal(false);
             };
         }
 
@@ -3243,7 +3228,7 @@
         }
 
         // Clear old logs (older than 90 days)
-        async function clearOldLogs() {
+        async function clearOldLogs(triggerEl = null) {
             showConfirmModal(
                 'Clear Old Activity Logs',
                 'Are you sure you want to delete activity logs older than <strong>90 days</strong>?<br><br>This action cannot be undone.',
@@ -3265,7 +3250,8 @@
                     } catch (error) {
                         showToast('Error: ' + error.message, 'error');
                     }
-                }
+                },
+                triggerEl
             );
         }
 
@@ -3580,7 +3566,7 @@
 
         let cleanupJobId = null;
 
-        async function scheduleAutoCleanup() {
+        async function scheduleAutoCleanup(triggerEl = null) {
             showConfirmModal(
                 'Schedule Automatic Cleanup',
                 `Set up automatic cleanup of activity logs older than <strong>90 days</strong>?<br><br>This will run <strong>weekly</strong> and clean up old logs automatically.`,
@@ -3609,7 +3595,8 @@
                     } catch (error) {
                         showToast('Error scheduling cleanup: ' + error.message, 'error');
                     }
-                }
+                },
+                triggerEl
             );
         }
 
