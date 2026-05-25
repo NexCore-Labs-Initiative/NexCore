@@ -1760,6 +1760,66 @@
         .btn-reject-order:hover { background: rgba(255,100,100,0.2); border-color: #ff7878; }
         #rejectOrderModal { align-items: center; justify-content: center; z-index: 9999; }
         #rejectOrderModal:not(.hidden) { display: flex !important; }
+        #receiptReviewModal { align-items: center; justify-content: center; z-index: 10000; }
+        #receiptReviewModal:not(.hidden) { display: flex !important; }
+        .receipt-modal {
+            width: min(1040px, 95vw);
+            max-width: min(1040px, 95vw);
+            max-height: 90vh;
+            overflow: auto;
+        }
+        .receipt-review-layout {
+            display: grid;
+            grid-template-columns: 1.3fr 1fr;
+            gap: 16px;
+        }
+        .receipt-preview-wrap {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            min-height: 420px;
+            padding: 10px;
+        }
+        .receipt-preview {
+            width: 100%;
+            min-height: 400px;
+            border: none;
+            border-radius: 10px;
+            background: #fff;
+        }
+        .receipt-meta {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            padding: 14px;
+        }
+        .receipt-meta p {
+            margin: 0 0 8px;
+            color: #cbd5e0;
+            font-size: 13px;
+            line-height: 1.45;
+        }
+        .receipt-meta p:last-child { margin-bottom: 0; }
+        .receipt-warning {
+            margin-top: 10px;
+            font-size: 12px;
+            color: #ffb432;
+            background: rgba(255,180,50,0.08);
+            border: 1px solid rgba(255,180,50,0.2);
+            border-radius: 8px;
+            padding: 8px 10px;
+        }
+        @media (max-width: 900px) {
+            .receipt-review-layout {
+                grid-template-columns: 1fr;
+            }
+            .receipt-preview-wrap {
+                min-height: 300px;
+            }
+            .receipt-preview {
+                min-height: 280px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -2258,6 +2318,50 @@
                         <button class="modal-btn modal-btn-confirm" onclick="confirmReject()">
                             <i class="fa-solid fa-circle-xmark"></i> Reject Order
                         </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Receipt Review Modal -->
+            <div id="receiptReviewModal" class="modal-overlay hidden" style="display:none;">
+                <div class="modal receipt-modal">
+                    <div class="modal-header">
+                        <i class="fa-solid fa-receipt modal-icon" style="color:#ffb432;"></i>
+                        <h3 class="modal-title">Proof of Payment Review</h3>
+                    </div>
+                    <div class="modal-body" style="margin-bottom:16px;">
+                        <div class="receipt-review-layout">
+                            <div class="receipt-preview-wrap">
+                                <iframe id="receiptPreviewFrame" class="receipt-preview" title="Receipt preview"></iframe>
+                            </div>
+                            <div class="receipt-meta">
+                                <p><strong>Bill ID:</strong> <span id="reviewBillId">-</span></p>
+                                <p><strong>Name:</strong> <span id="reviewUserName">-</span></p>
+                                <p><strong>Email:</strong> <span id="reviewUserEmail">-</span></p>
+                                <p><strong>Amount:</strong> <span id="reviewAmount">-</span></p>
+                                <p><strong>Status:</strong> <span id="reviewStatus">-</span></p>
+                                <p><strong>Payment:</strong> <span id="reviewPayment">-</span></p>
+                                <p><strong>Transaction Ref:</strong> <span id="reviewRef">-</span></p>
+                                <p><strong>Submitted:</strong> <span id="reviewDate">-</span></p>
+                                <div id="reviewWarnings" class="receipt-warning hidden"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-actions" style="justify-content:space-between;flex-wrap:wrap;">
+                        <button class="modal-btn modal-btn-cancel" onclick="openReceiptInNewTab()">
+                            <i class="fa-solid fa-up-right-from-square"></i> Open in New Tab
+                        </button>
+                        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                            <button class="modal-btn modal-btn-cancel" onclick="closeReceiptReviewModal()">
+                                <i class="fa-solid fa-xmark"></i> Close
+                            </button>
+                            <button id="reviewRejectBtn" class="modal-btn modal-btn-confirm" onclick="rejectFromReceiptReview()">
+                                <i class="fa-solid fa-circle-xmark"></i> Reject
+                            </button>
+                            <button id="reviewApproveBtn" class="modal-btn" style="background:rgba(110,231,243,0.12);border:1px solid rgba(110,231,243,0.35);color:#6ee7f3;" onclick="approveFromReceiptReview()">
+                                <i class="fa-solid fa-circle-check"></i> Approve
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -4143,6 +4247,8 @@
         // ─── Subscriptions ────────────────────────────────────────────────
         let allSubscriptions = [];
         let currentSubFilter = 'all';
+        let activeReceiptOrder = null;
+        let activeReceiptSignedUrl = '';
 
         async function loadSubscriptions() {
             document.getElementById('subsLoading').classList.remove('hidden');
@@ -4191,7 +4297,7 @@
             });
             const filtered = filter === 'all'
                 ? allSubscriptions
-                : allSubscriptions.filter(o => o.status === filter);
+                : allSubscriptions.filter(o => filter === 'pending' ? (o.status === 'pending' || o.status === 'pending_verification') : o.status === filter);
             renderSubscriptions(filtered);
         }
 
@@ -4226,7 +4332,7 @@
 
                 // Receipt / transaction ref for bank transfer orders
                 const receiptHtml = o.receipt_url
-                    ? `<div style="margin-top:4px;"><a href="#" onclick="viewReceipt('${escapeHtml(o.receipt_url)}');return false;" style="font-size:11px;color:#ffb432;"><i class="fa-solid fa-image"></i> View Receipt</a></div>`
+                    ? `<div style="margin-top:4px;"><a href="#" onclick="openReceiptReview('${escapeHtml(o.bill_id)}');return false;" style="font-size:11px;color:#ffb432;"><i class="fa-solid fa-image"></i> Review Receipt</a></div>`
                     : '';
                 const txRefHtml = o.bank_transaction_ref
                     ? `<div style="font-size:11px;color:#9aa3b2;margin-top:2px;">Ref: ${escapeHtml(o.bank_transaction_ref)}</div>`
@@ -4270,7 +4376,7 @@
         }
 
         async function approveOrder(billId) {
-            if (!confirm(`Approve order ${billId}?`)) return;
+            if (!confirm(`Approve order ${billId}?`)) return false;
             try {
                 const session = await sb.auth.getSession();
                 const token = session.data.session?.access_token;
@@ -4283,8 +4389,10 @@
                 if (!resp.ok) throw new Error(data.error || 'Update failed');
                 showToast(`Order ${billId} approved and activated.`, 'success');
                 loadSubscriptions();
+                return true;
             } catch (e) {
                 showToast(e.message || 'Failed to approve order.', 'error');
+                return false;
             }
         }
 
@@ -4352,18 +4460,14 @@
         window.closeRejectModal = closeRejectModal;
         window.confirmReject = confirmReject;
         window.exportSubscriptionsCSV = exportSubscriptionsCSV;
-        window.viewReceipt = viewReceipt;
+        window.openReceiptReview = openReceiptReview;
+        window.closeReceiptReviewModal = closeReceiptReviewModal;
+        window.openReceiptInNewTab = openReceiptInNewTab;
+        window.approveFromReceiptReview = approveFromReceiptReview;
+        window.rejectFromReceiptReview = rejectFromReceiptReview;
 
-        async function viewReceipt(path) {
-            // Open blank window NOW (synchronously) to preserve the user-gesture
-            // context — browsers block window.open() called after an await.
-            const win = window.open('', '_blank');
-            if (!win) {
-                showToast('Allow popups for this page and try again.', 'error');
-                return;
-            }
-            win.document.write('<p style="font-family:sans-serif;padding:24px;color:#555;">Loading receipt\u2026</p>');
-
+        async function getReceiptSignedUrl(path) {
+            if (!path) throw new Error('Receipt path is missing.');
             try {
                 const session = await sb.auth.getSession();
                 const token = session.data.session?.access_token;
@@ -4374,11 +4478,82 @@
                 });
                 const result = await resp.json();
                 if (!resp.ok) throw new Error(result.error || 'Failed to load receipt.');
-                win.location.href = result.url;
+                return result.url;
             } catch (e) {
-                win.close();
-                showToast(e.message || 'Could not load receipt.', 'error');
+                throw e;
             }
+        }
+
+        async function openReceiptReview(billId) {
+            const order = allSubscriptions.find(o => o.bill_id === billId);
+            if (!order) return showToast('Order not found.', 'error');
+            if (!order.receipt_url) return showToast('No receipt uploaded for this order.', 'info');
+
+            activeReceiptOrder = order;
+            activeReceiptSignedUrl = '';
+            document.getElementById('reviewBillId').textContent = order.bill_id || '-';
+            document.getElementById('reviewUserName').textContent = order.user_name || '-';
+            document.getElementById('reviewUserEmail').textContent = order.user_email || '-';
+            document.getElementById('reviewAmount').textContent = `${parseFloat(order.total_omr || 0).toFixed(3)} OMR`;
+            document.getElementById('reviewStatus').textContent = order.status || '-';
+            document.getElementById('reviewPayment').textContent = order.payment_method || '-';
+            document.getElementById('reviewRef').textContent = order.bank_transaction_ref || 'Not provided';
+            document.getElementById('reviewDate').textContent = order.created_at ? new Date(order.created_at).toLocaleString('en-GB') : '-';
+
+            const warnings = [];
+            if (order.payment_method !== 'bank_transfer') warnings.push('This order is not marked as bank transfer.');
+            if (!order.bank_transaction_ref) warnings.push('No transaction reference submitted.');
+            if (!['pending','pending_verification'].includes(order.status)) warnings.push('Order is not pending verification.');
+            const warningEl = document.getElementById('reviewWarnings');
+            if (warnings.length) {
+                warningEl.textContent = warnings.join(' ');
+                warningEl.classList.remove('hidden');
+            } else {
+                warningEl.textContent = '';
+                warningEl.classList.add('hidden');
+            }
+
+            document.getElementById('reviewApproveBtn').disabled = order.status === 'active';
+            document.getElementById('reviewRejectBtn').disabled = order.status === 'rejected' || order.status === 'cancelled';
+
+            const modal = document.getElementById('receiptReviewModal');
+            modal.classList.remove('hidden');
+            document.getElementById('receiptPreviewFrame').srcdoc = '<p style="font-family:Inter,Arial,sans-serif;padding:16px;color:#555;">Loading receipt preview...</p>';
+
+            try {
+                const signedUrl = await getReceiptSignedUrl(order.receipt_url);
+                activeReceiptSignedUrl = signedUrl;
+                document.getElementById('receiptPreviewFrame').src = signedUrl;
+            } catch (e) {
+                showToast(e.message || 'Could not load receipt.', 'error');
+                closeReceiptReviewModal();
+            }
+        }
+
+        function closeReceiptReviewModal() {
+            document.getElementById('receiptReviewModal').classList.add('hidden');
+            document.getElementById('receiptPreviewFrame').src = 'about:blank';
+            activeReceiptOrder = null;
+            activeReceiptSignedUrl = '';
+        }
+
+        function openReceiptInNewTab() {
+            if (!activeReceiptSignedUrl) return showToast('Receipt URL not ready yet.', 'info');
+            window.open(activeReceiptSignedUrl, '_blank', 'noopener,noreferrer');
+        }
+
+        async function approveFromReceiptReview() {
+            if (!activeReceiptOrder) return;
+            const billId = activeReceiptOrder.bill_id;
+            const ok = await approveOrder(billId);
+            if (ok) closeReceiptReviewModal();
+        }
+
+        function rejectFromReceiptReview() {
+            if (!activeReceiptOrder) return;
+            const billId = activeReceiptOrder.bill_id;
+            closeReceiptReviewModal();
+            openRejectModal(billId);
         }
 
         // Initialize activity search
@@ -4416,7 +4591,7 @@
                     const q = e.target.value.toLowerCase();
                     let filtered = currentSubFilter === 'all'
                         ? allSubscriptions
-                        : allSubscriptions.filter(o => o.status === currentSubFilter);
+                        : allSubscriptions.filter(o => currentSubFilter === 'pending' ? (o.status === 'pending' || o.status === 'pending_verification') : o.status === currentSubFilter);
                     if (q) {
                         filtered = filtered.filter(o =>
                             (o.bill_id && o.bill_id.toLowerCase().includes(q)) ||
