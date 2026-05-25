@@ -229,62 +229,6 @@
         }
         .email-note strong { color: #eaf6fb; }
 
-        /* ── WhatsApp payment card ────────────────────────────────────── */
-        .whatsapp-payment-card {
-            background: rgba(37,211,102,0.05);
-            border: 1px solid rgba(37,211,102,0.25);
-            border-radius: 14px;
-            padding: 26px 28px;
-            margin-bottom: 20px;
-        }
-        .whatsapp-payment-card h2 {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: #25d366;
-            margin: 0 0 10px;
-            display: flex;
-            align-items: center;
-            gap: 9px;
-        }
-        .whatsapp-payment-card p {
-            color: #cbd5e0;
-            font-size: 14px;
-            line-height: 1.65;
-            margin: 0 0 16px;
-        }
-        .whatsapp-payment-card .payment-methods-note {
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 8px;
-            padding: 12px 14px;
-            font-size: 13px;
-            color: #9aa3b2;
-            margin-bottom: 20px;
-            line-height: 1.6;
-        }
-        .whatsapp-payment-card .payment-methods-note strong { color: #eaf6fb; }
-        .btn-whatsapp {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: #25d366;
-            color: #fff;
-            font-weight: 700;
-            font-size: 15px;
-            padding: 13px 24px;
-            border-radius: 10px;
-            text-decoration: none;
-            width: 100%;
-            justify-content: center;
-            transition: all 0.2s;
-            box-sizing: border-box;
-        }
-        .btn-whatsapp:hover {
-            background: #20bd5a;
-            transform: translateY(-1px);
-        }
-        .btn-whatsapp i { font-size: 18px; }
-
         /* ── Bank Transfer pending banner ────────────────────────────── */
         .bank-transfer-banner {
             background: linear-gradient(135deg, rgba(255,180,50,0.08), rgba(110,231,243,0.04));
@@ -375,12 +319,11 @@
             /* ── Hide web-only elements ── */
             header, footer, nav, .site-header, .site-footer,
             .action-row, .confirm-header, .confirm-icon,
-            .btn-whatsapp, .btn-signin-google, .btn-copy,
+            .btn-signin-google, .btn-copy,
             .faq-row, .nexcore-sign, #cookieConsentBanner,
             [id*="cookie"], [class*="cookie"],
-            .whatsapp-payment-card, .pending-notice,
+            .pending-notice,
             .paypal-activated-banner, .bank-transfer-banner,
-            .payment-methods-note,
             p[style*="text-align:center"] { display: none !important; }
 
             /* ── Show print-only elements ── */
@@ -608,19 +551,10 @@
             <p class="por-footer-brand">NexCore Labs</p>
             <p class="por-footer-meta">
                 nexcorelabs.vercel.app<br>
-                Questions? Contact us on WhatsApp: +968 93281000
+                Questions? Contact us through NexCore Labs support.
             </p>
         </div>
     </main>
-
-    <footer class="site-footer">
-        <div class="container footer-inner">
-            <div class="f-left">
-                <small>NexCore Labs © <span id="year"></span></small>
-            </div>
-            <div class="f-right footer-line"></div>
-        </div>
-    </footer>
 
     <script src="assets/js/script.js"></script>
     <script src="version.js"></script>
@@ -629,10 +563,10 @@
         // ─────────────────────────────────────────────────────────────────
         //  Read order from sessionStorage
         // ─────────────────────────────────────────────────────────────────
-        const WHATSAPP_PHONE = '96893281000';
         const OMR_TO_USD = 2.60;
 
-        document.getElementById('year').textContent = new Date().getFullYear();
+        const yearEl = document.getElementById('year');
+        if (yearEl) yearEl.textContent = new Date().getFullYear();
         const _pdate = document.getElementById('printDateLabel');
         if (_pdate) _pdate.textContent = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
 
@@ -661,33 +595,10 @@
         })();
 
         // ─────────────────────────────────────────────────────────────────
-        //  Build WhatsApp pre-filled message
-        // ─────────────────────────────────────────────────────────────────
-        function buildWhatsAppMessage(order) {
-            const featureLines = (order.features || [])
-                .map(f => `  • ${f.label} — ${Number(f.price).toFixed(3)} OMR`)
-                .join('\n');
-            const msg = [
-                `Hi NexCore Labs! 👋`,
-                `I'd like to complete payment for my subscription order.`,
-                ``,
-                `📋 Bill ID: ${order.bill_id}`,
-                `💰 Total: ${Number(order.total_omr).toFixed(3)} OMR (~$${Number(order.total_usd).toFixed(2)} USD)`,
-                ``,
-                `📦 Selected Features:`,
-                featureLines,
-                ``,
-                `Please guide me on the available payment options. Thank you!`,
-            ].join('\n');
-            return `https://api.whatsapp.com/send?phone=${WHATSAPP_PHONE}&text=${encodeURIComponent(msg)}`;
-        }
-
-        // ─────────────────────────────────────────────────────────────────
         //  Render the page
         // ─────────────────────────────────────────────────────────────────
         function render(order) {
             const isPayPalActive  = order.payment_method === 'paypal' && order.auto_activated === true;
-            const isWhatsApp      = order.payment_method === 'whatsapp';
             const isBankTransfer  = order.payment_method === 'bank_transfer';
 
             const featureRows = (order.features || []).map(f =>
@@ -727,24 +638,6 @@
                     <p class="email-note">Use the email you provided: <strong>${escHtml(order.user_email)}</strong></p>
                 </div>` : '';
 
-            // ── WhatsApp payment block ──────────────────────────────────────
-            const waUrl = buildWhatsAppMessage(order);
-            const whatsappBlock = isWhatsApp ? `
-                <div class="whatsapp-payment-card">
-                    <h2><i class="fa-brands fa-whatsapp"></i> Complete Your Payment</h2>
-                    <p>
-                        Send your Bill ID and the message below to our WhatsApp to finalise payment.
-                        Our team will confirm receipt and activate your subscription within <strong>48 hours</strong>.
-                    </p>
-                    <div class="payment-methods-note">
-                        <strong>💡 Payment options:</strong> Bank transfer, cash on delivery, STC Pay, or any method that works for you.
-                        Just let us know in the chat — our team will guide you through the process.
-                    </div>
-                    <a href="${waUrl}" target="_blank" rel="noopener" class="btn-whatsapp">
-                        <i class="fa-brands fa-whatsapp"></i> Open WhatsApp — +968 93281000
-                    </a>
-                </div>` : '';
-
             // ── Bank Transfer pending banner ───────────────────────────────
             const bankTransferBlock = isBankTransfer ? `
                 <div class="bank-transfer-banner">
@@ -759,15 +652,8 @@
                         A confirmation email has been sent to <strong style="color:#eaf6fb;">${escHtml(order.user_email)}</strong>.
                     </p>
                     <p style="font-size:13px;color:#9aa3b2;">
-                        Questions? Contact us on WhatsApp: <strong style="color:#eaf6fb;">+968 93281000</strong>
+                        Questions? Contact NexCore Labs support.
                     </p>
-                </div>` : '';
-
-            // ── Pending notice (WhatsApp only) ─────────────────────────────
-            const pendingNotice = isWhatsApp ? `
-                <div class="pending-notice">
-                    <i class="fa-solid fa-clock"></i>
-                    <span>Your subscription will be activated within approximately <strong>48 hours</strong> after payment is confirmed by our team.</span>
                 </div>` : '';
             // ── Payment label in receipt card ─────────────────────────────────
             const paymentLabel = isBankTransfer ? 'Bank Transfer' : (order.payment_method || '—');
@@ -830,9 +716,7 @@
                 </div>
 
                 ${paypalBlock}
-                ${whatsappBlock}
                 ${bankTransferBlock}
-                ${pendingNotice}
                 ${receiptCard}
 
                 <p style="text-align:center;color:#9aa3b2;font-size:13px;margin-top:24px;">
@@ -920,8 +804,5 @@
             window.print();
         }
     </script>
-
-    <script src="assets/js/cookies.js" defer></script>
-
 </body>
 </html>
