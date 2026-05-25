@@ -414,19 +414,13 @@
             #printOnlyHeader .por-company {
                 text-align: center;
             }
-            #printOnlyHeader::before {
-                content: "N";
+            .por-logo {
                 display: block;
-                width: 34px;
-                height: 34px;
+                width: 42px;
+                height: 42px;
                 margin: 0 auto 8px;
                 border-radius: 50%;
-                background: #111;
-                color: #fff;
-                font-size: 17pt;
-                font-weight: 800;
-                line-height: 34px;
-                text-align: center;
+                object-fit: cover;
             }
             .por-company {
                 font-size: 23pt;
@@ -582,6 +576,7 @@
     <main>
         <!-- Print-only receipt header (hidden on screen) -->
         <div id="printOnlyHeader" class="print-only confirm-wrap" aria-hidden="true">
+            <img class="por-logo" src="assets/images/nexcore-logo.webp" alt="NexCore Labs logo" width="42" height="42">
             <p class="por-company">Receipt</p>
             <div class="por-subtitle">
                 <span>NexCore Labs Subscription</span>
