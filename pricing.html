@@ -286,7 +286,7 @@
         }
         .addon-bt-only .addon-card:hover { border-color: rgba(255,255,255,0.08); }
         .bt-only-badge {
-            font-size: 10px; font-weight: 700; color: #0d1b2a;
+            font-size: 11px; font-weight: 700; color: #0d1b2a;
             background: #f59e0b; border-radius: 4px;
             padding: 2px 7px; white-space: nowrap; flex-shrink: 0;
         }
@@ -939,6 +939,26 @@
             margin: 20px 0 50px;
         }
         .faq-row p { color: #9aa3b2; font-size: 14px; margin-bottom: 12px; }
+
+        @media screen and (max-width: 560px) {
+            .payment-badge { display: none; }
+
+            /* Lifetime add-on: place lock badge under the price on small screens */
+            .addon-card.lock, .addon-card.bt {
+                flex-wrap: wrap;
+                align-items: flex-start;
+            }
+            .addon-card.lock .addon-price, .addon-card.bt .addon-price {
+                order: 3;
+                margin-left: auto;
+            }
+            .addon-card.lock .addon-lock-badge, .addon-card.bt .bt-only-badge {
+                order: 4;
+                flex-basis: 90%;
+                text-align: center;
+                margin: 0 auto;
+            }
+        }
     </style>
     <!-- Vercel Web Analytics -->
     <script>
@@ -1048,7 +1068,7 @@
                     <div class="addons-grid">
                         <label class="addon-option addon-forced">
                             <input type="checkbox" name="addon" value="lifetime" data-price="0.950" data-label="Lifetime Access" checked disabled>
-                            <div class="addon-card">
+                            <div class="addon-card lock">
                                 <div class="addon-icon"><i class="fa-solid fa-infinity"></i></div>
                                 <div class="addon-info">
                                     <span class="addon-name">Lifetime Access</span>
@@ -1071,14 +1091,14 @@
                         </label>
                         <label id="priorityReviewOption" class="addon-option">
                             <input type="checkbox" name="addon" id="priorityReviewInput" value="priority" data-price="0.300" data-label="Priority Review">
-                            <div class="addon-card">
+                            <div class="addon-card bt">
                                 <div class="addon-icon"><i class="fa-solid fa-bolt"></i></div>
                                 <div class="addon-info">
                                     <span class="addon-name">Priority Review</span>
                                     <span class="addon-desc">Your project published within 24 hours, skip the queue</span>
                                 </div>
-                                <span class="addon-price">0.300 OMR</span>
                                 <span class="bt-only-badge">Bank Transfer</span>
+                                <span class="addon-price">0.300 OMR</span>
                             </div>
                         </label>
                         <p id="priorityLockNote" class="addon-paypal-lock-note" style="display:none">

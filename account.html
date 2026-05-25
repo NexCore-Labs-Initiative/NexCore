@@ -1911,7 +1911,6 @@ Total Projects: ${projectCount}`;
       });
 
       await loadAccountInfo(session);
-      await fetchAiUsage(session.access_token);
 
       document.getElementById("logoutBtn").addEventListener("click", logout);
 
