@@ -292,6 +292,14 @@
             color: #9aa3b2;
         }
         .btn-action.back:hover { color: #eaf6fb; background: rgba(255,255,255,0.07); }
+        .export-status {
+            margin: 12px 0 0;
+            color: #9aa3b2;
+            font-size: 12px;
+            line-height: 1.5;
+            text-align: center;
+        }
+        .export-status.active { color: #6ee7f3; }
 
         /* ── Pending notice ───────────────────────────────────────────── */
         .pending-notice {
@@ -323,6 +331,7 @@
             .faq-row, .nexcore-sign, #cookieConsentBanner,
             [id*="cookie"], [class*="cookie"],
             .pending-notice,
+            .export-status,
             .paypal-activated-banner, .bank-transfer-banner,
             p[style*="text-align:center"] { display: none !important; }
 
@@ -703,6 +712,7 @@
                             <i class="fa-solid fa-arrow-left"></i> Back to Pricing
                         </a>
                     </div>
+                    <p class="export-status" id="receiptExportStatus">The receipt save dialog will open automatically.</p>
                 </div>`;
 
             // ── Compose full page ──────────────────────────────────────────
@@ -726,6 +736,7 @@
             `;
 
             autoCopyBillId();
+            autoExportReceipt();
         }
 
         // ─────────────────────────────────────────────────────────────────
@@ -798,6 +809,27 @@
         function autoCopyBillId() {
             // Browsers may block clipboard writes that are not triggered by a user action.
             setTimeout(() => { copyBillId(); }, 250);
+        }
+
+        let receiptExportStarted = false;
+
+        function setReceiptExportStatus(message, active = false) {
+            const status = document.getElementById('receiptExportStatus');
+            if (!status) return;
+
+            status.textContent = message;
+            status.classList.toggle('active', active);
+        }
+
+        function autoExportReceipt() {
+            if (receiptExportStarted) return;
+            receiptExportStarted = true;
+
+            setReceiptExportStatus('Preparing your receipt for saving...', true);
+            setTimeout(() => {
+                setReceiptExportStatus('Choose "Save as PDF" in the dialog to keep your receipt.', true);
+                downloadPDF();
+            }, 1200);
         }
 
         function downloadPDF() {
