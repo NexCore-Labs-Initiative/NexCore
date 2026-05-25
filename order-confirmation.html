@@ -90,6 +90,15 @@
             letter-spacing: 4px;
             word-break: break-all;
         }
+        .bill-id-status {
+            display: block;
+            margin-top: 8px;
+            color: #9aa3b2;
+            font-size: 12px;
+            letter-spacing: 0;
+        }
+        .bill-id-status.success { color: #25d366; }
+        .bill-id-status.warning { color: #ffb432; }
         .btn-copy {
             background: rgba(110,231,243,0.1);
             border: 1px solid rgba(110,231,243,0.3);
@@ -418,7 +427,7 @@
                 display: block;
                 width: 42px;
                 height: 42px;
-                margin: 0 auto 8px;
+                margin: 15px auto 8px;
                 border-radius: 50%;
                 object-fit: cover;
             }
@@ -484,6 +493,7 @@
                 word-break: keep-all !important;
                 white-space: nowrap !important;
             }
+            .bill-id-status { display: none !important; }
 
             /* ── Meta rows ── */
             .meta-row {
@@ -768,6 +778,7 @@
                         <div class="bill-id-left">
                             <span class="bill-id-label">Your Bill ID</span>
                             <span class="bill-id-value" id="billIdValue">${escHtml(order.bill_id)}</span>
+                            <span class="bill-id-status" id="billIdCopyStatus">We will try to copy this Bill ID automatically.</span>
                         </div>
                         <button class="btn-copy" onclick="copyBillId()" id="copyBtn" title="Copy Bill ID">
                             <i class="fa-solid fa-copy"></i> Copy
@@ -829,6 +840,8 @@
                     If you don't see it, check your spam folder.
                 </p>
             `;
+
+            autoCopyBillId();
         }
 
         // ─────────────────────────────────────────────────────────────────
@@ -843,25 +856,64 @@
                 .replace(/'/g, '&#39;');
         }
 
-        function copyBillId() {
+        function setBillIdCopyStatus(message, state) {
+            const status = document.getElementById('billIdCopyStatus');
+            if (!status) return;
+
+            status.textContent = message;
+            status.classList.remove('success', 'warning');
+            if (state) status.classList.add(state);
+        }
+
+        async function writeClipboardText(value) {
+            if (!value) return false;
+
+            if (navigator.clipboard && window.isSecureContext) {
+                await navigator.clipboard.writeText(value);
+                return true;
+            }
+
+            const ta = document.createElement('textarea');
+            ta.value = value;
+            ta.setAttribute('readonly', '');
+            ta.style.position = 'fixed';
+            ta.style.top = '-9999px';
+            ta.style.opacity = '0';
+            document.body.appendChild(ta);
+            ta.select();
+
+            let copied = false;
+            try {
+                copied = document.execCommand('copy');
+            } finally {
+                ta.remove();
+            }
+
+            return copied;
+        }
+
+        async function copyBillId() {
             const val = document.getElementById('billIdValue')?.textContent || '';
-            navigator.clipboard.writeText(val).then(() => {
+            try {
+                const copied = await writeClipboardText(val);
+                if (!copied) throw new Error('Clipboard copy was blocked.');
+
                 const btn = document.getElementById('copyBtn');
                 if (btn) {
                     btn.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
                     setTimeout(() => { btn.innerHTML = '<i class="fa-solid fa-copy"></i> Copy'; }, 2500);
                 }
-            }).catch(() => {
-                // Fallback for browsers that block clipboard
-                const ta = document.createElement('textarea');
-                ta.value = val;
-                ta.style.position = 'fixed';
-                ta.style.opacity = '0';
-                document.body.appendChild(ta);
-                ta.select();
-                document.execCommand('copy');
-                ta.remove();
-            });
+                setBillIdCopyStatus('Bill ID copied to your clipboard.', 'success');
+                return true;
+            } catch (_) {
+                setBillIdCopyStatus('Automatic copy was blocked. Please tap Copy to save your Bill ID.', 'warning');
+                return false;
+            }
+        }
+
+        function autoCopyBillId() {
+            // Browsers may block clipboard writes that are not triggered by a user action.
+            setTimeout(() => { copyBillId(); }, 250);
         }
 
         function downloadPDF() {
