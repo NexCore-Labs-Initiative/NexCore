@@ -361,7 +361,7 @@
 
         /* ── Print styles ─────────────────────────────────────────────── */
         @media print {
-            @page { size: A4 portrait; margin: 18mm 22mm; }
+            @page { size: A4 portrait; margin: 14mm 16mm; }
 
             /* ── Hide web-only elements ── */
             header, footer, nav, .site-header, .site-footer,
@@ -369,6 +369,7 @@
             .btn-whatsapp, .btn-signin-google, .btn-copy,
             .faq-row, .nexcore-sign, #cookieConsentBanner,
             .whatsapp-payment-card, .pending-notice,
+            .paypal-activated-banner, .bank-transfer-banner,
             .payment-methods-note,
             p[style*="text-align:center"] { display: none !important; }
 
@@ -383,30 +384,57 @@
 
             /* ── Print receipt header ── */
             #printOnlyHeader {
-                border-bottom: 2pt solid #000;
+                border-bottom: 1pt solid #d8d8d8;
                 padding-bottom: 12px;
-                margin-bottom: 22px;
+                margin-bottom: 16px;
+            }
+            #printOnlyHeader .por-company {
+                text-align: center;
+            }
+            #printOnlyHeader::before {
+                content: "N";
+                display: block;
+                width: 34px;
+                height: 34px;
+                margin: 0 auto 8px;
+                border-radius: 50%;
+                background: #111;
+                color: #fff;
+                font-size: 17pt;
+                font-weight: 800;
+                line-height: 34px;
+                text-align: center;
             }
             .por-company {
-                font-size: 20pt;
-                font-weight: 800;
-                letter-spacing: -0.5px;
+                font-size: 24pt;
+                font-weight: 700;
+                letter-spacing: 0;
                 margin: 0 0 5px;
                 color: #000;
             }
             .por-subtitle {
                 display: flex;
                 justify-content: space-between;
-                font-size: 10pt;
+                font-size: 9.5pt;
                 color: #555;
+            }
+            .por-subtitle span:first-child {
+                font-weight: 700;
+                color: #222;
+            }
+            .por-note {
+                margin: 14px 0 0;
+                color: #333;
+                font-size: 10pt;
+                line-height: 1.45;
             }
 
             /* ── Cards ── */
             .confirm-card {
-                border: 1pt solid #d0d0d0 !important;
+                border: 1pt solid #e1e1e1 !important;
                 background: #fff !important;
                 border-radius: 0 !important;
-                padding: 16px !important;
+                padding: 0 !important;
                 margin-bottom: 14px !important;
                 break-inside: avoid;
                 box-shadow: none !important;
@@ -414,11 +442,12 @@
 
             /* ── Bill ID ── */
             .bill-id-block {
-                background: #f7f7f7 !important;
-                border: 1.5pt solid #000 !important;
+                background: #fff !important;
+                border: none !important;
+                border-bottom: 1pt solid #e5e5e5 !important;
                 border-radius: 0 !important;
                 padding: 12px 16px !important;
-                margin-bottom: 18px !important;
+                margin-bottom: 12px !important;
             }
             .bill-id-label {
                 font-size: 8pt !important;
@@ -426,63 +455,79 @@
                 color: #555 !important;
             }
             .bill-id-value {
-                font-size: 16pt !important;
+                font-size: 14pt !important;
                 color: #000 !important;
-                letter-spacing: 2px !important;
+                letter-spacing: 1.2px !important;
                 word-break: keep-all !important;
                 white-space: nowrap !important;
             }
 
             /* ── Meta rows ── */
-            .meta-row { font-size: 10.5pt !important; margin-bottom: 6px !important; }
-            .meta-label { color: #555 !important; min-width: 80px !important; }
+            .meta-row {
+                font-size: 10pt !important;
+                margin: 0 !important;
+                padding: 8px 16px !important;
+                border-bottom: 1pt solid #eeeeee !important;
+            }
+            .meta-label { color: #555 !important; min-width: 120px !important; }
             .meta-value { color: #000 !important; }
 
             /* ── Features table ── */
-            .features-section { margin-top: 18px !important; }
+            .features-section { margin-top: 12px !important; }
             .features-section h3 {
-                font-size: 8pt !important;
+                font-size: 9pt !important;
                 color: #333 !important;
-                border-bottom: 1pt solid #ccc;
-                padding-bottom: 6px;
-                margin-bottom: 8px !important;
+                border: none;
+                padding: 0 16px;
+                margin: 0 0 4px !important;
             }
             .features-table th {
                 color: #000 !important;
-                background: #f2f2f2 !important;
-                border-bottom: 1.5pt solid #000 !important;
+                background: #fff !important;
+                border-bottom: 1pt solid #dddddd !important;
                 font-size: 8.5pt !important;
                 padding: 6px 8px !important;
             }
             .features-table td {
                 color: #222 !important;
-                border-bottom: 0.5pt solid #e0e0e0 !important;
-                font-size: 11pt !important;
+                border-bottom: 1pt solid #eeeeee !important;
+                font-size: 10.5pt !important;
                 padding: 7px 8px !important;
             }
             .features-table td:last-child { color: #000 !important; font-weight: 600 !important; }
             .features-table tfoot td {
-                border-top: 1.5pt solid #000 !important;
+                border-top: 1pt solid #d7d7d7 !important;
                 border-bottom: none !important;
                 color: #000 !important;
-                font-size: 13pt !important;
+                font-size: 12pt !important;
                 padding-top: 10px !important;
             }
             .features-table tfoot td:last-child { color: #000 !important; }
-            .total-usd-note { color: #555 !important; font-size: 9pt !important; }
+            .total-usd-note { color: #666 !important; font-size: 8.5pt !important; }
 
-            /* ── PayPal activation (simplify) ── */
-            .paypal-activated-banner {
-                background: #fff !important;
-                border: 1pt solid #bbb !important;
-                border-radius: 0 !important;
-                padding: 16px !important;
-                break-inside: avoid;
+            /* ── Print receipt footer ── */
+            #printOnlyFooter {
+                margin-top: 34px;
+                color: #333;
             }
-            .paypal-activated-banner .banner-icon { display: none !important; }
-            .paypal-activated-banner h2 { font-size: 12pt !important; color: #000 !important; }
-            .paypal-activated-banner p { color: #333 !important; font-size: 10pt !important; }
-            .email-note { color: #333 !important; }
+            .por-thanks {
+                margin: 0 0 22px;
+                color: #eeeeee;
+                font-size: 28pt;
+                font-weight: 800;
+            }
+            .por-footer-brand {
+                margin: 0 0 10px;
+                color: #000;
+                font-size: 11pt;
+                font-weight: 800;
+            }
+            .por-footer-meta {
+                margin: 0;
+                color: #777;
+                font-size: 8.5pt;
+                line-height: 1.5;
+            }
         }
     </style>
 
@@ -499,11 +544,12 @@
     <main>
         <!-- Print-only receipt header (hidden on screen) -->
         <div id="printOnlyHeader" class="print-only confirm-wrap" aria-hidden="true">
-            <p class="por-company">NexCore Labs</p>
+            <p class="por-company">Receipt</p>
             <div class="por-subtitle">
-                <span>Order Receipt</span>
+                <span>NexCore Labs Subscription</span>
                 <span id="printDateLabel"></span>
             </div>
+            <p class="por-note">We received your NexCore Labs subscription order. This receipt is formatted for printing or saving as a PDF.</p>
         </div>
 
         <div class="confirm-wrap" id="confirmWrap">
@@ -512,6 +558,15 @@
                 <i class="fa-solid fa-spinner fa-spin" style="font-size:2rem;color:#6ee7f3;"></i>
                 <p style="margin-top:14px;">Loading your order…</p>
             </div>
+        </div>
+
+        <div id="printOnlyFooter" class="print-only confirm-wrap" aria-hidden="true">
+            <p class="por-thanks">Thank you.</p>
+            <p class="por-footer-brand">NexCore Labs</p>
+            <p class="por-footer-meta">
+                nexcorelabs.vercel.app<br>
+                Questions? Contact us on WhatsApp: +968 93281000
+            </p>
         </div>
     </main>
 

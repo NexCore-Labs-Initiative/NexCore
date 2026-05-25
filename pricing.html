@@ -37,11 +37,11 @@
 
     <link rel="icon" href="assets/images/nexcore-icon.png" type="image/png">
     <link rel="apple-touch-icon" href="assets/images/nexcore-logo.webp">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <!-- <link rel="stylesheet" href="assets/css/style.css"> -->
     <link rel="stylesheet" href="assets/css/admin-button.css">
     <link rel="stylesheet" href="assets/css/arabic.css">
     <link rel="stylesheet" href="assets/css/ai-chat.css">
-    <!-- <link rel="stylesheet" href="assets/css/unminified-css.css"> -->
+    <link rel="stylesheet" href="assets/css/unminified-css.css">
     <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -188,8 +188,7 @@
 
         /* Feature Groups */
         .feature-group {
-            background: rgba(10,11,28,0.5);
-            border: 1px solid rgba(110,231,243,0.14);
+            border: 1px solid hsla(0, 0%, 100%, .03);
             border-radius: 16px;
             padding: 26px;
             margin-bottom: 20px;
@@ -230,7 +229,7 @@
             transition: all 0.2s;
             text-align: center;
         }
-        .option-card:hover { border-color: rgba(110,231,243,0.3); }
+        .option-card:hover { border-color: rgba(110,231,243,0.3); box-shadow: 0 12px 40px rgba(3, 6, 12, .6); transform: translateY(-3px); }
         .support-option input:checked + .option-card {
             background: rgba(110,231,243,0.12);
             border-color: #6ee7f3;
@@ -471,8 +470,7 @@
             padding: 0 20px;
         }
         .order-form-container {
-            background: rgba(10,11,28,0.55);
-            border: 1px solid rgba(110,231,243,0.15);
+            border: 1px solid hsla(0, 0%, 100%, .05);
             border-radius: 20px;
             padding: 36px;
             backdrop-filter: blur(8px);
@@ -549,7 +547,7 @@
             font-size: 12px;
         }
         .field-hint { cursor: help; color: #6ee7f3; font-size: 12px; }
-        .form-field input {
+        /* .form-field input {
             width: 100%;
             padding: 11px 14px;
             background: rgba(255,255,255,0.05);
@@ -565,10 +563,11 @@
             outline: none;
             border-color: #6ee7f3;
             box-shadow: 0 0 0 3px rgba(110,231,243,0.12);
-        }
+        } */
         .form-field input.invalid { border-color: #ff7878; }
         .form-field input.warning { border-color: #ffb432; }
         .field-note {
+            color: #9aa3b2;
             font-size: 12px;
             margin-top: 5px;
             min-height: 16px;
@@ -995,9 +994,9 @@
 
           <div class="div-menu-line"></div>
 
-          <a href="faq.html" class="fade mt-0" title="FAQ & Support"><i class="fa-solid fa-circle-question"></i> FAQ</a>
+          <a href="pricing.html" class="fade mt-0" title="Pricing Plans"><i class="fa-solid fa-tag"></i> Pricing <span class="new-badge">New</span></a>
+          <a href="faq.html" class="fade" title="FAQ & Support"><i class="fa-solid fa-circle-question"></i> FAQ</a>
           <a href="how-to-use.html" class="fade" title="How to Use NexCore Labs"><i class="fa-solid fa-book-open"></i> How to Use</a>
-          <a href="pricing.html" class="fade" title="Pricing Plans"><i class="fa-solid fa-tag"></i> Pricing</a>
           <a href="terms.html" class="fade" title="Terms of Service"><i class="fa-solid fa-file-contract"></i> Terms</a>
           <a href="privacy-policy.html" class="fade" title="Privacy Policy"><i class="fa-solid fa-shield-halved"></i> Privacy Policy</a>
         </div>
@@ -1012,7 +1011,7 @@
             <h1>Build Your NexCore Access <span class="beta-badge"><i class="fa-solid fa-flask"></i> Beta</span></h1>
             <p>No rigid plans. Pick the features you need and pay only for what you use. All prices in Omani Rial (OMR).</p>
             <div class="beta-banner" id="betaBanner">
-                <i class="fa-solid fa-triangle-exclamation"></i>
+                <i class="fa-solid fa-circle-info"></i>
                 <span><strong>This pricing system is in Beta.</strong> You may encounter occasional bugs or unexpected behaviour. If anything goes wrong with your order, please contact us directly and we'll sort it out right away.</span>
                 <button class="beta-banner-close" onclick="document.getElementById('betaBanner').style.display='none'" aria-label="Dismiss"><i class="fa-solid fa-xmark"></i></button>
             </div>
@@ -2127,9 +2126,9 @@
             
             // Check for SQU domain
             if (SQU_DOMAINS.includes(domain)) {
-                noteEl.textContent = '✓ SQU affiliates get free access! Sign in with Google at /auth to access NexCore Labs.';
-                noteEl.className = 'field-note ok';
-                emailEl.classList.remove('warning');
+                noteEl.textContent = '✓ SQU affiliates get free access! Sign in with Google at nexcorelabs.vercel.app/auth to access NexCore Labs.';
+                noteEl.className = 'field-note warn';
+                emailEl.classList.add('warning');
             } else if (GOOGLE_DOMAINS.includes(domain)) {
                 noteEl.textContent = '✓ Looks like a Google account — perfect.';
                 noteEl.className = 'field-note ok';
@@ -2177,9 +2176,9 @@
             // Check if SQU email — they get free access
             const domain = email.split('@')[1]?.toLowerCase() || '';
             if (SQU_DOMAINS.includes(domain)) {
-                emailNote.textContent = 'SQU affiliates have free access. Please sign in with Google at /auth to access NexCore Labs for free.';
-                emailNote.className = 'field-note ok';
-                emailEl.classList.add('invalid');
+                emailNote.textContent = '✓ SQU affiliates have free access. Please sign in with Google at /auth to access NexCore Labs for free.';
+                emailNote.className = 'field-note warn';
+                emailEl.classList.add('warning');
                 emailEl.focus();
                 return;
             }
