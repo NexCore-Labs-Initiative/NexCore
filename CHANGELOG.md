@@ -2,6 +2,31 @@
 
 ## v2.9.1 - 25 May 2026
 
+### Admin Control Panel Overhaul:
+
+- UI Refactor: Completely revamped the admin interface (`admin-users.html`), now titled  **"Control Panel"** , with modernized stat cards, improved responsiveness, and a new quick search input.
+- Modal System: Re-engineered the modal system with smoother transitions, `is-open/is-closing` states, and an enhanced confirmation flow that supports trigger-based animations.
+- Activity Management: Improved the subscription filtering logic to handle `pending_verification` states and updated the order approval process to return detailed success statuses.
+
+### Payment & Verification Workflow:
+
+- Receipt Review Modal: Introduced a new **Proof of Payment** review modal with an iframe preview, allowing admins to verify, approve, or reject receipts directly within the platform.
+- Export & Automation: Added status messages for receipt exports and implemented **automatic PDF downloads** for verified receipts.
+- PayPal Updates: Updated all support links to the new NexCore Labs PayPal account and implemented a detailed **PayPal fee calculation** function to show users the exact expected USD amount.
+- Bill ID Enhancements: Improved the "Copy Bill ID" functionality with better user feedback and status messages.
+
+### SQU Community & Accessibility:
+
+- Free Access for SQU: Added specialized support for the  **SQU email domain** , including a "Free Access" notification during email validation to welcome the university community.
+- Pricing Page Polish: Enhanced the pricing page with animated price updates, a detailed fee breakdown, and improved badge responsiveness.
+- Navigation: Updated global navigation to include the new Pricing page with a dedicated badge for better visibility.
+
+### Technical Maintenance & Bug Fixes:
+
+- Dependency Updates: Upgraded `nodemailer` to version `8.0.8` and updated `package.json` to reflect version `2.9.1`.
+- Modal Fix: Corrected a critical UI bug where the "Delete" and "Cancel" button actions were swapped in the project deletion modal.
+- Cleanup: Removed the WhatsApp payment integration in favor of more streamlined support contact information.
+- Styling Consistency: Standardized stylesheet links across `index.html` and `pricing.html` to ensure a unified visual experience.
 
 ---
 
@@ -210,60 +235,60 @@
 
 ### Account & User Profile Management
 
-Added user display name field to account settings page (showing full name, username, or email prefix)
-Implemented user metadata extraction supporting multiple name formats (full_name, name, user_name, preferred_username)
-Added user profile syncing to database on login with avatar URL support
-Created helper functions getUserDisplayName() and getUserAvatar() across multiple pages
+- Added user display name field to account settings page (showing full name, username, or email prefix)
+- Implemented user metadata extraction supporting multiple name formats (full_name, name, user_name, preferred_username)
+- Added user profile syncing to database on login with avatar URL support
+- Created helper functions getUserDisplayName() and getUserAvatar() across multiple pages
 
 ### AI Features Expansion
 
-New AI Action: Added project_insights action to the AI API endpoint
-Generates project summaries with insights array based on project description
-Implemented AI insights section on project pages with on-demand generation
-Added "Generate insights" button with loading state and error handling
-Added AI usage tracking feedback to users (remaining actions per day)
+- New AI Action: Added project_insights action to the AI API endpoint
+- Generates project summaries with insights array based on project description
+- Implemented AI insights section on project pages with on-demand generation
+- Added "Generate insights" button with loading state and error handling
+- Added AI usage tracking feedback to users (remaining actions per day)
 
 ### Project Display Enhancements
 
-Redesigned project cards with new structure using .project-card-link wrapper
-Added project metadata section showing creation date and view count
-Implemented view count tracking from page_visits_daily table
-Changed project listing order from ascending to descending (newest first)
-Added external link icon with hover animation on project titles
-Improved responsive design for project cards on mobile devices
+- Redesigned project cards with new structure using .project-card-link wrapper
+- Added project metadata section showing creation date and view count
+- Implemented view count tracking from page_visits_daily table
+- Changed project listing order from ascending to descending (newest first)
+- Added external link icon with hover animation on project titles
+- Improved responsive design for project cards on mobile devices
 
 ### Creator/Author Profile Display
 
-Added creator section showing project creator information
-Implemented avatar display with fallback to initials placeholder
-Added contact creator functionality with email mailto links
-Auto-backfill creator identity for legacy projects missing creator metadata
-Stores creator name and avatar URL in project records
+- Added creator section showing project creator information
+- Implemented avatar display with fallback to initials placeholder
+- Added contact creator functionality with email mailto links
+- Auto-backfill creator identity for legacy projects missing creator metadata
+- Stores creator name and avatar URL in project records
 
 ### Project Page Features
 
-Added creation date badge to project stats
-Implemented QR code download functionality
-Added social sharing buttons (X/Twitter, LinkedIn, WhatsApp) setup
-Improved QR code section layout with wrapper styling
+- Added creation date badge to project stats
+- Implemented QR code download functionality
+- Added social sharing buttons (X/Twitter, LinkedIn, WhatsApp) setup
+- Improved QR code section layout with wrapper styling
 
 ### Navigation & Auth UI
 
-Enhanced navbar user display with avatar image support
-Switched from showing email to display name in navigation
-Added user avatar to dropdown menu with icon fallback
+- Enhanced navbar user display with avatar image support
+- Switched from showing email to display name in navigation
+- Added user avatar to dropdown menu with icon fallback
 
 ### Database Improvements
 
-Deleted legacy supabase_ai_migration.sql file (no longer needed)
-Added support for creator_name and creator_avatar_url project fields
-Project queries now support slug-based filtering in dashboard
+- Deleted legacy supabase_ai_migration.sql file (no longer needed)
+- Added support for creator_name and creator_avatar_url project fields
+- Project queries now support slug-based filtering in dashboard
 
 ### Code Quality
 
-Fixed dashboard slug-based project loading from URL parameters
-Improved HTML closing tag formatting in multiple files
-Enhanced CSS minification with new responsive media queries
+- Fixed dashboard slug-based project loading from URL parameters
+- Improved HTML closing tag formatting in multiple files
+- Enhanced CSS minification with new responsive media queries
 
 ---
 
@@ -271,49 +296,49 @@ Enhanced CSS minification with new responsive media queries
 
 ### Cookie Consent Manager upgraded to v2 across the site
 
-Replaced old assets/css/cookie-consent.css + assets/js/cookie-consent.js with new assets/css/cookies.css + assets/js/cookies.js in multiple pages (e.g., index.html, auth.html, dashboard.html, faq.html, hub.html, privacy-policy.html, terms.html, etc.).
-Removed the old inline cookie banner HTML from pages like index.html, hub.html, faq.html, how-to-use.html, privacy-policy.html.
+- Replaced old assets/css/cookie-consent.css + assets/js/cookie-consent.js with new assets/css/cookies.css + assets/js/cookies.js in multiple pages (e.g., index.html, auth.html, dashboard.html, faq.html, hub.- html, privacy-policy.html, terms.html, etc.).
+- Removed the old inline cookie banner HTML from pages like index.html, hub.html, faq.html, how-to-use.html, privacy-policy.html.
 
 ### New cookie consent implementation
 
-Added assets/css/cookies.css (new file): full UI styling for the new consent modal + floating “Cookie Settings” button.
-Added assets/js/cookies.js (new file): granular consent prefs, migration from old key, GA load/clear behavior, focus trap + a11y, floating settings button.
+- Added assets/css/cookies.css (new file): full UI styling for the new consent modal + floating “Cookie Settings” button.
+- Added assets/js/cookies.js (new file): granular consent prefs, migration from old key, GA load/clear behavior, focus trap + a11y, floating settings button.
 
 ### Account page destructive actions UI/UX & accessibility improvements (account.html)
 
-Reworked “Delete account” modal behavior to be accessible and animated (ARIA attributes, focus/escape/outside click handling, open class instead of display:none).
-Added a new “Delete Project” confirmation modal (instead of browser confirm() dialogs).
-Improved modal visuals (layout, buttons order, mobile responsiveness, better “DELETE” confirmation styling).
+- Reworked “Delete account” modal behavior to be accessible and animated (ARIA attributes, focus/escape/outside click handling, open class instead of display:none).
+- Added a new “Delete Project” confirmation modal (instead of browser confirm() dialogs).
+- Improved modal visuals (layout, buttons order, mobile responsiveness, better “DELETE” confirmation styling).
 
 ### Dashboard improvements (dashboard.html)
 
-Added moderation status UI (badge + popup with reason).
-Added publish flow moderation checks (publish/edit now triggers moderation logic rather than just flipping a published flag).
-Added delete-project confirmation modal (custom modal instead of native confirm).
+- Added moderation status UI (badge + popup with reason).
+- Added publish flow moderation checks (publish/edit now triggers moderation logic rather than just flipping a published flag).
+- Added delete-project confirmation modal (custom modal instead of native confirm).
 
 ### Improved AI UI/UX:
 
-New “AI magic” button states (loading shimmer + sparkles).
-Split remaining-quota UI into card/page elements and added shared helpers.
-Added a custom “AI style” dropdown UI (portalled panel to body to avoid z-index issues).
+- New “AI magic” button states (loading shimmer + sparkles).
+- Split remaining-quota UI into card/page elements and added shared helpers.
+- Added a custom “AI style” dropdown UI (portalled panel to body to avoid z-index issues).
 
 ### New moderation API endpoint
 
-Added api/moderate-project.js (new file): rule-based + Gemini-based moderation, updates project moderation fields, optional logging to moderation_logs, controls publish state depending on moderation decision.
+- Added api/moderate-project.js (new file): rule-based + Gemini-based moderation, updates project moderation fields, optional logging to moderation_logs, controls publish state depending on moderation decision.
 
 ### AI API improvement (api/ai.js)
 
-Added support for GET /api/ai?usage=1 to fetch AI usage stats via Supabase RPC (get_ai_usage).
-Kept generation as POST-only (now POST-only is enforced after the GET usage path).
+- Added support for GET /api/ai?usage=1 to fetch AI usage stats via Supabase RPC (get_ai_usage).
+- Kept generation as POST-only (now POST-only is enforced after the GET usage path).
 
 ### Footer branding update
 
-Updated the PayPal support link in footers to include the PayPal icon/logo (seen across many pages).
+- Updated the PayPal support link in footers to include the PayPal icon/logo (seen across many pages).
 
 ### Small content/UI tweaks
 
-Removed “BETA” badges from some headers (e.g., account.html, dashboard.html, hub.html Projects heading).
-hub.html: changed projects ordering from newest-first to oldest-first (created_at ascending).
+- Removed “BETA” badges from some headers (e.g., account.html, dashboard.html, hub.html Projects heading).
+- hub.html: changed projects ordering from newest-first to oldest-first (created_at ascending).
 
 ---
 
