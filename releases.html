@@ -793,9 +793,9 @@
             <h1>Platform <em>Updates</em><br>&amp; Releases</h1>
             <p class="rl-hero-sub">Follow the evolution of NexCore Labs — features shipped, things polished, bugs squashed.</p>
             <div class="rl-hero-pills">
-                <span class="rl-hero-pill"><i class="fa-solid fa-tag"></i> Current: <strong>v2.9.0</strong></span>
-                <span class="rl-hero-pill"><i class="fa-regular fa-calendar"></i> Updated: <strong>9 May 2026</strong></span>
-                <span class="rl-hero-pill"><i class="fa-solid fa-layer-group"></i> <strong>14</strong> releases</span>
+                <span class="rl-hero-pill"><i class="fa-solid fa-tag"></i> Current: <strong>v2.9.1</strong></span>
+                <span class="rl-hero-pill"><i class="fa-regular fa-calendar"></i> Updated: <strong>25 May 2026</strong></span>
+                <span class="rl-hero-pill"><i class="fa-solid fa-layer-group"></i> <strong>15</strong> releases</span>
             </div>
         </div>
 
@@ -831,6 +831,7 @@
             <nav class="rl-nav" aria-label="Version navigation">
                 <div class="rl-nav-label">Versions</div>
                 <div class="rl-nav-panel">
+                    <a class="rl-nav-item"href="#v291" data-version="v2.9.1"><span class="rl-dot-min"></span>v2.9.1</a>
                     <a class="rl-nav-item"href="#v290" data-version="v2.9.0"><span class="rl-dot-min"></span>v2.9.0</a>
                     <a class="rl-nav-item"href="#v280" data-version="v2.8.0"><span class="rl-dot-min"></span>v2.8.0</a>
                     <a class="rl-nav-item"href="#v270" data-version="v2.7.0"><span class="rl-dot-min"></span>v2.7.0</a>
@@ -851,6 +852,90 @@
             <!-- Timeline -->
             <div class="rl-tl" id="rlTl">
 
+                <!-- v2.9.1 -->
+                <div class="rl-card open" id="v291" data-version="v2.9.1" data-tags="improvement,developer,fix">
+                <div class="rl-box">
+                    <div class="rl-head" onclick="toggleCard(this.closest('.rl-card'))">
+                        <div class="rl-head-body">
+                            <div class="rl-head-top">
+                                <span class="rl-ver">v2.9.1</span>
+                                <span class="rl-badge-latest"><i class="fa-solid fa-bolt fa-mini"></i> Latest</span>
+                            </div>
+                            <div class="rl-date"><i class="fa-regular fa-calendar"></i>25 May 2026</div>
+                            <div class="rl-summary">Admin panel refinements, payment workflow enhancements, and SQU community support.</div>
+                            <div class="rl-tags">
+                                <span class="rl-tag impr">↑ Improvements</span>
+                                <span class="rl-tag fix">⚡ Fixes</span>
+                                <span class="rl-tag dev">⌘ Dev</span>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-chevron-down rl-chev"></i>
+                    </div>
+                    <div class="rl-body">
+                        <div class="rl-tabs">
+                            <button class="rl-tab-btn tab-u active" data-tab="u291">User Updates</button>
+                            <button class="rl-tab-btn tab-d" data-tab="d291">Developer Notes</button>
+                        </div>
+                        <div class="rl-pane active" id="u291">
+                            <div class="rl-blk">
+                                <div class="rl-blk-ttl c-new"><i class="fa-solid fa-wand-magic-sparkles"></i> New</div>
+                                <ul class="rl-ul c-new">
+                                    <li>New <strong>Proof of Payment review modal</strong> with iframe preview for admins to verify, approve, or reject receipts directly in the platform.</li>
+                                    <li>New <strong>Free Access notification</strong> for SQU email domain users during email validation to welcome the university community.</li>
+                                </ul>
+                            </div>
+                            <div class="rl-blk">
+                                <div class="rl-blk-ttl c-impr"><i class="fa-solid fa-arrow-trend-up"></i> Improvements</div>
+                                <ul class="rl-ul c-impr">
+                                    <li><strong>Admin Control Panel</strong> completely revamped with modernized stat cards, improved responsiveness, and a new quick search input.</li>
+                                    <li><strong>Modal system</strong> re-engineered with smoother transitions, enhanced confirmation flow, and trigger-based animations.</li>
+                                    <li>Subscription filtering now handles <span class="ct">pending_verification</span> states; order approval process returns detailed success statuses.</li>
+                                    <li>PayPal integration updated with detailed <strong>fee calculation</strong> function showing exact expected USD amounts.</li>
+                                    <li><strong>Pricing page</strong> enhanced with animated price updates, detailed fee breakdown, and improved badge responsiveness.</li>
+                                    <li>Global navigation now includes the Pricing page with a dedicated badge for better visibility.</li>
+                                    <li><strong>Copy Bill ID</strong> functionality improved with better user feedback and status messages.</li>
+                                </ul>
+                            </div>
+                            <div class="rl-blk">
+                                <div class="rl-blk-ttl c-fix"><i class="fa-solid fa-wrench"></i> Fixes</div>
+                                <ul class="rl-ul c-fix">
+                                    <li>Corrected critical UI bug where "Delete" and "Cancel" button actions were swapped in the project deletion modal.</li>
+                                    <li>Removed WhatsApp payment integration in favor of more streamlined support contact information.</li>
+                                    <li>Standardized stylesheet links across <span class="ct">index.html</span> and <span class="ct">pricing.html</span> to ensure unified visual experience.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="rl-pane" id="d291">
+                            <div class="rl-blk">
+                                <div class="rl-blk-ttl c-tech"><i class="fa-solid fa-code"></i> Technical</div>
+                                <ul class="rl-ul c-tech">
+                                    <li>Control Panel UI completely refactored with modernized stat cards and responsive design improvements.</li>
+                                    <li>Modal system re-engineered with <span class="ct">is-open/is-closing</span> states and enhanced trigger-based animations.</li>
+                                    <li>Receipt exports now include status messages and automatic PDF downloads for verified receipts.</li>
+                                    <li>Stylesheet standardization applied across multiple pages for consistent visual experience.</li>
+                                </ul>
+                            </div>
+                            <div class="rl-blk">
+                                <div class="rl-blk-ttl c-api"><i class="fa-solid fa-plug"></i> API</div>
+                                <ul class="rl-ul c-api">
+                                    <li>Implemented detailed <strong>PayPal fee calculation</strong> function for accurate USD amount display.</li>
+                                    <li>Updated subscription filtering logic to handle <span class="ct">pending_verification</span> states.</li>
+                                    <li>Enhanced order approval process to return detailed success statuses.</li>
+                                </ul>
+                            </div>
+                            <div class="rl-blk">
+                                <div class="rl-blk-ttl c-int"><i class="fa-solid fa-gear"></i> Internal</div>
+                                <ul class="rl-ul c-int">
+                                    <li>Updated <span class="ct">nodemailer</span> dependency to version 8.0.8.</li>
+                                    <li>Updated <span class="ct">package.json</span> to reflect version 2.9.1.</li>
+                                    <li>Updated PayPal support links to the new NexCore Labs PayPal account.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+
                 <!-- v2.9.0 -->
                 <div class="rl-card open" id="v290" data-version="v2.9.0" data-tags="feature,improvement,developer,fix">
                 <div class="rl-box">
@@ -858,7 +943,6 @@
                         <div class="rl-head-body">
                             <div class="rl-head-top">
                                 <span class="rl-ver">v2.9.0</span>
-                                <span class="rl-badge-latest"><i class="fa-solid fa-bolt fa-mini"></i> Latest</span>
                             </div>
                             <div class="rl-date"><i class="fa-regular fa-calendar"></i>9 May 2026</div>
                             <div class="rl-summary">Monetization framework, AI upgrades, and UX enhancements.</div>
