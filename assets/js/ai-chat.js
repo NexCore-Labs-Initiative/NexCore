@@ -554,7 +554,7 @@
 
     const btn = document.createElement('a');
     btn.className = 'nexai-support-btn';
-    btn.href = 'https://www.paypal.me/alfarismujahid';
+    btn.href = 'https://www.paypal.me/nexcorelabs';
     btn.target = '_blank';
     btn.rel = 'noopener noreferrer';
     btn.innerHTML = '&#9829;&nbsp; Support via PayPal';

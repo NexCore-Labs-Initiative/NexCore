@@ -90,6 +90,15 @@
             letter-spacing: 4px;
             word-break: break-all;
         }
+        .bill-id-status {
+            display: block;
+            margin-top: 8px;
+            color: #9aa3b2;
+            font-size: 12px;
+            letter-spacing: 0;
+        }
+        .bill-id-status.success { color: #25d366; }
+        .bill-id-status.warning { color: #ffb432; }
         .btn-copy {
             background: rgba(110,231,243,0.1);
             border: 1px solid rgba(110,231,243,0.3);
@@ -220,62 +229,6 @@
         }
         .email-note strong { color: #eaf6fb; }
 
-        /* ── WhatsApp payment card ────────────────────────────────────── */
-        .whatsapp-payment-card {
-            background: rgba(37,211,102,0.05);
-            border: 1px solid rgba(37,211,102,0.25);
-            border-radius: 14px;
-            padding: 26px 28px;
-            margin-bottom: 20px;
-        }
-        .whatsapp-payment-card h2 {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: #25d366;
-            margin: 0 0 10px;
-            display: flex;
-            align-items: center;
-            gap: 9px;
-        }
-        .whatsapp-payment-card p {
-            color: #cbd5e0;
-            font-size: 14px;
-            line-height: 1.65;
-            margin: 0 0 16px;
-        }
-        .whatsapp-payment-card .payment-methods-note {
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 8px;
-            padding: 12px 14px;
-            font-size: 13px;
-            color: #9aa3b2;
-            margin-bottom: 20px;
-            line-height: 1.6;
-        }
-        .whatsapp-payment-card .payment-methods-note strong { color: #eaf6fb; }
-        .btn-whatsapp {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: #25d366;
-            color: #fff;
-            font-weight: 700;
-            font-size: 15px;
-            padding: 13px 24px;
-            border-radius: 10px;
-            text-decoration: none;
-            width: 100%;
-            justify-content: center;
-            transition: all 0.2s;
-            box-sizing: border-box;
-        }
-        .btn-whatsapp:hover {
-            background: #20bd5a;
-            transform: translateY(-1px);
-        }
-        .btn-whatsapp i { font-size: 18px; }
-
         /* ── Bank Transfer pending banner ────────────────────────────── */
         .bank-transfer-banner {
             background: linear-gradient(135deg, rgba(255,180,50,0.08), rgba(110,231,243,0.04));
@@ -339,6 +292,14 @@
             color: #9aa3b2;
         }
         .btn-action.back:hover { color: #eaf6fb; background: rgba(255,255,255,0.07); }
+        .export-status {
+            margin: 12px 0 0;
+            color: #9aa3b2;
+            font-size: 12px;
+            line-height: 1.5;
+            text-align: center;
+        }
+        .export-status.active { color: #6ee7f3; }
 
         /* ── Pending notice ───────────────────────────────────────────── */
         .pending-notice {
@@ -361,15 +322,17 @@
 
         /* ── Print styles ─────────────────────────────────────────────── */
         @media print {
-            @page { size: A4 portrait; margin: 18mm 22mm; }
+            @page { size: A4 portrait; margin: 16mm 18mm; }
 
             /* ── Hide web-only elements ── */
             header, footer, nav, .site-header, .site-footer,
             .action-row, .confirm-header, .confirm-icon,
-            .btn-whatsapp, .btn-signin-google, .btn-copy,
+            .btn-signin-google, .btn-copy,
             .faq-row, .nexcore-sign, #cookieConsentBanner,
-            .whatsapp-payment-card, .pending-notice,
-            .payment-methods-note,
+            [id*="cookie"], [class*="cookie"],
+            .pending-notice,
+            .export-status,
+            .paypal-activated-banner, .bank-transfer-banner,
             p[style*="text-align:center"] { display: none !important; }
 
             /* ── Show print-only elements ── */
@@ -377,48 +340,98 @@
 
             /* ── Reset layout ── */
             *, *::before, *::after { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-            body { background: #fff !important; color: #000 !important; font-size: 11pt !important; margin: 0; padding: 0; }
-            main { padding: 0 !important; min-height: auto !important; }
-            .confirm-wrap { max-width: 100% !important; padding: 0 !important; }
+            html, body {
+                width: 100% !important;
+                min-width: 100% !important;
+                background: #fff !important;
+                color: #111 !important;
+                font-size: 10.5pt !important;
+                line-height: 1.35 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                overflow: visible !important;
+            }
+            main {
+                width: 100% !important;
+                min-height: auto !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                opacity: 1 !important;
+            }
+            .confirm-wrap {
+                width: 100% !important;
+                max-width: 168mm !important;
+                margin: 0 auto !important;
+                padding: 0 !important;
+                box-sizing: border-box !important;
+            }
 
             /* ── Print receipt header ── */
             #printOnlyHeader {
-                border-bottom: 2pt solid #000;
-                padding-bottom: 12px;
-                margin-bottom: 22px;
+                border-bottom: 1pt solid #d8d8d8;
+                padding-bottom: 14px !important;
+                margin-bottom: 18px !important;
+            }
+            #printOnlyHeader .por-company {
+                text-align: center;
+            }
+            .por-logo {
+                display: block;
+                width: 42px;
+                height: 42px;
+                margin: 15px auto 8px;
+                border-radius: 50%;
+                object-fit: cover;
             }
             .por-company {
-                font-size: 20pt;
-                font-weight: 800;
-                letter-spacing: -0.5px;
-                margin: 0 0 5px;
+                font-size: 23pt;
+                font-weight: 700;
+                letter-spacing: 0;
+                margin: 0 0 16px;
                 color: #000;
             }
             .por-subtitle {
                 display: flex;
                 justify-content: space-between;
-                font-size: 10pt;
+                font-size: 9.5pt;
                 color: #555;
+            }
+            .por-subtitle span:first-child {
+                font-weight: 700;
+                color: #222;
+            }
+            .por-note {
+                max-width: 118mm;
+                margin: 16px 0 0;
+                color: #333;
+                font-size: 10pt;
+                line-height: 1.45;
             }
 
             /* ── Cards ── */
             .confirm-card {
-                border: 1pt solid #d0d0d0 !important;
+                border: 1pt solid #e1e1e1 !important;
                 background: #fff !important;
                 border-radius: 0 !important;
-                padding: 16px !important;
-                margin-bottom: 14px !important;
+                padding: 0 !important;
+                margin: 0 0 14px !important;
                 break-inside: avoid;
                 box-shadow: none !important;
+                width: 100% !important;
+                max-width: none !important;
+                box-sizing: border-box !important;
             }
 
             /* ── Bill ID ── */
             .bill-id-block {
-                background: #f7f7f7 !important;
-                border: 1.5pt solid #000 !important;
+                background: #fff !important;
+                border: none !important;
+                border-bottom: 1pt solid #e5e5e5 !important;
                 border-radius: 0 !important;
-                padding: 12px 16px !important;
-                margin-bottom: 18px !important;
+                padding: 13px 16px 15px !important;
+                margin: 0 !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
             }
             .bill-id-label {
                 font-size: 8pt !important;
@@ -426,63 +439,89 @@
                 color: #555 !important;
             }
             .bill-id-value {
-                font-size: 16pt !important;
+                font-size: 14pt !important;
                 color: #000 !important;
-                letter-spacing: 2px !important;
+                letter-spacing: 1.2px !important;
                 word-break: keep-all !important;
                 white-space: nowrap !important;
             }
+            .bill-id-status { display: none !important; }
 
             /* ── Meta rows ── */
-            .meta-row { font-size: 10.5pt !important; margin-bottom: 6px !important; }
-            .meta-label { color: #555 !important; min-width: 80px !important; }
-            .meta-value { color: #000 !important; }
+            .meta-row {
+                display: flex !important;
+                align-items: baseline !important;
+                gap: 18px !important;
+                font-size: 10pt !important;
+                margin: 0 !important;
+                padding: 8px 16px !important;
+                border-bottom: 1pt solid #eeeeee !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+            }
+            .meta-label { color: #555 !important; flex: 0 0 32mm !important; min-width: 32mm !important; }
+            .meta-value { color: #000 !important; flex: 1 !important; word-break: normal !important; }
 
             /* ── Features table ── */
-            .features-section { margin-top: 18px !important; }
+            .features-section { margin-top: 12px !important; }
             .features-section h3 {
-                font-size: 8pt !important;
+                font-size: 9pt !important;
                 color: #333 !important;
-                border-bottom: 1pt solid #ccc;
-                padding-bottom: 6px;
-                margin-bottom: 8px !important;
+                border: none;
+                padding: 0 16px;
+                margin: 0 0 4px !important;
             }
             .features-table th {
                 color: #000 !important;
-                background: #f2f2f2 !important;
-                border-bottom: 1.5pt solid #000 !important;
+                background: #fff !important;
+                border-bottom: 1pt solid #dddddd !important;
                 font-size: 8.5pt !important;
-                padding: 6px 8px !important;
+                padding: 7px 8px !important;
             }
+            .features-table th:first-child,
+            .features-table td:first-child { padding-left: 16px !important; }
+            .features-table th:last-child,
+            .features-table td:last-child { padding-right: 16px !important; }
             .features-table td {
                 color: #222 !important;
-                border-bottom: 0.5pt solid #e0e0e0 !important;
-                font-size: 11pt !important;
-                padding: 7px 8px !important;
+                border-bottom: 1pt solid #eeeeee !important;
+                font-size: 10.5pt !important;
+                padding: 8px !important;
             }
             .features-table td:last-child { color: #000 !important; font-weight: 600 !important; }
             .features-table tfoot td {
-                border-top: 1.5pt solid #000 !important;
+                border-top: 1pt solid #d7d7d7 !important;
                 border-bottom: none !important;
                 color: #000 !important;
-                font-size: 13pt !important;
+                font-size: 12pt !important;
                 padding-top: 10px !important;
             }
             .features-table tfoot td:last-child { color: #000 !important; }
-            .total-usd-note { color: #555 !important; font-size: 9pt !important; }
+            .total-usd-note { color: #666 !important; font-size: 8.5pt !important; }
 
-            /* ── PayPal activation (simplify) ── */
-            .paypal-activated-banner {
-                background: #fff !important;
-                border: 1pt solid #bbb !important;
-                border-radius: 0 !important;
-                padding: 16px !important;
-                break-inside: avoid;
+            /* ── Print receipt footer ── */
+            #printOnlyFooter {
+                margin-top: 34px !important;
+                color: #333;
             }
-            .paypal-activated-banner .banner-icon { display: none !important; }
-            .paypal-activated-banner h2 { font-size: 12pt !important; color: #000 !important; }
-            .paypal-activated-banner p { color: #333 !important; font-size: 10pt !important; }
-            .email-note { color: #333 !important; }
+            .por-thanks {
+                margin: 0 0 22px;
+                color: #eeeeee;
+                font-size: 28pt;
+                font-weight: 800;
+            }
+            .por-footer-brand {
+                margin: 0 0 10px;
+                color: #000;
+                font-size: 11pt;
+                font-weight: 800;
+            }
+            .por-footer-meta {
+                margin: 0;
+                color: #777;
+                font-size: 8.5pt;
+                line-height: 1.5;
+            }
         }
     </style>
 
@@ -499,11 +538,13 @@
     <main>
         <!-- Print-only receipt header (hidden on screen) -->
         <div id="printOnlyHeader" class="print-only confirm-wrap" aria-hidden="true">
-            <p class="por-company">NexCore Labs</p>
+            <img class="por-logo" src="assets/images/nexcore-logo.webp" alt="NexCore Labs logo" width="42" height="42">
+            <p class="por-company">Receipt</p>
             <div class="por-subtitle">
-                <span>Order Receipt</span>
+                <span>NexCore Labs Subscription</span>
                 <span id="printDateLabel"></span>
             </div>
+            <p class="por-note">We received your NexCore Labs subscription order. This receipt is formatted for printing or saving as a PDF.</p>
         </div>
 
         <div class="confirm-wrap" id="confirmWrap">
@@ -513,16 +554,16 @@
                 <p style="margin-top:14px;">Loading your order…</p>
             </div>
         </div>
-    </main>
 
-    <footer class="site-footer">
-        <div class="container footer-inner">
-            <div class="f-left">
-                <small>NexCore Labs © <span id="year"></span></small>
-            </div>
-            <div class="f-right footer-line"></div>
+        <div id="printOnlyFooter" class="print-only confirm-wrap" aria-hidden="true">
+            <p class="por-thanks">Thank you.</p>
+            <p class="por-footer-brand">NexCore Labs</p>
+            <p class="por-footer-meta">
+                nexcorelabs.vercel.app<br>
+                Questions? Contact us through NexCore Labs support.
+            </p>
         </div>
-    </footer>
+    </main>
 
     <script src="assets/js/script.js"></script>
     <script src="version.js"></script>
@@ -531,10 +572,10 @@
         // ─────────────────────────────────────────────────────────────────
         //  Read order from sessionStorage
         // ─────────────────────────────────────────────────────────────────
-        const WHATSAPP_PHONE = '96893281000';
         const OMR_TO_USD = 2.60;
 
-        document.getElementById('year').textContent = new Date().getFullYear();
+        const yearEl = document.getElementById('year');
+        if (yearEl) yearEl.textContent = new Date().getFullYear();
         const _pdate = document.getElementById('printDateLabel');
         if (_pdate) _pdate.textContent = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
 
@@ -563,33 +604,10 @@
         })();
 
         // ─────────────────────────────────────────────────────────────────
-        //  Build WhatsApp pre-filled message
-        // ─────────────────────────────────────────────────────────────────
-        function buildWhatsAppMessage(order) {
-            const featureLines = (order.features || [])
-                .map(f => `  • ${f.label} — ${Number(f.price).toFixed(3)} OMR`)
-                .join('\n');
-            const msg = [
-                `Hi NexCore Labs! 👋`,
-                `I'd like to complete payment for my subscription order.`,
-                ``,
-                `📋 Bill ID: ${order.bill_id}`,
-                `💰 Total: ${Number(order.total_omr).toFixed(3)} OMR (~$${Number(order.total_usd).toFixed(2)} USD)`,
-                ``,
-                `📦 Selected Features:`,
-                featureLines,
-                ``,
-                `Please guide me on the available payment options. Thank you!`,
-            ].join('\n');
-            return `https://api.whatsapp.com/send?phone=${WHATSAPP_PHONE}&text=${encodeURIComponent(msg)}`;
-        }
-
-        // ─────────────────────────────────────────────────────────────────
         //  Render the page
         // ─────────────────────────────────────────────────────────────────
         function render(order) {
             const isPayPalActive  = order.payment_method === 'paypal' && order.auto_activated === true;
-            const isWhatsApp      = order.payment_method === 'whatsapp';
             const isBankTransfer  = order.payment_method === 'bank_transfer';
 
             const featureRows = (order.features || []).map(f =>
@@ -629,24 +647,6 @@
                     <p class="email-note">Use the email you provided: <strong>${escHtml(order.user_email)}</strong></p>
                 </div>` : '';
 
-            // ── WhatsApp payment block ──────────────────────────────────────
-            const waUrl = buildWhatsAppMessage(order);
-            const whatsappBlock = isWhatsApp ? `
-                <div class="whatsapp-payment-card">
-                    <h2><i class="fa-brands fa-whatsapp"></i> Complete Your Payment</h2>
-                    <p>
-                        Send your Bill ID and the message below to our WhatsApp to finalise payment.
-                        Our team will confirm receipt and activate your subscription within <strong>48 hours</strong>.
-                    </p>
-                    <div class="payment-methods-note">
-                        <strong>💡 Payment options:</strong> Bank transfer, cash on delivery, STC Pay, or any method that works for you.
-                        Just let us know in the chat — our team will guide you through the process.
-                    </div>
-                    <a href="${waUrl}" target="_blank" rel="noopener" class="btn-whatsapp">
-                        <i class="fa-brands fa-whatsapp"></i> Open WhatsApp — +968 93281000
-                    </a>
-                </div>` : '';
-
             // ── Bank Transfer pending banner ───────────────────────────────
             const bankTransferBlock = isBankTransfer ? `
                 <div class="bank-transfer-banner">
@@ -661,15 +661,8 @@
                         A confirmation email has been sent to <strong style="color:#eaf6fb;">${escHtml(order.user_email)}</strong>.
                     </p>
                     <p style="font-size:13px;color:#9aa3b2;">
-                        Questions? Contact us on WhatsApp: <strong style="color:#eaf6fb;">+968 93281000</strong>
+                        Questions? Contact NexCore Labs support.
                     </p>
-                </div>` : '';
-
-            // ── Pending notice (WhatsApp only) ─────────────────────────────
-            const pendingNotice = isWhatsApp ? `
-                <div class="pending-notice">
-                    <i class="fa-solid fa-clock"></i>
-                    <span>Your subscription will be activated within approximately <strong>48 hours</strong> after payment is confirmed by our team.</span>
                 </div>` : '';
             // ── Payment label in receipt card ─────────────────────────────────
             const paymentLabel = isBankTransfer ? 'Bank Transfer' : (order.payment_method || '—');
@@ -680,6 +673,7 @@
                         <div class="bill-id-left">
                             <span class="bill-id-label">Your Bill ID</span>
                             <span class="bill-id-value" id="billIdValue">${escHtml(order.bill_id)}</span>
+                            <span class="bill-id-status" id="billIdCopyStatus">We will try to copy this Bill ID automatically.</span>
                         </div>
                         <button class="btn-copy" onclick="copyBillId()" id="copyBtn" title="Copy Bill ID">
                             <i class="fa-solid fa-copy"></i> Copy
@@ -718,6 +712,7 @@
                             <i class="fa-solid fa-arrow-left"></i> Back to Pricing
                         </a>
                     </div>
+                    <p class="export-status" id="receiptExportStatus">The receipt save dialog will open automatically.</p>
                 </div>`;
 
             // ── Compose full page ──────────────────────────────────────────
@@ -731,9 +726,7 @@
                 </div>
 
                 ${paypalBlock}
-                ${whatsappBlock}
                 ${bankTransferBlock}
-                ${pendingNotice}
                 ${receiptCard}
 
                 <p style="text-align:center;color:#9aa3b2;font-size:13px;margin-top:24px;">
@@ -741,6 +734,9 @@
                     If you don't see it, check your spam folder.
                 </p>
             `;
+
+            autoCopyBillId();
+            autoExportReceipt();
         }
 
         // ─────────────────────────────────────────────────────────────────
@@ -755,33 +751,90 @@
                 .replace(/'/g, '&#39;');
         }
 
-        function copyBillId() {
+        function setBillIdCopyStatus(message, state) {
+            const status = document.getElementById('billIdCopyStatus');
+            if (!status) return;
+
+            status.textContent = message;
+            status.classList.remove('success', 'warning');
+            if (state) status.classList.add(state);
+        }
+
+        async function writeClipboardText(value) {
+            if (!value) return false;
+
+            if (navigator.clipboard && window.isSecureContext) {
+                await navigator.clipboard.writeText(value);
+                return true;
+            }
+
+            const ta = document.createElement('textarea');
+            ta.value = value;
+            ta.setAttribute('readonly', '');
+            ta.style.position = 'fixed';
+            ta.style.top = '-9999px';
+            ta.style.opacity = '0';
+            document.body.appendChild(ta);
+            ta.select();
+
+            let copied = false;
+            try {
+                copied = document.execCommand('copy');
+            } finally {
+                ta.remove();
+            }
+
+            return copied;
+        }
+
+        async function copyBillId() {
             const val = document.getElementById('billIdValue')?.textContent || '';
-            navigator.clipboard.writeText(val).then(() => {
+            try {
+                const copied = await writeClipboardText(val);
+                if (!copied) throw new Error('Clipboard copy was blocked.');
+
                 const btn = document.getElementById('copyBtn');
                 if (btn) {
                     btn.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
                     setTimeout(() => { btn.innerHTML = '<i class="fa-solid fa-copy"></i> Copy'; }, 2500);
                 }
-            }).catch(() => {
-                // Fallback for browsers that block clipboard
-                const ta = document.createElement('textarea');
-                ta.value = val;
-                ta.style.position = 'fixed';
-                ta.style.opacity = '0';
-                document.body.appendChild(ta);
-                ta.select();
-                document.execCommand('copy');
-                ta.remove();
-            });
+                setBillIdCopyStatus('Bill ID copied to your clipboard.', 'success');
+                return true;
+            } catch (_) {
+                setBillIdCopyStatus('Automatic copy was blocked. Please tap Copy to save your Bill ID.', 'warning');
+                return false;
+            }
+        }
+
+        function autoCopyBillId() {
+            // Browsers may block clipboard writes that are not triggered by a user action.
+            setTimeout(() => { copyBillId(); }, 250);
+        }
+
+        let receiptExportStarted = false;
+
+        function setReceiptExportStatus(message, active = false) {
+            const status = document.getElementById('receiptExportStatus');
+            if (!status) return;
+
+            status.textContent = message;
+            status.classList.toggle('active', active);
+        }
+
+        function autoExportReceipt() {
+            if (receiptExportStarted) return;
+            receiptExportStarted = true;
+
+            setReceiptExportStatus('Preparing your receipt for saving...', true);
+            setTimeout(() => {
+                setReceiptExportStatus('Choose "Save as PDF" in the dialog to keep your receipt.', true);
+                downloadPDF();
+            }, 1200);
         }
 
         function downloadPDF() {
             window.print();
         }
     </script>
-
-    <script src="assets/js/cookies.js" defer></script>
-
 </body>
 </html>

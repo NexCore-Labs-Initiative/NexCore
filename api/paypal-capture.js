@@ -260,7 +260,8 @@ module.exports = async (req, res) => {
     return res.status(400).json({ error: "Only one support duration can be selected." });
 
   computedTotal = Math.round(computedTotal * 1000) / 1000;
-  const baseUsd    = Math.round(computedTotal * OMR_TO_USD * 100) / 100;
+  
+  const baseUsd = Math.round(computedTotal * OMR_TO_USD * 100) / 100;
   const expectedUsd = calcPayPalUsd(baseUsd);
 
   // ── Duplicate order check ───────────────────────────────────────────────────

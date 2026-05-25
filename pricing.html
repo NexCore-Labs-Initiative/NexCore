@@ -100,6 +100,8 @@
             color: #fcd34d;
             line-height: 1.55;
             text-align: left;
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
         }
         .beta-banner i { margin-top: 2px; flex-shrink: 0; }
         .beta-banner strong { color: #fbbf24; }
@@ -131,6 +133,8 @@
             text-transform: uppercase;
             vertical-align: middle;
             margin-left: 8px;
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
         }
 
         /* Builder Section */
@@ -184,8 +188,7 @@
 
         /* Feature Groups */
         .feature-group {
-            background: rgba(10,11,28,0.5);
-            border: 1px solid rgba(110,231,243,0.14);
+            border: 1px solid hsla(0, 0%, 100%, .03);
             border-radius: 16px;
             padding: 26px;
             margin-bottom: 20px;
@@ -226,7 +229,7 @@
             transition: all 0.2s;
             text-align: center;
         }
-        .option-card:hover { border-color: rgba(110,231,243,0.3); }
+        .option-card:hover { border-color: rgba(110,231,243,0.3); box-shadow: 0 12px 40px rgba(3, 6, 12, .4); transform: translateY(-3px); }
         .support-option input:checked + .option-card {
             background: rgba(110,231,243,0.12);
             border-color: #6ee7f3;
@@ -251,7 +254,7 @@
             border-radius: 10px;
             transition: all 0.2s;
         }
-        .addon-card:hover { border-color: rgba(110,231,243,0.3); }
+        .addon-card:hover { border-color: rgba(110,231,243,0.3); box-shadow: 0 12px 40px rgba(3, 6, 12, .4); transform: scale(1.01);  }
         .addon-option input:checked + .addon-card {
             background: rgba(110,231,243,0.1);
             border-color: #6ee7f3;
@@ -283,7 +286,7 @@
         }
         .addon-bt-only .addon-card:hover { border-color: rgba(255,255,255,0.08); }
         .bt-only-badge {
-            font-size: 10px; font-weight: 700; color: #0d1b2a;
+            font-size: 11px; font-weight: 700; color: #0d1b2a;
             background: #f59e0b; border-radius: 4px;
             padding: 2px 7px; white-space: nowrap; flex-shrink: 0;
         }
@@ -310,12 +313,28 @@
         /* Hide floating cookie button — pricing page has a sticky price bar at the same position */
         #nexcore-cookie-settings-btn { display: none !important; }
 
+        /* ── Price Update Animation ──────────────────────────────────── */
+        @keyframes priceUpdate {
+            0% { 
+                color: #6ee7f3;
+                text-shadow: 0 0 8px rgba(110,231,243,0.6);
+                transform: scale(1.05);
+            }
+            50% { 
+                text-shadow: 0 0 16px rgba(110,231,243,0.8);
+            }
+            100% { 
+                color: #6ee7f3;
+                text-shadow: none;
+                transform: scale(1);
+            }
+        }
+
         /* Price Bar */
         .price-bar {
             position: sticky;
             bottom: 20px;
-            background: linear-gradient(135deg, rgba(15,16,40,0.97), rgba(10,11,28,0.97));
-            border: 1px solid rgba(110,231,243,0.3);
+            border: 2px solid rgba(255, 255, 255, 0.1);
             border-radius: 14px;
             padding: 16px 22px;
             display: flex;
@@ -323,7 +342,8 @@
             justify-content: space-between;
             gap: 16px;
             margin-top: 20px;
-            backdrop-filter: blur(12px);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
             box-shadow: 0 8px 32px rgba(0,0,0,0.4);
             z-index: 100;
             flex-wrap: wrap;
@@ -350,8 +370,17 @@
             flex-shrink: 0;
         }
         .price-bar-label { font-size: 13px; color: #9aa3b2; }
-        .price-bar-amount { font-size: 1.4rem; font-weight: 800; color: #6ee7f3; }
-        .price-bar-usd { font-size: 13px; color: #9aa3b2; }
+        .price-bar-amount { 
+            font-size: 1.4rem; 
+            font-weight: 800; 
+            color: #6ee7f3;
+            transition: color 0.3s ease-out;
+            will-change: transform;
+        }
+        .price-bar-amount.updating {
+            animation: priceUpdate 0.6s ease-out;
+        }
+        .price-bar-usd { font-size: 13px; color: #9aa3b2; transition: color 0.3s ease-out; }
 
         /* Budget Mode */
         .budget-input-section { max-width: 480px; margin: 0 auto 30px; }
@@ -441,8 +470,7 @@
             padding: 0 20px;
         }
         .order-form-container {
-            background: rgba(10,11,28,0.55);
-            border: 1px solid rgba(110,231,243,0.15);
+            border: 1px solid hsla(0, 0%, 100%, .05);
             border-radius: 20px;
             padding: 36px;
             backdrop-filter: blur(8px);
@@ -486,7 +514,15 @@
             border-bottom: none;
             margin-top: 4px;
         }
-        .order-summary-row .row-price { color: #6ee7f3; font-weight: 600; }
+        .order-summary-row .row-price { 
+            color: #6ee7f3; 
+            font-weight: 600;
+            transition: color 0.3s ease-out;
+            will-change: transform;
+        }
+        .order-summary-row .row-price.updating {
+            animation: priceUpdate 0.6s ease-out;
+        }
 
         /* Form Fields */
         .form-row {
@@ -511,7 +547,7 @@
             font-size: 12px;
         }
         .field-hint { cursor: help; color: #6ee7f3; font-size: 12px; }
-        .form-field input {
+        /* .form-field input {
             width: 100%;
             padding: 11px 14px;
             background: rgba(255,255,255,0.05);
@@ -527,10 +563,11 @@
             outline: none;
             border-color: #6ee7f3;
             box-shadow: 0 0 0 3px rgba(110,231,243,0.12);
-        }
+        } */
         .form-field input.invalid { border-color: #ff7878; }
         .form-field input.warning { border-color: #ffb432; }
         .field-note {
+            color: #9aa3b2;
             font-size: 12px;
             margin-top: 5px;
             min-height: 16px;
@@ -902,6 +939,26 @@
             margin: 20px 0 50px;
         }
         .faq-row p { color: #9aa3b2; font-size: 14px; margin-bottom: 12px; }
+
+        @media screen and (max-width: 560px) {
+            .payment-badge { display: none; }
+
+            /* Lifetime add-on: place lock badge under the price on small screens */
+            .addon-card.lock, .addon-card.bt {
+                flex-wrap: wrap;
+                align-items: flex-start;
+            }
+            .addon-card.lock .addon-price, .addon-card.bt .addon-price {
+                order: 3;
+                margin-left: auto;
+            }
+            .addon-card.lock .addon-lock-badge, .addon-card.bt .bt-only-badge {
+                order: 4;
+                flex-basis: 90%;
+                text-align: center;
+                margin: 0 auto;
+            }
+        }
     </style>
     <!-- Vercel Web Analytics -->
     <script>
@@ -957,9 +1014,9 @@
 
           <div class="div-menu-line"></div>
 
-          <a href="faq.html" class="fade mt-0" title="FAQ & Support"><i class="fa-solid fa-circle-question"></i> FAQ</a>
+          <a href="pricing.html" class="fade mt-0" title="Pricing Plans"><i class="fa-solid fa-tag"></i> Pricing <span class="new-badge">New</span></a>
+          <a href="faq.html" class="fade" title="FAQ & Support"><i class="fa-solid fa-circle-question"></i> FAQ</a>
           <a href="how-to-use.html" class="fade" title="How to Use NexCore Labs"><i class="fa-solid fa-book-open"></i> How to Use</a>
-          <a href="pricing.html" class="fade" title="Pricing Plans"><i class="fa-solid fa-tag"></i> Pricing</a>
           <a href="terms.html" class="fade" title="Terms of Service"><i class="fa-solid fa-file-contract"></i> Terms</a>
           <a href="privacy-policy.html" class="fade" title="Privacy Policy"><i class="fa-solid fa-shield-halved"></i> Privacy Policy</a>
         </div>
@@ -1011,7 +1068,7 @@
                     <div class="addons-grid">
                         <label class="addon-option addon-forced">
                             <input type="checkbox" name="addon" value="lifetime" data-price="0.950" data-label="Lifetime Access" checked disabled>
-                            <div class="addon-card">
+                            <div class="addon-card lock">
                                 <div class="addon-icon"><i class="fa-solid fa-infinity"></i></div>
                                 <div class="addon-info">
                                     <span class="addon-name">Lifetime Access</span>
@@ -1034,14 +1091,14 @@
                         </label>
                         <label id="priorityReviewOption" class="addon-option">
                             <input type="checkbox" name="addon" id="priorityReviewInput" value="priority" data-price="0.300" data-label="Priority Review">
-                            <div class="addon-card">
+                            <div class="addon-card bt">
                                 <div class="addon-icon"><i class="fa-solid fa-bolt"></i></div>
                                 <div class="addon-info">
                                     <span class="addon-name">Priority Review</span>
                                     <span class="addon-desc">Your project published within 24 hours, skip the queue</span>
                                 </div>
-                                <span class="addon-price">0.300 OMR</span>
                                 <span class="bt-only-badge">Bank Transfer</span>
+                                <span class="addon-price">0.300 OMR</span>
                             </div>
                         </label>
                         <p id="priorityLockNote" class="addon-paypal-lock-note" style="display:none">
@@ -1183,7 +1240,7 @@
                                     <i class="fa-solid fa-circle-info"></i>
                                 </span>
                             </label>
-                            <input type="email" id="orderEmail" placeholder="yourname@gmail.com" required
+                            <input type="email" id="orderEmail" placeholder="name@email.com" required
                                    oninput="validateEmailHint()">
                             <div class="field-note" id="emailNote"></div>
                         </div>
@@ -1224,7 +1281,6 @@
                                         <span class="payment-name">PayPal</span>
                                         <span class="payment-desc">Pay securely via PayPal in USD · 1 OMR = 2.60 USD<br><span style="color:#25d366;"><i class="fa-solid fa-bolt" style="font-size:10px;"></i> Instant activation — no waiting</span><br><span style="color:#9aa3b2;font-size:11px;"><i class="fa-solid fa-circle-info" style="font-size:10px;"></i> A small PayPal processing fee is added to the total</span></span>
                                     </div>
-                                    <span id="paypalAmountBadge" class="payment-badge" style="background:rgba(0,112,186,0.15);color:#0070ba;border:1px solid rgba(0,112,186,0.3);"></span>
                                     <span class="payment-badge instant"><i class="fa-solid fa-bolt"></i> Instant</span>
                                 </div>
                             </label>
@@ -1379,7 +1435,7 @@
     <footer class="site-footer">
         <div class="container footer-inner">
             <div class="f-left">
-                <a class="paypal" href="https://www.paypal.me/alfarismujahid" target="_blank" rel="noopener" title="PayPal"><i class="fa-solid fa-heart" style="color: #6EE7F3;"></i> Support us on <i class="fa-brands fa-paypal"></i></a>
+                <a class="paypal" href="https://www.paypal.me/nexcorelabs" target="_blank" rel="noopener" title="PayPal"><i class="fa-solid fa-heart" style="color: #6EE7F3;"></i> Support us on <i class="fa-brands fa-paypal"></i></a>
                 <br>
                 <small>NexCore Labs © <span id="year"></span> <span id="splitter">|</span>
                     <a href="https://github.com/NexCoreLabs/NexCore/blob/main/LICENSE" target="_blank" rel="noopener" class="license-link">
@@ -1411,6 +1467,11 @@
         const PAYPAL_FEE_FIXED = 0.49;
         function calcPayPalUsd(baseUsd) {
             return Math.ceil(((baseUsd + PAYPAL_FEE_FIXED) / (1 - PAYPAL_FEE_RATE)) * 100) / 100;
+        }
+
+        // Convert USD back to OMR for display
+        function convertUsdToOmr(usd) {
+            return Math.round(usd / OMR_TO_USD * 1000) / 1000;
         }
 
         const FEATURE_CATALOG = {
@@ -1497,12 +1558,30 @@
                     .map(f => `<span class="price-feature-chip">${f.label}</span>`)
                     .join('');
             }
-            document.getElementById('priceBarTotal').textContent = totalFixed.toFixed(3) + ' OMR';
-            document.getElementById('priceBarUSD').textContent = '≈ $' + usd.toFixed(2);
+            // Update price bar with animation
+            const priceBarTotal = document.getElementById('priceBarTotal');
+            priceBarTotal.classList.remove('updating');
+            void priceBarTotal.offsetWidth; // Force reflow to restart animation
+            priceBarTotal.classList.add('updating');
+            priceBarTotal.textContent = totalFixed.toFixed(3) + ' OMR';
+            
+            const priceBarUSD = document.getElementById('priceBarUSD');
+            priceBarUSD.classList.remove('updating');
+            void priceBarUSD.offsetWidth; // Force reflow to restart animation
+            priceBarUSD.classList.add('updating');
+            priceBarUSD.textContent = '≈ $' + usd.toFixed(2);
 
-            // PayPal amount hint badge (shows grossed-up amount)
+            // PayPal amount hint badge (shows grossed-up amount in both USD and OMR)
             const ppBadge = document.getElementById('paypalAmountBadge');
-            if (ppBadge) ppBadge.textContent = features.length > 0 ? `$${calcPayPalUsd(usd).toFixed(2)} USD` : '';
+            if (ppBadge) {
+                if (features.length > 0) {
+                    const paypalUsd = calcPayPalUsd(usd);
+                    const paypalOmr = convertUsdToOmr(paypalUsd);
+                    ppBadge.textContent = `${paypalOmr.toFixed(3)} OMR ($${paypalUsd.toFixed(2)})`;
+                } else {
+                    ppBadge.textContent = '';
+                }
+            }
 
             // Update bank transfer amount display if visible
             if (document.querySelector('input[name="payment"]:checked')?.value === 'bank_transfer') {
@@ -1533,12 +1612,32 @@
                 </div>`
             ).join('');
 
+            // Check if PayPal is selected
+            const paymentMethod = document.querySelector('input[name="payment"]:checked')?.value;
+            let finalTotalOmr = totalOmr;
+            let totalLabel = 'Total';
+            
+            if (paymentMethod === 'paypal') {
+                // Calculate final total with PayPal fees
+                const grossUsd = calcPayPalUsd(totalUsd);
+                const finalOmr = convertUsdToOmr(grossUsd);
+                finalTotalOmr = finalOmr;
+                totalLabel = 'Total (with PayPal fee)';
+            }
+
             el.innerHTML = `
                 ${rows}
                 <div class="order-summary-row total">
-                    <span>Total</span>
-                    <span class="row-price">${totalOmr.toFixed(3)} OMR</span>
+                    <span>${totalLabel}</span>
+                    <span class="row-price">${finalTotalOmr.toFixed(3)} OMR</span>
                 </div>`;
+            
+            // Trigger animation on all price elements
+            el.querySelectorAll('.row-price').forEach(priceEl => {
+                priceEl.classList.remove('updating');
+                void priceEl.offsetWidth; // Force reflow to restart animation
+                priceEl.classList.add('updating');
+            });
         }
 
         // ─────────────────────────────────────────────────────────────────
@@ -1820,12 +1919,30 @@
             const grossUsd  = calcPayPalUsd(baseUsd);
             const feeUsd    = (grossUsd - baseUsd).toFixed(2);
             const totalUsd  = grossUsd.toFixed(2);
+            const grossOmr  = convertUsdToOmr(grossUsd);
+            const feeOmr    = (grossOmr - totalOmr).toFixed(3);
 
-            // Show fee breakdown note
+            // Show detailed fee breakdown note with OMR amounts
             const feeNoteEl = document.getElementById('paypalFeeNote');
             if (feeNoteEl) {
-                feeNoteEl.style.display = 'flex';
-                feeNoteEl.innerHTML = `<i class="fa-solid fa-circle-info"></i><div>Your total includes a <strong>$${feeUsd} PayPal processing fee</strong> (3.49% + $0.49). Base price: <strong>$${baseUsd.toFixed(2)}</strong> &rarr; charged: <strong>$${totalUsd}</strong>.</div>`;
+                feeNoteEl.style.display = 'block';
+                feeNoteEl.innerHTML = `
+                    <div style="background:rgba(0,112,186,0.08);border:1px solid rgba(0,112,186,0.2);border-radius:8px;padding:14px 16px;font-size:13px;color:#ccc;line-height:1.6;">
+                        <div style="margin-bottom:10px;"><strong>Pricing Breakdown:</strong></div>
+                        <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+                            <span>Base total:</span>
+                            <span><strong>${totalOmr.toFixed(3)} OMR</strong> <span style="color:#9aa3b2;">(≈ $${baseUsd.toFixed(2)} USD)</span></span>
+                        </div>
+                        <div style="display:flex;justify-content:space-between;margin-bottom:10px;">
+                            <span>PayPal fee (3.49% + $0.49):</span>
+                            <span style="color:#fbbf24;"><strong>+${feeOmr} OMR</strong> <span style="color:#9aa3b2;">($${feeUsd})</span></span>
+                        </div>
+                        <div style="border-top:1px solid rgba(0,112,186,0.3);padding-top:8px;display:flex;justify-content:space-between;">
+                            <span style="color:#6ee7f3;"><strong>You will pay:</strong></span>
+                            <span style="color:#6ee7f3;"><strong>${grossOmr.toFixed(3)} OMR</strong> <span style="color:#9aa3b2;">($${totalUsd})</span></span>
+                        </div>
+                    </div>
+                `;
             }
 
             const nameEl  = document.getElementById('orderName');
@@ -2015,6 +2132,7 @@
         //  Email validation hint
         // ─────────────────────────────────────────────────────────────────
         const GOOGLE_DOMAINS = ['gmail.com', 'googlemail.com'];
+        const SQU_DOMAINS = ['squ.edu.om', 'student.squ.edu.om'];
 
         function validateEmailHint() {
             const emailEl = document.getElementById('orderEmail');
@@ -2023,15 +2141,21 @@
 
             if (!val) { noteEl.textContent = ''; noteEl.className = 'field-note'; return; }
 
-            const domain = val.split('@')[1] || '';
-            if (GOOGLE_DOMAINS.includes(domain.toLowerCase())) {
+            const domain = val.split('@')[1]?.toLowerCase() || '';
+            
+            // Check for SQU domain
+            if (SQU_DOMAINS.includes(domain)) {
+                noteEl.textContent = '✓ SQU affiliates get free access! Sign in with Google at nexcorelabs.vercel.app/auth to access NexCore Labs.';
+                noteEl.className = 'field-note warn';
+                emailEl.classList.add('warning');
+            } else if (GOOGLE_DOMAINS.includes(domain)) {
                 noteEl.textContent = '✓ Looks like a Google account — perfect.';
                 noteEl.className = 'field-note ok';
                 emailEl.classList.remove('warning');
             } else {
-                noteEl.textContent = 'Make sure this is the email you use with Google Sign-In — it will be linked to your NexCore account.';
-                noteEl.className = 'field-note warn';
-                emailEl.classList.add('warning');
+                noteEl.textContent = 'Enter the email you use with Google Sign-In — it will be linked to your NexCore account.';
+                noteEl.className = 'field-note';
+                emailEl.classList.remove('warning');
             }
         }
 
@@ -2064,6 +2188,16 @@
                 emailNote.textContent = 'Please enter a valid email address.';
                 emailNote.className = 'field-note err';
                 emailEl.classList.add('invalid');
+                emailEl.focus();
+                return;
+            }
+
+            // Check if SQU email — they get free access
+            const domain = email.split('@')[1]?.toLowerCase() || '';
+            if (SQU_DOMAINS.includes(domain)) {
+                emailNote.textContent = '✓ SQU affiliates have free access. Please sign in with Google at /auth to access NexCore Labs for free.';
+                emailNote.className = 'field-note warn';
+                emailEl.classList.add('warning');
                 emailEl.focus();
                 return;
             }
