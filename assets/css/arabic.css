@@ -22,6 +22,14 @@
   font-family: 'Tajawal', sans-serif;
 }
 
+/* Keep the Arabic header layout aligned with the English navbar. */
+:lang(ar) .navbar .nav-container {
+  direction: ltr;
+}
+:lang(ar) .navbar .dropdown-content {
+  direction: rtl;
+}
+
 :lang(ar) input,
 :lang(ar) textarea,
 :lang(ar) button {

@@ -14,8 +14,41 @@
     const sb = window.supabaseClient;
     const ALLOWED_DOMAINS = ['squ.edu.om', 'student.squ.edu.om'];
     const AUTH_NOTICE_KEY = 'auth_notice';
-    const RESTRICTED_EMAIL_NOTICE = 'Only SQU email addresses (@student.squ.edu.om / @squ.edu.om) or approved users can sign in.';
     let isEnforcingEmailDomain = false;
+    const isArabicPage = (document.documentElement.getAttribute('lang') || '').toLowerCase().startsWith('ar') ||
+        /(^|\/)ar(\/|$)/.test(window.location.pathname);
+    const routePrefix = isArabicPage ? '/ar' : '';
+    const copy = isArabicPage ? {
+        lang: 'ar',
+        dir: 'rtl',
+        restrictedEmail: 'يمكن فقط لبريد جامعة السلطان قابوس (@student.squ.edu.om / @squ.edu.om) أو المستخدمين المعتمدين تسجيل الدخول.',
+        signInTitle: 'تسجيل الدخول',
+        accessCore: 'استكشف الجوهر',
+        dashboardTitle: 'لوحة التحكم',
+        dashboard: 'لوحة التحكم',
+        adminTitle: 'لوحة الإدارة',
+        admin: 'لوحة الإدارة',
+        accountTitle: 'إعدادات الحساب',
+        account: 'إعدادات الحساب',
+        logoutTitle: 'تسجيل الخروج',
+        logout: 'تسجيل الخروج',
+        logoutFailed: 'تعذر تسجيل الخروج. يرجى المحاولة مرة أخرى.',
+    } : {
+        lang: 'en',
+        dir: 'ltr',
+        restrictedEmail: 'Only SQU email addresses (@student.squ.edu.om / @squ.edu.om) or approved users can sign in.',
+        signInTitle: 'Sign In',
+        accessCore: 'Access the Core',
+        dashboardTitle: 'Dashboard',
+        dashboard: 'Dashboard',
+        adminTitle: 'Admin Panel',
+        admin: 'Admin Panel',
+        accountTitle: 'Account Settings',
+        account: 'Account Settings',
+        logoutTitle: 'Logout',
+        logout: 'Logout',
+        logoutFailed: 'Failed to logout. Please try again.',
+    };
 
     // Cache for approved emails (refreshed on each auth check)
     let approvedEmailsCache = [];
@@ -102,15 +135,15 @@
         isEnforcingEmailDomain = true;
 
         try {
-            persistAuthNotice(RESTRICTED_EMAIL_NOTICE);
+            persistAuthNotice(copy.restrictedEmail);
             await sb.auth.signOut();
             if (!window.location.pathname.endsWith('/auth.html') && window.location.pathname !== '/auth.html') {
-                window.location.href = '/auth.html?auth_notice=restricted_email';
+                window.location.href = `${routePrefix}/auth.html?auth_notice=restricted_email`;
             }
         } catch (error) {
             console.warn('Failed to enforce email policy:', error?.message || error);
             if (!window.location.pathname.endsWith('/auth.html') && window.location.pathname !== '/auth.html') {
-                window.location.href = '/auth.html?auth_notice=restricted_email';
+                window.location.href = `${routePrefix}/auth.html?auth_notice=restricted_email`;
             }
         } finally {
             isEnforcingEmailDomain = false;
@@ -185,27 +218,27 @@
         if (firstMenuItem) {
             // Create auth elements HTML
             const authHTML = `
-                <a href="auth.html" id="navAuth" class="magic-signup fade" title="Sign In" style="display: none;">
-                    <i class="fa-solid fa-arrow-right-to-bracket"></i> Access the core
+                <a href="${routePrefix}/auth.html" id="navAuth" class="magic-signup fade" title="${copy.signInTitle}" lang="${copy.lang}" dir="${copy.dir}" style="display: none;">
+                    <i class="fa-solid fa-arrow-right-to-bracket"></i> ${copy.accessCore}
                 </a>
-                <a href="dashboard.html" id="navDashboard" class="fade" title="Dashboard" style="display: none;">
-                    <i class="fa-solid fa-gauge"></i> Dashboard
+                <a href="${routePrefix}/dashboard.html" id="navDashboard" class="fade" title="${copy.dashboardTitle}" lang="${copy.lang}" dir="${copy.dir}" style="display: none;">
+                    <i class="fa-solid fa-gauge"></i> ${copy.dashboard}
                 </a>
-                <a href="admin-users.html" id="navAdmin" class="fade" title="Admin Panel" style="display: none;">
-                    <i class="fa-solid fa-user-shield"></i> Admin Panel
+                <a href="${routePrefix}/admin-users.html" id="navAdmin" class="fade" title="${copy.adminTitle}" lang="${copy.lang}" dir="${copy.dir}" style="display: none;">
+                    <i class="fa-solid fa-user-shield"></i> ${copy.admin}
                 </a>
-                <a href="account.html" id="navAccount" class="fade" title="Account Settings" style="display: none;">
-                    <i class="fa-solid fa-user-gear"></i> Account Settings
+                <a href="${routePrefix}/account.html" id="navAccount" class="fade" title="${copy.accountTitle}" lang="${copy.lang}" dir="${copy.dir}" style="display: none;">
+                    <i class="fa-solid fa-user-gear"></i> ${copy.account}
                 </a>
-                <div id="navUser" style="display: none; padding: 0.75rem 1rem; color: rgba(255,255,255,0.7); font-size: 0.9rem; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 0.5rem;">
+                <div id="navUser" lang="${copy.lang}" dir="${copy.dir}" style="display: none; padding: 0.75rem 1rem; color: rgba(255,255,255,0.7); font-size: 0.9rem; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 0.5rem;">
                     <span style="display: inline-flex; align-items: center; gap: 0.5rem;">
                         <img id="navUserAvatar" src="" alt="" style="width: 24px; height: 24px; border-radius: 50%; object-fit: cover; display: none; border: 1px solid rgba(255,255,255,0.25);">
                         <i id="navUserIcon" class="fa-solid fa-user" aria-hidden="true"></i>
                         <span id="navUserName"></span>
                     </span>
                 </div>
-                <a href="#" id="navLogout" class="fade" title="Logout" style="display: none;">
-                    <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
+                <a href="#" id="navLogout" class="fade" title="${copy.logoutTitle}" lang="${copy.lang}" dir="${copy.dir}" style="display: none;">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i> ${copy.logout}
                 </a>
             `;
 
@@ -316,10 +349,10 @@
             if (error) throw error;
 
             // Redirect to auth page
-            window.location.href = '/auth.html';
+            window.location.href = `${routePrefix}/auth.html`;
         } catch (error) {
             console.error('Logout error:', error);
-            alert('Failed to logout. Please try again.');
+            alert(copy.logoutFailed);
         }
     }
 

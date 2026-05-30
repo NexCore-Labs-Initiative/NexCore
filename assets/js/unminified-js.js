@@ -18,6 +18,61 @@ async function trackVisit() {
 window.addEventListener("load", trackVisit);
 
 document.addEventListener("DOMContentLoaded", () => {
+  const pageLang = (document.documentElement.getAttribute("lang") || "en").toLowerCase();
+  const isArabic = pageLang.startsWith("ar") || /(^|\/)ar(\/|$)/.test(window.location.pathname);
+  const locale = isArabic ? {
+    lang: "ar",
+    dir: "rtl",
+    formRequired: "يرجى تعبئة جميع الحقول.",
+    formSending: "جارٍ الإرسال...",
+    menuHint: "أنا القائمة",
+    rotator: [
+      `<div class="flag-includes"><img src="../assets/images/oman.webp" alt="علم عمان"><span>صُنع بفخر في عمان</span></div>`,
+      `<div class="flag-includes"><img src="../assets/images/eu.webp" alt="علم الاتحاد الأوروبي"><span>متوافق مع مبادئ GDPR الأوروبية</span></div>`,
+      "الفارق بين الجيد والممتاز هو الاهتمام.",
+      "حقيقي. مفيد. منجز.",
+      "اعرض · اكتشف · تعاون",
+      'محسّن لـ <i class="fa-brands fa-edge" aria-hidden="true"></i> و <i class="fa-brands fa-android" aria-hidden="true"></i>',
+    ],
+  } : {
+    lang: "en",
+    dir: "ltr",
+    formRequired: "Please fill all fields.",
+    formSending: "Sending...",
+    menuHint: "&#x1F44B; I'm the menu",
+    rotator: [
+      `<div class="flag-includes"><img src="assets/images/oman.webp" alt="Oman flag"><span>Proudly Built in Oman</span></div>`,
+      `<div class="flag-includes"><img src="assets/images/eu.webp" alt="EU flag"><span>EU GDPR-aligned</span></div>`,
+      "The margin between good and great is care.",
+      "Real. Useful. Done.",
+      "Showcase • Discover • Collaborate",
+      'Enhanced for <i class="fa-brands fa-edge" aria-hidden="true"></i> & <i class="fa-brands fa-android" aria-hidden="true"></i>',
+    ],
+  };
+
+  function setNotice(message, isError) {
+    if (window.showToast) {
+      window.showToast(message, isError);
+    } else if (notice) {
+      notice.textContent = message;
+      notice.style.display = message ? "" : "none";
+      notice.setAttribute("dir", locale.dir);
+      notice.setAttribute("lang", locale.lang);
+    }
+  }
+
+  function applyLocalizedFormAndModalDirection() {
+    document.querySelectorAll("form, .modal, .modal-overlay, [role='dialog']").forEach((el) => {
+      el.setAttribute("lang", locale.lang);
+      el.setAttribute("dir", locale.dir);
+    });
+
+    document.querySelectorAll("input[type='text'], input[type='search'], input[type='email'], input[type='url'], textarea").forEach((el) => {
+      el.setAttribute("dir", "auto");
+      el.setAttribute("lang", locale.lang);
+    });
+  }
+
   const setupSign = () => {
     const sign = document.querySelector(".nexcore-sign") || document.getElementById("nexcoreSign");
     if (sign) {
@@ -58,6 +113,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const links = document.querySelectorAll("a.fade");
   const searchInput = document.getElementById("projectSearch");
   const projectsContainer = document.getElementById("projects-container");
+
+  applyLocalizedFormAndModalDirection();
 
   // Smooth scroll to the top when the logo is clicked
   const logoTrigger = document.getElementById("logo");
@@ -168,9 +225,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const message = form.message.value.trim();
       if (!name || !email || !message) {
         ev.preventDefault();
-        if (window.showToast) { window.showToast("Please fill all fields.", true); } else if (notice) { notice.textContent = "Please fill all fields."; }
+        setNotice(locale.formRequired, true);
       } else {
-        if (window.showToast) { window.showToast("Sending..."); } else if (notice) { notice.textContent = "Sending..."; }
+        setNotice(locale.formSending);
       }
     });
   }
@@ -192,14 +249,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Changing Text Rotator
   const textElement = document.getElementById("changing-text");
   if (textElement) {
-    const sentences = [
-      `<div class="flag-includes"><img src="assets/images/oman.webp" alt="Oman flag"><span>Proudly Built in Oman</span></div>`,
-      `<div class="flag-includes"><img src="assets/images/eu.webp" alt="EU flag"><span>EU GDPR-aligned</span></div>`,
-      "The margin between good and great is care.",
-      "Real. Useful. Done.",
-      "Showcase • Discover • Collaborate",
-      'Enhanced for <i class="fa-brands fa-edge" aria-hidden="true"></i> & <i class="fa-brands fa-android" aria-hidden="true"></i>',
-    ];
+    const sentences = locale.rotator;
 
     let index = 0;
     textElement.innerHTML = sentences[index];
@@ -220,7 +270,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const hint = document.createElement('span');
     hint.className = 'menu-hint';
     hint.setAttribute('aria-hidden', 'true');
-    hint.innerHTML = '&#x1F44B; I\'m the menu';
+    hint.setAttribute('lang', locale.lang);
+    hint.setAttribute('dir', locale.dir);
+    hint.innerHTML = locale.menuHint;
     coreMenu.parentElement.appendChild(hint);
 
     const removeHint = () => {

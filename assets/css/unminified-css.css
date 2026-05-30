@@ -29,6 +29,17 @@ html {
     overflow-x: hidden
 }
 
+html[lang="ar"] #myDropdown {
+  right: 0;
+  left: auto;
+}
+
+html[lang="ar"] .dropdown-content {
+  right: 0;
+  left: auto;
+  transform-origin: top right;
+}
+
 ::-webkit-scrollbar {
     width: 5px;
     height: 5px
