@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <!-- مدير الموافقة على الكوكيز v2 -->
+  <link rel="stylesheet" href="../assets/css/cookies.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="NexCore Labs">
+  <meta name="keywords" content="NexCore Labs، تطوير الويب، HTML، CSS، JavaScript، الابتكار، التكنولوجيا، المشاريع الإبداعية، عمان، جامعات عمان، كليات عمان، فريق التكنولوجيا الجامعي، تطوير الواجهة الأمامية، جامعة السلطان قابوس">
+  <meta name="theme-color" content="#0a0b1c">
+  <meta name="mobile-web-app-capable" content="yes">
+
+  <title>NexCore Labs - تحويل المشاريع إلى واقع رقمي</title>
+
+  <meta name="description" content="نحن نأخذ مشاريع الطلاب ونحولها إلى صفحات نظيفة وقابلة للنشر — السرعة هي الهدف الرئيسي. نركز على وضوح الرسالة وسرعة التسليم والصيانة.">
+
+  <!-- Meta Tags Facebook -->
+  <meta property="og:url" content="https://nexcorelabs.vercel.app/ar/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="NexCore Labs - تحويل المشاريع إلى واقع رقمي">
+  <meta property="og:description" content="نحن نأخذ مشاريع الطلاب ونحولها إلى صفحات نظيفة وقابلة للنشر — السرعة هي الهدف الرئيسي.">
+  <meta property="og:image" content="https://opengraph.b-cdn.net/production/images/af5a4481-2baa-47be-8838-5160bafa4f79.png?token=_5DjeK6KYgg8DW7Qsk5XfrtI2h_CW3YcCJlwxMJ3sEc&height=1080&width=1080&expires=33306259895">
+
+  <!-- Meta Tags تويتر -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="twitter:domain" content="nexcorelabs.vercel.app">
+  <meta property="twitter:url" content="https://nexcorelabs.vercel.app/ar/">
+  <meta name="twitter:title" content="NexCore Labs - تحويل المشاريع إلى واقع رقمي">
+  <meta name="twitter:description" content="نحن نأخذ مشاريع الطلاب ونحولها إلى صفحات نظيفة وقابلة للنشر — السرعة هي الهدف الرئيسي.">
+  <meta name="twitter:image" content="https://opengraph.b-cdn.net/production/images/af5a4481-2baa-47be-8838-5160bafa4f79.png?token=_5DjeK6KYgg8DW7Qsk5XfrtI2h_CW3YcCJlwxMJ3sEc&height=1080&width=1080&expires=33306259895">
+
+  <link rel="icon" href="../assets/images/nexcore-icon.png" type="image/png">
+
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/admin-button.css">
+  <link rel="stylesheet" href="../assets/css/ai-chat.css">
+  <link rel="stylesheet" href="../assets/css/arabic.css">
+
+  <link rel="manifest" href="../manifest.json">
+  <link rel="apple-touch-icon" href="../assets/images/nexcore-logo.webp">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.2/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.2/uicons-brands/css/uicons-brands.css'>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <link rel="alternate" hreflang="en" href="../index.html">
+  <link rel="alternate" hreflang="ar" href="index.html">
+
+  <style>
+    #toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(16px);border: 2px solid rgba(255, 255, 255, 0.06);background: rgba(10, 11, 28, 0.6);color:#6ee7f3;padding:10px 22px;border-radius:12px;font-size:.875rem;font-weight:500;z-index:10001;opacity:0;pointer-events:none;transition:opacity .22s,transform .22s;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);max-width:min(420px,90vw);text-align:center;box-shadow:0 8px 32px rgba(0,0,0,.55);white-space:pre-line;}
+    #toast.show{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:all;}
+    #toast.error{border-color:rgba(255,120,120,.28);color:#ff7878;}
+  </style>
+</head>
+
+<body>
+
+  <div class="background">
+    <img class="logo-img" id="logoImg" src="../assets/images/nexcore-logo.webp" alt="شعار NexCore Labs">
+    <div id="spotLight" class="spot-light"></div>
+  </div>
+
+  <header class="navbar">
+    <div class="nav-container">
+      <div class="logo">
+        <h1 id="logo">NexCore <span>Labs</span></h1>
+      </div>
+
+      <div class="dropdown">
+        <div class="core-menu" id="coreMenu" aria-label="فتح القائمة" title="القائمة">
+          <span class="dot" aria-hidden="true"></span>
+          <span class="dot" aria-hidden="true"></span>
+          <span class="dot" aria-hidden="true"></span>
+          <span class="dot" aria-hidden="true"></span>
+          <span class="dot" aria-hidden="true"></span>
+          <span class="dot" aria-hidden="true"></span>
+        </div>
+
+        <div id="myDropdown" class="dropdown-content">
+          <a href="../index.html" style="color: #6ee7f3;"><i class="fa-solid fa-globe"></i> English</a>
+          <input type="search" placeholder="ابحث..." id="myInput" onkeyup="filterFunction()" title="بحث...">
+
+          <a href="auth.html" class="magic-signup fade" title="تسجيل الدخول إلى حسابك"><i class="fa-solid fa-key"></i> الوصول إلى النواة</a>
+          <a href="hub.html" class="fade" title="مركز NexCore Labs"><i class="fa-solid fa-house"></i> المركز</a>
+          <a href="hub.html#projects" class="fade" title="المشاريع"><i class="fa-solid fa-diagram-project"></i> المشاريع</a>
+          <a href="ai-chat.html" class="fade" title="مساعد NexCore الذكي" style="color:#6ee7f3;"><i class="fa-solid fa-wand-magic-sparkles"></i> NexCore AI</a>
+
+          <div class="div-menu-line"></div>
+
+          <a href="index.html#tools" class="mt-0" title="الأدوات والأنظمة"><i class="fa-solid fa-screwdriver-wrench"></i> الأدوات والأنظمة</a>
+          <a href="index.html#about" title="حول NexCore Labs"><i class="fa-solid fa-circle-info"></i> من نحن</a>
+          <a href="index.html#team" title="فريق NexCore Labs"><i class="fa-solid fa-users"></i> الفريق</a>
+          <a href="index.html#contact" title="اتصل بـ NexCore Labs"><i class="fa-solid fa-paper-plane"></i> اتصل بنا</a>
+
+          <div class="div-menu-line"></div>
+
+          <a href="roadmap.html" class="fade mt-0" title="لوحة الميزات والخريطة"><i class="fa-solid fa-route"></i> لوحة الميزات</a>
+          <a href="releases.html" class="fade" title="الإصدارات والتحديثات"><i class="fa-solid fa-clock-rotate-left"></i> الإصدارات والتحديثات</a>
+
+          <div class="div-menu-line"></div>
+
+          <a href="pricing.html" class="fade mt-0" title="خطط التسعير"><i class="fa-solid fa-tag"></i> التسعير <span class="new-badge">جديد</span></a>
+          <a href="faq.html" class="fade" title="الأسئلة الشائعة والدعم"><i class="fa-solid fa-circle-question"></i> الأسئلة الشائعة</a>
+          <a href="how-to-use.html" class="fade" title="كيفية استخدام NexCore Labs"><i class="fa-solid fa-book-open"></i> كيفية الاستخدام</a>
+          <a href="terms.html" class="fade" title="شروط الخدمة"><i class="fa-solid fa-file-contract"></i> الشروط</a>
+          <a href="privacy-policy.html" class="fade" title="سياسة الخصوصية"><i class="fa-solid fa-shield-halved"></i> الخصوصية</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- البطل -->
+    <section id="home" class="hero">
+      <div class="hero-inner container">
+        <div class="hero-left">
+          <h1 class="title">في قلب كل فكرة</h1>
+
+          <p class="lead">NexCore Labs — حلول رقمية مدفوعة بالطلاب، نماذج أولية سريعة وعروض مصقولة لمشاريع طلاب جامعات وكليات عمان.</p>
+
+          <div class="hero-actions">
+            <a class="btn primary" href="index.html#about">تعرف أكثر</a>
+            <a class="btn ghost fade" href="hub.html">فتح المركز</a>
+          </div>
+
+          <div class="tiny" id="changing-text" aria-live="polite"></div>
+        </div>
+
+        <div class="hero-right">
+          <div class="glass-card" id="glassCard">
+            <div class="card-wave"></div>
+
+            <div class="card-content">
+              <h4>المبادرات الحالية</h4>
+
+              <p class="muted">التخطيط · التطوير · المراقبة</p>
+
+              <div class="kpis">
+                <a href="hub.html#projects">
+                  <div class="stat"><strong id="projectCount">00+</strong><span><i
+                        class="fa-solid fa-diagram-project"></i> مشاريع</span>
+                    <div class="tooltip">جميع المشاريع النشطة حالياً</div>
+                  </div>
+                </a>
+
+                <div class="stat"><strong id="tasks">580+</strong><span><i class="fa-solid fa-bars-progress"></i>
+                    مهام</span>
+                  <div class="tooltip">لقد أكملنا 580+ عنصر قابل للتنفيذ</div>
+                </div>
+
+                <div class="stat"><strong id="support">48 ساعة</strong><span><i class="fa-solid fa-headset"></i>
+                    الدعم</span>
+                  <div class="tooltip">يرد فريق الدعم خلال 48 ساعة</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-orbit" id="bgOrbit" aria-hidden="true"></div>
+    </section>
+
+    <!-- من نحن -->
+    <section id="about" class="panel">
+      <div class="container">
+        <h2 class="section-title">حول NexCore Labs</h2>
+
+        <p class="section-lead">نحن نأخذ مشاريع الطلاب ونحولها إلى صفحات نظيفة وقابلة للنشر — السرعة هي الهدف الرئيسي. نركز على وضوح الرسالة وسرعة التسليم والصيانة.</p>
+
+        <div class="cards-grid">
+          <article class="info-card reveal">
+            <div class="ic-ico"><i class="fa-solid fa-bullseye text-accent"></i></div>
+
+            <h3>التركيز</h3>
+
+            <p>نستخلص الفكرة الأساسية ننشئ سردية رقمية موجزة.</p>
+          </article>
+
+          <article class="info-card reveal">
+            <div class="ic-ico"><i class="fa-solid fa-bolt text-accent"></i></div>
+
+            <h3>السرعة</h3>
+
+            <p>نموذج أولي سريع، تكرار سريع وإطلاق صفحات مستقرة.</p>
+          </article>
+
+          <article class="info-card reveal">
+            <div class="ic-ico"><i class="fa-solid fa-hand-holding-hand text-accent"></i></div>
+
+            <h3>الاهتمام</h3>
+
+            <p>أساسيات الأمان، فحوصات الأداء والتوثيق البسيط.</p>
+          </article>
+
+          <article class="info-card reveal">
+            <div class="ic-ico"><img src="../assets/images/squ-logo.webp" alt="شعار جامعة السلطان قابوس" width="65"></div>
+
+            <h3>جامعة السلطان قابوس</h3>
+
+            <p>تأسست في جامعة السلطان قابوس، الآن مفتوحة لجميع طلاب جامعات وكليات عمان</p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- الأدوات والأنظمة -->
+    <section id="tools" class="panel">
+      <div class="container">
+        <h2 class="section-title">الأدوات والأنظمة الأساسية</h2>
+
+        <p class="section-lead">استكشف التقنيات التي تعمل على تشغيل مشاريعنا وسير عملنا.</p>
+
+        <div class="tools-grid reveal">
+          <div class="tool-card" title="ChatGPT"><span>ChatGPT</span><img src="../assets/images/openai.webp" loading="lazy" alt="ChatGPT"></div>
+          <div class="tool-card" title="Claude by Anthropic"><span>Claude</span><img src="../assets/images/claude.webp" loading="lazy" alt="Claude by Anthropic"></div>
+          <div class="tool-card" title="Grok from xAI"><span>Grok</span><img src="../assets/images/grok.webp" loading="lazy" alt="Grok AI"></div>
+          <div class="tool-card" title="Google Gemini"><span>Google Gemini</span><img src="../assets/images/google-gemini.webp" loading="lazy" alt="Google Gemini"></div>
+          <div class="tool-card" title="Google AI Studio"><span>Google AI Studio</span><img src="../assets/images/google-aistudio.webp" loading="lazy" alt="Google AI Studio"></div>
+          <div class="tool-card" title="Google Cloud Console"><span>Google Cloud</span><img src="../assets/images/google-could-console.webp" loading="lazy" alt="Google Cloud Console"></div>
+          <div class="tool-card" title="Microsoft Copilot"><span>Copilot</span><img src="../assets/images/ms-copilot.webp" loading="lazy" alt="Microsoft Copilot"></div>
+          <div class="tool-card" title="GitHub"><span>GitHub</span><img src="../assets/images/github.webp" loading="lazy" alt="GitHub"></div>
+          <div class="tool-card" title="Vercel"><span>Vercel</span><img src="../assets/images/vercel.webp" loading="lazy" alt="Vercel"></div>
+          <div class="tool-card" title="Visual Studio Code"><span>VS Code</span><img src="../assets/images/vscode.webp" loading="lazy" alt="VS Code"></div>
+          <div class="tool-card" title="Supabase"><span>Supabase</span><img src="../assets/images/supabase.webp" loading="lazy" alt="Supabase"></div>
+          <div class="tool-card" title="Google Analytics"><span>Analytics</span><img src="../assets/images/googleanalytics.webp" loading="lazy" alt="Google Analytics"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- الفريق -->
+    <section id="team" class="panel dark">
+      <div class="container">
+        <h2 class="section-title">الفريق</h2>
+
+        <p class="section-lead">لدينا فريق متميز مدفوع بالطموح.</p>
+
+        <div class="team-grid reveal">
+
+          <!-- الرئيس -->
+          <p class="team-tier-label">الرئيس</p>
+          <div class="team-row team-row--chairman">
+            <div class="member">
+              <div class="avatar"><a href="https://blinq.me/cmgiwe8wn01zhs60mfmiu60fj" target="_blank" rel="noopener"
+                  title="ملف تواصل الفارس مجاهد الزكواني"><img src="../assets/images/ceopic.webp"
+                    alt="صورة الرئيس - الفارس مجاهد الزكواني" width="60"></a></div>
+
+              <h4>الفارس مجاهد الزكواني<br><sup>الرئيس</sup></h4>
+
+              <p class="muted">مدير المشروع والمطور الرئيسي</p>
+
+              <a class="social" href="https://x.com/AlFarisMujahid_" target="_blank" rel="noopener"><i
+                  class="fa-brands fa-x-twitter" title="X"></i></a>
+              <a class="social" href="https://github.com/faris-zak" target="_blank" rel="noopener"><i
+                  class="fa-brands fa-github" title="GitHub"></i></a>
+              <a class="social" href="https://g.dev/Al-FarisAlZakwani" target="_blank" rel="noopener"><i
+                  class="fi fi-brands-google" title="Google Dev"></i></a>
+            </div>
+          </div>
+
+          <!-- أعضاء الفريق -->
+          <p class="team-tier-label">الفريق</p>
+          <div class="team-row team-row--members">
+            <div class="member">
+              <div class="avatar"><a href="https://blinq.me/cmgj73hwc03qss60m11k9dxi2" target="_blank" rel="noopener"
+                  title="ملف تواصل المختار العبري"><i class="fa-solid fa-lightbulb"></i></a></div>
+
+              <h4>المختار العبري<br><sup>تكنولوجيا المعلومات والذكاء التجاري</sup></h4>
+
+              <p class="muted">منسق الفريق</p>
+            </div>
+
+            <div class="member">
+              <div class="avatar"><a href="https://blinq.me/cmgj7rwqz0hies60mmtf2i2f6" target="_blank" rel="noopener"
+                  title="ملف تواصل طلال الكلباني"><i class="fa-solid fa-lightbulb"></i></a></div>
+
+              <h4>طلال الكلباني<br><sup>العمليات التقنية</sup></h4>
+
+              <p class="muted">المهندس التقني</p>
+            </div>
+
+            <div class="member">
+              <div class="avatar"><a href="https://blinq.me/cmgvx2o9703lrs60mmrehgetc" target="_blank" rel="noopener"
+                  title="ملف تواصل محمد الحراسي"><i class="fa-solid fa-lightbulb"></i></a></div>
+
+              <h4>محمد الحراسي<br><sup>الإعلام والاتصالات</sup></h4>
+
+              <p class="muted">مدير الإعلام</p>
+            </div>
+
+            <div class="member">
+              <div class="avatar"><a href="https://blinq.me/cmgj6pduk01mbs60lca2kz7xf" target="_blank" rel="noopener"
+                  title="ملف تواصل محمد العاصمي"><i class="fa-solid fa-lightbulb"></i></a></div>
+
+              <h4>محمد العاصمي<br><sup>البيانات والتحليلات</sup></h4>
+
+              <p class="muted">محلل البيانات</p>
+            </div>
+
+            <div class="member">
+              <div class="avatar"><a href="https://blinq.me/cmgw32zrr5lzfs60tp73sssot" target="_blank" rel="noopener"
+                  title="ملف تواصل سلطان الشبلي"><i class="fa-solid fa-lightbulb"></i></a></div>
+
+              <h4>سلطان الشبلي<br><sup>البحث والابتكار</sup></h4>
+
+              <p class="muted">الباحث والمفكر</p>
+            </div>
+          </div>
+
+          <!-- استشاريون الذكاء الاصطناعي -->
+          <p class="team-tier-label">استشاريو الذكاء الاصطناعي</p>
+          <div class="team-row team-row--ai">
+            <div class="member">
+              <div class="avatar"><a href="https://openai.com/" target="_blank" rel="noopener" title="ChatGPT"><img src="../assets/images/openai.webp" alt="ChatGPT" width="60"></a></div>
+
+              <h4>ChatGPT<br><sup>استشاري ذكاء اصطناعي</sup></h4>
+
+              <p class="muted">استشاري نخبة</p>
+            </div>
+
+            <div class="member">
+              <div class="avatar"><a href="https://www.anthropic.com/" target="_blank" rel="noopener" title="Claude by Anthropic"><img src="../assets/images/claude.webp" alt="Claude by Anthropic" width="60"></a></div>
+
+              <h4>Claude<br><sup>مطور ذكاء اصطناعي</sup></h4>
+
+              <p class="muted">مطور متقدم</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- التواصل -->
+    <section id="contact" class="panel contact-panel">
+      <div class="container">
+        <h2 class="section-title">التواصل</h2>
+
+        <p class="section-lead">أرسل لنا رسالة قصيرة — سنرد عليك.</p>
+
+        <div class="contact-grid">
+          <div class="contact-card reveal">
+            <p>عمان · جامعة السلطان قابوس</p>
+
+            <div class="socials">
+              <a class="social" href="https://github.com/NexCoreLabs" target="_blank" rel="noopener" title="GitHub"><i
+                  class="fa-brands fa-github"></i></a>
+              <a class="social" href="https://x.com/nexcorelabs" target="_blank" rel="noopener" title="X (Twitter)"><i
+                  class="fa-brands fa-x-twitter"></i></a>
+              <a class="social" href="https://instagram.com/nexcorelabs" target="_blank" rel="noopener"
+                title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+              <a class="social" href="https://wa.link/2vs9an" target="_blank" rel="noopener" title="WhatsApp"><i
+                  class="fi fi-brands-whatsapp"></i></a>
+            </div>
+
+            <a class="social discord" href="https://discord.gg/ExtGSwy5Pn" target="_blank" rel="noopener" title="Discord">انضم إلى خادم <i
+                class="fa-brands fa-discord"></i></a>
+          </div>
+
+          <form id="contactForm" class="contact-form reveal" action="https://api.web3forms.com/submit" method="POST">
+            <input type="hidden" name="access_key" value="ba811578-09f0-4f90-b1eb-7acc03fe745d">
+
+            <input type="hidden" name="from_name" value="NexCore Website - AR">
+
+            <input type="hidden" name="subject" value="رسالة جديدة من موقع NexCore">
+
+            <input type="hidden" name="redirect" value="https://nexcorelabs.vercel.app/ar/thanks.html">
+
+            <input type="checkbox" name="botcheck" class="hidden" title="فحص البوت">
+
+            <label class="field">
+              <input name="name" id="name" type="text" placeholder="اسمك" autocomplete="given-name">
+            </label>
+
+            <label class="field">
+              <input name="email" id="email" type="email" placeholder="بريدك الإلكتروني" autocomplete="off" required>
+            </label>
+
+            <label class="field">
+              <textarea name="message" id="message" rows="4" placeholder="رسالتك إلى nexcorelabs@outlook.com"
+                autocomplete="off" required></textarea>
+            </label>
+
+            <div class="form-actions">
+              <button type="submit" class="btn primary">إرسال الرسالة</button>
+
+              <button type="reset" id="resetBtn" class="btn ghost">إعادة تعيين</button>
+            </div>
+
+            <p class="notice" id="formNotice" aria-live="polite" style="display:none"></p>
+          </form>
+
+        </div>
+      </div>
+    </section>
+
+    <div class="nexcore-sign">
+      <img id="nexcoreSign" src="../assets/images/nexcore-word.webp" alt="NexCore Labs">
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="f-left">
+        <a class="paypal" href="https://www.paypal.me/nexcorelabs" target="_blank" rel="noopener" title="PayPal"><i
+            class="fa-solid fa-heart text-accent"></i> ادعمنا على <i class="fa-brands fa-paypal"></i></a>
+
+        <br>
+
+        <small title="جميع الحقوق محفوظة">NexCore Labs © <span id="year"></span> <span id="splitter">|</span>
+
+          <a href="https://github.com/NexCoreLabs/NexCore/blob/main/LICENSE" target="_blank" rel="noopener"
+            class="license-link">
+
+            <i class="fa-solid fa-scale-balanced"></i> MIT License
+
+          </a>
+        </small>
+
+      </div>
+
+      <div class="f-right"><small>نجحنا في التصميم :)</small></div>
+    </div>
+  </footer>
+
+  <script src="../assets/js/script.js"></script>
+  <script src="../assets/js/supabase-client.js"></script>
+  <script src="../assets/js/auth-ui-db.js"></script>
+  <script src="../assets/js/ai-chat.js"></script>
+  <script src="../version.js"></script>
+
+  <script>
+    async function updateProjectCount() {
+      const sb = window.supabaseClient;
+      const countElement = document.getElementById('projectCount');
+      if (!countElement) {
+        console.error('projectCount element not found');
+        return;
+      }
+      try {
+        const { count, error } = await sb
+          .from('projects')
+          .select('*', { count: 'exact', head: true })
+          .eq('published', true);
+
+        if (error) {
+          console.error('Error fetching projects count:', error);
+          countElement.textContent = '--';
+          return;
+        }
+
+        const finalCount = count || 0;
+        animateCount(countElement, 0, finalCount, 1000);
+      } catch (err) {
+        console.error('Unexpected error fetching projects count:', err);
+        countElement.textContent = '--';
+      }
+    }
+
+    function animateCount(element, start, end, duration) {
+      const startTime = performance.now();
+      const range = end - start;
+      function updateCount(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const easeOut = 1 - Math.pow(1 - progress, 3);
+        const current = Math.floor(start + range * easeOut);
+        const formatted = current.toString().padStart(2, '0') + '+';
+        element.textContent = formatted;
+        if (progress < 1) {
+          requestAnimationFrame(updateCount);
+        } else {
+          element.textContent = end.toString().padStart(2, '0') + '+';
+        }
+      }
+      requestAnimationFrame(updateCount);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', updateProjectCount);
+    } else {
+      updateProjectCount();
+    }
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', async () => {
+        try {
+          const reg = await navigator.serviceWorker.register('../service-worker.js', { scope: '/' });
+          console.log('Service Worker registered:', reg);
+        } catch (e) {
+          console.warn('Service Worker registration failed:', e);
+        }
+      });
+    }
+  </script>
+
+  <script>
+    (function(){
+      let _t=null;
+      window.showToast=function(text,isError){
+        if(!text)return;
+        var el=document.getElementById('toast');
+        el.textContent=text;
+        el.className='show'+(isError?' error':'');
+        clearTimeout(_t);
+        _t=setTimeout(function(){el.classList.remove('show');},3800);
+      };
+    })();
+  </script>
+
+  <script src="../assets/js/cookies.js" defer></script>
+
+  <div id="toast" role="alert" aria-live="assertive"></div>
+
+</body>
+
+</html>
