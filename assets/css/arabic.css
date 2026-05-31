@@ -89,3 +89,11 @@
 :lang(ar) {
   line-height: 1.8;
 }
+
+:lang(ar) .privacy-section {
+  text-align: right
+}
+
+:lang(ar) .contact-form {
+  text-align: center;
+}

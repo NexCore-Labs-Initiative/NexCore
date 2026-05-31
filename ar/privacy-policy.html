@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <link rel="stylesheet" href="../assets/css/cookies.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="NexCore Labs">
+  <meta name="keywords" content="مختبرات نكسكور، سياسة الخصوصية، عمان، جامعة السلطان قابوس، حماية البيانات">
+  <meta name="theme-color" content="#0a0b1c">
+  <meta name="mobile-web-app-capable" content="yes">
+
+  <title>مختبرات نكسكور | سياسة الخصوصية</title>
+  <meta name="description" content="سياسة الخصوصية الخاصة بمختبرات نكسكور وكيفية التعامل مع البيانات والكوكيز.">
+
+  <meta property="og:url" content="https://nexcorelabs.vercel.app/ar/privacy-policy.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="مختبرات نكسكور | سياسة الخصوصية">
+  <meta property="og:description" content="سياسة الخصوصية الخاصة بمختبرات نكسكور وكيفية التعامل مع البيانات والكوكيز.">
+  <meta property="og:image" content="https://opengraph.b-cdn.net/production/images/af5a4481-2baa-47be-8838-5160bafa4f79.png?token=_5DjeK6KYgg8DW7Qsk5XfrtI2h_CW3YcCJlwxMJ3sEc&height=1080&width=1080&expires=33306259895">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="twitter:domain" content="nexcorelabs.vercel.app">
+  <meta property="twitter:url" content="https://nexcorelabs.vercel.app/ar/privacy-policy.html">
+  <meta name="twitter:title" content="مختبرات نكسكور | سياسة الخصوصية">
+  <meta name="twitter:description" content="سياسة الخصوصية الخاصة بمختبرات نكسكور وكيفية التعامل مع البيانات والكوكيز.">
+  <meta name="twitter:image" content="https://opengraph.b-cdn.net/production/images/af5a4481-2baa-47be-8838-5160bafa4f79.png?token=_5DjeK6KYgg8DW7Qsk5XfrtI2h_CW3YcCJlwxMJ3sEc&height=1080&width=1080&expires=33306259895">
+
+  <link rel="stylesheet" href="../assets/css/unminified-css.css">
+
+  <link rel="icon" href="../assets/images/nexcore-icon.png" type="image/png">
+  <!-- <link rel="stylesheet" href="../assets/css/style.css"> -->
+  <link rel="stylesheet" href="../assets/css/admin-button.css">
+  <link rel="stylesheet" href="../assets/css/arabic.css">
+  <link rel="manifest" href="../manifest.json">
+  <link rel="apple-touch-icon" href="../assets/images/nexcore-logo.webp">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <link rel="alternate" hreflang="en" href="../privacy-policy.html">
+  <link rel="alternate" hreflang="ar" href="privacy-policy.html">
+</head>
+
+<body>
+  <div class="background">
+    <img class="logo-img" id="logoImg" src="../assets/images/nexcore-logo.webp" alt="شعار مختبرات نكسكور">
+    <div id="spotLight" class="spot-light"></div>
+  </div>
+
+  <header class="navbar">
+    <div class="nav-container">
+      <div class="logo">
+        <h1 id="logo"><a href="index.html" style="text-decoration:none;color:inherit;">NexCore <span>Labs</span></a></h1>
+      </div>
+
+      <div class="dropdown">
+        <div class="core-menu" id="coreMenu" aria-label="فتح القائمة" title="القائمة">
+          <span class="dot" aria-hidden="true"></span>
+          <span class="dot" aria-hidden="true"></span>
+          <span class="dot" aria-hidden="true"></span>
+          <span class="dot" aria-hidden="true"></span>
+          <span class="dot" aria-hidden="true"></span>
+          <span class="dot" aria-hidden="true"></span>
+        </div>
+
+        <div id="myDropdown" class="dropdown-content">
+          <a href="../privacy-policy.html" style="color:#6ee7f3;"><i class="fa-solid fa-globe"></i> English</a>
+          <input type="search" placeholder="ابحث..." id="myInput" onkeyup="filterFunction()" title="بحث...">
+
+          <a href="/ar/auth.html" class="magic-signup fade" title="تسجيل الدخول إلى حسابك"><i class="fa-solid fa-key"></i> استكشف الجوهر</a>
+          <a href="hub.html" class="fade" title="مركز NexCore Labs"><i class="fa-solid fa-house"></i> المركز</a>
+          <a href="hub.html#projects" class="fade" title="المشاريع"><i class="fa-solid fa-diagram-project"></i> المشاريع</a>
+          <a href="ai-chat.html" class="fade" title="مساعد NexCore الذكي" style="color:#6ee7f3;"><i class="fa-solid fa-wand-magic-sparkles"></i> NexCore AI</a>
+
+          <div class="div-menu-line"></div>
+
+          <a href="index.html#tools" class="mt-0" title="الأدوات والأنظمة"><i class="fa-solid fa-screwdriver-wrench"></i> الأدوات والأنظمة</a>
+          <a href="index.html#about" title="حول NexCore Labs"><i class="fa-solid fa-circle-info"></i> من نحن</a>
+          <a href="index.html#team" title="فريق NexCore Labs"><i class="fa-solid fa-users"></i> الفريق</a>
+          <a href="index.html#contact" title="اتصل بنا"><i class="fa-solid fa-paper-plane"></i> اتصل بنا</a>
+
+          <div class="div-menu-line"></div>
+
+          <a href="roadmap.html" class="fade mt-0" title="لوحة الميزات"><i class="fa-solid fa-route"></i> لوحة الميزات</a>
+          <a href="releases.html" class="fade" title="الإصدارات والتحديثات"><i class="fa-solid fa-clock-rotate-left"></i> الإصدارات والتحديثات</a>
+          <a href="pricing.html" class="fade" title="خطط التسعير"><i class="fa-solid fa-tag"></i> التسعير <span class="new-badge">جديد</span></a>
+          <a href="faq.html" class="fade" title="الأسئلة الشائعة"><i class="fa-solid fa-circle-question"></i> الأسئلة الشائعة</a>
+          <a href="how-to-use.html" class="fade" title="كيفية الاستخدام"><i class="fa-solid fa-book-open"></i> كيفية الاستخدام</a>
+          <a href="terms.html" class="fade" title="شروط الخدمة"><i class="fa-solid fa-file-contract"></i> الشروط</a>
+          <a href="privacy-policy.html" class="fade" title="سياسة الخصوصية"><i class="fa-solid fa-shield-halved"></i> الخصوصية</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="panel container" style="padding-bottom:0;margin-bottom:0;">
+    <h1>سياسة الخصوصية</h1>
+
+    <div class="last-updated">آخر تحديث: 3 فبراير 2026</div>
+
+    <div class="privacy-section">
+      <h2>ما البيانات التي نجمعها؟</h2>
+      <ul>
+        <li>بيانات الاستخدام مثل مشاهدات الصفحات والتوقيتات عبر Google Analytics، ولا يتم ذلك إلا بعد موافقتك الصريحة.</li>
+        <li>البيانات التي ترسلها طوعاً عبر النماذج، مثل الاسم والبريد الإلكتروني والرسالة.</li>
+        <li>سجلات تقنية مرتبطة بالاستضافة وتشغيل الخدمة، مثل سجلات الخادم.</li>
+      </ul>
+    </div>
+
+    <div class="privacy-section">
+      <h2>لماذا نجمع البيانات؟</h2>
+      <p>نستخدم التحليلات لفهم طريقة استخدام الموقع وتحسين الأداء وإمكانية الوصول وتجربة المستخدم. أما بيانات نموذج التواصل فتستخدم فقط للرد على طلبك.</p>
+    </div>
+
+    <div class="privacy-section">
+      <h2>الأساس القانوني</h2>
+      <p>عند الحاجة بموجب قوانين الاتحاد الأوروبي، نعتمد على <strong>موافقتك</strong> كأساس قانوني لجمع بيانات التحليلات. يمكنك قبول أو رفض كوكيز التحليلات من نافذة الكوكيز، ويمكنك سحب موافقتك في أي وقت.</p>
+    </div>
+
+    <div class="privacy-section">
+      <h2>مزودو الخدمات الخارجيون</h2>
+      <ul>
+        <li>Google LLC — خدمة Google Analytics 4 بمعرف القياس G-PYZB5L2R8W. يتم تحميلها فقط عند قبول كوكيز التحليلات، مع تفعيل إخفاء عنوان IP وتعطيل تخصيص الإعلانات.</li>
+        <li>مزود الاستضافة Vercel / CDN — لتقديم محتوى الموقع. قد تحتوي سجلات الاستضافة على معلومات تقنية مثل عنوان IP وتوقيت الطلب، وتستخدم لأغراض الأمان والتوفر.</li>
+      </ul>
+    </div>
+
+    <div class="privacy-section">
+      <h2>حقوقك المتعلقة بالخصوصية</h2>
+      <ul>
+        <li><strong>الوصول:</strong> طلب نسخة من أي بيانات شخصية نحتفظ بها عنك.</li>
+        <li><strong>التصحيح:</strong> طلب تصحيح البيانات غير الدقيقة أو غير المكتملة.</li>
+        <li><strong>الحذف:</strong> طلب حذف بياناتك الشخصية عندما لا يوجد أساس قانوني آخر للاحتفاظ بها.</li>
+        <li><strong>سحب الموافقة:</strong> يمكنك سحب موافقتك على التحليلات في أي وقت باستخدام زر الكوكيز أدناه.</li>
+      </ul>
+
+      <p>لممارسة أي من هذه الحقوق، تواصل معنا عبر <a href="mailto:nexcorelabs@outlook.com">nexcorelabs@outlook.com</a> مع توفير معلومات كافية لتحديد البيانات المطلوبة.</p>
+    </div>
+
+    <div class="privacy-section" style="text-align:center;margin-bottom:60px;margin-top:40px;">
+      <button id="withdraw-consent" class="btn ghost">سحب موافقة الكوكيز</button>
+      <small style="display:block;margin-top:8px;color:#666">سيؤدي هذا إلى حذف الموافقة المخزنة ومسح كوكيز التحليلات الشائعة ثم إعادة تحميل الصفحة.</small>
+    </div>
+
+    <div class="nexcore-sign" style="margin-top:40px;">
+      <img id="nexcoreSign" src="../assets/images/nexcore-word.webp" alt="NexCore Labs">
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="f-left">
+        <a class="paypal" href="https://www.paypal.me/nexcorelabs" target="_blank" rel="noopener" title="بايبال"><i class="fa-solid fa-heart" style="color:#6EE7F3;"></i> ادعمنا على <i class="fa-brands fa-paypal"></i></a>
+        <br>
+        <small title="جميع الحقوق محفوظة">مختبرات نكسكور © <span id="year"></span> <span id="splitter">|</span>
+          <a href="https://github.com/NexCoreLabs/NexCore/blob/main/LICENSE" target="_blank" rel="noopener" class="license-link">
+            <i class="fa-solid fa-scale-balanced"></i> رخصة إم آي تي
+          </a>
+        </small>
+      </div>
+      <div class="f-right footer-line"></div>
+    </div>
+  </footer>
+
+  <script src="../assets/js/script.js"></script>
+  <script src="../assets/js/supabase-client.js"></script>
+  <script src="../assets/js/auth-ui-db.js"></script>
+  <script src="../version.js"></script>
+  <script>
+    document.getElementById('withdraw-consent')?.addEventListener('click', () => {
+      if (window.nexcoreConsent && typeof window.nexcoreConsent.reset === 'function') {
+        window.nexcoreConsent.reset();
+      } else {
+        localStorage.removeItem('nexcore_cookie_preferences');
+        location.reload();
+      }
+    });
+  </script>
+  <script src="../assets/js/cookies.js" defer></script>
+</body>
+
+</html>

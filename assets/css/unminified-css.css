@@ -1025,7 +1025,8 @@ a.project-card:hover .id {
 .contact-form {
     padding: 18px;
     border-radius: 12px;
-    background: none
+    background: none;
+    border: 1px solid hsla(0, 0%, 100%, .03);
 }
 
 .field {
