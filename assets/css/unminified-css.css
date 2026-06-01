@@ -1002,20 +1002,24 @@ a.project-card:hover .id {
 
 .socials {
     display: flex;
-    gap: 10px;
+    gap: 8px;
     margin-top: 12px;
-    justify-content: center
+    justify-content: center;
+    white-space: nowrap;
+    line-height: 1;
 }
 
 .social.discord {
-    font-size: 14px
+    font-size: 16px;
+    margin-top: 16px;
 }
 
 .social {
     display: inline-block;
     font-size: 22px;
     color: var(--muted);
-    transition: color .3s
+    transition: color .3s;
+    line-height: 0;
 }
 
 .social:hover {
@@ -3347,6 +3351,7 @@ strong {
     z-index: 1;
     transition-duration: 0.3s;
     font-size: 1.04em;
+    margin: 0;
 }
 
 .bookmarkBtn:hover .IconContainer {
