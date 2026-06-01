@@ -32,7 +32,9 @@
 
   <link rel="icon" href="../assets/images/nexcore-icon.png" type="image/png">
 
-  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/unminified-css.css">
+
+  <!-- <link rel="stylesheet" href="../assets/css/style.css"> -->
   <link rel="stylesheet" href="../assets/css/admin-button.css">
   <link rel="stylesheet" href="../assets/css/ai-chat.css">
   <link rel="stylesheet" href="../assets/css/arabic.css">
@@ -82,7 +84,12 @@
         </div>
 
         <div id="myDropdown" class="dropdown-content">
-          <a href="../index.html" style="color: #6ee7f3;"><i class="fa-solid fa-globe"></i> English</a>
+          <a href="../index.html" class="lang-switch-pill" title="View English site">
+              <div class="pill-slider"></div>
+              <span class="pill-text en-text"><img src="../assets/images/uk.webp" alt="United Kingdom flag"> EN</span>
+              <span class="pill-text ar-text"><img src="../assets/images/oman.webp" alt="Oman flag"> ع</span>
+          </a>
+
           <input type="search" placeholder="ابحث..." id="myInput" onkeyup="filterFunction()" title="بحث...">
 
           <a href="/ar/auth.html" class="magic-signup fade" title="تسجيل الدخول إلى حسابك"><i class="fa-solid fa-key"></i> استكشف الجوهر</a>
@@ -142,20 +149,20 @@
 
               <div class="kpis">
                 <a href="hub.html#projects">
-                  <div class="stat"><strong id="projectCount">00+</strong><span><i
+                  <div class="stat"><strong id="projectCount">٠٠+</strong><span><i
                         class="fa-solid fa-diagram-project"></i> مشاريع</span>
                     <div class="tooltip">جميع المشاريع النشطة حالياً</div>
                   </div>
                 </a>
 
-                <div class="stat"><strong id="tasks">580+</strong><span><i class="fa-solid fa-bars-progress"></i>
+                <div class="stat"><strong id="tasks">٥٨٠+</strong><span><i class="fa-solid fa-bars-progress"></i>
                     مهام</span>
-                  <div class="tooltip">لقد أكملنا 580+ عنصر قابل للتنفيذ</div>
+                  <div class="tooltip">لقد أكملنا ٥٨٠+ عنصر قابل للتنفيذ</div>
                 </div>
 
-                <div class="stat"><strong id="support">48 ساعة</strong><span><i class="fa-solid fa-headset"></i>
+                <div class="stat"><strong id="support">٤٨ ساعة</strong><span><i class="fa-solid fa-headset"></i>
                     الدعم</span>
-                  <div class="tooltip">يرد فريق الدعم خلال 48 ساعة</div>
+                  <div class="tooltip">يرد فريق الدعم خلال ٤٨ ساعة</div>
                 </div>
               </div>
             </div>
@@ -437,6 +444,17 @@
 
             <a class="social discord" href="https://discord.gg/ExtGSwy5Pn" target="_blank" rel="noopener" title="Discord">انضم إلى خادم <i
                 class="fa-brands fa-discord"></i></a>
+
+            <button class="bookmarkBtn" id="bookmarkBtn" title="احفظ هذه الصفحة في المفضلة">
+              <span class="IconContainer">
+                <svg viewBox="0 0 384 512" height="0.9em" class="icon">
+                  <path
+                  d="M0 48V487.7C0 501.1 10.9 512 24.3 512c5 0 9.9-1.5 14-4.4L192 400 345.7 507.6c4.1 2.9 9 4.4 14 4.4c13.4 0 24.3-10.9 24.3-24.3V48c0-26.5-21.5-48-48-48H48C21.5 0 0 21.5 0 48z"
+                  ></path>
+                </svg>
+              </span>
+              <p class="text">حفظ</p>
+            </button>
           </div>
 
           <form id="contactForm" class="contact-form reveal" action="https://api.web3forms.com/submit" method="POST">
@@ -543,19 +561,41 @@
     function animateCount(element, start, end, duration) {
       const startTime = performance.now();
       const range = end - start;
+      
+      // Check if the current page is Arabic (Run this once per animation to save performance)
+      const isArabic = document.documentElement.lang === 'ar' || document.documentElement.dir === 'rtl';
+
       function updateCount(currentTime) {
         const elapsed = currentTime - startTime;
         const progress = Math.min(elapsed / duration, 1);
+        
+        // Easing function for smooth slowdown at the end
         const easeOut = 1 - Math.pow(1 - progress, 3);
         const current = Math.floor(start + range * easeOut);
-        const formatted = current.toString().padStart(2, '0') + '+';
-        element.textContent = formatted;
+        
+        // 1. Get the current number as a padded string
+        let formattedStr = current.toString().padStart(2, '0');
+        
+        // 2. Convert to Arabic numerals if on the Arabic page
+        if (isArabic) {
+            formattedStr = formattedStr.replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[d]);
+        }
+        
+        // 3. Output to the element
+        element.textContent = formattedStr + '+';
+
         if (progress < 1) {
           requestAnimationFrame(updateCount);
         } else {
-          element.textContent = end.toString().padStart(2, '0') + '+';
+          // Ensure the final number is perfectly exact and translated
+          let finalStr = end.toString().padStart(2, '0');
+          if (isArabic) {
+              finalStr = finalStr.replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[d]);
+          }
+          element.textContent = finalStr + '+';
         }
       }
+      
       requestAnimationFrame(updateCount);
     }
 
