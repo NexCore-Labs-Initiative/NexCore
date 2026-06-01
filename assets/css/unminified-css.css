@@ -3295,3 +3295,69 @@ strong {
     text-transform: uppercase;
     vertical-align: middle;
 }
+
+/* From Uiverse.io by vinodjangid07 */ 
+.bookmarkBtn {
+    width: 95px;
+    height: 32px;
+    border-radius: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.349);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition-duration: 0.3s;
+    overflow: hidden;
+    margin: 12px auto;
+}
+
+.IconContainer {
+    width: 21px;
+    height: 21px;
+    background: linear-gradient(65deg, #6ee7f3, #acd9e5);
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    z-index: 2;
+    transition-duration: 0.3s;
+}
+
+.icon {
+    font-size: 12px;
+    border-radius: 1px;
+}
+
+.text {
+    height: 100%;
+    width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted);
+    font-weight: 500;
+    z-index: 1;
+    transition-duration: 0.3s;
+    font-size: 1.04em;
+}
+
+.bookmarkBtn:hover .IconContainer {
+    width: 90px;
+    transition-duration: 0.3s;
+}
+
+.bookmarkBtn:hover .text {
+    transform: translate(10px);
+    width: 0;
+    font-size: 0;
+    transition-duration: 0.3s;
+}
+
+.bookmarkBtn:active {
+    transform: scale(0.95);
+    transition-duration: 0.3s;
+}
