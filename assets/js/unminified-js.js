@@ -138,7 +138,20 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // set year
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
+if (yearEl) {
+    const currentYear = new Date().getFullYear().toString();
+    
+    // Check if the current page is set to Arabic or Right-To-Left
+    const isArabic = document.documentElement.lang === 'ar' || document.documentElement.dir === 'rtl';
+
+    if (isArabic) {
+        // Apply Eastern Arabic numerals for the Arabic page
+        yearEl.textContent = currentYear.replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[d]);
+    } else {
+        // Keep standard numbers for the English page
+        yearEl.textContent = currentYear;
+    }
+}
 
   // smooth scroll offset for anchored links on same page
   document.querySelectorAll('a[href^="#"]').forEach((a) => {
