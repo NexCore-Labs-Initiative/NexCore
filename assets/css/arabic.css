@@ -97,3 +97,7 @@
 :lang(ar) .contact-form {
   text-align: center;
 }
+
+:lang(ar) .nav-container .logo #logo, .logo #logo span {
+  font-family: 'Inter', sans-serif;
+}
