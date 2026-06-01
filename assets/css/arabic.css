@@ -85,11 +85,6 @@
   font-family: 'Tajawal', sans-serif !important;
 }
 
-/* Ensure proper line-height for Arabic text */
-:lang(ar) {
-  line-height: 1.8;
-}
-
 :lang(ar) .privacy-section {
   text-align: right
 }
