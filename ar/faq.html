@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+
+<html lang="ar" dir="rtl">
+
+<head>
+
+<!-- مدير الموافقة على الكوكيز v2 -->
+
+    <link rel="stylesheet" href="../assets/css/cookies.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="NexCore Labs">
+    <meta name="keywords" content="الأسئلة الشائعة، نكسكور لابز، الدعم، تطوير الصفحات، مشاريع الطلاب، الحلول الرقمية، جامعات عمان، كليات عمان، جامعة السلطان قابوس، عمان">
+    <meta name="theme-color" content="#0a0b1c">
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <title>NexCore Labs | الأسئلة الشائعة</title>
+
+    <meta name="description" content="الأسئلة الشائعة حول خدمات منصة NexCore Labs.">
+
+    <!-- Facebook Meta Tags -->
+
+    <meta property="og:url" content="https://nexcorelabs.vercel.app/ar/faq.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="NexCore Labs | الأسئلة الشائعة">
+    <meta property="og:description" content="الأسئلة الشائعة حول خدمات منصة NexCore Labs.">
+    <meta property="og:image" content="https://opengraph.b-cdn.net/production/images/af5a4481-2baa-47be-8838-5160bafa4f79.png?token=_5DjeK6KYgg8DW7Qsk5XfrtI2h_CW3YcCJlwxMJ3sEc&height=1080&width=1080&expires=33306259895">
+
+    <!-- Twitter Meta Tags -->
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:domain" content="nexcorelabs.vercel.app">
+    <meta property="twitter:url" content="https://nexcorelabs.vercel.app/ar/faq.html">
+    <meta name="twitter:title" content="NexCore Labs | الأسئلة الشائعة">
+    <meta name="twitter:description" content="الأسئلة الشائعة حول خدمات منصة NexCore Labs.">
+    <meta name="twitter:image" content="https://opengraph.b-cdn.net/production/images/af5a4481-2baa-47be-8838-5160bafa4f79.png?token=_5DjeK6KYgg8DW7Qsk5XfrtI2h_CW3YcCJlwxMJ3sEc&height=1080&width=1080&expires=33306259895">
+
+    <link rel="icon" href="../assets/images/nexcore-icon.png" type="image/png">
+    <link rel="apple-touch-icon" href="../assets/images/nexcore-logo.webp">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/admin-button.css">
+    <link rel="stylesheet" href="../assets/css/arabic.css">
+    <link rel="stylesheet" href="../assets/css/ai-chat.css">
+
+    <link rel="manifest" href="../manifest.json">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.2/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <link rel="alternate" hreflang="en" href="../faq.html">
+    <link rel="alternate" hreflang="ar" href="faq.html">
+</head>
+
+<body>
+
+    <div class="background">
+        <img class="logo-img" id="logoImg" src="../assets/images/nexcore-logo.webp" alt="شعار NexCore Labs">
+
+        <div id="spotLight" class="spot-light"></div>
+    </div>
+
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <h1 id="logo" class="logo-link"><a href="index.html">NexCore <span>Labs</span></a></h1>
+            </div>
+
+            <div class="dropdown">
+                <div class="core-menu" id="coreMenu" aria-label="فتح القائمة" title="القائمة">
+                    <span class="dot" aria-hidden="true"></span>
+                    <span class="dot" aria-hidden="true"></span>
+                    <span class="dot" aria-hidden="true"></span>
+                    <span class="dot" aria-hidden="true"></span>
+                    <span class="dot" aria-hidden="true"></span>
+                    <span class="dot" aria-hidden="true"></span>
+                </div>
+
+        <div id="myDropdown" class="dropdown-content">
+          <a href="../index.html" style="color: #6ee7f3;"><i class="fa-solid fa-globe"></i> English</a>
+          <a href="auth.html" class="magic-signup fade" title="تسجيل الدخول إلى حسابك"><i class="fa-solid fa-key"></i> الوصول إلى النواة</a>
+          <input type="search" placeholder="ابحث..." id="myInput" onkeyup="filterFunction()" title="بحث...">
+
+          <a href="hub.html" class="fade" title="مركز NexCore Labs"><i class="fa-solid fa-house"></i> المركز</a>
+          <a href="hub.html#projects" class="fade" title="المشاريع"><i class="fa-solid fa-diagram-project"></i> المشاريع</a>
+          <a href="ai-chat.html" class="fade" title="NexCore AI" style="color:#6ee7f3;"><i class="fa-solid fa-wand-magic-sparkles"></i> NexCore AI</a>
+
+          <div class="div-menu-line"></div>
+
+          <a href="index.html#tools" class="mt-0" title="الأدوات والأنظمة"><i class="fa-solid fa-screwdriver-wrench"></i> الأدوات والأنظمة</a>
+          <a href="index.html#about" title="حول NexCore Labs"><i class="fa-solid fa-circle-info"></i> من نحن</a>
+          <a href="index.html#team" title="فريق NexCore Labs"><i class="fa-solid fa-users"></i> الفريق</a>
+          <a href="index.html#contact" title="اتصل بـ NexCore Labs"><i class="fa-solid fa-paper-plane"></i> اتصل بنا</a>
+
+          <div class="div-menu-line"></div>
+
+          <a href="roadmap.html" class="fade mt-0" title="لوحة الميزات والخريطة"><i class="fa-solid fa-route"></i> لوحة الميزات</a>
+          <a href="releases.html" class="fade" title="الإصدارات والتحديثات"><i class="fa-solid fa-clock-rotate-left"></i> الإصدارات والتحديثات</a>
+
+          <div class="div-menu-line"></div>
+
+          <a href="pricing.html" class="fade mt-0" title="خطط التسعير"><i class="fa-solid fa-tag"></i> التسعير <span class="new-badge">جديد</span></a>
+          <a href="faq.html" class="fade" title="الأسئلة الشائعة والدعم"><i class="fa-solid fa-circle-question"></i> الأسئلة الشائعة</a>
+          <a href="how-to-use.html" class="fade" title="كيفية استخدام NexCore Labs"><i class="fa-solid fa-book-open"></i> كيفية الاستخدام</a>
+          <a href="terms.html" class="fade" title="شروط الخدمة"><i class="fa-solid fa-file-contract"></i> الشروط</a>
+          <a href="privacy-policy.html" class="fade" title="سياسة الخصوصية"><i class="fa-solid fa-shield-halved"></i> الخصوصية</a>
+        </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="faq-container">
+            <div class="faq-header">
+                <h1>الأسئلة الشائعة</h1>
+
+                <p>ابحث عن إجابات للأسئلة الشائعة حول NexCore Labs وخدماتنا وكيفية الحصول على أقصى استفادة من منصتنا.</p>
+            </div>
+
+            <div class="faq-categories" id="categoryButtons">
+                <button class="category-btn active" data-category="general">عام</button>
+                <button class="category-btn" data-category="service">الخدمات</button>
+                <button class="category-btn" data-category="technical">تقني</button>
+                <button class="category-btn" data-category="support">الدعم</button>
+                <button class="category-btn" data-category="security">الأمان</button>
+                <button class="category-btn" data-category="pricing">التسعير</button>
+            </div>
+
+            <div class="faq-sections">
+                <!-- General Category -->
+
+                <div class="faq-category-section active" data-section="general">
+                    <h2 class="faq-category-title"><i class="fa-solid fa-circle-info"></i> عام</h2>
+
+                    <div class="faq-item active">
+                        <h3 class="faq-question">
+                            <span>ما هي NexCore Labs؟</span>
+                            <i class="faq-toggle-icon fa-solid fa-chevron-down"></i>
+                        </h3>
+                        <div class="faq-answer">
+                            NexCore Labs هي منصة حلول رقمية مدفوعة بالطلاب تأسست في جامعة السلطان قابوس، متخصصة في بناء صفحات وتجارب رقمية للمشاريع التي يقودها الطلاب في جميع أنحاء عمان. نركز على السرعة والجودة والتعاون لتحويل أفكارك إلى واقع رقمي.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3 class="faq-question">
+                            <span>من يمكنه استخدام NexCore Labs؟</span>
+                            <i class="faq-toggle-icon fa-solid fa-chevron-down"></i>
+                        </h3>
+                        <div class="faq-answer">
+                            NexCore Labs مفتوحة لطلاب جامعات وكليات عمان، بما في ذلك فرق البحث ومشاريع الطلاب الناشئة والأندية والمشاريع الإبداعية. يحصل طلاب جامعة السلطان قابوس على وصول مجاني تلقائياً. إذا كنت طالباً في جامعة أخرى في عمان، يمكننا مساعدتك في الظهور على الإنترنت بسرعة واحترافية من خلال خططنا المدفوعة.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3 class="faq-question">
+                            <span>متى تأسست NexCore Labs؟</span>
+                            <i class="faq-toggle-icon fa-solid fa-chevron-down"></i>
+                        </h3>
+                        <div class="faq-answer">
+                            تأسست NexCore Labs في 23 سبتمبر 2025 من قبل فريق مخصص من طلاب جامعة السلطان قابوس شغوفين بتطوير الويب والابتكار. نحن فريق شاب ونشيط ملتزم بمساعدة مشاريع الطلاب على التألق على الإنترنت.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3 class="faq-question">
+                            <span>كيف أبدأ مع NexCore Labs؟</span>
+                            <i class="faq-toggle-icon fa-solid fa-chevron-down"></i>
+                        </h3>
+                        <div class="faq-answer">
+                            البدء سهل جداً! <a href="auth.html" style="text-decoration: underline;">سجل الدخول باستخدام حسابك على Google</a> — يتم نقل المنتسبين إلى جامعة السلطان قابوس والمستخدمين المعتمدين مباشرة إلى لوحة التحكم الخاصة بهم على الفور، بدون انتظار. إذا لم تكن معتمداً حتى الآن، تفضل بزيارة <a href="pricing.html" style="text-decoration: underline;">صفحة التسعير</a> للحصول على الوصول. اطلع على <a href="how-to-use.html" style="text-decoration: underline;">دليل كيفية الاستخدام</a> للمزيد من التفاصيل.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3 class="faq-question">
+                            <span>ما الفرق بين NexCore Labs وخدمات تطوير الويب الأخرى؟</span>
+                            <i class="faq-toggle-icon fa-solid fa-chevron-down"></i>
+                        </h3>
+                        <div class="faq-answer">
+                            NexCore Labs مدفوعة بالكامل من قبل فريق عماني وهي مركزة بشكل فريد على مشاريع الطلاب في جامعات عمان. نحن نفهم قيود فرق الطلاب — الميزانيات المحدودة والأهداف التعليمية والجداول الزمنية الضيقة. فريقنا مخصص لتقديم نتائج احترافية مع تدريب الجيل القادم من المطورين. نركز على السرعة والجودة والقدرة على تحمل التكاليف.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Services Category -->
+
+                <div class="faq-category-section" data-section="service">
+                    <h2 class="faq-category-title"><i class="fa-solid fa-briefcase"></i> الخدمات</h2>
+
+                    <div class="faq-item">
+                        <h3 class="faq-question">
+                            <span>ما الخدمات التي تقدمها NexCore Labs؟</span>
+                            <i class="faq-toggle-icon fa-solid fa-chevron-down"></i>
+                        </h3>
+                        <div class="faq-answer">
+                            نحن نقدم خدمات العرض التي تشمل:
+                            <ul style="color: #cbd5e0; margin-top: 10px; padding-right: 20px;">
+                                <li>عرض بطاقات المشروع</li>
+                                <li>تصميم وتطوير الصفحات</li>
+                                <li>تحسين محركات البحث (SEO)</li>
+                                <li>تكامل النماذج ومعالجة الإرسال</li>
+                                <li>الدعم المستمر والصيانة</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3 class="faq-question">
+                            <span>كم من الوقت يستغرق بناء صفحة؟</span>
+                            <i class="faq-toggle-icon fa-solid fa-chevron-down"></i>
+                        </h3>
+                        <div class="faq-answer">
+                            ثوانِ قليلة.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3 class="faq-question">
+                            <span>هل توفرون الاستضافة؟</span>
+                            <i class="faq-toggle-icon fa-solid fa-chevron-down"></i>
+                        </h3>
+                        <div class="faq-answer">
+                            نعم! يتم استضافة جميع صفحات المشاريع على خوادم آمنة وسريعة برضا بنسبة 99.9%. الاستضافة مشمولة في جميع خططنا.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3 class="faq-question">
+                            <span>هل يمكنكم المساعدة في إنشاء المحتوى؟</span>
+                            <i class="faq-toggle-icon fa-solid fa-chevron-down"></i>
+                        </h3>
+                        <div class="faq-answer">
+                            يمكننا تقديم توجيهات حول هيكل المحتوى وأفضل الممارسات. بينما يجب عليك تقديم محتوى المشروع الأساسي، يمكننا مساعدتك في تحسينه للصفحة وتحسين الرسالة.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3 class="faq-question">
+                            <span>ما الحال بخصوص تحسين الهاتف المحمول؟</span>
+                            <i class="faq-toggle-icon fa-solid fa-chevron-down"></i>
+                        </h3>
+                        <div class="faq-answer">
+                            NexCore Labs <strong>مستجيبة بالكامل وقابلة للتحسين على الهاتف المحمول</strong>. ستبدو موقعك رائعة على الهواتف الذكية والأجهزة اللوحية وأجهزة سطح المكتب. نختبر بكثافة عبر جميع الأجهزة لضمان تجربة المستخدم السلسة.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3 class="faq-question">
+                            <span>هل يمكنكم التكامل مع الأدوات والمنصات الموجودة؟</span>
+                            <i class="faq-toggle-icon fa-solid fa-chevron-down"></i>
+                        </h3>
+                        <div class="faq-answer">
+                            بالتأكيد! يمكننا التكامل مع:
+                            <ul style="color: #cbd5e0; margin-top: 10px; padding-right: 20px;">
+                                <li>منصات التحليلات (Google Analytics, Hotjar)</li>
+                                <li>أنظمة إدارة العلاقات مع العملاء (Supabase, قواعد البيانات المخصصة)</li>
+                                <li>منصات وسائل التواصل الاجتماعي</li>
+                                <li>Slack وأدوات الاتصال</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Technical Category -->
+
+                <div class="faq-category-section" data-section="technical">
+                    <h2 class="faq-category-title"><i class="fa-solid fa-code"></i> تقني</h2>
+
+                    <div class="faq-item">
+                        <h3 class="faq-question">
+                            <span>ما التقنيات التي تستخدمونها؟</span>
+                            <i class="faq-toggle-icon fa-solid fa-chevron-down"></i>
+                        </h3>
+                        <div class="faq-answer">
+                            مجموعة التقنيات لدينا تشمل:
+                            <ul style="color: #cbd5e0; margin-top: 10px; padding-right: 20px;">
+                                <li><strong>الواجهة الأمامية:</strong> HTML5, CSS3, JavaScript ES6+</li>
+                                <li><strong>الواجهة الخلفية:</strong> Supabase</li>
+                                <li><strong>الأدوات:</strong> GitHub, VS Code, Git</li>
+                                <li><strong>الأداء:</strong> تحسين PageSpeed</li>
+                                <li><strong>التحليلات:</strong> Google Analytics, Search Console (SEO)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3 class="faq-question">
+                            <span>هل موقع NexCore Labs متوافق مع تطبيقات الويب التقدمية (PWA)؟</span>
+                            <i class="faq-toggle-icon fa-solid fa-chevron-down"></i>
+                        </h3>
+                        <div class="faq-answer">
+                            نعم! NexCore Labs مبنية كتطبيقات ويب تقدمية. هذا يعني أن المستخدمين يمكنهم تثبيت الموقع على أجهزتهم مثل تطبيق أصلي، والاستمتاع بالوظائف دون اتصال والحصول على إشعارات دفع. إنها نهج حديثة وسهلة الاستخدام تعزز المشاركة.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3 class="faq-question">
+                            <span>كيف يتم تحسين الأداء؟</span>
+                            <i class="faq-toggle-icon fa-solid fa-chevron-down"></i>
+                        </h3>
+                        <div class="faq-answer">
+                            ننفذ عدة تحسينات للأداء:
+                            <ul style="color: #cbd5e0; margin-top: 10px; padding-right: 20px;">
+                                <li>تحسين الصور والتحميل البطيء</li>
+                                <li>تنسيق WebP للمتصفحات الحديثة</li>
+                                <li>تقليل CSS و JavaScript</li>
+                                <li>استراتيجيات التخزين المؤقت عبر service workers</li>
+                                <li>تدقيق الأداء المنتظمة باستخدام PageSpeed Insights</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3 class="faq-question">
+                            <span>ماذا عن تحسين محركات البحث (SEO)؟</span>
+                            <i class="faq-toggle-icon fa-solid fa-chevron-down"></i>
+                        </h3>
+                        <div class="faq-answer">
+                            جميع صفحاتنا محسنة لمحركات البحث من اليوم الأول:
+                            <ul style="color: #cbd5e0; margin-top: 10px; padding-right: 20px;">
+                                <li>علامات البيانات الوصفية والأوصاف المناسبة</li>
+                                <li>هيكل HTML دلالي</li>
+                                <li>تصميم مستجيب يركز على الهاتف المحمول أولاً</li>
+                                <li>أوقات تحميل سريعة (Core Web Vitals)</li>
+                                <li>خرائط المواقع XML وملفات robots.txt</li>
+                                <li>تكامل Google Search Console</li>
+                                <li>علامات Schema للمقاطع الغنية</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3 class="faq-question">
+                            <span>هل يمكنني تعديل المشروع بنفسي بعد الإطلاق؟</span>
+                            <i class="faq-toggle-icon fa-solid fa-chevron-down"></i>
+                        </h3>
+                        <div class="faq-answer">
+                            نعم! نحن نزودك بوصول كامل إلى مشروعك من خلال لوحة التحكم الخاصة بك، فقط قم بتسجيل الدخول باستخدام حسابك على Google.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Support Category -->
+
+                <div class="faq-category-section" data-section="support">
+                    <h2 class="faq-category-title"><i class="fa-solid fa-headset"></i> الدعم</h2>
+
+                    <div class="faq-item">
+                        <h3 class="faq-question">
+                            <span>ما نوع الدعم الذي تقدمونه؟</span>
+                            <i class="faq-toggle-icon fa-solid fa-chevron-down"></i>
+                        </h3>
+                        <div class="faq-answer">
+                            نحن نقدم دعماً عبر البريد الإلكتروني و WhatsApp. يمكنك الاختيار من خطط الدعم المختلفة: بدون دعم، دعم لمدة أسبوع واحد، شهر واحد، ثلاثة أشهر، ستة أشهر أو سنة واحدة.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3 class="faq-question">
+                            <span>ما الذي يغطيه الدعم؟</span>
+                            <i class="faq-toggle-icon fa-solid fa-chevron-down"></i>
+                        </h3>
+                        <div class="faq-answer">
+                            يغطي الدعم التوجيهات التقنية على أساس البريد الإلكتروني و WhatsApp لمشروع NexCore الخاص بك.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3 class="faq-question">
+                            <span>هل هناك رسوم استرجاع؟</span>
+                            <i class="faq-toggle-icon fa-solid fa-chevron-down"></i>
+                        </h3>
+                        <div class="faq-answer">
+                            لا توجد رسوم استرجاع. يمكنك طلب استرجاع خلال 7 أيام من تأكيد الدفع إذا لم ننشر مشروعك بعد.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Security Category -->
+
+                <div class="faq-category-section" data-section="security">
+                    <h2 class="faq-category-title"><i class="fa-solid fa-shield-halved"></i> الأمان</h2>
+
+                    <div class="faq-item">
+                        <h3 class="faq-question">
+                            <span>هل بيانات مشروعي آمنة؟</span>
+                            <i class="faq-toggle-icon fa-solid fa-chevron-down"></i>
+                        </h3>
+                        <div class="faq-answer">
+                            نعم، نحن نطبق مقاييس أمان معايير صناعة:
+                            <ul style="color: #cbd5e0; margin-top: 10px; padding-right: 20px;">
+                                <li>تشفير HTTPS وشهادات SSL</li>
+                                <li>حماية من هجمات DDoS عبر Cloudflare</li>
+                                <li>جدار تطبيقات الويب (WAF)</li>
+                                <li>عمليات تدقيق أمان منتظمة وتحديثات</li>
+                                <li>نسخ احتياطية يومية آلية</li>
+                                <li>ممارسات قاعدة البيانات الآمنة</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3 class="faq-question">
+                            <span>هل أنتم متوافقون مع معايير الخصوصية؟</span>
+                            <i class="faq-toggle-icon fa-solid fa-chevron-down"></i>
+                        </h3>
+                        <div class="faq-answer">
+                            نعم، جميع صفحاتنا متوافقة مع GDPR ومعايير إمكانية الوصول WCAG 2.1 وأفضل ممارسات الأمان في الصناعة.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pricing Category -->
+
+                <div class="faq-category-section" data-section="pricing">
+                    <h2 class="faq-category-title"><i class="fa-solid fa-tag"></i> التسعير</h2>
+
+                    <div class="faq-item">
+                        <h3 class="faq-question">
+                            <span>كم تكلفة استخدام NexCore Labs؟</span>
+                            <i class="faq-toggle-icon fa-solid fa-chevron-down"></i>
+                        </h3>
+                        <div class="faq-answer">
+                            طلاب جامعة السلطان قابوس يحصلون على وصول مجاني. للطلاب في جامعات أخرى، نستخدم نموذج تسعير مرن حسب الميزات. تفضل بزيارة <a href="pricing.html" style="text-decoration: underline;">صفحة التسعير</a> للتفاصيل الكاملة.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3 class="faq-question">
+                            <span>هل هناك طلب حد أدنى؟</span>
+                            <i class="faq-toggle-icon fa-solid fa-chevron-down"></i>
+                        </h3>
+                        <div class="faq-answer">
+                            لا، لا يوجد حد أدنى. يمكنك اختيار الميزات التي تريدها فقط ودفع رسم واحد.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3 class="faq-question">
+                            <span>هل يمكنني ترقية أو تغيير خطتي لاحقاً؟</span>
+                            <i class="faq-toggle-icon fa-solid fa-chevron-down"></i>
+                        </h3>
+                        <div class="faq-answer">
+                            نعم! يمكنك إضافة ميزات إضافية أو دعم موسع في أي وقت. تواصل معنا للمساعدة.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <div class="f-left">
+                <a class="paypal" href="https://www.paypal.me/nexcorelabs" target="_blank" rel="noopener" title="PayPal"><i
+                    class="fa-solid fa-heart text-accent"></i> ادعمنا على <i class="fa-brands fa-paypal"></i></a>
+
+                <br>
+
+                <small title="جميع الحقوق محفوظة">NexCore Labs © <span id="year"></span> <span id="splitter">|</span>
+
+                    <a href="https://github.com/NexCoreLabs/NexCore/blob/main/LICENSE" target="_blank" rel="noopener"
+                        class="license-link">
+
+                        <i class="fa-solid fa-scale-balanced"></i> MIT License
+
+                    </a>
+                </small>
+
+            </div>
+
+            <div class="f-right"><small>نجحنا في التصميم :)</small></div>
+        </div>
+    </footer>
+
+    <script src="../assets/js/script.js"></script>
+    <script src="../assets/js/supabase-client.js"></script>
+    <script src="../assets/js/auth-ui-db.js"></script>
+    <script src="../assets/js/ai-chat.js"></script>
+    <script src="../version.js"></script>
+
+    <script>
+
+        // Scoped FAQ functionality to avoid conflicts with other pages
+
+        (function () {
+
+            const container = document.querySelector('.faq-container');
+
+            if (!container) return;
+
+            const faqSections = container.querySelectorAll('.faq-category-section');
+
+            const categoryButtons = container.querySelectorAll('.category-btn');
+
+            const searchInput = container.querySelector('#faqSearch');
+
+            const noResults = container.querySelector('.no-results');
+
+            // Initialize ARIA attributes for accessibility
+
+            container.querySelectorAll('.faq-item').forEach(item => {
+
+                item.setAttribute('role', 'button');
+
+                item.setAttribute('tabindex', '0');
+
+                item.setAttribute('aria-expanded', item.classList.contains('active') ? 'true' : 'false');
+
+            });
+
+            function setFaqExpanded(item, expanded) {
+                const answer = item.querySelector('.faq-answer');
+                if (!answer) return;
+
+                item.classList.toggle('active', expanded);
+                item.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+
+                if (expanded) {
+                    answer.style.maxHeight = `${answer.scrollHeight}px`;
+                } else {
+                    answer.style.maxHeight = '0px';
+                }
+            }
+
+            // Initialize smooth heights for active items
+            container.querySelectorAll('.faq-item').forEach(item => {
+                setFaqExpanded(item, item.classList.contains('active'));
+            });
+
+            window.addEventListener('resize', () => {
+                container.querySelectorAll('.faq-item.active').forEach(item => setFaqExpanded(item, true));
+            });
+
+            function updateNoResultsAndButtons(matchesCountPerSection, searchTerm) {
+
+                const totalMatches = Array.from(matchesCountPerSection.values()).reduce((a, b) => a + b, 0);
+
+                if (searchTerm && totalMatches === 0) {
+
+                    noResults.style.display = 'block';
+
+                } else {
+
+                    noResults.style.display = 'none';
+
+                }
+
+                // Dim categories that have no matches when searching
+
+                categoryButtons.forEach(btn => {
+
+                    const sec = btn.dataset.category;
+
+                    const hasMatches = matchesCountPerSection.get(sec) > 0;
+
+                    btn.style.opacity = searchTerm ? (hasMatches ? '1' : '0.5') : '1';
+
+                });
+
+            }
+
+            // Debounced search + combined with category filter
+
+            let searchTimeout;
+
+            function performSearch() {
+
+                const searchTerm = (searchInput.value || '').trim().toLowerCase();
+
+                const activeCategory = container.querySelector('.category-btn.active')?.dataset.category || null;
+
+                const matchesCountPerSection = new Map();
+
+                // First pass: count matches per section (ignore activeCategory) to inform button states
+
+                faqSections.forEach(section => {
+
+                    let sectionMatches = 0;
+
+                    const items = section.querySelectorAll('.faq-item');
+
+                    items.forEach(item => {
+
+                        const questionEl = item.querySelector('.faq-question span');
+
+                        const answerEl = item.querySelector('.faq-answer');
+
+                        const question = questionEl ? questionEl.textContent.toLowerCase() : '';
+
+                        const answer = answerEl ? answerEl.textContent.toLowerCase() : '';
+
+                        const matches = (searchTerm === '' || question.includes(searchTerm) || answer.includes(searchTerm));
+
+                        if (matches) {
+
+                            sectionMatches++;
+
+                        }
+
+                    });
+
+                    matchesCountPerSection.set(section.dataset.section, sectionMatches);
+
+                });
+
+                // Second pass: show/hide items. If a search term exists, show matches across all sections.
+
+                // If there is no search term, respect the active category (only show items in that category).
+
+                faqSections.forEach(section => {
+
+                    const sectionName = section.dataset.section;
+
+                    const items = section.querySelectorAll('.faq-item');
+
+                    let visibleInSection = 0;
+
+                    items.forEach(item => {
+
+                        const questionEl = item.querySelector('.faq-question span');
+
+                        const answerEl = item.querySelector('.faq-answer');
+
+                        const question = questionEl ? questionEl.textContent.toLowerCase() : '';
+
+                        const answer = answerEl ? answerEl.textContent.toLowerCase() : '';
+
+                        const matches = (searchTerm === '' || question.includes(searchTerm) || answer.includes(searchTerm));
+
+                        const showItem = matches && (searchTerm !== '' ? true : (!activeCategory || sectionName === activeCategory));
+
+                        if (showItem) {
+
+                            item.style.display = '';
+
+                            visibleInSection++;
+
+                        } else {
+
+                            item.style.display = 'none';
+
+                        }
+
+                    });
+
+                    section.style.display = visibleInSection > 0 ? '' : 'none';
+
+                });
+
+                updateNoResultsAndButtons(matchesCountPerSection, searchTerm);
+
+            }
+
+            /* Search functionality temporarily disabled per request
+
+            searchInput.addEventListener('input', () => {
+
+                clearTimeout(searchTimeout);
+
+                searchTimeout = setTimeout(performSearch, 150);
+
+            });
+
+            */
+
+            // Category filtering (click + keyboard)
+
+            categoryButtons.forEach(btn => {
+
+                btn.addEventListener('click', () => {
+
+                    categoryButtons.forEach(b => b.classList.remove('active'));
+
+                    btn.classList.add('active');
+
+                    const category = btn.dataset.category;
+
+                    faqSections.forEach(section => {
+
+                        if (section.dataset.section === category) {
+
+                            section.classList.add('active');
+
+                            section.style.display = '';
+
+                        } else {
+
+                            section.classList.remove('active');
+
+                            section.style.display = 'none';
+
+                        }
+
+                    });
+
+                    // Re-run search to apply both filters
+
+                    performSearch();
+
+                });
+
+                btn.addEventListener('keydown', (e) => {
+
+                    if (e.key === 'Enter' || e.key === ' ') {
+
+                        e.preventDefault();
+
+                        btn.click();
+
+                    }
+
+                });
+
+            });
+
+            // Delegated FAQ item toggle (click + keyboard for accessibility)
+
+            container.addEventListener('click', (e) => {
+
+                const item = e.target.closest('.faq-item');
+
+                if (!item || !container.contains(item)) return;
+
+                const isActive = item.classList.contains('active');
+                setFaqExpanded(item, !isActive);
+
+            });
+
+            container.addEventListener('keydown', (e) => {
+
+                if (e.key === 'Enter' || e.key === ' ') {
+
+                    const item = e.target.closest('.faq-item');
+
+                    if (!item || !container.contains(item)) return;
+
+                    e.preventDefault();
+
+                    const isActive = item.classList.contains('active');
+                    setFaqExpanded(item, !isActive);
+
+                }
+
+            });
+
+            // Initial run to respect active category on load
+
+            performSearch();
+
+        })();
+    </script>
+    <script src="../assets/js/cookies.js" defer></script>
+    <div id="toast" role="alert" aria-live="assertive"></div>
+</body>
+</html>

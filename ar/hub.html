@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+
+<html lang="ar" dir="rtl">
+
+    <head>
+
+        <!-- مدير الموافقة على الكوكيز v2 -->
+
+        <link rel="stylesheet" href="../assets/css/cookies.css">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="NexCore Labs">
+        <meta name="keywords" content="نكسكور لابز، تطوير الصفحات، HTML، CSS، JavaScript، الابتكار، التكنولوجيا، المشاريع الإبداعية، عمان، فرق الجامعات التقنية، تطوير الواجهة الأمامية، مركز NexCore Labs، مركز، عرض المشاريع">
+        <meta name="theme-color" content="#0a0b1c">
+        <meta name="mobile-web-app-capable" content="yes">
+
+        <title>NexCore Labs | مركز مشاريع الطلاب</title>
+
+        <meta name="description" content="حيث تتلاقى المشاريع — المركز المركزي.">
+
+        <!-- Facebook Meta Tags -->
+
+        <meta property="og:url" content="https://nexcorelabs.vercel.app/ar/hub.html">
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="NexCore Labs | مركز مشاريع الطلاب">
+        <meta property="og:description" content="حيث تتلاقى المشاريع — المركز المركزي.">
+        <meta property="og:image" content="https://opengraph.b-cdn.net/production/images/af5a4481-2baa-47be-8838-5160bafa4f79.png?token=_5DjeK6KYgg8DW7Qsk5XfrtI2h_CW3YcCJlwxMJ3sEc&height=1080&width=1080&expires=33306259895">
+
+        <!-- Twitter Meta Tags -->
+
+        <meta name="twitter:card" content="summary_large_image">
+        <meta property="twitter:domain" content="nexcorelabs.vercel.app">
+        <meta property="twitter:url" content="https://nexcorelabs.vercel.app/ar/hub.html">
+        <meta name="twitter:title" content="NexCore Labs | مركز مشاريع الطلاب">
+        <meta name="twitter:description" content="حيث تتلاقى المشاريع — المركز المركزي.">
+        <meta name="twitter:image" content="https://opengraph.b-cdn.net/production/images/af5a4481-2baa-47be-8838-5160bafa4f79.png?token=_5DjeK6KYgg8DW7Qsk5XfrtI2h_CW3YcCJlwxMJ3sEc&height=1080&width=1080&expires=33306259895">
+
+        <link rel="icon" href="../assets/images/nexcore-icon.png" type="image/png">
+        <link rel="stylesheet" href="../assets/css/style.css">
+        <link rel="stylesheet" href="../assets/css/admin-button.css">
+        <link rel="stylesheet" href="../assets/css/arabic.css">
+        <link rel="stylesheet" href="../assets/css/ai-chat.css">
+        <link rel="stylesheet" href="../assets/css/project-categories.css">
+
+        <link rel="manifest" href="../manifest.json">
+        <link rel="apple-touch-icon" href="../assets/images/nexcore-logo.webp">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.2/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+        <link rel="alternate" hreflang="en" href="../hub.html">
+        <link rel="alternate" hreflang="ar" href="hub.html">
+
+        <style>
+            .sort-bar{display:flex;align-items:center; justify-content: center;  gap:10px;margin-bottom:16px; margin-top: 16px; flex-wrap:wrap;}
+            .sort-label{font-size:.8rem;color:var(--muted);white-space:nowrap;opacity:.8;}
+            .sort-options{display:flex;gap:6px;flex-wrap:wrap;}
+            .sort-btn{padding:5px 13px;font-size:.78rem;border-radius:20px;border:1px solid rgba(255,255,255,.1);background:transparent;color:var(--muted);font-family:Inter,sans-serif;cursor:pointer;transition:all .2s;}
+            .sort-btn:hover{border-color:rgba(115,189,215,.4);color:var(--primary-accent);}
+            .sort-btn.active{background:rgba(115,189,215,.12);border-color:rgba(115,189,215,.4);color:var(--primary-accent);font-weight:600;}
+            #projects{scroll-margin-top:100px;}
+        </style>
+    </head>
+
+    <body>
+
+    <div class="background">
+      <img class="logo-img" id="logoImg" src="../assets/images/nexcore-logo.webp" alt="شعار NexCore Labs">
+
+      <div id="spotLight" class="spot-light"></div>
+    </div>
+
+    <header class="navbar">
+      <div class="nav-container">
+        <div class="logo">
+          <h1 id="logo">NexCore <span>Labs</span></h1>
+        </div>
+
+        <div class="dropdown">
+        <div class="core-menu" id="coreMenu" aria-label="فتح القائمة" title="القائمة">
+          <span class="dot" aria-hidden="true"></span>
+          <span class="dot" aria-hidden="true"></span>
+          <span class="dot" aria-hidden="true"></span>
+          <span class="dot" aria-hidden="true"></span>
+          <span class="dot" aria-hidden="true"></span>
+          <span class="dot" aria-hidden="true"></span>
+        </div>
+
+        <div id="myDropdown" class="dropdown-content">
+          <a href="../index.html" style="color: #6ee7f3;"><i class="fa-solid fa-globe"></i> English</a>
+          <a href="auth.html" class="magic-signup fade" title="تسجيل الدخول إلى حسابك"><i class="fa-solid fa-key"></i> الوصول إلى النواة</a>
+          <input type="search" placeholder="ابحث..." id="myInput" onkeyup="filterFunction()" title="بحث...">
+
+          <a href="hub.html" class="fade" title="مركز NexCore Labs"><i class="fa-solid fa-house"></i> المركز</a>
+          <a href="hub.html#projects" class="fade" title="المشاريع"><i class="fa-solid fa-diagram-project"></i> المشاريع</a>
+          <a href="ai-chat.html" class="fade" title="NexCore AI" style="color:#6ee7f3;"><i class="fa-solid fa-wand-magic-sparkles"></i> NexCore AI</a>
+
+          <div class="div-menu-line"></div>
+
+          <a href="index.html#tools" class="mt-0" title="الأدوات والأنظمة"><i class="fa-solid fa-screwdriver-wrench"></i> الأدوات والأنظمة</a>
+          <a href="index.html#about" title="حول NexCore Labs"><i class="fa-solid fa-circle-info"></i> من نحن</a>
+          <a href="index.html#team" title="فريق NexCore Labs"><i class="fa-solid fa-users"></i> الفريق</a>
+          <a href="index.html#contact" title="اتصل بـ NexCore Labs"><i class="fa-solid fa-paper-plane"></i> اتصل بنا</a>
+
+          <div class="div-menu-line"></div>
+
+          <a href="roadmap.html" class="fade mt-0" title="لوحة الميزات والخريطة"><i class="fa-solid fa-route"></i> لوحة الميزات</a>
+          <a href="releases.html" class="fade" title="الإصدارات والتحديثات"><i class="fa-solid fa-clock-rotate-left"></i> الإصدارات والتحديثات</a>
+
+          <div class="div-menu-line"></div>
+
+          <a href="pricing.html" class="fade mt-0" title="خطط التسعير"><i class="fa-solid fa-tag"></i> التسعير <span class="new-badge">جديد</span></a>
+          <a href="faq.html" class="fade" title="الأسئلة الشائعة والدعم"><i class="fa-solid fa-circle-question"></i> الأسئلة الشائعة</a>
+          <a href="how-to-use.html" class="fade" title="كيفية استخدام NexCore Labs"><i class="fa-solid fa-book-open"></i> كيفية الاستخدام</a>
+          <a href="terms.html" class="fade" title="شروط الخدمة"><i class="fa-solid fa-file-contract"></i> الشروط</a>
+          <a href="privacy-policy.html" class="fade" title="سياسة الخصوصية"><i class="fa-solid fa-shield-halved"></i> الخصوصية</a>
+        </div>
+        </div>
+      </div>
+    </header>
+
+      <main>
+        <section class="hub-hero hero">
+          <div class="container">
+            <div class="hub-top">
+              <h1 class="title">مركز NexCore</h1>
+
+              <p class="lead">حيث تتلاقى المشاريع — المركز المركزي.</p>
+
+              <div class="hero-actions">
+                <a class="btn primary" href="auth.html">الوصول إلى النواة</a>
+                <a class="btn ghost" href="hub.html#projects">المشاريع</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-orbit" aria-hidden="true"></div>
+        </section>
+
+        <section id="projects" class="panel">
+          <div class="container">
+            <h2 class="section-title">المشاريع</h2>
+
+            <p class="section-lead">انقر على بطاقة واكتشف ما يبنيه الفرق.</p>
+
+            <!-- شريط البحث -->
+
+            <div class="search-bar">
+              <input type="text" id="projectSearch" placeholder="ابحث حسب الاسم أو المعرّف...">
+            </div>
+
+            <div class="sort-bar" id="sortBar">
+              <span class="sort-label">ترتيب:</span>
+              <div class="sort-options">
+                <button class="sort-btn active" data-sort="newest">الأحدث</button>
+                <button class="sort-btn" data-sort="oldest">الأقدم</button>
+                <button class="sort-btn" data-sort="most-viewed">الأكثر مشاهدة</button>
+                <button class="sort-btn" data-sort="az">أ – ي</button>
+              </div>
+            </div>
+
+            <div class="category-explorer" id="categoryExplorer">
+              <div class="category-chips-scroll" id="categoryChips">
+                <!-- سيتم تحميل الفئات هنا -->
+              </div>
+            </div>
+
+            <div class="projects-grid reveal" id="projects-container">
+              <!-- سيتم تحميل بطاقات المشاريع هنا ديناميكياً -->
+            </div>
+
+          </div>
+        </section>
+
+        <!-- عنصر TrustBox - مجمع المراجعات -->
+
+        <div class="trustpilot-review-widget">
+          <a href="https://www.trustpilot.com/review/nexcorelabs.vercel.app" target="_blank" rel="noopener noreferrer" class="trustpilot-widget">
+            <span class="tp-text">قيّمنا على</span>
+            <span class="tp-logo">
+              <img src="../assets/images/trustpilot.webp" alt="شعار Trustpilot"/>
+              <span class="tp-name">Trustpilot</span>
+            </span>
+          </a>
+        </div>
+
+        <div class="nexcore-sign">
+          <img id="nexcoreSign" src="../assets/images/nexcore-word.webp" alt="NexCore Labs">
+        </div>
+      </main>
+
+      <footer class="site-footer">
+        <div class="container footer-inner">
+          <div class="f-left">
+            <a class="paypal" href="https://www.paypal.me/nexcorelabs" target="_blank" rel="noopener" title="PayPal"><i class="fa-solid fa-heart" style="color: #6EE7F3;"></i> ادعمنا على <i class="fa-brands fa-paypal"></i></a>
+
+            <br>
+
+            <small title="جميع الحقوق محفوظة">NexCore Labs © <span id="year"></span> <span id="splitter">|</span>
+
+              <a href="https://github.com/NexCoreLabs/NexCore/blob/main/LICENSE" target="_blank" rel="noopener" class="license-link">
+
+                <i class="fa-solid fa-scale-balanced"></i> MIT License
+
+              </a>            </small>
+
+          </div>
+
+          <div class="f-right footer-line"></div>
+        </div>
+      </footer>
+
+      <script src="../assets/js/script.js"></script>
+      <script src="../assets/js/supabase-client.js"></script>
+      <script src="../assets/js/auth-ui-db.js"></script>
+      <script src="../assets/js/ai-chat.js"></script>
+      <script src="../assets/js/project-categories.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+      <script src="../version.js"></script>
+
+      <script>
+        function animateCount(element, start, end, duration) {
+          const startTime = performance.now();
+          const range = end - start;
+
+          function updateCount(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const easeOut = 1 - Math.pow(1 - progress, 3);
+            const current = Math.floor(start + range * easeOut);
+            element.textContent = current.toString().padStart(2, '0') + '+';
+            if (progress < 1) requestAnimationFrame(updateCount);
+            else element.textContent = end.toString().padStart(2, '0') + '+';
+          }
+
+          requestAnimationFrame(updateCount);
+        }
+
+        const categoryIcons = window.ProjectCategories?.CATEGORY_ICONS || {};
+        const categoryLabels = window.ProjectCategories?.CATEGORY_LABELS || {};
+        const categoryOrder = window.ProjectCategories?.CATEGORY_ORDER || [];
+        const uncategorizedIcon = window.ProjectCategories?.getCategoryIconMarkup?.('uncategorized') || '';
+
+        let allProjects = [];
+        let activeCategory = 'all';
+        let currentSearch = '';
+        let currentSort = 'newest';
+
+        function normalizeCategory(value) {
+          const normalized = window.ProjectCategories?.normalizeCategory?.(value);
+          return normalized || 'uncategorized';
+        }
+
+        function renderCategoryStats(projects) {
+          const chipsEl = document.getElementById('categoryChips');
+          if (!chipsEl) return;
+
+          const stats = window.ProjectCategories?.getCategoryStats?.(projects) || {};
+          const totalProjects = projects.length;
+
+          const allChipHtml = `
+            <div class="category-chip ${activeCategory === 'all' ? 'active' : ''}" data-value="all">
+              <span class="hub-opt-icon">${uncategorizedIcon}</span>
+              <span>الكل</span>
+              <span class="count">${totalProjects}</span>
+            </div>
+          `;
+
+          const otherChipsHtml = categoryOrder.map((category) => {
+            const label = categoryLabels[category] || category;
+            const count = stats[category] || 0;
+            if (count === 0 && activeCategory !== category) return '';
+
+            return `
+              <div class="category-chip ${activeCategory === category ? 'active' : ''}" data-value="${category}">
+                <span class="hub-opt-icon">${categoryIcons[category] || uncategorizedIcon}</span>
+                <span>${label}</span>
+                <span class="count">${count}</span>
+              </div>
+            `;
+          }).join('');
+
+          chipsEl.innerHTML = allChipHtml + otherChipsHtml;
+
+          chipsEl.querySelectorAll('.category-chip').forEach(chip => {
+            chip.onclick = () => {
+              activeCategory = chip.dataset.value;
+              applyProjectFilters();
+              renderCategoryStats(allProjects);
+              
+              if (window.innerWidth < 768) {
+                const container = document.getElementById('projects-container');
+                if (container) container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }
+            };
+          });
+        }
+
+        function applyProjectFilters() {
+          const container = document.querySelector('#projects-container');
+          const filteredProjects = allProjects.filter((project) => {
+            const projectCategory = normalizeCategory(project.category);
+            const inCategory = activeCategory === 'all' || projectCategory === activeCategory;
+            const query = currentSearch.toLowerCase();
+            const name = String(project.name || '').toLowerCase();
+            const id = String(project.public_id || '').toLowerCase();
+            const inSearch = !query || name.includes(query) || id.includes(query);
+            return inCategory && inSearch;
+          });
+
+          if (!filteredProjects.length) {
+            container.innerHTML = '<p style="text-align: center; opacity: 0.7;">لا توجد مشاريع مطابقة لهذا الفلتر.</p>';
+            return;
+          }
+
+          const sorted = [...filteredProjects];
+          if (currentSort === 'newest') sorted.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+          else if (currentSort === 'oldest') sorted.sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
+          else if (currentSort === 'most-viewed') sorted.sort((a, b) => (b.views || 0) - (a.views || 0));
+          else if (currentSort === 'az') sorted.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+
+          container.innerHTML = '';
+
+          sorted.forEach((project) => {
+            const link = `/project.html?slug=${encodeURIComponent(project.slug)}`;
+            const views = project.views || 0;
+            const createdDate = project.created_at
+              ? new Date(project.created_at).toLocaleDateString('ar-SA', { year: 'numeric', month: 'short', day: 'numeric' })
+              : 'غير متاح';
+
+            const badgeHtml = window.ProjectCategories?.buildCategoryBadge
+              ? window.ProjectCategories.buildCategoryBadge(project.category)
+              : `<span class="project-category cat-uncategorized">${uncategorizedIcon}غير مصنف</span>`;
+
+            const card = document.createElement('a');
+            card.className = 'project-card-link';
+            card.href = link;
+            card.setAttribute('data-id', project.public_id || '');
+            card.setAttribute('data-name', project.name || '');
+            card.innerHTML = `
+              <div class="project-card-wrapper" title="${project.name || 'بدون عنوان'} [${project.public_id || ''}]">
+                <div class="project-card-header">
+                  <strong class="project-title">
+                    ${project.name || 'بدون عنوان'}
+                    <span class="external-link-icon"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+                  </strong>
+                  <span class="id">${project.public_id || ''}</span>
+                </div>
+
+                ${badgeHtml}
+
+                <p class="project-description">${project.card_description || 'لا توجد وصف متاح.'}</p>
+
+                <div class="project-metadata">
+                  <span class="metadata-item"><i class="fas fa-calendar-alt"></i><span>${createdDate}</span></span>
+                  <span class="metadata-separator"></span>
+                  <span class="metadata-item"><i class="fas fa-eye"></i><span class="view-count">${views.toLocaleString('ar-SA')}</span> مشاهدات</span>
+                </div>
+              </div>
+            `;
+
+            container.appendChild(card);
+          });
+        }
+
+        function initializeSearch() {
+          const searchInput = document.getElementById('projectSearch');
+          if (!searchInput || searchInput.dataset.bound === '1') return;
+          searchInput.dataset.bound = '1';
+          searchInput.addEventListener('input', function () {
+            currentSearch = this.value.trim();
+            applyProjectFilters();
+          });
+        }
+
+        function initializeSortBar() {
+          const sortBar = document.getElementById('sortBar');
+          if (!sortBar || sortBar.dataset.bound === '1') return;
+          sortBar.dataset.bound = '1';
+          sortBar.querySelectorAll('.sort-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+              currentSort = btn.dataset.sort;
+              sortBar.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+              btn.classList.add('active');
+              applyProjectFilters();
+            });
+          });
+        }
+
+        async function loadProjects() {
+          const sb = window.supabaseClient;
+          const container = document.querySelector('#projects-container');
+
+          async function getViewsBySlug(projects) {
+            const slugToViews = new Map();
+            const pagePaths = (projects || []).map((p) => (p.slug ? `/project/${p.slug}` : null)).filter(Boolean);
+            if (!pagePaths.length) return slugToViews;
+
+            const { data: visitsData, error: visitsError } = await sb
+              .from('page_visits_daily')
+              .select('page_path, visits')
+              .in('page_path', pagePaths);
+
+            if (visitsError) return slugToViews;
+
+            (visitsData || []).forEach((row) => {
+              const path = row.page_path || '';
+              const slug = path.startsWith('/project/') ? path.slice('/project/'.length) : '';
+              if (!slug) return;
+              slugToViews.set(slug, (slugToViews.get(slug) || 0) + (row.visits || 0));
+            });
+
+            return slugToViews;
+          }
+
+          try {
+            const { data, error } = await sb
+              .from('projects')
+              .select('public_id, name, slug, card_description, created_at, category')
+              .eq('published', true)
+              .order('created_at', { ascending: false })
+              .limit(100);
+
+            if (error) {
+              console.error('خطأ في تحميل المشاريع:', error);
+              container.innerHTML = '<p style="text-align: center; color: #ff7878;">فشل تحميل المشاريع. يرجى المحاولة لاحقاً.</p>';
+              return;
+            }
+
+            if (!data || !data.length) {
+              container.innerHTML = '<p style="text-align: center; opacity: 0.7;">لم يتم نشر أي مشاريع حتى الآن. كن الأول!</p>';
+              localStorage.setItem('projectCount', '0');
+              return;
+            }
+
+            const viewsBySlug = await getViewsBySlug(data);
+            allProjects = data.map((project) => ({ ...project, views: viewsBySlug.get(project.slug) || 0 }));
+
+            renderCategoryStats(allProjects);
+            applyProjectFilters();
+            localStorage.setItem('projectCount', String(data.length));
+
+          } catch (err) {
+            console.error('خطأ غير متوقع:', err);
+            container.innerHTML = '<p style="text-align: center; color: #ff7878;">حدث خطأ غير متوقع.</p>';
+          }
+        }
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', () => {
+            initializeSearch();
+            initializeSortBar();
+            loadProjects();
+          });
+        } else {
+          initializeSearch();
+          initializeSortBar();
+          loadProjects();
+        }
+      </script>
+
+      <script src="../assets/js/cookies.js" defer></script>
+
+  </body>
+
+</html>

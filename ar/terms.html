@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+
+<html lang="ar" dir="rtl">
+
+<head>
+
+    <!-- مدير الموافقة على الكوكيز v2 -->
+
+    <link rel="stylesheet" href="../assets/css/cookies.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="NexCore Labs">
+    <meta name="keywords"
+        content="نكسكور لابز، شروط الخدمة، الاتفاق، السياسات، الإرشادات، مشاريع الطلاب، الخدمات الرقمية، جامعات عمان، كليات عمان، جامعة السلطان قابوس، عمان">
+    <meta name="theme-color" content="#0a0b1c">
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <title>NexCore Labs | شروط الخدمة</title>
+
+    <meta name="description"
+        content="شروط خدمة NexCore Labs - اتفاق الخدمة والسياسات وإرشادات المشروع.">
+
+    <!-- Facebook Meta Tags -->
+
+    <meta property="og:url" content="https://nexcorelabs.vercel.app/ar/terms.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="NexCore Labs | شروط الخدمة">
+    <meta property="og:description"
+        content="شروط خدمة NexCore Labs - اتفاق الخدمة والسياسات وإرشادات المشروع.">
+    <meta property="og:image"
+        content="https://opengraph.b-cdn.net/production/images/af5a4481-2baa-47be-8838-5160bafa4f79.png?token=_5DjeK6KYgg8DW7Qsk5XfrtI2h_CW3YcCJlwxMJ3sEc&height=1080&width=1080&expires=33306259895">
+
+    <!-- Twitter Meta Tags -->
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:domain" content="nexcorelabs.vercel.app">
+    <meta property="twitter:url" content="https://nexcorelabs.vercel.app/ar/terms.html">
+    <meta name="twitter:title" content="NexCore Labs | شروط الخدمة">
+    <meta name="twitter:description"
+        content="شروط خدمة NexCore Labs - اتفاق الخدمة والسياسات وإرشادات المشروع.">
+    <meta name="twitter:image"
+        content="https://opengraph.b-cdn.net/production/images/af5a4481-2baa-47be-8838-5160bafa4f79.png?token=_5DjeK6KYgg8DW7Qsk5XfrtI2h_CW3YcCJlwxMJ3sEc&height=1080&width=1080&expires=33306259895">
+
+    <link rel="icon" href="../assets/images/nexcore-icon.png" type="image/png">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/admin-button.css">
+    <link rel="stylesheet" href="../assets/css/arabic.css">
+
+    <link rel="manifest" href="../manifest.json">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Tajawal:wght@300;400;500;700;800&display=swap"
+        rel="stylesheet">
+    <link rel='stylesheet'
+        href='https://cdn-uicons.flaticon.com/2.4.2/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.2/uicons-brands/css/uicons-brands.css'>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <link rel="alternate" hreflang="en" href="../terms.html">
+    <link rel="alternate" hreflang="ar" href="terms.html">
+</head>
+
+<body>
+
+    <div class="background">
+        <img class="logo-img" id="logoImg" src="../assets/images/nexcore-logo.webp" alt="شعار NexCore Labs">
+
+        <div id="spotLight" class="spot-light"></div>
+    </div>
+
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <h1 id="logo"><a href="index.html" style="text-decoration: none; color: inherit;">NexCore
+                        <span>Labs</span></a></h1>
+            </div>
+
+            <div class="dropdown">
+                <div class="core-menu" id="coreMenu" aria-label="فتح القائمة" title="القائمة">
+                    <span class="dot" aria-hidden="true"></span>
+                    <span class="dot" aria-hidden="true"></span>
+                    <span class="dot" aria-hidden="true"></span>
+                    <span class="dot" aria-hidden="true"></span>
+                    <span class="dot" aria-hidden="true"></span>
+                    <span class="dot" aria-hidden="true"></span>
+                </div>
+
+        <div id="myDropdown" class="dropdown-content">
+          <a href="../index.html" style="color: #6ee7f3;"><i class="fa-solid fa-globe"></i> English</a>
+          <a href="auth.html" class="magic-signup fade" title="تسجيل الدخول إلى حسابك"><i class="fa-solid fa-key"></i> الوصول إلى النواة</a>
+          <input type="search" placeholder="ابحث..." id="myInput" onkeyup="filterFunction()" title="بحث...">
+
+          <a href="hub.html" class="fade" title="مركز NexCore Labs"><i class="fa-solid fa-house"></i> المركز</a>
+          <a href="hub.html#projects" class="fade" title="المشاريع"><i class="fa-solid fa-diagram-project"></i> المشاريع</a>
+          <a href="ai-chat.html" class="fade" title="NexCore AI" style="color:#6ee7f3;"><i class="fa-solid fa-wand-magic-sparkles"></i> NexCore AI</a>
+
+          <div class="div-menu-line"></div>
+
+          <a href="index.html#tools" class="mt-0" title="الأدوات والأنظمة"><i class="fa-solid fa-screwdriver-wrench"></i> الأدوات والأنظمة</a>
+          <a href="index.html#about" title="حول NexCore Labs"><i class="fa-solid fa-circle-info"></i> من نحن</a>
+          <a href="index.html#team" title="فريق NexCore Labs"><i class="fa-solid fa-users"></i> الفريق</a>
+          <a href="index.html#contact" title="اتصل بـ NexCore Labs"><i class="fa-solid fa-paper-plane"></i> اتصل بنا</a>
+
+          <div class="div-menu-line"></div>
+
+          <a href="roadmap.html" class="fade mt-0" title="لوحة الميزات والخريطة"><i class="fa-solid fa-route"></i> لوحة الميزات</a>
+          <a href="releases.html" class="fade" title="الإصدارات والتحديثات"><i class="fa-solid fa-clock-rotate-left"></i> الإصدارات والتحديثات</a>
+
+          <div class="div-menu-line"></div>
+
+          <a href="pricing.html" class="fade mt-0" title="خطط التسعير"><i class="fa-solid fa-tag"></i> التسعير <span class="new-badge">جديد</span></a>
+          <a href="faq.html" class="fade" title="الأسئلة الشائعة والدعم"><i class="fa-solid fa-circle-question"></i> الأسئلة الشائعة</a>
+          <a href="how-to-use.html" class="fade" title="كيفية استخدام NexCore Labs"><i class="fa-solid fa-book-open"></i> كيفية الاستخدام</a>
+          <a href="terms.html" class="fade" title="شروط الخدمة"><i class="fa-solid fa-file-contract"></i> الشروط</a>
+          <a href="privacy-policy.html" class="fade" title="سياسة الخصوصية"><i class="fa-solid fa-shield-halved"></i> الخصوصية</a>
+        </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="terms-container">
+            <div class="terms-header">
+                <h1>شروط الخدمة</h1>
+
+                <p>اتفاق الخدمة لـ NexCore Labs</p>
+            </div>
+
+            <div class="last-updated">
+                آخر تحديث: 9 مايو 2026
+            </div>
+
+            <div class="table-of-contents">
+                <h2><i class="fa-solid fa-list"></i> جدول المحتويات</h2>
+
+                <ul>
+                    <li><a href="#service-overview">1. نظرة عامة على الخدمة</a></li>
+                    <li><a href="#eligibility">2. الأهلية والامتثال</a></li>
+                    <li><a href="#service-description">3. وصف الخدمة</a></li>
+                    <li><a href="#payment-terms">4. شروط الدفع والفواتير</a></li>
+                    <li><a href="#intellectual-property">5. حقوق الملكية الفكرية</a></li>
+                    <li><a href="#content-responsibility">6. المحتوى ومسؤولية المستخدم</a></li>
+                    <li><a href="#security-compliance">7. الأمان والامتثال</a></li>
+                    <li><a href="#limitation-liability">8. تحديد المسؤولية</a></li>
+                    <li><a href="#termination">9. الإنهاء</a></li>
+                    <li><a href="#changes-service">10. التغييرات على الخدمة</a></li>
+                    <li><a href="#governing-law">11. القانون الحاكم</a></li>
+                    <li><a href="#contact">12. معلومات الاتصال</a></li>
+                </ul>
+
+            </div>
+
+            <!-- القسم 1 -->
+
+            <section id="service-overview" class="terms-section">
+                <h2>1. نظرة عامة على الخدمة</h2>
+
+                <p>
+                    توفر NexCore Labs ("الشركة"، "نحن"، "لنا"، "خاصتنا") خدمات حلول رقمية احترافية للمشاريع التي يقودها الطلاب في الجامعات والكليات في جميع أنحاء عمان. تحكم شروط الخدمة هذه ("الشروط") استخدامك لخدماتنا وإنشاء صفحة مشروعك.
+                </p>
+
+                <p>
+                    بالتعامل مع خدماتنا أو التسجيل على منصتنا أو قبول اتفاق الخدمة، فإنك توافق على الالتزام بهذه الشروط. إذا كنت لا توافق على أي جزء من هذه الشروط، فقد لا تستخدم خدماتنا.
+                </p>
+            </section>
+
+            <!-- القسم 2 -->
+
+            <section id="eligibility" class="terms-section">
+                <h2>2. الأهلية والامتثال</h2>
+
+                <h3>من يمكنه استخدام خدماتنا</h3>
+
+                <ul>
+                    <li>المشاريع التي يقودها الطلاب في الجامعات والكليات في عمان</li>
+                    <li>منظمات الطلاب والأندية من جامعات عمان</li>
+                    <li>مبادرات البحث الجامعي والمشاريع الأكاديمية</li>
+                    <li>المستخدمون المعتمدون من NexCore Labs</li>
+                </ul>
+
+                <h3>التحقق</h3>
+
+                <p>
+                    قد نطلب التحقق من انتمائك الطالب. قد يؤدي تقديم معلومات كاذبة حول أهليتك إلى الإنهاء الفوري للخدمات بدون استرجاع.
+                </p>
+
+                <h3>الاستخدام المحظور</h3>
+
+                <p>أنت توافق على عدم استخدام خدماتنا لـ:</p>
+
+                <ul>
+                    <li>الأنشطة غير القانونية أو المحتوى غير القانوني</li>
+                    <li>خطاب الكراهية أو التحرش أو التمييز</li>
+                    <li>محتوى بالغ أو صريح</li>
+                    <li>انتهاك حقوق الملكية الفكرية</li>
+                    <li>المعلومات المضللة أو الكاذبة</li>
+                    <li>الأنشطة التجارية غير المتعلقة بمشروعك الأكاديمي</li>
+                    <li>توزيع البرامج الضارة أو الهجمات على الأنظمة</li>
+                </ul>
+
+            </section>
+
+            <!-- القسم 3 -->
+
+            <section id="service-description" class="terms-section">
+                <h2>3. وصف الخدمة</h2>
+
+                <h3>ما نقدمه</h3>
+
+                <p>توفر NexCore Labs الخدمات التالية بناءً على خطتك المختارة:</p>
+
+                <ul>
+                    <li>تصميم وتطوير الصفحات</li>
+                    <li>تكامل التحليلات والإعداد</li>
+                    <li>الدعم التقني والصيانة</li>
+                    <li>النشر والدعم بعد الإطلاق</li>
+                </ul>
+
+                <h3>ما لا يتضمنه</h3>
+
+                <ul>
+                    <li>تخصيص التصميم المتقدم (خارج النطاق)</li>
+                    <li>التكاملات الخارجية (قد تكون هناك تكاليف إضافية)</li>
+                </ul>
+
+                <h3>الجدول الزمني للخدمة</h3>
+
+                <p>
+                    الجدول الزمني النموذجي للمشروع <strong>جزء من الثانية</strong>. قد تحدث تأخيرات بسبب تأخير ردود العملاء أو تغييرات النطاق. سنبلغك بأي تعديلات على الجدول الزمني على الفور.
+                </p>
+
+                <div class="highlight-box">
+                    <strong>ملاحظة:</strong> ضمانات الجدول الزمني تعتمد على تقديمك في الوقت المناسب للمحتوى والملاحظات والموافقات.
+                </div>
+            </section>
+
+            <!-- القسم 4 -->
+
+            <section id="payment-terms" class="terms-section">
+                <h2>4. شروط الدفع والفواتير <small style="font-weight: 400; color: white; font-size: 18px;">غير طلاب جامعة السلطان قابوس</small></h2>
+
+                <h3>نموذج التسعير</h3>
+
+                <p>
+                    تستخدم NexCore نموذج تسعير مرن حسب الميزات. لا توجد خطط اشتراك صارمة — اختر فقط الميزات التي تحتاجها وادفع رسماً واحداً. جميع الأسعار بالريال العماني (ر.ع).
+                </p>
+
+                <h3>الميزات والأسعار المتاحة</h3>
+
+                <ul>
+                    <li><strong>الوصول مدى الحياة</strong> — <strong>0.950 ر.ع</strong> (مضمون مع كل طلب؛ مشروعك لن ينتهي أبداً على NexCore)</li>
+                    <li><strong>المراجعة الأولوية</strong> — <strong>0.300 ر.ع</strong> (نشر المشروع خلال 24 ساعة)</li>
+                    <li><strong>الإعداد الاحترافي</strong> — <strong>0.450 ر.ع</strong> (يقوم فريق NexCore بإعداد صفحة مشروعك — قريباً)</li>
+                    <li><strong>العرض المميز</strong> — <strong>0.750 ر.ع</strong> (مرئي على مركز NexCore لمدة 30 يوماً — قريباً)</li>
+                </ul>
+
+                <h3>مدة الدعم (اختياري)</h3>
+
+                <ul>
+                    <li><strong>بدون دعم</strong> — مجاني</li>
+                    <li><strong>أسبوع واحد</strong> — 0.250 ر.ع</li>
+                    <li><strong>شهر واحد</strong> — 0.500 ر.ع</li>
+                    <li><strong>ثلاثة أشهر</strong> — 1.000 ر.ع</li>
+                    <li><strong>ستة أشهر</strong> — 1.500 ر.ع</li>
+                    <li><strong>سنة واحدة</strong> — 2.500 ر.ع</li>
+                </ul>
+
+                <p>يغطي الدعم التوجيهات التقنية عبر البريد الإلكتروني و WhatsApp لمشروع NexCore الخاص بك.</p>
+
+                <h3>طرق الدفع</h3>
+
+                <ul>
+                    <li>
+                        <strong>التحويل البنكي (بنك مسقط)</strong> — حول مباشرة إلى حسابنا في بنك مسقط. يتم التحقق من الطلبات خلال حوالي 48 ساعة بعد تأكيد التحويل.
+                    </li>
+                    <li>
+                        <strong>PayPal</strong> — ادفع بأمان بالدولار الأمريكي (1 ر.ع = 2.60 دولار). التفعيل فوري عند الدفع. يتم إضافة رسم معالجة PayPal الصغير إلى الإجمالي عند الدفع.
+                    </li>
+                </ul>
+
+                <h3>سياسة الاسترجاع</h3>
+
+                <ul>
+                    <li>يجب تقديم طلبات الاسترجاع خلال <strong>7 أيام</strong> من تأكيد الدفع</li>
+                    <li>الاسترجاع غير متاح بعد نشر مشروعك أو بدء عمل الإعداد</li>
+                    <li>في حالة فشل الخدمة من جانبنا، سيتم إصدار استرجاع كامل</li>
+                    <li>رسوم معالجة PayPal غير قابلة للاسترجاع وفقاً لسياسة PayPal</li>
+                </ul>
+
+                <div class="important">
+                    <strong>مهم:</strong> جميع الأسعار بالريال العماني ولا تشمل الضرائب المعمول بها. أنت مسؤول عن أي ضرائب مبيعات أو VAT أو ضرائب أخرى معمول بها.
+                </div>
+            </section>
+
+            <!-- القسم 5 -->
+
+            <section id="intellectual-property" class="terms-section">
+                <h2>5. حقوق الملكية الفكرية</h2>
+
+                <h3>محتواك</h3>
+
+                <p>
+                    أنت تحتفظ بملكية كاملة لجميع المحتوى الذي توفره لنا (نص وصور وشعارات وفيديوهات وما إلى ذلك). أنت تمنحنا ترخيصاً لاستخدام هذا المحتوى فقط لغرض إنشاء صفحتك.
+                </p>
+
+                <h3>الأصول الخارجية</h3>
+
+                <p>
+                    قد تشمل صفحتك أصولاً خارجية (رموز وخطوط ومكتبات) مرخصة للاستخدام. توافق على الامتثال لرخصها الخاصة.
+                </p>
+
+                <h3>وصول الكود</h3>
+
+                <p>
+                    عند إكمال المشروع، نزودك بوصول إلى كود مشروعك المصدري عبر GitHub. يمكنك تعديل الكود والحفاظ عليه ونشره بنفسك.
+                </p>
+            </section>
+
+            <!-- القسم 6 -->
+
+            <section id="content-responsibility" class="terms-section">
+                <h2>6. المحتوى ومسؤولية المستخدم</h2>
+
+                <h3>إرشادات المحتوى</h3>
+
+                <p>أنت مسؤول عن:</p>
+
+                <ul>
+                    <li>التأكد من أن جميع المحتوى دقيق وليس مضللاً</li>
+                    <li>الحصول على الأذونات اللازمة لأي محتوى خارجي</li>
+                    <li>الامتثال لجميع القوانين السارية وسياسات الجامعة</li>
+                    <li>عدم تضمين مواد محمية بحقوق الطبع والنشر بدون نسبة مناسبة</li>
+                    <li>التأكد من أن المحتوى لا ينتهك حقوق أي شخص</li>
+                </ul>
+
+                <h3>مراجعة المحتوى</h3>
+
+                <p>
+                    نحتفظ بالحق في مراجعة جميع المحتوى وطلب التغييرات إذا كان المحتوى ينتهك هذه الشروط أو غير مناسب. نحن غير مسؤولين عن اعتدال المحتوى بعد الإطلاق الأولي.
+                </p>
+
+                <h3>محتوى ينشئه المستخدم</h3>
+
+                <p>
+                    إذا سمحت صفحتك للمستخدمين بتقديم محتوى (تعليقات أو نماذج وما إلى ذلك)، فأنت مسؤول عن مراقبة واعتدال هذا المحتوى وفقاً للقوانين المعمول بها.
+                </p>
+            </section>
+
+            <!-- القسم 7 -->
+
+            <section id="security-compliance" class="terms-section">
+                <h2>7. الأمان والامتثال</h2>
+
+                <h3>إجراءات الأمان لدينا</h3>
+
+                <p>نحن ننفذ ممارسات أمان معايير الصناعة:</p>
+
+                <ul>
+                    <li>تشفير HTTPS وشهادات SSL</li>
+                    <li>حماية DDoS عبر Cloudflare</li>
+                    <li>جدار تطبيقات الويب (WAF)</li>
+                    <li>عمليات تدقيق أمان منتظمة وتحديثات</li>
+                    <li>نسخ احتياطية يومية آلية</li>
+                    <li>ممارسات قاعدة بيانات آمنة</li>
+                </ul>
+
+                <h3>مسؤولياتك</h3>
+
+                <ul>
+                    <li>احفظ بيانات اعتماد تسجيل الدخول سرية</li>
+                    <li>أخبرنا فوراً عن أي انتهاكات أمان مشبوهة</li>
+                    <li>امتثل لـ GDPR واللوائح الخاصة بحماية البيانات</li>
+                    <li>حافظ على أفضل ممارسات الأمان لأي تعديلات مخصصة</li>
+                </ul>
+
+                <h3>معايير الامتثال</h3>
+
+                <p>
+                    جميع الصفحات مبنية للامتثال لـ GDPR ومعايير إمكانية الوصول WCAG 2.1 وأفضل ممارسات الأمان في الصناعة. للمشاريع التي تتعامل مع معلومات الدفع، نضمن امتثال PCI DSS.
+                </p>
+
+                <div class="highlight-box">
+                    <strong>ملاحظة:</strong> بينما نطبق إجراءات أمان شاملة، لا يوجد نظام آمن 100%. لا يمكننا ضمان الحماية المطلقة ضد جميع التهديدات.
+                </div>
+            </section>
+
+            <!-- القسم 8 -->
+
+            <section id="limitation-liability" class="terms-section">
+                <h2>8. تحديد المسؤولية</h2>
+
+                <h3>إخلاء المسؤولية</h3>
+
+                <p>
+                    يتم توفير الخدمات "كما هي" بدون أي ضمانات من أي نوع، صريحة أو ضمنية. نحن نخلي مسؤوليتنا عن جميع الضمانات بما في ذلك القابلية للتسويق والملاءمة لغرض معين وعدم الانتهاك.
+                </p>
+
+                <h3>تحديد الأضرار</h3>
+
+                <p>
+                    ما عدا حيث يحظره القانون، فإن إجمالي مسؤوليتنا عن أي مطالبات ناشئة عن هذه الشروط أو خدماتنا لن تتجاوز المبلغ الإجمالي الذي دفعته لنا في الـ 12 شهراً السابقة للمطالبة.
+                </p>
+
+                <h3>الأضرار المستبعدة</h3>
+
+                <ul>
+                    <li>الأضرار غير المباشرة أو العرضية أو الخاصة أو الناتجة</li>
+                    <li>فقدان الإيرادات أو الأرباح أو البيانات</li>
+                    <li>انقطاع الأعمال</li>
+                    <li>مطالبات أو إجراءات الطرف الثالث</li>
+                </ul>
+
+                <h3>ضمان وقت الحركة</h3>
+
+                <p>
+                    نضمن وقت حركة 99.9% لصفحتك في الظروف العادية. إذا شهدت صفحتك توقفاً أكثر، نقدم رصيد خدمة كعلاج وحيد لك (حتى شهر واحد من الخدمة).
+                </p>
+            </section>
+
+            <!-- القسم 9 -->
+
+            <section id="termination" class="terms-section">
+                <h2>9. الإنهاء</h2>
+
+                <h3>الإنهاء من قبلك</h3>
+
+                <ul>
+                    <li><strong>جميع الخطط:</strong> يمكن الإنهاء بإشعار مكتوب لمدة 30 يوماً</li>
+                    <li>ستتلقى وصولاً إلى بيانات مشروعك والكود المصدري عند الإنهاء</li>
+                </ul>
+
+                <h3>الإنهاء من قبل NexCore Labs</h3>
+
+                <p>
+                    قد ننهي خدمتك فوراً إذا:
+                </p>
+
+                <ul>
+                    <li>انتهكت أي حكم من أحكام هذه الشروط</li>
+                    <li>قمت بأنشطة غير قانونية</li>
+                    <li>استخدمت الخدمة للإضرار بالآخرين أو انتهاك حقوقهم</li>
+                    <li>فشلت في دفع الفواتير بعد إشعار 30 يوماً</li>
+                    <li>انتهكت بروتوكولات الأمان أو حاولت وصولاً غير مصرح</li>
+                </ul>
+
+                <h3>عند الإنهاء</h3>
+
+                <ul>
+                    <li>ستُغلق صفحتك خلال 30 يوماً</li>
+                    <li>سيتم توفير الكود المصدري لأغراض الأرشفة</li>
+                    <li>ستُحذف البيانات بعد 90 يوماً ما لم يتم الاتفاق على خلاف ذلك</li>
+                </ul>
+
+            </section>
+
+            <!-- القسم 10 -->
+
+            <section id="changes-service" class="terms-section">
+                <h2>10. التغييرات على الخدمة</h2>
+
+                <h3>تعديلات الخدمة</h3>
+
+                <p>
+                    قد نعدل أو نوقف الخدمات بإشعار 30 يوماً. إذا أثرت التغييرات بشكل جوهري على خدمتك، سننص على استرجاع أو خيارات بديلة.
+                </p>
+
+                <h3>تحديثات الشروط</h3>
+
+                <p>
+                    قد نحدث هذه الشروط في أي وقت. الاستمرار في استخدام خدماتنا يشكل قبولاً للشروط المحدثة. سيتم إبلاغك بالتغييرات الرئيسية قبل 30 يوماً على الأقل.
+                </p>
+
+                <h3>تغييرات الأسعار</h3>
+
+                <p>
+                    قد نعدل الأسعار للاشتراكات الجديدة. الخطط الموجودة لن تتأثر حتى التجديد، مع إشعار 30 يوماً مطلوب قبل تطبيق التغييرات.
+                </p>
+            </section>
+
+            <!-- القسم 11 -->
+
+            <section id="governing-law" class="terms-section">
+                <h2>11. القانون الحاكم</h2>
+
+                <p>
+                    تحكم هذه الشروط وتفسر بموجب قوانين عمان، دون اعتبار لأحكام تضارب القانون. سيتم رفع أي دعوى قانونية أو إجراء حصرياً في محاكم عمان المختصة.
+                </p>
+
+                <p>
+                    باستخدام خدماتنا، أنت توافق على الاختصاص القضائي لمحاكم عمان وتتنازل عن أي اعتراض على الاختصاص الإقليمي.
+                </p>
+            </section>
+
+            <!-- القسم 12 -->
+
+            <section id="contact" class="terms-section">
+                <h2>12. معلومات الاتصال</h2>
+
+                <p>
+                    للأسئلة حول هذه الشروط أو لمناقشة اتفاقيات الخدمة، تواصل معنا:
+                </p>
+
+                <ul>
+                    <li><strong>البريد الإلكتروني:</strong> nexcorelabs@outlook.com</li>
+                    <li><strong>وقت الاستجابة:</strong> 48 ساعة</li>
+                    <li><strong>الموقع:</strong> <a href="index.html"
+                            style="color: #6EE7F3;">nexcorelabs.vercel.app</a></li>
+                    <li><strong>الموقع:</strong> جامعة السلطان قابوس، عمان</li>
+                </ul>
+
+                <div class="highlight-box">
+                    <strong>ملاحظة:</strong> تنطبق هذه الشروط على جميع الخدمات المقدمة من NexCore Labs. للترتيبات المخصصة أو اتفاقيات الخدمة خارج هذه الشروط القياسية، يرجى الاتصال بنا مباشرة.
+                </div>
+            </section>
+
+        </div>
+
+        <div class="nexcore-sign">
+            <img id="nexcoreSign" src="../assets/images/nexcore-word.webp" alt="NexCore Labs">
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <div class="f-left">
+                <a class="paypal" href="https://www.paypal.me/nexcorelabs" target="_blank" rel="noopener" title="PayPal"><i
+                        class="fa-solid fa-heart" style="color: #6EE7F3;"></i> ادعمنا على <i
+                        class="fa-brands fa-paypal"></i></a>
+
+                <br>
+
+                <small>NexCore Labs © <span id="year"></span> <span id="splitter">|</span>
+
+                    <a href="https://github.com/NexCoreLabs/NexCore/blob/main/LICENSE" target="_blank" rel="noopener"
+                        class="license-link">
+
+                        <i class="fa-solid fa-scale-balanced"></i> MIT License
+
+                    </a> </small>
+
+            </div>
+
+            <div class="f-right footer-line"></div>
+        </div>
+    </footer>
+
+    <script src="../assets/js/script.js"></script>
+    <script src="../assets/js/supabase-client.js"></script>
+    <script src="../assets/js/auth-ui-db.js"></script>
+    <script src="../version.js"></script>
+
+</body>
+
+</html>
