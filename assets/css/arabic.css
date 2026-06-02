@@ -96,3 +96,7 @@
 :lang(ar) .nav-container .logo #logo, .logo #logo span {
   font-family: 'Inter', sans-serif;
 }
+
+:lang(ar) .tool-card span {
+  font-family: 'Inter', sans-serif;
+}

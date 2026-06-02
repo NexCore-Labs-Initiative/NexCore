@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
     dir: "rtl",
     formRequired: "يرجى تعبئة جميع الحقول.",
     formSending: "جارٍ الإرسال...",
-    menuHint: "أنا القائمة",
+    menuHint: "&#x1F44B; أنا القائمة",
     rotator: [
       `<div class="flag-includes"><img src="../assets/images/oman.webp" alt="علم عمان"><span>صُنع بفخر في عمان</span></div>`,
       `<div class="flag-includes"><img src="../assets/images/eu.webp" alt="علم الاتحاد الأوروبي"><span>متوافق مع مبادئ GDPR الأوروبية</span></div>`,

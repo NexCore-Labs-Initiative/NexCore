@@ -972,7 +972,8 @@ a.project-card:hover .id {
     -webkit-user-drag: none;
     position: absolute;
     width: 30px;
-    opacity: .3
+    opacity: .2;
+    border-radius: 6px;
 }
 
 .tool-card:hover img {
@@ -3410,7 +3411,6 @@ strong {
 .pill-text img{
     width: 16px;
     height: auto;
-    
 }
 
 .pill-slider {
