@@ -36,9 +36,11 @@
         <meta name="twitter:image" content="https://opengraph.b-cdn.net/production/images/af5a4481-2baa-47be-8838-5160bafa4f79.png?token=_5DjeK6KYgg8DW7Qsk5XfrtI2h_CW3YcCJlwxMJ3sEc&height=1080&width=1080&expires=33306259895">
         <link rel="icon" href="../assets/images/nexcore-icon.png" type="image/png">
         <link rel="apple-touch-icon" href="../assets/images/nexcore-logo.webp">
-        <link rel="stylesheet" href="../assets/css/style.css">
+        <!-- <link rel="stylesheet" href="../assets/css/style.css"> -->
         <link rel="stylesheet" href="../assets/css/admin-button.css">
         <link rel="stylesheet" href="../assets/css/arabic.css">
+
+        <link rel="stylesheet" href="../assets/css/unminified-css.css">
 
         <link rel="manifest" href="../manifest.json">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
@@ -91,7 +93,11 @@
                     </div>
 
         <div id="myDropdown" class="dropdown-content">
-          <a href="../index.html" style="color: #6ee7f3;"><i class="fa-solid fa-globe"></i> English</a>
+                    <a href="../auth.html" class="lang-switch-pill" title="View English site">
+              <div class="pill-slider"></div>
+              <span class="pill-text en-text"><img src="../assets/images/uk.webp" alt="United Kingdom flag"> EN</span>
+              <span class="pill-text ar-text"><img src="../assets/images/oman.webp" alt="Oman flag"> ع</span>
+          </a>
           <a href="auth.html" class="magic-signup fade" title="تسجيل الدخول إلى حسابك"><i class="fa-solid fa-key"></i> الوصول إلى النواة</a>
           <input type="search" placeholder="ابحث..." id="myInput" onkeyup="filterFunction()" title="بحث...">
 
@@ -149,7 +155,7 @@
                             <div class="info-block">
                                 <h3><i class="fa-solid fa-graduation-cap"></i> مجتمع الطلاب العماني</h3>
 
-                                <p>NexCore Labs مفتوحة لطلاب الجامعات والكليات في جميع أنحاء عمان. طلاب جامعة السلطان قابوس يحصلون على <strong style="color:#6ee7f3;">وصول مجاني</strong> تلقائياً. من جامعة أخرى في عمان؟ يمكنك الحصول على مشروعك على المنصة — <a href="pricing.html" style="color:#6ee7f3; text-decoration:none; border-bottom:1px solid rgba(110,231,243,0.3);">انظر كيف ←</a></p>
+                                <p>NexCore Labs مفتوحة لطلاب الجامعات والكليات في جميع أنحاء عمان. طلاب جامعة السلطان قابوس يحصلون على <strong style="color:#6ee7f3;">وصول مجاني</strong> تلقائياً. من جامعة أخرى في عمان؟ يمكنك الحصول على مشروعك على المنصة — <a href="../pricing.html" style="color:#6ee7f3; text-decoration:none; border-bottom:1px solid rgba(110,231,243,0.3);">انظر كيف ←</a></p>
                             </div>
                         </div>
 
@@ -184,7 +190,7 @@
                                 </div>
 
                                 <div style="margin-top:14px; text-align:center; font-size:13px; color:#9aa3b2;">
-                                    هل أنت من خارج جامعة السلطان قابوس؟ <a href="pricing.html" style="color:#6ee7f3; text-decoration:none; border-bottom:1px solid rgba(110,231,243,0.35); transition:border-color 0.2s;">احصل على الموافقة في NexCore Labs ←</a>
+                                    هل أنت من خارج جامعة السلطان قابوس؟ <a href="../pricing.html" style="color:#6ee7f3; text-decoration:none; border-bottom:1px solid rgba(110,231,243,0.35); transition:border-color 0.2s;">احصل على الموافقة في NexCore Labs ←</a>
                                 </div>
                             </div>
                         </div>
@@ -200,19 +206,17 @@
         <footer class="site-footer">
             <div class="container footer-inner">
                 <div class="f-left">
-                    <a class="paypal" href="https://www.paypal.me/nexcorelabs" target="_blank" rel="noopener" title="PayPal"><i class="fa-solid fa-heart" style="color: #6EE7F3;"></i> ادعمنا على <i class="fa-brands fa-paypal"></i></a>
+                    <a class="paypal" href="https://www.paypal.me/nexcorelabs" target="_blank" rel="noopener" title="بايبال"><i
+                        class="fa-solid fa-heart text-accent"></i> ادعمنا عبر <i class="fa-brands fa-paypal"></i></a>
 
                     <br>
 
-                    <small title="جميع الحقوق محفوظة">NexCore Labs © <span id="year"></span> <span id="splitter">|</span>
-
-                        <a href="https://github.com/NexCoreLabs/NexCore/blob/main/LICENSE" target="_blank" rel="noopener" class="license-link">
-
-                            <i class="fa-solid fa-scale-balanced"></i> MIT License
-
+                    <small title="جميع الحقوق محفوظة">مختبرات نكسكور © <span id="year"></span> <span id="splitter">|</span>
+                        <a href="https://github.com/NexCoreLabs/NexCore/blob/main/LICENSE" target="_blank" rel="noopener"
+                            class="license-link">
+                            <i class="fa-solid fa-scale-balanced"></i> رخصة إم آي تي
                         </a>
                     </small>
-
                 </div>
 
                 <div class="f-right"><small>تمكين بيئتنا لفعل المزيد</small></div>

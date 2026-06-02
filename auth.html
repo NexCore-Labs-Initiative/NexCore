@@ -36,11 +36,11 @@
         <meta name="twitter:image" content="https://opengraph.b-cdn.net/production/images/af5a4481-2baa-47be-8838-5160bafa4f79.png?token=_5DjeK6KYgg8DW7Qsk5XfrtI2h_CW3YcCJlwxMJ3sEc&height=1080&width=1080&expires=33306259895">
         <link rel="icon" href="assets/images/nexcore-icon.png" type="image/png">
         <link rel="apple-touch-icon" href="assets/images/nexcore-logo.webp">
-        <link rel="stylesheet" href="assets/css/style.css">
+        <!-- <link rel="stylesheet" href="assets/css/style.css"> -->
     <link rel="stylesheet" href="assets/css/admin-button.css">
         <link rel="stylesheet" href="assets/css/arabic.css">
 
-        <!-- <link rel="stylesheet" href="assets/css/unminified-css.css"> -->
+        <link rel="stylesheet" href="assets/css/unminified-css.css">
 
         <link rel="manifest" href="manifest.json">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
@@ -59,6 +59,9 @@
             window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
         </script>
         <script defer src="/_vercel/speed-insights/script.js"></script>
+
+        <link rel="alternate" hreflang="en" href="auth.html">
+        <link rel="alternate" hreflang="ar" href="ar/auth.html">
 
     <style>
         .mt-0 { margin-top: 0 !important; }
@@ -102,6 +105,12 @@
 
 
         <div id="myDropdown" class="dropdown-content">
+          <a href="ar/auth.html" class="lang-switch-pill mixed-content" title="View Arabic site">
+              <div class="pill-slider"></div>
+              <span class="pill-text en-text"><img src="assets/images/uk.webp" alt="United Kingdom flag"> EN</span>
+              <span class="pill-text ar-text"><img src="assets/images/oman.webp" alt="Oman flag"> ع</span>
+          </a>
+
           <a href="auth.html" class="magic-signup fade" title="Sign in to your account"><i class="fa-solid fa-key"></i> Access the Core</a>
           <input type="search" placeholder="What?..." id="myInput" onkeyup="filterFunction()" title="Search...">
 

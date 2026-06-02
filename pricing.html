@@ -37,11 +37,11 @@
 
     <link rel="icon" href="assets/images/nexcore-icon.png" type="image/png">
     <link rel="apple-touch-icon" href="assets/images/nexcore-logo.webp">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <!-- <link rel="stylesheet" href="assets/css/style.css"> -->
     <link rel="stylesheet" href="assets/css/admin-button.css">
     <link rel="stylesheet" href="assets/css/arabic.css">
     <link rel="stylesheet" href="assets/css/ai-chat.css">
-    <!-- <link rel="stylesheet" href="assets/css/unminified-css.css"> -->
+    <link rel="stylesheet" href="assets/css/unminified-css.css">
     <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -49,6 +49,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.2/uicons-solid-rounded/css/uicons-solid-rounded.css'>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+        <link rel="alternate" hreflang="en" href="pricing.html">
+        <link rel="alternate" hreflang="ar" href="ar/pricing.html">
 
     <style>
         /* ─── Pricing Page Custom Styles ─────────────────────────────────── */
@@ -993,6 +996,12 @@
                 </div>
 
         <div id="myDropdown" class="dropdown-content">
+          <a href="ar/pricing.html" class="lang-switch-pill mixed-content" title="View Arabic site">
+              <div class="pill-slider"></div>
+              <span class="pill-text en-text"><img src="assets/images/uk.webp" alt="United Kingdom flag"> EN</span>
+              <span class="pill-text ar-text"><img src="assets/images/oman.webp" alt="Oman flag"> ع</span>
+          </a>
+
           <a href="auth.html" class="magic-signup fade" title="Sign in to your account"><i class="fa-solid fa-key"></i> Access the Core</a>
           <input type="search" placeholder="What?..." id="myInput" onkeyup="filterFunction()" title="Search...">
 

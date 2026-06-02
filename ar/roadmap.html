@@ -37,11 +37,11 @@
 
         <link rel="icon" href="../assets/images/nexcore-icon.png" type="image/png">
 
-        <link rel="stylesheet" href="../assets/css/style.css">
+        <!-- <link rel="stylesheet" href="../assets/css/style.css"> -->
     <link rel="stylesheet" href="../assets/css/admin-button.css">
         <link rel="stylesheet" href="../assets/css/arabic.css">
 
-        <!-- <link rel="stylesheet" href="../assets/css/unminified-css.css"> -->
+        <link rel="stylesheet" href="../assets/css/unminified-css.css">
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -1310,7 +1310,11 @@ main {
         </div>
 
         <div id="myDropdown" class="dropdown-content">
-          <a href="../roadmap.html" style="color:#6ee7f3;"><i class="fa-solid fa-globe"></i> English</a>
+                    <a href="../roadmap.html" class="lang-switch-pill" title="View English site">
+              <div class="pill-slider"></div>
+              <span class="pill-text en-text"><img src="../assets/images/uk.webp" alt="United Kingdom flag"> EN</span>
+              <span class="pill-text ar-text"><img src="../assets/images/oman.webp" alt="Oman flag"> ع</span>
+          </a>
           <input type="search" placeholder="ابحث..." id="myInput" onkeyup="filterFunction()" title="بحث...">
 
           <a href="/ar/auth.html" class="magic-signup fade" title="تسجيل الدخول إلى حسابك"><i class="fa-solid fa-key"></i> استكشف الجوهر</a>
@@ -1524,25 +1528,21 @@ main {
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <div class="f-left">
-        <a class="paypal" href="https://www.paypal.me/nexcorelabs" target="_blank" rel="noopener" title="PayPal"><i
-            class="fa-solid fa-heart text-accent"></i> ادعمنا عبر <i class="fa-brands fa-paypal"></i></a>
+        <div class="f-left">
+            <a class="paypal" href="https://www.paypal.me/nexcorelabs" target="_blank" rel="noopener" title="بايبال"><i
+                class="fa-solid fa-heart text-accent"></i> ادعمنا عبر <i class="fa-brands fa-paypal"></i></a>
 
-        <br>
+            <br>
 
-        <small title="جميع الحقوق محفوظة">NexCore Labs © <span id="year"></span> <span id="splitter">|</span>
+            <small title="جميع الحقوق محفوظة">مختبرات نكسكور © <span id="year"></span> <span id="splitter">|</span>
+                <a href="https://github.com/NexCoreLabs/NexCore/blob/main/LICENSE" target="_blank" rel="noopener"
+                    class="license-link">
+                    <i class="fa-solid fa-scale-balanced"></i> رخصة إم آي تي
+                </a>
+            </small>
+        </div>
 
-          <a href="https://github.com/NexCoreLabs/NexCore/blob/main/LICENSE" target="_blank" rel="noopener"
-            class="license-link">
-
-            <i class="fa-solid fa-scale-balanced"></i> رخصة MIT
-
-          </a>
-        </small>
-
-      </div>
-
-      <div class="f-right footer-line"></div>
+        <div class="f-right footer-line"></div>
     </div>
   </footer>
 

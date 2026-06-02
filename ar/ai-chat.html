@@ -23,9 +23,11 @@
   <meta name="twitter:title" content="ذكاء NexCore AI - اسأل أي شيء">
   <meta name="twitter:description" content="تحدث مع NexCore AI واسأل عن المنصة ومشاريع الطلاب.">
 
+  <link rel="stylesheet" href="../assets/css/unminified-css.css">
+
   <link rel="icon" href="../assets/images/nexcore-icon.png" type="image/png">
   <link rel="apple-touch-icon" href="../assets/images/nexcore-logo.webp">
-  <link rel="stylesheet" href="../assets/css/style.css">
+  <!-- <link rel="stylesheet" href="../assets/css/style.css"> -->
     <link rel="stylesheet" href="../assets/css/admin-button.css">
   <link rel="stylesheet" href="../assets/css/arabic.css">
   <link rel="manifest" href="../manifest.json">
@@ -655,7 +657,11 @@
         </div>
 
         <div id="myDropdown" class="dropdown-content">
-          <a href="../ai-chat.html" class="fade" title="English version"><i class="fa-solid fa-language"></i> English</a>
+                    <a href="../ai-chat.html" class="lang-switch-pill" title="View English site">
+              <div class="pill-slider"></div>
+              <span class="pill-text en-text"><img src="../assets/images/uk.webp" alt="United Kingdom flag"> EN</span>
+              <span class="pill-text ar-text"><img src="../assets/images/oman.webp" alt="Oman flag"> ع</span>
+          </a>
           <a href="/ar/auth.html" class="magic-signup fade" title="سجّل الدخول إلى حسابك"><i class="fa-solid fa-key"></i> ادخل إلى النواة</a>
           <input type="search" placeholder="ماذا؟..." id="myInput" onkeyup="filterFunction()" title="بحث...">
 
@@ -781,15 +787,17 @@
   <footer class="site-footer">
     <div class="container footer-inner">
       <div class="f-left">
-        <a class="paypal" href="https://www.paypal.me/nexcorelabs" target="_blank" rel="noopener" title="PayPal" style="color:#6EE7F3;"></i> ادعمنا عبر <i class="fa-brands fa-paypal"></i>
-        </a>
-        <br>
-        <small>NexCore Labs © <span id="yearFooter"></span>
-          <span id="splitter"> | </span>
-          <a href="https://github.com/NexCoreLabs/NexCore/blob/main/LICENSE" target="_blank" rel="noopener" class="license-link">
-            <i class="fa-solid fa-scale-balanced"></i> رخصة MIT
-          </a>
-        </small>
+          <a class="paypal" href="https://www.paypal.me/nexcorelabs" target="_blank" rel="noopener" title="بايبال"><i
+              class="fa-solid fa-heart text-accent"></i> ادعمنا عبر <i class="fa-brands fa-paypal"></i></a>
+
+          <br>
+
+          <small title="جميع الحقوق محفوظة">مختبرات نكسكور © <span id="year"></span> <span id="splitter">|</span>
+              <a href="https://github.com/NexCoreLabs/NexCore/blob/main/LICENSE" target="_blank" rel="noopener"
+                  class="license-link">
+                  <i class="fa-solid fa-scale-balanced"></i> رخصة إم آي تي
+              </a>
+          </small>
       </div>
       <div class="f-right footer-line"></div>
     </div>
