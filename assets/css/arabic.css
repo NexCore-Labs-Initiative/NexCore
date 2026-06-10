@@ -100,3 +100,7 @@
 :lang(ar) .tool-card span {
   font-family: 'Inter', sans-serif;
 }
+
+:lang(ar) .beta-banner {
+ text-align: right;
+}
