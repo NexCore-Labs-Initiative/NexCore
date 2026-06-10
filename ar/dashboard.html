@@ -1,0 +1,1970 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+    <head>
+        <!-- مدير الموافقة على الكوكيز v2 -->
+        <link rel="stylesheet" href="../assets/css/cookies.css">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="لوحة NexCore Labs لإدارة المشاريع والموارد.">
+        <meta name="author" content="NexCore Labs">
+        <meta name="keywords" content="NexCore Labs, لوحة التحكم, الفريق, المشاريع, مشاريع الطلاب, جامعة السلطان قابوس, عمان">
+        <meta name="theme-color" content="#0a0b1c">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta property="og:url" content="https://nexcorelabs.vercel.app/ar/dashboard.html">
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="NexCore Labs | لوحة التحكم">
+        <meta property="og:description" content="لوحة لإدارة مشاريع NexCore Labs.">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta property="twitter:domain" content="nexcorelabs.vercel.app">
+        <meta property="twitter:url" content="https://nexcorelabs.vercel.app/ar/dashboard.html">
+        <meta name="twitter:title" content="NexCore Labs | لوحة التحكم">
+        <meta name="twitter:description" content="لوحة لإدارة مشاريع NexCore Labs.">
+
+        <title>NexCore Labs | لوحة التحكم</title>
+
+        <link rel="icon" href="../assets/images/nexcore-icon.png" type="image/png">
+        <link rel="apple-touch-icon" href="../assets/images/nexcore-logo.webp">
+        <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/admin-button.css">
+        <link rel="stylesheet" href="../assets/css/arabic.css">
+        <link rel="stylesheet" href="../assets/css/ai-chat.css">
+        <!-- <link rel="stylesheet" href="../assets/css/unminified-css.css"> -->
+        <link rel="stylesheet" href="../assets/css/project-categories.css">
+        <link rel="manifest" href="../manifest.json">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+        <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.2/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+        <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-duotone-chubby/css/uicons-duotone-chubby.css'>
+        <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-thin-rounded/css/uicons-thin-rounded.css'>
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    .wrap{max-width:980px;margin:60px auto;margin-top:110px;padding:16px}
+    .box{border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:16px;margin:14px 0;-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);}
+    .card-section{border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:16px;margin-top:12px;background:rgba(255,255,255,.02)}
+    label{display:block;margin:10px 0 6px;opacity:.9}
+    textarea{min-height:110px}
+    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .row select{min-width:160px}
+    .btn:disabled{opacity:.5;cursor:not-allowed}
+    .muted{opacity:.75}
+    .msg-success{color:#6ee7f3}
+    .msg-error{color:#ff7878}
+    .help-box{margin:12px 0;padding:12px;background:rgba(0,0,0,.15);border:1px solid rgba(255,255,255,.06);border-radius:10px;font-size:.9rem}
+    .help-box summary{cursor:pointer;opacity:.85;font-weight:500;-webkit-user-select:none;user-select:none}
+    .help-box summary:hover{opacity:1}
+    .help-box[open] summary{margin-bottom:10px;opacity:1}
+    .help-box code{background:rgba(0,0,0,.3);padding:2px 6px;border-radius:4px;font-family:monospace;font-size:.85rem;color:#6ee7f3}
+    .help-box ol{margin:8px 0 8px 20px;padding:0}
+    .help-box li{margin:6px 0;line-height:1.5;opacity:.8}
+    .help-box strong{opacity:1;color:#6ee7f3}
+    .beta-badge{display:inline-block;padding:4px 10px;background:rgba(110,231,243,.15);border:1px solid rgba(110,231,243,.35);border-radius:6px;font-size:.75rem;font-weight:600;color:#6ee7f3;letter-spacing:.5px;margin-left:10px;vertical-align:middle}
+    .mod-badge{display:inline-block;padding:2px 8px;border-radius:999px;font-size:.78rem;font-weight:600;border:1px solid rgba(255,255,255,.18)}
+    .mod-approved{color:#6ee7f3;border-color:rgba(110,231,243,.45);background:rgba(110,231,243,.12)}
+    .mod-blocked{color:#ff7878;border-color:rgba(255,120,120,.45);background:rgba(255,120,120,.12)}
+    .mod-review{color:#ffcc66;border-color:rgba(255,204,102,.45);background:rgba(255,204,102,.12)}
+    .mod-unmoderated{color:#cfd8e3;border-color:rgba(207,216,227,.35);background:rgba(207,216,227,.08)}
+    .mod-why{margin-left:8px;font-size:.8rem;opacity:.85;cursor:pointer;color:#cfd8e3}
+
+    .ai-btn {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    .ai-btn.loading {
+      box-shadow:
+        0 0 20px rgba(110, 231, 243, 0.6),
+        0 0 40px rgba(110, 231, 243, 0.3);
+      transform: translateY(-1px);
+    }
+    .ai-btn.loading::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        120deg,
+        transparent 20%,
+        rgba(255,255,255,0.4),
+        transparent 80%
+      );
+      animation: shimmer 1.4s infinite;
+    }
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+    .ai-sparkle-layer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+    .ai-btn .ai-sparkle-layer::before,
+    .ai-btn .ai-sparkle-layer::after {
+      content: "✦";
+      position: absolute;
+      font-size: 10px;
+      opacity: 0.4;
+      color: #6EE7F3;
+      animation: floatSparkle 3s ease-in-out infinite;
+    }
+    .ai-btn .ai-sparkle-layer::before {
+      top: 20%;
+      left: 30%;
+    }
+    .ai-btn .ai-sparkle-layer::after {
+      bottom: 25%;
+      right: 35%;
+    }
+    @keyframes floatSparkle {
+      0% { transform: translateY(0px) rotate(0deg); opacity: 0.4; }
+      50% { transform: translateY(-4px) rotate(180deg); opacity: 0.8; }
+      100% { transform: translateY(0px) rotate(360deg); opacity: 0.4; }
+    }
+    .ai-burst-sparkle {
+      position: absolute;
+      font-size: 12px;
+      color: #6EE7F3;
+      animation: burstSparkle 0.8s ease-out forwards;
+    }
+    @keyframes burstSparkle {
+      0% {
+        opacity: 1;
+        transform: scale(0.5) translateY(0);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(1.6) translateY(-20px);
+      }
+    }
+    .ai-remaining { font-size:.85rem; margin-top:6px; font-weight:600; }
+    .ai-remaining.ok3 { color: #22c55e; }
+    .ai-remaining.ok2 { color: #a3e635; }
+    .ai-remaining.ok1 { color: #f59e0b; }
+    .ai-remaining.ok0 { color: #ef4444; }
+
+    /* ── حذف المشروع Modal ── */
+    .del-modal{
+      display:flex;position:fixed;inset:0;z-index:9999;
+      align-items:flex-end;justify-content:center;
+      padding:16px;box-sizing:border-box;
+      background:rgba(2,6,23,.55);
+      -webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);
+      opacity:0;pointer-events:none;
+      transition:opacity .28s ease;
+    }
+    .del-modal.open{opacity:1;pointer-events:all;}
+    @media(min-width:600px){.del-modal{align-items:center;}}
+    .del-modal-content{
+      position:relative;
+      width:100%;max-width:520px;
+      max-height:90dvh;overflow-y:auto;
+      background:rgba(8,10,22,.93);
+      border:1px solid rgba(255,255,255,.07);
+      border-radius:16px;
+      padding:28px 24px 22px;box-sizing:border-box;
+      box-shadow:0 24px 72px rgba(2,6,23,.85),0 0 0 1px rgba(255,120,120,.06);
+      -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+      color:#e6eef3;font-size:14px;line-height:1.5;
+      transform:translateY(28px) scale(.97);opacity:0;
+      transition:transform .32s cubic-bezier(.2,.9,.3,1),opacity .28s ease;
+      scrollbar-width:thin;scrollbar-color:#ff7878 transparent;
+    }
+    .del-modal.open .del-modal-content{transform:translateY(0) scale(1);opacity:1;}
+    .del-modal-content::before{
+      content:'';position:absolute;top:0;left:10%;right:10%;height:1px;
+      background:linear-gradient(90deg,transparent,#ff7878,transparent);
+      opacity:.45;border-radius:16px 16px 0 0;pointer-events:none;
+    }
+    .del-modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
+    .del-modal-header h2{margin:0;color:#ff7878;display:flex;align-items:center;gap:10px;font-size:1.15rem;}
+    .del-modal-close{
+      display:flex;align-items:center;justify-content:center;
+      width:32px;height:32px;border-radius:8px;
+      color:rgba(255,255,255,.45);font-size:22px;font-weight:bold;
+      cursor:pointer;line-height:1;flex-shrink:0;
+      transition:background .18s,color .18s;
+    }
+    .del-modal-close:hover{background:rgba(255,255,255,.08);color:#fff;}
+    .del-modal-actions{display:flex;gap:10px;margin-top:24px;}
+    .del-modal-actions .btn{flex:1;}
+    @media(max-width:480px){
+      .del-modal-content{padding:22px 16px 18px;}
+      .del-modal-actions{flex-direction:column;}
+      .del-modal-actions .btn{width:100%;}
+    }
+    /* ── AI Style Custom Dropdown ── */
+    .ai-select-wrap{
+      position:relative;
+      display:inline-block;
+      flex-shrink:0;
+      min-width:145px;
+    }
+    /* hidden native select keeps .value accessible for JS */
+    .ai-select-wrap > select{
+      position:absolute;opacity:0;pointer-events:none;width:0;height:0;
+    }
+    .ai-select-trigger{
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
+      background:rgba(0,0,0,.35);
+      border-bottom: 1px solid #6ee7f3;
+      padding: 10px 20px 8px;
+      margin-bottom: 10px;
+      border-radius:20px;
+      color:#e6eef3;
+      cursor:pointer;
+      max-width: 300px;
+      -webkit-user-select:none;user-select:none;
+      transition: all .2s ease
+    }
+    .ai-select-trigger:hover{
+    color: #eaf6fb;
+    border-bottom-color: #6bd3c9;
+    transform: scale(.99)
+    }
+    .ai-select-wrap.open .ai-select-trigger{
+      box-shadow:0 0 0 3px rgba(110,231,243,.15);
+      border-bottom-color: transparent;
+    }
+    .ai-select-chevron{
+      width:0;height:0;
+      border-left:5px solid transparent;
+      border-right:5px solid transparent;
+      border-top:5px solid #6EE7F3;
+      transition:transform .22s cubic-bezier(.2,.9,.3,1),border-top-color .18s;
+      flex-shrink:0;
+    }
+    .ai-select-wrap.open .ai-select-chevron{
+      transform:rotate(180deg);
+      border-top-color:#6ee7f3;
+    }
+    .ai-select-panel{
+      position:fixed;
+      background:rgba(8,10,22,.5);
+      -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+      border: none;
+      border-radius:12px;
+      padding:12px 16px;
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.06), inset 0 0 20px hsla(0, 0%, 100%, .1);
+      z-index:99999;
+      opacity:0;pointer-events:none;
+      transform:translateY(-20px) scale(.97);
+      transform-origin:top left;
+      transition:opacity .2s ease,transform .22s cubic-bezier(.2,.9,.3,1);
+    }
+    .ai-select-panel.open{
+      opacity:1;pointer-events:all;
+      transform:translateY(4px) scale(1);
+    }
+    .ai-select-option{
+      display:flex;align-items:center;gap:10px;
+      padding:9px 12px;
+      border-radius:8px;
+      color:#e6eef3;
+      cursor:pointer;
+      white-space:nowrap;
+    }
+    .ai-select-option:hover{
+      color: #6bd3c9;
+      background: rgba(10, 11, 28, 0.6);
+      transform: translateX(4px);
+      transition: .1s ease-in-out;
+      border-radius: 14px;
+    }
+    .ai-select-option.selected{
+      color:#6ee7f3;
+      background:rgba(110,231,243,.1);
+    }
+    .ai-select-option .opt-icon{
+      color: #6ee7f3;
+      opacity: 0.8;
+      text-align:center;
+      display:inline-flex;align-items:center;justify-content:center;
+    }
+    .ai-select-option.selected .opt-icon{
+      opacity:1;
+    }
+    .ai-select-option .opt-icon .pc-icon{
+      width:14px;height:14px;
+    }
+    .category-select-wrap{
+      min-width:230px;
+      flex:1 1 230px;
+    }
+    .category-select-wrap .ai-select-trigger{
+      min-height:42px;
+    }
+    .category-select-panel{
+      max-height:320px;
+      overflow-y:auto;
+    }
+    .mt-0{margin-top:0!important}
+    .mt-12{margin-top:12px!important}
+    .mt-10{margin-top:10px!important}
+    .mt-16{margin-top:16px!important}
+    .mt-4 { margin-top: 4px !important; }
+    .fs-9 { font-size: 0.9rem !important; }
+    .fs-85 { font-size: 0.85rem !important; }
+    .d-none{display:none!important}
+    .d-flex{display:flex!important}
+    .gap-8{gap:8px!important}
+    .gap-10{gap:10px!important}
+    .gap-12{gap:12px!important}
+    .color-ai{color:#6EE7F3!important}
+    .bg-ai-glass{background:rgba(110,231,243,.05)!important;border-color:rgba(110,231,243,.2)!important}
+    .w-100{width:100%!important}
+    .max-w-320{max-width:320px!important}
+    .ta-center{text-align:center!important}
+    .jc-center{justify-content:center!important}
+    .ls-2{letter-spacing:2px!important}
+    .img-preview{max-width:240px;border-radius:14px;border: 2px solid rgba(255, 255, 255, 0.06);padding: 12px;}
+    /* ── Toast notification ── */
+    #toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(16px);border: 2px solid rgba(255, 255, 255, 0.06);background: rgba(10, 11, 28, 0.6);color:#6ee7f3;padding:10px 22px;border-radius:12px;font-size:.875rem;font-weight:500;z-index:10001;opacity:0;pointer-events:none;transition:opacity .22s,transform .22s;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);max-width:min(420px,90vw);text-align:center;box-shadow:0 8px 32px rgba(0,0,0,.55);white-space:pre-line;}
+    #toast.show{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:all;}
+    #toast.error{border-color:rgba(255,120,120,.28);color:#ff7878;}
+  </style>
+  <!-- Vercel Web Analytics -->
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+  <!-- Vercel Speed Insights -->
+  <script>
+    window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
+  </script>
+  <script defer src="/_vercel/speed-insights/script.js"></script>
+        <link rel="alternate" hreflang="en" href="../dashboard.html">
+        <link rel="alternate" hreflang="ar" href="dashboard.html">
+</head>
+<body>
+      <div class="background">
+      <img class="logo-img" id="logoImg" src="../assets/images/nexcore-logo.webp" alt="شعار NexCore Labs">
+      <div id="spotLight" class="spot-light"></div>
+    </div>
+
+    <header class="navbar">
+      <div class="nav-container">
+        <div class="logo">
+          <h1 id="logo">NexCore <span>Labs</span></h1>
+        </div>
+
+        <div class="dropdown">
+        <div class="core-menu" id="coreMenu" aria-label="فتح القائمة" title="القائمة">
+          <span class="dot" aria-hidden="true"></span>
+          <span class="dot" aria-hidden="true"></span>
+          <span class="dot" aria-hidden="true"></span>
+          <span class="dot" aria-hidden="true"></span>
+          <span class="dot" aria-hidden="true"></span>
+          <span class="dot" aria-hidden="true"></span>
+        </div>
+
+        <div id="myDropdown" class="dropdown-content">
+          <a href="../dashboard.html" class="lang-switch-pill" title="عرض الموقع بالإنجليزية">
+            <div class="pill-slider"></div>
+            <span class="pill-text en-text"><img src="../assets/images/uk.webp" alt="علم المملكة المتحدة"> EN</span>
+            <span class="pill-text ar-text"><img src="../assets/images/oman.webp" alt="علم عُمان"> ع</span>
+          </a>
+          <a href="auth.html" class="magic-signup fade" title="تسجيل الدخول إلى حسابك"><i class="fa-solid fa-key"></i> الوصول إلى النواة</a>
+          <input type="search" placeholder="ابحث..." id="myInput" onkeyup="filterFunction()" title="بحث...">
+          <a href="hub.html" class="fade" title="مركز NexCore Labs"><i class="fa-solid fa-house"></i> المركز</a>
+          <a href="hub.html#projects" class="fade" title="المشاريع"><i class="fa-solid fa-diagram-project"></i> المشاريع</a>
+          <a href="ai-chat.html" class="fade" title="NexCore AI" style="color:#6ee7f3;"><i class="fa-solid fa-wand-magic-sparkles"></i> NexCore AI</a>
+          <div class="div-menu-line"></div>
+          <a href="index.html#tools" class="mt-0" title="الأدوات والأنظمة"><i class="fa-solid fa-screwdriver-wrench"></i> الأدوات والأنظمة</a>
+          <a href="index.html#about" title="حول NexCore Labs"><i class="fa-solid fa-circle-info"></i> من نحن</a>
+          <a href="index.html#team" title="فريق NexCore Labs"><i class="fa-solid fa-users"></i> الفريق</a>
+          <a href="index.html#contact" title="اتصل بـ NexCore Labs"><i class="fa-solid fa-paper-plane"></i> اتصل بنا</a>
+          <div class="div-menu-line"></div>
+          <a href="roadmap.html" class="fade mt-0" title="لوحة الميزات والخريطة"><i class="fa-solid fa-route"></i> لوحة الميزات</a>
+          <a href="releases.html" class="fade" title="الإصدارات والتحديثات"><i class="fa-solid fa-clock-rotate-left"></i> الإصدارات والتحديثات</a>
+          <div class="div-menu-line"></div>
+          <a href="pricing.html" class="fade mt-0" title="خطط التسعير"><i class="fa-solid fa-tag"></i> التسعير <span class="new-badge">جديد</span></a>
+          <a href="faq.html" class="fade" title="الأسئلة الشائعة والدعم"><i class="fa-solid fa-circle-question"></i> الأسئلة الشائعة</a>
+          <a href="how-to-use.html" class="fade" title="كيفية استخدام NexCore Labs"><i class="fa-solid fa-book-open"></i> كيفية الاستخدام</a>
+          <a href="terms.html" class="fade" title="شروط الخدمة"><i class="fa-solid fa-file-contract"></i> الشروط</a>
+          <a href="privacy-policy.html" class="fade" title="سياسة الخصوصية"><i class="fa-solid fa-shield-halved"></i> الخصوصية</a>
+        </div>
+        </div>
+      </div>
+    </header>
+
+  <main>
+  <div class="wrap">
+    <h1>لوحة التحكم</h1>
+    <p class="muted" id="userLine">جار التحميل…</p>
+
+    <div class="box">
+      <div class="row" style="justify-content:space-between">
+        <h2 style="margin:0">مشروعي</h2>
+      </div>
+
+      <!-- State: no project -->
+        <div id="noProject" style="display:none;margin-top:12px;">
+        <p>ليس لديك مشروع بعد.</p>
+        <div class="row">
+          <input id="newProjectName" placeholder="اسم المشروع" />
+          <div class="ai-select-wrap category-select-wrap" id="newProjectCategoryWrap">
+            <select id="newProjectCategory" name="category" aria-label="تصنيف المشروع">
+              <option value="technology">التقنية</option>
+              <option value="business">الأعمال</option>
+              <option value="education">التعليم</option>
+              <option value="finance">المالية</option>
+              <option value="healthcare">الصحة</option>
+              <option value="environment">البيئة</option>
+              <option value="agriculture">الزراعة</option>
+              <option value="food">الأغذية</option>
+              <option value="travel">السفر</option>
+              <option value="transportation">النقل</option>
+              <option value="real-estate">العقارات</option>
+              <option value="media-entertainment">الإعلام والترفيه</option>
+              <option value="art-design">الفن والتصميم</option>
+              <option value="sports-fitness">الرياضة واللياقة</option>
+              <option value="community">المجتمع</option>
+              <option value="lifestyle">نمط الحياة</option>
+            </select>
+            <div class="ai-select-trigger" id="newProjectCategoryTrigger" role="button" tabindex="0" aria-haspopup="listbox" aria-expanded="false">
+              <span id="newProjectCategoryLabel">التقنية</span>
+              <span class="ai-select-chevron"></span>
+            </div>
+            <div class="ai-select-panel category-select-panel" role="listbox" id="newProjectCategoryPanel"></div>
+          </div>
+          <button class="btn primary" id="createProjectBtn">إنشاء مشروع</button>
+        </div>
+        <p class="muted" style="margin-top:10px;">
+          سيتم إنشاء بطاقة وملف مشروع كمسودة. يمكنك التعديل والنشر عندما تكون جاهزاً.
+        </p>
+      </div>
+
+      <!-- State: has project -->
+      <div id="hasProject" style="display:none;margin-top:12px;">
+        <p class="muted">
+          المعرّف العام: <b id="publicId"></b> • الحالة: <b id="statusText"></b>
+        </p>
+        <p class="muted" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          حالة المراجعة:
+          <span id="moderationBadge" class="mod-badge mod-unmoderated" role="button" tabindex="0">غير مراجع</span>
+        </p>
+        <p class="muted">
+          عرض الصفحة العامة:
+          <a id="publicLink" href="#" target="_blank" rel="noopener" style="color: #6EE7F3;">فتح</a>
+        </p>
+
+        <!-- CARD SECTION -->
+        <div class="card-section box">
+          <h3 style="margin-top:0;"><i class="fa-solid fa-pager"></i> البطاقة (عرض المركز)</h3>
+          <p class="muted" style="font-size:.9rem;">تظهر هذه المعلومات على بطاقات المركز.</p>
+
+          <label>اسم المشروع *</label>
+          <input id="cardName" placeholder="مثال: NexCore Labs"/>
+
+          <label>الرابط المختصر (معرّف URL) [اسم المستخدم] *</label>
+          <input id="cardSlug" placeholder="مثال: nexcore-labs" />
+          <p class="muted" style="font-size:.85rem;margin-top:4px;">يُستخدم في رابطك العام: /ar/project.html?slug=<span id="slugPreview">your-slug [username]</span></p>
+
+          <label>وصف مختصر</label>
+          <textarea id="cardDescription" placeholder="وصف قصير بجملة واحدة..."></textarea>
+          <p class="muted" style="font-size:.85rem;margin-top:4px;">جملة واحدة تظهر في بطاقات المركز</p>
+
+          <label>التصنيف *</label>
+          <div class="ai-select-wrap category-select-wrap" id="cardCategoryWrap">
+            <select id="cardCategory" name="category">
+              <option value="technology">التقنية</option>
+              <option value="business">الأعمال</option>
+              <option value="education">التعليم</option>
+              <option value="finance">المالية</option>
+              <option value="healthcare">الصحة</option>
+              <option value="environment">البيئة</option>
+              <option value="agriculture">الزراعة</option>
+              <option value="food">الأغذية</option>
+              <option value="travel">السفر</option>
+              <option value="transportation">النقل</option>
+              <option value="real-estate">العقارات</option>
+              <option value="media-entertainment">الإعلام والترفيه</option>
+              <option value="art-design">الفن والتصميم</option>
+              <option value="sports-fitness">الرياضة واللياقة</option>
+              <option value="community">المجتمع</option>
+              <option value="lifestyle">نمط الحياة</option>
+            </select>
+            <div class="ai-select-trigger" id="cardCategoryTrigger" role="button" tabindex="0" aria-haspopup="listbox" aria-expanded="false">
+              <span id="cardCategoryLabel">التقنية</span>
+              <span class="ai-select-chevron"></span>
+            </div>
+            <div class="ai-select-panel category-select-panel" role="listbox" id="cardCategoryPanel"></div>
+          </div>
+
+          <!-- AI Card Summary Generator -->
+          <div class="box" style="background:rgba(110,231,243,.05);border-color:rgba(110,231,243,.2);margin-top:16px;">
+            <h4 style="margin:0 0 12px 0;"><i class="fa-solid fa-wand-magic-sparkles" style="color:#6EE7F3;margin-right:8px;"></i>ملخص البطاقة بالذكاء الاصطناعي</h4>
+            <p class="muted" style="font-size:.85rem;margin-bottom:12px;">أنشئ وصفاً موجزاً للبطاقة من وصف صفحتك باستخدام الذكاء الاصطناعي</p>
+
+            <button class="btn primary ai-btn" id="aiCardBtn" style="width:100%;max-width:320px; text-align: center; justify-content: center; letter-spacing: 2px;">
+              <span class="ai-btn-text">إنشاء</span>
+              <span class="ai-sparkle-layer"></span>
+            </button>
+
+            <div id="aiCardOutput" style="display:none;margin-top:12px;">
+              <label>ملخص مولد بالذكاء الاصطناعي</label>
+              <textarea id="aiOutputCard" readonly style="background:rgba(0,0,0,.2);cursor:default;min-height:80px;"></textarea>
+              <div class="row" style="margin-top:10px;gap:8px;">
+                <button class="btn primary ghost" id="aiReplaceCardBtn">
+                  <i class="fa-solid fa-arrow-up"></i> استبدال
+                </button>
+                <button class="btn copy" id="aiCopyCardBtn">
+                  <i class="fa-solid fa-copy"></i> نسخ
+                </button>
+              </div>
+            </div>
+
+            <p id="aiCardStatus" style="margin-top:10px;font-size:.9rem;"></p>
+            <p id="aiCardRemaining" class="muted" style="font-size:.85rem;margin-top:6px;"></p>
+          </div>
+
+          <div class="row" style="margin-top:12px;align-items:center;gap:12px;">
+            <button class="btn primary ghost" id="saveCardBtn">حفظ البطاقة</button>
+            <button class="btn primary" id="togglePublishBtn" style="min-width:110px;">نشر</button>
+            <span id="publishStatus" class="muted" style="margin-left:8px;"></span>
+          </div>
+        </div>
+
+        <!-- PROFILE SECTION -->
+        <div class="card-section box" style="margin-top:16px;">
+          <h3 style="margin-top:0;"><i class="fa-solid fa-globe"></i> الملف (التفاصيل الكاملة)</h3>
+          <button class="btn copy" id="copyProjectPageLink" title="نسخ رابط الصفحة العامة">
+            <i class="fa-solid fa-copy"></i> نسخ رابط الصفحة
+          </button>
+
+          <p class="muted" style="font-size:.9rem;">تظهر هذه المعلومات في صفحة مشروعك المخصصة.</p>
+
+          <label>رابط الصورة (اختياري)</label>
+          <input id="profileImageUrl" placeholder="https://..." />
+          <div style="margin-top:10px;">
+            <img id="imgPreview" alt="" style="max-width:240px;border-radius:14px;display:none;border: 2px solid rgba(255, 255, 255, 0.06);padding: 12px;" />
+          </div>
+
+          <details class="help-box">
+            <summary><i class="fa-solid fa-lightbulb"></i> نصائح رابط الصورة</summary>
+            <p style="margin-top:0;"><strong>يجب أن تكون الصورة متاحة للعامة.</strong> إليك طريقة الحصول على رابط صالح:</p>
+
+            <strong>الخيار أ: Google Drive</strong>
+            <ol>
+              <li>ارفع صورتك إلى Google Drive</li>
+              <li>انقر بزر الفأرة الأيمن ثم مشاركة، واجعل الوصول "أي شخص لديه الرابط" بصلاحية مشاهدة</li>
+              <li>انسخ رابط المشاركة. سيبدو بهذا الشكل:<br>
+                <code style="word-break: break-all;">https://drive.google.com/file/d/<strong>FILE_ID</strong>/view?...</code></li>
+              <li>استخرج <strong>FILE_ID</strong> من الرابط</li>
+              <li>استخدم هذا التنسيق المباشر:<br>
+                <code>https://drive.google.com/uc?id=<strong>FILE_ID</strong></code></li>
+            </ol>
+
+            <strong>الخيار ب: GitHub</strong>
+            <ol>
+              <li>ارفع الصورة إلى أي مستودع GitHub عام</li>
+              <li>افتح ملف الصورة في GitHub</li>
+              <li>انقر بزر الفأرة الأيمن على الصورة ثم اختر "نسخ عنوان الصورة"</li>
+              <li>ألصق رابط <code>raw.githubusercontent.com</code> هنا</li>
+            </ol>
+
+            <strong>الخيار ج: رابط مباشر</strong>
+            <ol>
+              <li>استخدم أي خدمة استضافة صور مثل Imgur أو ImageBB</li>
+              <li>تأكد أن الرابط ينتهي بصيغة صورة مثل <code>.jpg</code> أو <code>.png</code> أو <code>.webp</code>.</li>
+              <li>اختبر الرابط في تبويب جديد للتأكد من أنه يعمل</li>
+            </ol>
+          </details>
+
+          <label>الوصف التفصيلي (الصفحة)</label>
+          <textarea id="pageDescription" placeholder="عرّف العالم بمشروعك بالتفصيل..."></textarea>
+          <p class="muted" style="font-size:.85rem;margin-top:4px;">معلومات تفصيلية تظهر في صفحة المشروع الكاملة</p>
+
+          <!-- AI Improve Page Description -->
+          <div class="box" style="background:rgba(110,231,243,.05);border-color:rgba(110,231,243,.2);margin-top:16px;">
+            <h4 style="margin:0 0 12px 0;"><i class="fa-solid fa-wand-magic-sparkles" style="color:#6EE7F3;margin-right:8px;"></i>تحسين المحتوى بالذكاء الاصطناعي</h4>
+            <p class="muted" style="font-size:.85rem;margin-bottom:12px;">أنشئ محتوى صفحتك وحسّنه باستخدام الذكاء الاصطناعي</p>
+
+            <div class="row" style="margin-bottom:12px;gap:10px;align-items:center;">
+              <label style="margin:0;">النمط:</label>
+              <div class="ai-select-wrap" id="aiStyleWrap">
+                <!-- hidden native select keeps .value for JS -->
+                <select id="aiStyle" aria-hidden="true" tabindex="-1">
+                  <option value="Professional">احترافي</option>
+                  <option value="Shorter">مختصر</option>
+                  <option value="Technical">تقني</option>
+                  <option value="Inspiring">ملهم</option>
+                </select>
+                <div class="ai-select-trigger" id="aiStyleTrigger" role="button" tabindex="0" aria-haspopup="listbox" aria-expanded="false">
+                  <span id="aiStyleLabel">احترافي</span>
+                  <span class="ai-select-chevron"></span>
+                </div>
+                <div class="ai-select-panel" role="listbox" id="aiStylePanel">
+                  <div class="ai-select-option selected" role="option" data-value="Professional">
+                    <i class="fa-solid fa-briefcase opt-icon"></i> Professional
+                  </div>
+                  <div class="ai-select-option" role="option" data-value="Shorter">
+                    <i class="fa-solid fa-minimize opt-icon"></i> Shorter
+                  </div>
+                  <div class="ai-select-option" role="option" data-value="Technical">
+                    <i class="fa-solid fa-code opt-icon"></i> Technical
+                  </div>
+                  <div class="ai-select-option" role="option" data-value="Inspiring">
+                    <i class="fa-solid fa-star opt-icon"></i> Inspiring
+                  </div>
+                </div>
+              </div>
+              <button class="btn primary ai-btn" id="aiPageBtn" style="width:100%;max-width:320px; text-align: center; justify-content: center; letter-spacing: 2px;">
+                <span class="ai-btn-text">إنشاء</span>
+                <span class="ai-sparkle-layer"></span>
+              </button>
+            </div>
+
+            <div id="aiPageOutput" style="display:none;">
+              <label>وصف مولد بالذكاء الاصطناعي</label>
+              <textarea id="aiOutputPage" readonly style="background:rgba(0,0,0,.2);cursor:default;min-height:140px;"></textarea>
+              <div class="row" style="margin-top:10px;gap:8px;">
+                <button class="btn primary ghost" id="aiReplacePageBtn">
+                  <i class="fa-solid fa-arrow-up"></i> استبدال
+                </button>
+                <button class="btn copy" id="aiCopyPageBtn">
+                  <i class="fa-solid fa-copy"></i> نسخ
+                </button>
+              </div>
+            </div>
+
+            <p id="aiStatus" style="margin-top:10px;font-size:.9rem;"></p>
+            <p id="aiPageRemaining" class="muted" style="font-size:.85rem;margin-top:6px;"></p>
+          </div>
+
+          <label>رابط الموقع (اختياري)</label>
+          <input id="profileWebsite" placeholder="https://..." type="url" />
+
+          <label>رابط X (تويتر) (اختياري)</label>
+          <input id="profileX" placeholder="https://x.com/..." type="url" />
+
+          <label>رابط Instagram (اختياري)</label>
+          <input id="profileInstagram" placeholder="https://instagram.com/..." type="url" />
+
+          <label>رابط GitHub (اختياري)</label>
+          <input id="profileGithub" placeholder="https://github.com/..." type="url" />
+
+          <label>رابط LinkedIn (اختياري)</label>
+          <input id="profileLinkedin" placeholder="https://linkedin.com/..." type="url" />
+
+          <div class="row" style="margin-top:12px;">
+            <button class="btn primary ghost" id="saveProfileBtn">حفظ الملف</button>
+            <button class="btn danger" id="deleteBtn" style="margin-left:auto;"><i class="fa-solid fa-trash"></i> حذف المشروع</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+          <div class="nexcore-sign">
+          <img id="nexcoreSign" src="../assets/images/nexcore-word.webp" alt="NexCore Labs">
+        </div>
+      </main>
+
+      <!-- حذف المشروع Confirmation Modal -->
+      <div id="deleteProjectModal" class="del-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="delProjModalTitle">
+        <div class="del-modal-content">
+          <div class="del-modal-header">
+            <h2 id="delProjModalTitle"><i class="fa-solid fa-triangle-exclamation"></i> حذف المشروع</h2>
+            <span class="del-modal-close" id="closeDelProjModal">&times;</span>
+          </div>
+
+          <p style="margin-bottom:16px;">هذا الإجراء <strong>دائم وغير قابل للتراجع</strong>. ستتم إزالة مشروعك من المركز.</p>
+
+          <div style="margin:0 0 20px;padding:14px;background:rgba(255,200,120,.08);border:1px solid rgba(255,200,120,.2);border-radius:10px;font-size:.9rem;line-height:1.6;color:#fff;">
+            <strong style="color:rgb(255,200,120);"><i class="fa-solid fa-triangle-exclamation"></i> سيتم حذف:</strong>
+            <ul style="margin:8px 0 0 20px;line-height:1.8">
+              <li>قائمة مشروعك في المركز</li>
+              <li>جميع معلومات المشروع والبيانات الوصفية</li>
+              <li>صفحة مشروعك العامة</li>
+            </ul>
+          </div>
+
+          <div class="del-modal-actions">
+            <button class="btn primary ghost" id="cancelDelProjBtn">
+              <i class="fa-solid fa-xmark"></i> إلغاء
+            </button>
+            <button class="btn danger" id="confirmDelProjBtn">
+              <i class="fa-solid fa-trash"></i> حذف المشروع
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <footer class="site-footer">
+        <div class="container footer-inner">
+          <div class="f-left">
+            <a class="paypal" href="https://www.paypal.me/nexcorelabs" target="_blank" rel="noopener" title="بايبال"><i class="fa-solid fa-heart" style="color: #6EE7F3;"></i> ادعمنا عبر <i class="fa-brands fa-paypal"></i></a>
+            <br>
+            <small title="جميع الحقوق محفوظة">مختبرات نكسكور © <span id="year"></span> <span id="splitter">|</span>
+              <a href="https://github.com/NexCoreLabs/NexCore/blob/main/LICENSE" target="_blank" rel="noopener" class="license-link">
+                <i class="fa-solid fa-scale-balanced"></i> رخصة MIT
+              </a>            </small>
+          </div>
+          <div class="f-right footer-line"></div>
+        </div>
+      </footer>
+
+  <script src="../assets/js/script.js"></script>
+  <script src="../assets/js/supabase-client.js"></script>
+  <script src="../assets/js/auth-ui-db.js"></script>
+  <script src="../assets/js/ai-chat.js"></script>
+  <script src="../assets/js/project-categories.js"></script>
+
+  <script>
+    const sb = window.supabaseClient;
+    const PROJECT_CATEGORY_FALLBACK = "technology";
+
+    function setMsg(el, text, isError = false) {
+      el.textContent = text || "";
+      el.className = isError ? "msg-error" : "msg-success";
+    }
+
+    let _toastTimer = null;
+    function showToast(text, isError = false) {
+      if (!text) return;
+      const toast = document.getElementById('toast');
+      toast.textContent = text;
+      toast.className = 'show' + (isError ? ' error' : '');
+      clearTimeout(_toastTimer);
+      _toastTimer = setTimeout(() => toast.classList.remove('show'), 3800);
+    }
+
+    function slugify(s) {
+      return (s || "")
+        .toLowerCase()
+        .trim()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "")
+        .slice(0, 40);
+    }
+
+    function randomSuffix() {
+      return Math.random().toString(36).substring(2, 6);
+    }
+
+    function normalizeProjectCategory(value, fallback = PROJECT_CATEGORY_FALLBACK) {
+      const normalized = window.ProjectCategories?.normalizeCategory?.(value);
+      return normalized || fallback;
+    }
+
+    function disableButtons(disabled) {
+      const btns = ["createProjectBtn", "saveCardBtn", "saveProfileBtn", "togglePublishBtn", "deleteBtn"];
+      btns.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.disabled = disabled;
+      });
+    }
+
+    let project = null;
+    let currentUserId = null;
+    let currentSession = null;
+
+
+    function getUserDisplayName(user) {
+      const metadata = user?.user_metadata || {};
+      const candidate = metadata.full_name || metadata.name || metadata.user_name || metadata.preferred_username;
+      if (typeof candidate === "string" && candidate.trim()) return candidate.trim();
+      return (user?.email || "عضو").split("@")[0];
+    }
+
+    function getUserAvatar(user) {
+      const metadata = user?.user_metadata || {};
+      const avatar = metadata.avatar_url || metadata.picture || metadata.photo_url;
+      if (typeof avatar === "string" && /^https?:\/\//i.test(avatar.trim())) return avatar.trim();
+      return "";
+    }
+
+    async function syncUserProfile(user) {
+      if (!user?.id) return;
+      const payload = {
+        id: user.id,
+        email: user.email || null,
+        name: getUserDisplayName(user),
+        avatar_url: getUserAvatar(user) || null,
+        updated_at: new Date().toISOString()
+      };
+
+      const { error } = await sb
+        .from("users")
+        .upsert(payload, { onConflict: "id" });
+
+      if (error) {
+        console.warn("Could not sync user profile:", error.message);
+      }
+    }
+
+    function isProjectPublished(p) {
+      if (!p) return false;
+      return !!p.published;
+    }
+
+    function normalizeModerationStatus(status) {
+      const normalized = (status || "").toLowerCase();
+      if (["approved", "blocked", "review"].includes(normalized)) return normalized;
+      return "unmoderated";
+    }
+
+    function renderModerationStatus(p) {
+      const badge = document.getElementById("moderationBadge");
+      if (!badge) return;
+
+      const status = normalizeModerationStatus(p?.moderation_status);
+      const reason = (p?.moderation_reason || "لا يوجد سبب مراجعة متاح").trim();
+
+      badge.className = `mod-badge mod-${status}`;
+
+      if (status === "approved") badge.textContent = "مقبول";
+      else if (status === "blocked") badge.textContent = "محظور";
+      else if (status === "review") badge.textContent = "قيد المراجعة";
+      else badge.textContent = "غير مراجع";
+
+      badge.title = reason;
+      badge.setAttribute("aria-label", reason);
+      badge.dataset.reason = reason;
+    }
+
+    function setPublishStatus(text, tone = "neutral") {
+      const publishStatus = document.getElementById("publishStatus");
+      if (!publishStatus) return;
+      publishStatus.textContent = text || "";
+      publishStatus.style.color = tone === "error" ? "#ff7878" : (tone === "warn" ? "#ffcc66" : "");
+    }
+
+    function showModerationWhy() {
+      const why = document.getElementById("moderationBadge");
+      if (!why) return;
+      const reason = (why.dataset.reason || why.title || "لا يوجد سبب مراجعة متاح").trim();
+      showToast(reason, true);
+    }
+
+
+
+    function setRemainingUI(el, remaining, max = 3) {
+      if (!el) return;
+      el.classList.add("ai-remaining");
+      el.classList.remove("ok3", "ok2", "ok1", "ok0");
+      const r = Math.max(0, Math.min(max, Number(remaining)));
+      el.textContent = `استخدامات الذكاء الاصطناعي المتبقية اليوم: ${r}/${max}`;
+      el.classList.add(r === 3 ? "ok3" : r === 2 ? "ok2" : r === 1 ? "ok1" : "ok0");
+    }
+
+    function setBothRemainingUI(remaining, max = 3) {
+      setRemainingUI(document.getElementById("aiCardRemaining"), remaining, max);
+      setRemainingUI(document.getElementById("aiPageRemaining"), remaining, max);
+    }
+
+    async function initAiRemainingUI() {
+      if (window.__aiRemainingInitDone) return;
+      window.__aiRemainingInitDone = true;
+
+      const cardEl = document.getElementById("aiCardRemaining");
+      const pageEl = document.getElementById("aiPageRemaining");
+
+      const { data: { session } } = await sb.auth.getSession();
+      if (!session) {
+        if (cardEl) {
+          cardEl.classList.add("ai-remaining");
+          cardEl.textContent = "سجّل الدخول لاستخدام الذكاء الاصطناعي";
+        }
+        if (pageEl) {
+          pageEl.classList.add("ai-remaining");
+          pageEl.textContent = "سجّل الدخول لاستخدام الذكاء الاصطناعي";
+        }
+        return;
+      }
+
+      try {
+        const response = await fetch('/api/ai?usage=1', {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${session.access_token}`
+          }
+        });
+
+        const data = await response.json();
+        if (!response.ok) {
+          throw new Error(data?.error || 'فشل جلب استخدام الذكاء الاصطناعي');
+        }
+
+        setBothRemainingUI(data.remaining, data.max || 3);
+      } catch (error) {
+        console.error('فشل تهيئة عداد الذكاء الاصطناعي:', error);
+      }
+    }
+
+    function createSparkleBurst(button) {
+      const layer = button.querySelector(".ai-sparkle-layer");
+      if (!layer) return;
+
+      for (let i = 0; i < 8; i++) {
+        const sparkle = document.createElement("span");
+        sparkle.textContent = "✦";
+        sparkle.className = "ai-burst-sparkle";
+
+        const x = Math.random() * 100;
+        const y = Math.random() * 100;
+
+        sparkle.style.left = x + "%";
+        sparkle.style.top = y + "%";
+
+        layer.appendChild(sparkle);
+
+        setTimeout(() => sparkle.remove(), 800);
+      }
+    }
+
+    function attachAiMagic(buttonId, asyncHandler) {
+      const btn = document.getElementById(buttonId);
+      if (!btn || typeof asyncHandler !== "function") return;
+      if (btn.dataset.aiMagicBound === "1") return;
+
+      btn.dataset.aiMagicBound = "1";
+      const textEl = btn.querySelector(".ai-btn-text");
+
+      btn.addEventListener("click", async (e) => {
+        e.preventDefault();
+        if (btn.classList.contains("loading")) return;
+
+        createSparkleBurst(btn);
+        btn.classList.add("loading");
+        if (textEl) textEl.textContent = "جار الإنشاء...";
+
+        try {
+          await asyncHandler();
+        } catch (err) {
+          console.error("AI generation failed:", err);
+        } finally {
+          btn.classList.remove("loading");
+          if (textEl) textEl.textContent = "إنشاء";
+        }
+      });
+    }
+
+    async function moderateProject(action, requestPublish = true) {
+      const { data: { session } } = await sb.auth.getSession();
+      if (!session) {
+        return { ok: false, error: "يجب تسجيل الدخول." };
+      }
+
+      const response = await fetch('/api/moderate-project', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${session.access_token}`
+        },
+        body: JSON.stringify({
+          project_id: project?.id,
+          action,
+          request_publish: !!requestPublish,
+          title: project?.name || '',
+          description: project?.page_description || project?.card_description || ''
+        })
+      });
+
+      let data = null;
+      try {
+        data = await response.json();
+      } catch {
+        data = { error: "استجابة الخادم غير صالحة" };
+      }
+
+      if (!response.ok) {
+        return {
+          ok: false,
+          error: data?.error || data?.details || "فشلت المراجعة"
+        };
+      }
+
+      return { ok: true, data };
+    }
+
+    function render(p) {
+      project = p;
+
+      document.getElementById("noProject").style.display = p ? "none" : "block";
+      document.getElementById("hasProject").style.display = p ? "block" : "none";
+
+      // Update document title
+      if (p) {
+        document.title = `${p.name} • لوحة التحكم | NexCore Labs`;
+      } else {
+        document.title = "لوحة التحكم | NexCore Labs";
+      }
+
+      if (!p) return;
+
+      document.getElementById("publicId").textContent = p.public_id || "";
+  const published = isProjectPublished(p);
+  document.getElementById("statusText").textContent = published ? "منشور ✓" : "مسودة";
+
+      const publishBtn = document.getElementById("togglePublishBtn");
+  publishBtn.textContent = published ? "Unpublish" : "نشر";
+
+  setPublishStatus(published ? "✓ ظاهر في المركز" : "");
+  renderModerationStatus(p);
+
+      // Card fields
+      document.getElementById("cardName").value = p.name || "";
+      document.getElementById("cardSlug").value = p.slug || "";
+      document.getElementById("slugPreview").textContent = p.slug || "your-slug";
+      document.getElementById("cardDescription").value = p.card_description || "";
+      const cardCategoryEl = document.getElementById("cardCategory");
+      if (cardCategoryEl) {
+        cardCategoryEl.value = normalizeProjectCategory(p.category);
+        cardCategoryEl.dispatchEvent(new Event("change"));
+      }
+
+      // Profile fields
+      document.getElementById("profileImageUrl").value = p.image_url || "";
+      document.getElementById("pageDescription").value = p.page_description || "";
+      document.getElementById("profileWebsite").value = p.website || "";
+      document.getElementById("profileX").value = p.x_url || "";
+      document.getElementById("profileGithub").value = p.github_url || "";
+      document.getElementById("profileLinkedin").value = p.linkedin_url || "";
+      document.getElementById("profileInstagram").value = p.instagram_url || "";
+
+      const link = `/ar/project.html?slug=${encodeURIComponent(p.slug || "")}`;
+      const a = document.getElementById("publicLink");
+      a.href = link;
+      a.textContent = link;
+
+      // Image preview
+      const img = document.getElementById("imgPreview");
+      if (p.image_url && p.image_url.startsWith("http")) {
+        img.src = p.image_url;
+        img.style.display = "inline-block";
+        img.onerror = () => {
+          showToast("رابط الصورة غير قابل للوصول. تأكد أنه عام.", true);
+          img.style.display = "none";
+        };
+      } else {
+        img.style.display = "none";
+      }
+    }
+
+    async function requireAuth() {
+      const { data: { session } } = await sb.auth.getSession();
+      if (!session) {
+        window.location.href = "/ar/auth.html";
+        return null;
+      }
+
+      currentSession = session;
+      await syncUserProfile(session.user);
+
+      // Show onboarding message based on auth mode
+      const authMode = sessionStorage.getItem('auth_mode');
+      let welcomeMsg = `تم تسجيل الدخول باسم ${getUserDisplayName(session.user)}`;
+
+      if (authMode === 'signup') {
+        welcomeMsg += ' — أهلاً بك في NexCore Labs! أنشئ مشروعك الأول أدناه.';
+        sessionStorage.removeItem('auth_mode');
+      } else if (authMode === 'login') {
+        welcomeMsg += ' — أهلاً بعودتك.';
+        sessionStorage.removeItem('auth_mode');
+      }
+
+      document.getElementById("userLine").textContent = welcomeMsg;
+      return session;
+    }
+
+    async function loadMyProject(userId = currentUserId) {
+      setPublishStatus("");
+
+      if (!userId) {
+        render(null);
+        showToast("تعذر تحديد جلسة المستخدم الحالية.", true);
+        return;
+      }
+
+      // Check if a specific project slug is requested via URL parameter
+      const urlParams = new URLSearchParams(window.location.search);
+      const requestedSlug = urlParams.get('slug');
+
+      let query = sb
+        .from("projects")
+        .select("*");
+
+      if (requestedSlug) {
+        // Load specific project by slug, but only if owned by current user
+        query = query
+          .eq("slug", requestedSlug)
+          .eq("owner_user_id", userId)
+          .maybeSingle();
+      } else {
+        // Load user's project (first one if multiple)
+        query = query
+          .eq("owner_user_id", userId)
+          .maybeSingle();
+      }
+
+      const { data, error } = await query;
+
+      if (error) {
+        showToast(error.message, true);
+        render(null);
+        return;
+      }
+
+      if (requestedSlug && !data) {
+        showToast("لم يتم العثور على المشروع أو ليست لديك صلاحية تعديله.", true);
+        render(null);
+        return;
+      }
+
+      console.log("Current user:", userId);
+      console.log("Project loaded:", data ? data.owner_user_id : null);
+      let hydratedProject = data || null;
+
+      // Auto-backfill creator identity for older rows that were created
+      // before creator_name/creator_avatar_url existed.
+      if (hydratedProject) {
+        const missingName = !String(hydratedProject.creator_name || "").trim();
+        const missingAvatar = !String(hydratedProject.creator_avatar_url || "").trim();
+        if (missingName || missingAvatar) {
+          const creatorName = getUserDisplayName(currentSession?.user);
+          const creatorAvatar = getUserAvatar(currentSession?.user);
+          const { data: updated, error: updateError } = await sb
+            .from("projects")
+            .update({
+              creator_name: missingName ? (creatorName || null) : hydratedProject.creator_name,
+              creator_avatar_url: missingAvatar ? (creatorAvatar || null) : hydratedProject.creator_avatar_url,
+              updated_at: new Date().toISOString()
+            })
+            .eq("id", hydratedProject.id)
+            .select("*")
+            .single();
+
+          if (!updateError && updated) {
+            hydratedProject = updated;
+          } else if (updateError) {
+            console.warn("Could not backfill creator identity:", updateError.message);
+          }
+        }
+      }
+
+      render(hydratedProject);
+    }
+
+    async function createProject() {
+      setPublishStatus("");
+      const name = document.getElementById("newProjectName").value.trim();
+      const category = normalizeProjectCategory(document.getElementById("newProjectCategory")?.value);
+      if (!name) return showToast("يرجى إدخال اسم المشروع.", true);
+
+      const slug = slugify(name);
+      if (!slug) return showToast("اسم المشروع غير صالح.", true);
+
+      disableButtons(true);
+
+      // Try to insert
+      const creatorName = getUserDisplayName(currentSession?.user);
+      const creatorAvatar = getUserAvatar(currentSession?.user);
+      let { data, error } = await sb
+        .from("projects")
+        .insert({
+          name,
+          slug,
+          category,
+          creator_name: creatorName || null,
+          creator_avatar_url: creatorAvatar || null
+        })
+        .select("*")
+        .single();
+
+      if (error) {
+        // Check for duplicate slug
+        if (error.code === '23505' && error.message.includes('slug')) {
+          // Retry with random suffix
+          const newSlug = slug + '-' + randomSuffix();
+          const retry = await sb
+            .from("projects")
+            .insert({
+              name,
+              slug: newSlug,
+              category,
+              creator_name: creatorName || null,
+              creator_avatar_url: creatorAvatar || null
+            })
+            .select("*")
+            .single();
+
+          if (retry.error) {
+            // Check if it's the one_project_per_user constraint
+            if (retry.error.code === '23505' && retry.error.message.includes('one_project_per_user')) {
+              disableButtons(false);
+              showToast("لديك مشروع بالفعل. جار تحميله الآن...");
+              await loadMyProject(currentUserId);
+              return;
+            }
+            disableButtons(false);
+            return showToast(retry.error.message, true);
+          }
+
+          data = retry.data;
+        } else if (error.code === '23505' && error.message.includes('one_project_per_user')) {
+          // User already has a project
+          disableButtons(false);
+          showToast("لديك مشروع بالفعل. جار تحميله الآن...");
+          await loadMyProject(currentUserId);
+          return;
+        } else {
+          disableButtons(false);
+          return showToast(error.message, true);
+        }
+      }
+
+      disableButtons(false);
+      render(data);
+      showToast("تم إنشاء المشروع كمسودة ✓ عدّله وانشره عندما تكون جاهزاً.");
+    }
+
+    async function saveCard() {
+      setPublishStatus("");
+      if (!project) return;
+      const wasPublished = isProjectPublished(project);
+
+      const name = document.getElementById("cardName").value.trim();
+      const slugInput = document.getElementById("cardSlug").value.trim() || name;
+      const slug = slugify(slugInput);
+      const card_description = document.getElementById("cardDescription").value.trim();
+      const category = normalizeProjectCategory(document.getElementById("cardCategory")?.value);
+      const creatorName = getUserDisplayName(currentSession?.user);
+      const creatorAvatar = getUserAvatar(currentSession?.user);
+
+      if (!name) return showToast("اسم المشروع مطلوب.", true);
+      if (!slug) return showToast("الرابط المختصر غير صالح.", true);
+
+      disableButtons(true);
+
+      const { data, error } = await sb
+        .from("projects")
+        .update({
+          name,
+          slug,
+          card_description,
+          category,
+          creator_name: creatorName || null,
+          creator_avatar_url: creatorAvatar || null,
+          updated_at: new Date().toISOString()
+        })
+        .eq("id", project.id)
+        .select("*")
+        .single();
+
+      disableButtons(false);
+
+      if (error) {
+        if (error.code === '23505' && error.message.includes('slug')) {
+          return showToast("هذا الرابط المختصر مستخدم من مشروع آخر. يرجى اختيار رابط مختلف.", true);
+        }
+        return showToast(error.message, true);
+      }
+
+      render(data);
+
+      if (wasPublished) {
+        showToast("جار التحقق من المراجعة بعد التعديل...");
+        const moderation = await moderateProject("edit_check", true);
+        if (!moderation.ok) {
+          showToast(`فشل فحص المراجعة: ${moderation.error}`, true);
+          return;
+        }
+
+        await loadMyProject(currentUserId);
+
+        if (moderation.data.decision === "approved") {
+          showToast("تم النشر ✅");
+        } else if (moderation.data.decision === "blocked") {
+          showToast(`محظور: ${moderation.data.reason || "مخالفة للسياسة."}`, true);
+        } else {
+          showToast(`يحتاج مراجعة: ${moderation.data.reason || "مراجعة يدوية مطلوبة."}`, true);
+        }
+        return;
+      }
+
+      showToast("تم حفظ البطاقة ✓");
+    }
+
+    async function saveProfile() {
+      if (!project) return;
+      const wasPublished = isProjectPublished(project);
+
+      const image_url = document.getElementById("profileImageUrl").value.trim();
+      const page_description = document.getElementById("pageDescription").value.trim();
+      const website = document.getElementById("profileWebsite").value.trim();
+      const x_url = document.getElementById("profileX").value.trim();
+      const github_url = document.getElementById("profileGithub").value.trim();
+      const linkedin_url = document.getElementById("profileLinkedin").value.trim();
+      const instagram_url = document.getElementById("profileInstagram").value.trim();
+      const creatorName = getUserDisplayName(currentSession?.user);
+      const creatorAvatar = getUserAvatar(currentSession?.user);
+
+      disableButtons(true);
+
+      const { data, error } = await sb
+        .from("projects")
+        .update({
+          image_url,
+          page_description,
+          website,
+          x_url,
+          github_url,
+          linkedin_url,
+          instagram_url,
+          creator_name: creatorName || null,
+          creator_avatar_url: creatorAvatar || null,
+          updated_at: new Date().toISOString()
+        })
+        .eq("id", project.id)
+        .select("*")
+        .single();
+
+      disableButtons(false);
+
+      if (error) return showToast(error.message, true);
+
+      if (wasPublished) {
+        showToast("جار التحقق من المراجعة بعد التعديل...");
+        const moderation = await moderateProject("edit_check", true);
+        if (!moderation.ok) {
+          showToast("تم حفظ الملف، لكن فحص المراجعة فشل. حاول مرة أخرى.", true);
+          return;
+        }
+
+        await loadMyProject(currentUserId);
+
+        if (moderation.data.decision === "approved") {
+          showToast("تم حفظ الملف ✓ تمت الموافقة في المراجعة.");
+        } else if (moderation.data.decision === "blocked") {
+          showToast("تم حفظ الملف، لكن المشروع أُلغي نشره تلقائياً (محظور).", true);
+        } else {
+          showToast("تم حفظ الملف، لكن المشروع أُلغي نشره تلقائياً (يحتاج مراجعة).", true);
+        }
+        return;
+      }
+
+      showToast("تم حفظ الملف ✓");
+    }
+
+    async function togglePublish() {
+      setPublishStatus("");
+      if (!project) return;
+
+      const currentlyPublished = isProjectPublished(project);
+      const next = !currentlyPublished;
+
+      disableButtons(true);
+
+      if (!next) {
+        const { data, error } = await sb
+          .from("projects")
+          .update({
+            published: false,
+            updated_at: new Date().toISOString()
+          })
+          .eq("id", project.id)
+          .select("*")
+          .single();
+
+        disableButtons(false);
+
+        if (error) return showToast(error.message, true);
+
+        render(data);
+        showToast("تم إخفاؤه من المركز.");
+        return;
+      }
+
+      showToast("جار تشغيل فحص المراجعة...");
+      const moderation = await moderateProject("publish_check", true);
+      disableButtons(false);
+
+      if (!moderation.ok) {
+        showToast(`فشلت المراجعة: ${moderation.error}`, true);
+        return;
+      }
+
+      await loadMyProject(currentUserId);
+
+      if (moderation.data.decision === "approved") {
+        showToast("تم النشر ✅");
+      } else if (moderation.data.decision === "blocked") {
+        showToast(`محظور: ${moderation.data.reason || "مخالفة للسياسة."}`, true);
+      } else {
+        showToast(`يحتاج مراجعة: ${moderation.data.reason || "مراجعة يدوية مطلوبة."}`, true);
+      }
+    }
+
+    function openDeleteProjectModal() {
+      if (!project) return;
+      const modal = document.getElementById("deleteProjectModal");
+      const confirmBtn = document.getElementById("confirmDelProjBtn");
+      confirmBtn.disabled = false;
+      confirmBtn.innerHTML = '<i class="fa-solid fa-trash"></i> حذف المشروع';
+      modal.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+      requestAnimationFrame(() => modal.classList.add("open"));
+    }
+
+    function closeDeleteProjectModal() {
+      const modal = document.getElementById("deleteProjectModal");
+      modal.classList.remove("open");
+      modal.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    }
+
+    async function deleteProject() {
+      if (!project) return;
+      closeDeleteProjectModal();
+
+      disableButtons(true);
+
+      const { error } = await sb
+        .from("projects")
+        .delete()
+        .eq("id", project.id);
+
+      disableButtons(false);
+
+      if (error) return showToast(error.message, true);
+
+      render(null);
+      showToast("تم حذف المشروع.");
+    }
+
+    document.addEventListener("DOMContentLoaded", async () => {
+      const session = await requireAuth();
+      if (!session) return;
+
+      currentUserId = session.user.id;
+      console.log("Current user:", currentUserId);
+
+      document.getElementById("createProjectBtn").addEventListener("click", createProject);
+      document.getElementById("copyProjectPageLink").addEventListener("click", copyProjectPageLink);
+      document.getElementById("saveCardBtn").addEventListener("click", saveCard);
+      document.getElementById("saveProfileBtn").addEventListener("click", saveProfile);
+      document.getElementById("togglePublishBtn").addEventListener("click", togglePublish);
+      document.getElementById("deleteBtn").addEventListener("click", openDeleteProjectModal);
+
+      // Delete project modal listeners
+      document.getElementById("closeDelProjModal").addEventListener("click", closeDeleteProjectModal);
+      document.getElementById("cancelDelProjBtn").addEventListener("click", closeDeleteProjectModal);
+      document.getElementById("confirmDelProjBtn").addEventListener("click", deleteProject);
+      window.addEventListener("click", (e) => {
+        if (e.target === document.getElementById("deleteProjectModal")) closeDeleteProjectModal();
+      });
+      window.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeDeleteProjectModal();
+      });
+
+      const moderationWhyEl = document.getElementById("moderationBadge");
+      if (moderationWhyEl) {
+        moderationWhyEl.addEventListener("click", (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          showModerationWhy();
+        });
+        moderationWhyEl.addEventListener("touchstart", (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          showModerationWhy();
+        }, { passive: false });
+        moderationWhyEl.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            e.stopPropagation();
+            showModerationWhy();
+          }
+        });
+      }
+
+      await initAiRemainingUI();
+
+      // Update slug preview as user types
+      document.getElementById("cardSlug").addEventListener("input", (e) => {
+        const slug = slugify(e.target.value || document.getElementById("cardName").value);
+        document.getElementById("slugPreview").textContent = slug || "your-slug";
+      });
+
+      document.getElementById("cardName").addEventListener("input", () => {
+        const slugInput = document.getElementById("cardSlug");
+        if (!slugInput.value.trim()) {
+          const slug = slugify(document.getElementById("cardName").value);
+          document.getElementById("slugPreview").textContent = slug || "your-slug";
+        }
+      });
+
+      // Image preview
+      document.getElementById("profileImageUrl").addEventListener("input", (e) => {
+        const url = e.target.value.trim();
+        const img = document.getElementById("imgPreview");
+        if (url.startsWith("http")) {
+          img.src = url;
+          img.style.display = "inline-block";
+          img.onerror = () => {
+            showToast("رابط الصورة غير قابل للوصول. تأكد أنه عام.", true);
+            img.style.display = "none";
+          };
+        } else {
+          img.style.display = "none";
+        }
+      });
+
+      await loadMyProject(currentUserId);
+
+      // ========================================
+      // AI ASSIST HANDLERS (with debug logs)
+      // ========================================
+      if (window.__aiInitDone) {
+        console.warn("AI handlers already initialized, skipping.");
+        return;
+      }
+      window.__aiInitDone = true;
+      console.log("✅ AI init OK");
+
+      // Verify all required elements exist
+      const aiElements = {
+        aiPageBtn: document.getElementById("aiPageBtn"),
+        aiCardBtn: document.getElementById("aiCardBtn"),
+        pageDescription: document.getElementById("pageDescription"),
+        cardDescription: document.getElementById("cardDescription"),
+        aiStatus: document.getElementById("aiStatus"),
+        aiCardStatus: document.getElementById("aiCardStatus")
+      };
+
+      for (const [key, element] of Object.entries(aiElements)) {
+        if (!element) {
+          console.error(`❌ Missing element: #${key}`);
+        } else {
+          console.log(`✅ Found element: #${key}`);
+        }
+      }
+
+      async function generatePageAI() {
+        console.log("🔵 AI click fired: improve page");
+
+        const statusEl = aiElements.aiStatus;
+        const outputDiv = document.getElementById("aiPageOutput");
+        const outputTextarea = document.getElementById("aiOutputPage");
+        const pageDesc = aiElements.pageDescription.value.trim();
+        const style = document.getElementById("aiStyle").value;
+
+        setMsg(statusEl, "");
+        if (outputDiv) outputDiv.style.display = "none";
+
+        if (!pageDesc) {
+          console.log("⚠️ No page description entered");
+          return setMsg(statusEl, "يرجى إدخال وصف الصفحة أولاً.", true);
+        }
+
+        setMsg(statusEl, "دع الذكاء الاصطناعي يعمل...");
+        console.log("📡 Fetching AI response...");
+
+        try {
+          const { data: { session } } = await sb.auth.getSession();
+          if (!session) {
+            console.error("❌ No session found");
+            return setMsg(statusEl, "يجب تسجيل الدخول لاستخدام مساعد الذكاء الاصطناعي.", true);
+          }
+
+          console.log("🔑 Session token obtained");
+
+          const response = await fetch('/api/ai', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${session.access_token}`
+            },
+            body: JSON.stringify({
+              action: 'improve_page',
+              style: style,
+              text: pageDesc
+            })
+          });
+
+          console.log(`📊 AI fetch status: ${response.status}`);
+
+          const data = await response.json();
+          console.log("📦 AI raw response:", data);
+
+          if (!response.ok) {
+            if (response.status === 429) {
+              setBothRemainingUI(0, 3);
+              return setMsg(statusEl, data.error || "تم الوصول إلى الحد اليومي. حاول غداً.", true);
+            }
+            return setMsg(statusEl, data.error || "فشل إنشاء استجابة الذكاء الاصطناعي.", true);
+          }
+
+          const generated = (data?.result ?? data?.text ?? data?.output ?? "").trim();
+          console.log("📊 AI generated length:", generated.length);
+
+          if (outputTextarea) outputTextarea.value = generated;
+          if (outputDiv) outputDiv.style.display = "block";
+          setBothRemainingUI(data.remaining, 3);
+          setMsg(statusEl, "تم الإنشاء بنجاح!");
+          console.log("✅ AI generation successful");
+
+        } catch (error) {
+          console.error("❌ AI error:", error);
+          setMsg(statusEl, `خطأ في الشبكة: ${error.message}. يرجى المحاولة مرة أخرى.`, true);
+        }
+      }
+
+      // استبدال page description button
+      const aiReplacePageBtn = document.getElementById("aiReplacePageBtn");
+      if (aiReplacePageBtn) {
+        aiReplacePageBtn.addEventListener("click", (e) => {
+          e.preventDefault();
+          const aiOutput = document.getElementById("aiOutputPage").value.trim();
+          if (!aiOutput) {
+            return setMsg(aiElements.aiStatus, "لا يوجد شيء لاستبداله.", true);
+          }
+          if (aiElements.pageDescription) {
+            aiElements.pageDescription.value = aiOutput;
+            setMsg(aiElements.aiStatus, "تم الاستبدال بنجاح!");
+          }
+        });
+      }
+
+      // نسخ page AI output button
+      const aiCopyPageBtn = document.getElementById("aiCopyPageBtn");
+      if (aiCopyPageBtn) {
+        aiCopyPageBtn.addEventListener("click", async (e) => {
+          e.preventDefault();
+          const aiOutput = document.getElementById("aiOutputPage").value.trim();
+          if (!aiOutput) {
+            return setMsg(aiElements.aiStatus, "لا يوجد شيء لنسخه.", true);
+          }
+
+          try {
+            // Try modern clipboard API
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              await navigator.clipboard.writeText(aiOutput);
+            } else {
+              // Fallback for older browsers
+              const textarea = document.createElement('textarea');
+              textarea.value = aiOutput;
+              textarea.style.position = 'fixed';
+              textarea.style.opacity = '0';
+              document.body.appendChild(textarea);
+              textarea.select();
+              document.execCommand('copy');
+              document.body.removeChild(textarea);
+            }
+
+            const originalHTML = aiCopyPageBtn.innerHTML;
+            aiCopyPageBtn.innerHTML = '<i class="fa-solid fa-check"></i> تم النسخ!';
+            setTimeout(() => {
+              aiCopyPageBtn.innerHTML = originalHTML;
+            }, 2000);
+          } catch (error) {
+            console.error("فشل النسخ:", error);
+            setMsg(aiElements.aiStatus, "فشل النسخ. يرجى المحاولة مرة أخرى.", true);
+          }
+        });
+      }
+
+      async function generateCardAI() {
+        console.log("🔵 AI click fired: generate card summary");
+
+        const statusEl = aiElements.aiCardStatus;
+        const outputDiv = document.getElementById("aiCardOutput");
+        const outputTextarea = document.getElementById("aiOutputCard");
+        const pageDesc = aiElements.pageDescription.value.trim();
+
+        setMsg(statusEl, "");
+        if (outputDiv) outputDiv.style.display = "none";
+
+        if (!pageDesc) {
+          console.log("⚠️ No page description entered");
+          return setMsg(statusEl, "يرجى إدخال وصف الصفحة أولاً.", true);
+        }
+
+        setMsg(statusEl, "دع الذكاء الاصطناعي يعمل...");
+        console.log("📡 Fetching AI card summary...");
+
+        try {
+          const { data: { session } } = await sb.auth.getSession();
+          if (!session) {
+            console.error("❌ No session found");
+            return setMsg(statusEl, "يجب تسجيل الدخول لاستخدام مساعد الذكاء الاصطناعي.", true);
+          }
+
+          console.log("🔑 Session token obtained");
+
+          const response = await fetch('/api/ai', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${session.access_token}`
+            },
+            body: JSON.stringify({
+              action: 'card_summary',
+              text: pageDesc
+            })
+          });
+
+          console.log(`📊 AI fetch status: ${response.status}`);
+
+          const data = await response.json();
+          console.log("📦 AI raw response:", data);
+
+          if (!response.ok) {
+            if (response.status === 429) {
+              setBothRemainingUI(0, 3);
+              return setMsg(statusEl, data.error || "تم الوصول إلى الحد اليومي. حاول غداً.", true);
+            }
+            return setMsg(statusEl, data.error || "فشل إنشاء استجابة الذكاء الاصطناعي.", true);
+          }
+
+          const generated = (data?.result ?? data?.text ?? data?.output ?? "").trim();
+          console.log("📊 AI generated length:", generated.length);
+
+          if (outputTextarea) outputTextarea.value = generated;
+          if (outputDiv) outputDiv.style.display = "block";
+          setBothRemainingUI(data.remaining, 3);
+          setMsg(statusEl, "تم الإنشاء بنجاح!");
+          console.log("✅ AI generation successful");
+
+        } catch (error) {
+          console.error("❌ AI error:", error);
+          setMsg(statusEl, `خطأ في الشبكة: ${error.message}. يرجى المحاولة مرة أخرى.`, true);
+        }
+      }
+
+      attachAiMagic("aiCardBtn", generateCardAI);
+      attachAiMagic("aiPageBtn", generatePageAI);
+      console.log("✅ AI magic handlers attached");
+
+      // استبدال card description button
+      const aiReplaceCardBtn = document.getElementById("aiReplaceCardBtn");
+      if (aiReplaceCardBtn) {
+        aiReplaceCardBtn.addEventListener("click", (e) => {
+          e.preventDefault();
+          const aiOutput = document.getElementById("aiOutputCard").value.trim();
+          if (!aiOutput) {
+            return setMsg(aiElements.aiCardStatus, "لا يوجد شيء لاستبداله.", true);
+          }
+          if (aiElements.cardDescription) {
+            aiElements.cardDescription.value = aiOutput;
+            setMsg(aiElements.aiCardStatus, "تم الاستبدال بنجاح!");
+          }
+        });
+      }
+
+      // نسخ card AI output button
+      const aiCopyCardBtn = document.getElementById("aiCopyCardBtn");
+      if (aiCopyCardBtn) {
+        aiCopyCardBtn.addEventListener("click", async (e) => {
+          e.preventDefault();
+          const aiOutput = document.getElementById("aiOutputCard").value.trim();
+          if (!aiOutput) {
+            return setMsg(aiElements.aiCardStatus, "لا يوجد شيء لنسخه.", true);
+          }
+
+          try {
+            // Try modern clipboard API
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              await navigator.clipboard.writeText(aiOutput);
+            } else {
+              // Fallback for older browsers
+              const textarea = document.createElement('textarea');
+              textarea.value = aiOutput;
+              textarea.style.position = 'fixed';
+              textarea.style.opacity = '0';
+              document.body.appendChild(textarea);
+              textarea.select();
+              document.execCommand('copy');
+              document.body.removeChild(textarea);
+            }
+
+            const originalHTML = aiCopyCardBtn.innerHTML;
+            aiCopyCardBtn.innerHTML = '<i class="fa-solid fa-check"></i> تم النسخ!';
+            setTimeout(() => {
+              aiCopyCardBtn.innerHTML = originalHTML;
+            }, 2000);
+          } catch (error) {
+            console.error("فشل النسخ:", error);
+            setMsg(aiElements.aiCardStatus, "فشل النسخ. يرجى المحاولة مرة أخرى.", true);
+          }
+        });
+      }
+
+      console.log("✅ All AI handlers initialized");
+    });
+
+    async function copyProjectPageLink() {
+      const publicLinkEl = document.getElementById("publicLink");
+      const copyBtn = document.getElementById("copyProjectPageLink");
+
+      if (!publicLinkEl.href || publicLinkEl.href === "#") return;
+
+      try {
+        // Get the full URL from href
+        const fullUrl = new URL(publicLinkEl.href, window.location.origin).href;
+        await navigator.clipboard.writeText(fullUrl);
+
+        // Visual feedback
+        const originalHTML = copyBtn.innerHTML;
+        copyBtn.classList.add("copied");
+        copyBtn.innerHTML = '<i class="fa-solid fa-check"></i> تم النسخ!';
+
+        setTimeout(() => {
+          copyBtn.classList.remove("copied");
+          copyBtn.innerHTML = originalHTML;
+        }, 2000);
+      } catch (error) {
+        console.error("فشل النسخ:", error);
+        copyBtn.innerHTML = '<i class="fa-solid fa-xmark"></i> فشل';
+        setTimeout(() => {
+          copyBtn.innerHTML = '<i class="fa-solid fa-copy"></i> نسخ رابط الصفحة';
+        }, 2000);
+      }
+    }
+  </script>
+  <script>
+    // ── Custom dropdowns (portalled to body) ──────
+    (function () {
+      function initPortalSelect(config) {
+        const wrap = document.getElementById(config.wrapId);
+        const trigger = document.getElementById(config.triggerId);
+        const panel = document.getElementById(config.panelId);
+        const label = document.getElementById(config.labelId);
+        const native = document.getElementById(config.nativeId);
+        if (!wrap || !trigger || !panel || !label || !native) return;
+
+        if (config.buildOptions) {
+          panel.innerHTML = config.buildOptions(native);
+        }
+        document.body.appendChild(panel);
+        const options = () => panel.querySelectorAll('.ai-select-option');
+
+        function reposition() {
+          const rect = trigger.getBoundingClientRect();
+          panel.style.top = (rect.bottom + 6) + 'px';
+          panel.style.left = rect.left + 'px';
+          panel.style.minWidth = rect.width + 'px';
+        }
+
+        function openPanel() {
+          reposition();
+          wrap.classList.add('open');
+          panel.classList.add('open');
+          trigger.setAttribute('aria-expanded', 'true');
+        }
+
+        function closePanel() {
+          wrap.classList.remove('open');
+          panel.classList.remove('open');
+          trigger.setAttribute('aria-expanded', 'false');
+        }
+
+        function labelForValue(value) {
+          if (typeof config.labelForValue === 'function') return config.labelForValue(value, native);
+          return value;
+        }
+
+        function selectOption(value) {
+          native.value = value;
+          native.dispatchEvent(new Event('change', { bubbles: true }));
+          closePanel();
+        }
+
+        native.addEventListener('change', () => {
+          label.textContent = labelForValue(native.value);
+          options().forEach((option) => {
+            option.classList.toggle('selected', option.dataset.value === native.value);
+          });
+        });
+        native.dispatchEvent(new Event('change', { bubbles: true }));
+
+        trigger.addEventListener('click', () => {
+          panel.classList.contains('open') ? closePanel() : openPanel();
+        });
+        trigger.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openPanel(); }
+          if (e.key === 'Escape') closePanel();
+        });
+
+        panel.addEventListener('click', (e) => {
+          const option = e.target.closest('.ai-select-option');
+          if (!option) return;
+          selectOption(option.dataset.value);
+        });
+        panel.addEventListener('keydown', (e) => {
+          const option = e.target.closest('.ai-select-option');
+          if (!option) return;
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            selectOption(option.dataset.value);
+          }
+        });
+
+        document.addEventListener('click', (e) => {
+          if (!wrap.contains(e.target) && !panel.contains(e.target)) closePanel();
+        });
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') closePanel();
+        });
+        window.addEventListener('scroll', () => {
+          if (panel.classList.contains('open')) reposition();
+        }, true);
+        window.addEventListener('resize', () => {
+          if (panel.classList.contains('open')) reposition();
+        });
+      }
+
+      initPortalSelect({
+        wrapId: 'aiStyleWrap',
+        triggerId: 'aiStyleTrigger',
+        panelId: 'aiStylePanel',
+        labelId: 'aiStyleLabel',
+        nativeId: 'aiStyle'
+      });
+
+      const categoryIcons = window.ProjectCategories?.CATEGORY_ICONS || {};
+      const uncategorizedIcon = window.ProjectCategories?.getCategoryIconMarkup?.('uncategorized') || '';
+      const buildCategoryOptions = (native) => {
+        return Array.from(native.options).map((option) => {
+          const icon = categoryIcons[option.value] || uncategorizedIcon;
+          return `
+            <div class="ai-select-option${option.selected ? ' selected' : ''}" role="option" tabindex="0" data-value="${option.value}">
+              <span class="opt-icon">${icon}</span>${option.textContent}
+            </div>
+          `;
+        }).join('');
+      };
+      const categoryLabel = (value, native) => {
+        const selected = native.querySelector(`option[value="${value}"]`);
+        return selected ? selected.textContent : value;
+      };
+
+      initPortalSelect({
+        wrapId: 'newProjectCategoryWrap',
+        triggerId: 'newProjectCategoryTrigger',
+        panelId: 'newProjectCategoryPanel',
+        labelId: 'newProjectCategoryLabel',
+        nativeId: 'newProjectCategory',
+        buildOptions: buildCategoryOptions,
+        labelForValue: categoryLabel
+      });
+
+      initPortalSelect({
+        wrapId: 'cardCategoryWrap',
+        triggerId: 'cardCategoryTrigger',
+        panelId: 'cardCategoryPanel',
+        labelId: 'cardCategoryLabel',
+        nativeId: 'cardCategory',
+        buildOptions: buildCategoryOptions,
+        labelForValue: categoryLabel
+      });
+    })();
+  </script>
+  <script src="../assets/js/cookies.js" defer></script>
+  <div id="toast" role="alert" aria-live="assertive"></div>
+</body>
+</html>

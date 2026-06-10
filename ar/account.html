@@ -1,0 +1,1990 @@
+<!DOCTYPE html>
+
+<html lang="ar" dir="rtl">
+
+    <head>
+
+        <!-- مدير الموافقة على الكوكيز v2 -->
+
+        <link rel="stylesheet" href="../assets/css/cookies.css">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="إدارة إعدادات حسابك في NexCore Labs.">
+        <meta name="author" content="NexCore Labs">
+        <meta name="keywords" content="NexCore Labs, الحساب, الإعدادات, الملف الشخصي, جامعات عمان, كليات عمان, جامعة السلطان قابوس, عمان">
+        <meta name="theme-color" content="#0a0b1c">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta property="og:url" content="https://nexcorelabs.vercel.app/ar/account.html">
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="NexCore Labs | إعدادات الحساب">
+        <meta property="og:description" content="إدارة إعدادات حسابك في NexCore Labs.">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta property="twitter:domain" content="nexcorelabs.vercel.app">
+        <meta property="twitter:url" content="https://nexcorelabs.vercel.app/ar/account.html">
+        <meta name="twitter:title" content="NexCore Labs | إعدادات الحساب">
+        <meta name="twitter:description" content="إدارة إعدادات حسابك في NexCore Labs.">
+
+        <title>NexCore Labs | إعدادات الحساب</title>
+
+        <link rel="icon" href="../assets/images/nexcore-icon.png" type="image/png">
+        <link rel="apple-touch-icon" href="../assets/images/nexcore-logo.webp">
+
+        <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/admin-button.css">
+        <link rel="stylesheet" href="../assets/css/arabic.css">
+
+        <!-- <link rel="stylesheet" href="../assets/css/unminified-css.css"> -->
+        <link rel="manifest" href="../manifest.json">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+        <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.2/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+
+    .wrap{max-width:680px;margin:110px auto;padding:16px}
+
+    .box{border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:20px;margin:14px 0;background:rgba(10,11,28,.35);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);}
+
+    .info-row{display:flex;align-items:center;gap:12px;margin:16px 0;padding:12px;background:rgba(0,0,0,.18);border-radius:10px;border:1px solid rgba(255,255,255,.08)}
+
+    .info-label{opacity:.7;font-size:.9rem;min-width:80px}
+
+    .info-value{font-weight:500;color:#6ee7f3; font-size:.95rem;word-break:break-all; font-family: monospace;}
+
+    .info-value-name{font-family:inherit;word-break:normal}
+
+    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+
+    .btn:disabled{opacity:.5;cursor:not-allowed}
+
+    .msg-success{color:#6ee7f3;margin-top:12px}
+
+    .msg-error{color:#ff7878;margin-top:12px}
+
+    .notice-box{margin:16px 0;padding:14px;background:rgba(110,231,243,.08);border:1px solid rgba(110,231,243,.15);border-radius:10px;font-size:.9rem;line-height:1.6}
+
+    .notice-box.warning{background:rgba(255,200,120,.08);border-color:rgba(255,200,120,.2);color:#ffffff}
+
+    .notice-box.warning strong{color: rgb(255,200,120);}
+
+    /* ── AI Usage bar ── */
+    .ai-usage-bar-wrap{margin:14px 0 4px;background:rgba(255,255,255,.06);border-radius:20px;height:8px;overflow:hidden}
+    .ai-usage-bar{height:100%;border-radius:20px;background:linear-gradient(90deg,#6ee7f3,#3ac5c0);transition:width .5s ease}
+    .ai-usage-bar.warn{background:linear-gradient(90deg,#f3c96e,#e09030)}
+    .ai-usage-bar.full{background:linear-gradient(90deg,#ff7878,#cc3333)}
+    .ai-usage-numbers{display:flex;justify-content:space-between;font-size:.8rem;margin-top:6px;opacity:.7}
+
+    .section-title{margin-top:24px;margin-bottom:12px;opacity:.9;font-size:1.1rem;display:flex;align-items:center;gap:8px}
+    .account-info-title{display:flex;align-items:center;gap:10px}
+    .account-avatar{
+      width:28px;height:28px;border-radius:50%;
+      object-fit:cover;object-position:center;
+      border:1px solid rgba(110,231,243,.35);
+      box-shadow:0 0 0 2px rgba(110,231,243,.08);
+      background:rgba(255,255,255,.06);
+    }
+
+    .help-text{font-size:.82rem;opacity:.7;margin-top:4px}
+
+    hr{border:none;border-top:1px solid rgba(255,255,255,.08);margin:24px 0}
+
+    /* ── Delete Account Modal ── */
+
+    .modal{
+
+      display:flex;position:fixed;inset:0;z-index:9999;
+
+      align-items:flex-end;justify-content:center;
+
+      padding:16px;
+
+      background:rgba(2,6,23,.55);
+
+      -webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);
+
+      box-sizing:border-box;
+
+      opacity:0;pointer-events:none;
+
+      transition:opacity .28s ease;
+
+    }
+
+    .modal.open{opacity:1;pointer-events:all;}
+
+    @media(min-width:600px){.modal{align-items:center;}}
+
+    .modal-content{
+
+      position:relative;
+
+      width:100%;max-width:520px;
+
+      max-height:90dvh;overflow-y:auto;
+
+      background:rgba(8,10,22,.93);
+
+      border:1px solid rgba(255,255,255,.07);
+
+      border-radius:16px;
+
+      padding:28px 24px 22px;
+
+      box-shadow:0 24px 72px rgba(2,6,23,.85),0 0 0 1px rgba(255,120,120,.06);
+
+      -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+
+      color:#e6eef3;
+
+      font-size:14px;line-height:1.5;
+
+      box-sizing:border-box;
+
+      transform:translateY(28px) scale(.97);
+
+      opacity:0;
+
+      transition:transform .32s cubic-bezier(.2,.9,.3,1),opacity .28s ease;
+
+      scrollbar-width:thin;scrollbar-color:#ff7878 transparent;
+
+    }
+
+    .modal.open .modal-content{transform:translateY(0) scale(1);opacity:1;}
+
+    /* top accent line */
+
+    .modal-content::before{
+
+      content:'';position:absolute;top:0;left:10%;right:10%;height:1px;
+
+      background:linear-gradient(90deg,transparent,#ff7878,transparent);
+
+      opacity:.45;border-radius:16px 16px 0 0;pointer-events:none;
+
+    }
+
+    .modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+
+    .modal-header h2{margin:0;color:#ff7878;display:flex;align-items:center;gap:10px;font-size:1.15rem;}
+
+    .close{
+
+      display:flex;align-items:center;justify-content:center;
+
+      width:32px;height:32px;border-radius:8px;
+
+      color:rgba(255,255,255,.45);font-size:22px;font-weight:bold;
+
+      cursor:pointer;line-height:1;flex-shrink:0;
+
+      transition:background .18s,color .18s;
+
+    }
+
+    .close:hover{background:rgba(255,255,255,.08);color:#fff;}
+
+    /* ── Toast notification ── */
+    #toast{
+      position:fixed;bottom:28px;left:50%;
+      transform:translateX(-50%) translateY(16px);
+      border: 2px solid rgba(255, 255, 255, 0.06);
+      background: rgba(10, 11, 28, 0.6);
+      color:#6ee7f3;
+      padding:10px 22px;
+      border-radius:12px;
+      font-size:.875rem;font-weight:500;
+      z-index:10001;
+      opacity:0;pointer-events:none;
+      transition:opacity .22s,transform .22s;
+      backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+      max-width:min(420px,90vw);
+      text-align:center;
+      box-shadow:0 8px 32px rgba(0,0,0,.55);
+      white-space:pre-line;
+    }
+    #toast.show{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:all;}
+    #toast.error{border-color:rgba(255,120,120,.28);color:#ff7878;}
+
+    .modal input[type="text"],.modal input[type="checkbox"]{margin:10px 0}
+
+    .modal input[type="text"]{
+
+      width:100%;padding:12px;box-sizing:border-box;
+
+      background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.12);
+
+      border-radius:10px;color:#fff;font-size:.95rem;font-family:monospace;
+
+      transition:border-color .18s,background .18s;
+
+    }
+
+    .modal input[type="text"]:focus{outline:none;border-color:rgba(255,120,120,.5);background:rgba(0,0,0,.45);}
+
+    .checkbox-row{
+
+      display:flex;align-items:flex-start;gap:10px;
+
+      margin:16px 0;padding:14px;
+
+      background:rgba(255,255,255,.03);
+
+      border:1px solid rgba(255,255,255,.07);
+
+      border-radius:10px;
+
+    }
+
+    .checkbox-row input[type="checkbox"]{flex-shrink:0;margin-top:3px;}
+
+    .checkbox-row label{cursor:pointer;font-size:.82rem;color:rgba(230,238,243,.85);line-height:1.5;}
+
+    .modal-actions{display:flex;gap:10px;margin-top:24px;}
+
+    .modal-actions .btn{flex:1;}
+
+    @media(max-width:480px){
+
+      .modal-content{padding:22px 16px 18px;}
+
+      .modal-actions{flex-direction:column;}
+
+      .modal-actions .btn{width:100%;}
+
+    }
+
+    .mt-0{margin-top:0!important}
+    .fs-9{font-size:.9rem!important}
+    .mb-16{margin-bottom:16px!important}
+    .mb-20{margin-bottom:20px!important}
+    .mb-12{margin-bottom:12px!important}
+    .mr-8{margin-right:8px!important}
+    .bg-dark-15{background:rgba(0,0,0,.15)!important}
+
+  </style>
+        <!-- Vercel Web Analytics -->
+        <script>
+            window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+        </script>
+        <script defer src="/_vercel/insights/script.js"></script>
+        <!-- Vercel Speed Insights -->
+        <script>
+            window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
+        </script>
+        <script defer src="/_vercel/speed-insights/script.js"></script>
+        <link rel="alternate" hreflang="en" href="../account.html">
+        <link rel="alternate" hreflang="ar" href="account.html">
+
+    </head>
+
+<body>
+
+    <div class="background">
+      <img class="logo-img" id="logoImg" src="../assets/images/nexcore-logo.webp" alt="شعار NexCore Labs">
+
+      <div id="spotLight" class="spot-light"></div>
+    </div>
+
+    <header class="navbar">
+      <div class="nav-container">
+        <div class="logo">
+          <h1 id="logo">NexCore <span>Labs</span></h1>
+        </div>
+
+        <div class="dropdown">
+        <div class="core-menu" id="coreMenu" aria-label="فتح القائمة" title="القائمة">
+          <span class="dot" aria-hidden="true"></span>
+          <span class="dot" aria-hidden="true"></span>
+          <span class="dot" aria-hidden="true"></span>
+          <span class="dot" aria-hidden="true"></span>
+          <span class="dot" aria-hidden="true"></span>
+          <span class="dot" aria-hidden="true"></span>
+        </div>
+
+
+
+        <div id="myDropdown" class="dropdown-content">
+            <a href="../account.html" class="lang-switch-pill" title="View English site">
+              <div class="pill-slider"></div>
+              <span class="pill-text en-text"><img src="../assets/images/uk.webp" alt="United Kingdom flag"> EN</span>
+              <span class="pill-text ar-text"><img src="../assets/images/oman.webp" alt="Oman flag"> ع</span>
+            </a>
+
+          <a href="auth.html" class="magic-signup fade" title="تسجيل الدخول إلى حسابك"><i class="fa-solid fa-key"></i> الوصول إلى النواة</a>
+          <input type="search" placeholder="ابحث..." id="myInput" onkeyup="filterFunction()" title="بحث...">
+
+          <a href="hub.html" class="fade" title="مركز NexCore Labs"><i class="fa-solid fa-house"></i> المركز</a>
+          <a href="hub.html#projects" class="fade" title="المشاريع"><i class="fa-solid fa-diagram-project"></i> المشاريع</a>
+          <a href="ai-chat.html" class="fade" title="NexCore AI" style="color:#6ee7f3;"><i class="fa-solid fa-wand-magic-sparkles"></i> NexCore AI</a>
+
+          <div class="div-menu-line"></div>
+
+          <a href="index.html#tools" class="mt-0" title="الأدوات والأنظمة"><i class="fa-solid fa-screwdriver-wrench"></i> الأدوات والأنظمة</a>
+          <a href="index.html#about" title="حول NexCore Labs"><i class="fa-solid fa-circle-info"></i> من نحن</a>
+          <a href="index.html#team" title="فريق NexCore Labs"><i class="fa-solid fa-users"></i> الفريق</a>
+          <a href="index.html#contact" title="اتصل بـ NexCore Labs"><i class="fa-solid fa-paper-plane"></i> اتصل بنا</a>
+
+          <div class="div-menu-line"></div>
+
+          <a href="roadmap.html" class="fade mt-0" title="لوحة الميزات والخريطة"><i class="fa-solid fa-route"></i> لوحة الميزات</a>
+          <a href="releases.html" class="fade" title="الإصدارات والتحديثات"><i class="fa-solid fa-clock-rotate-left"></i> الإصدارات والتحديثات</a>
+
+          <div class="div-menu-line"></div>
+
+          <a href="pricing.html" class="fade mt-0" title="خطط التسعير"><i class="fa-solid fa-tag"></i> التسعير <span class="new-badge">جديد</span></a>
+          <a href="faq.html" class="fade" title="الأسئلة الشائعة والدعم"><i class="fa-solid fa-circle-question"></i> الأسئلة الشائعة</a>
+          <a href="how-to-use.html" class="fade" title="كيفية استخدام NexCore Labs"><i class="fa-solid fa-book-open"></i> كيفية الاستخدام</a>
+          <a href="terms.html" class="fade" title="شروط الخدمة"><i class="fa-solid fa-file-contract"></i> الشروط</a>
+          <a href="privacy-policy.html" class="fade" title="سياسة الخصوصية"><i class="fa-solid fa-shield-halved"></i> الخصوصية</a>
+        </div>
+        </div>
+      </div>
+    </header>
+
+
+
+    <main>
+      <div class="wrap">
+        <h1>إعدادات الحساب</h1>
+
+        <div class="box">
+          <h2 class="mt-0 account-info-title">
+            <img
+              id="accountAvatar"
+              class="account-avatar"
+              src="../assets/images/nexcore-icon.png"
+              alt="صورة الملف الشخصي"
+              loading="lazy"
+              decoding="async"
+              referrerpolicy="no-referrer"
+            >
+            معلومات الحساب
+          </h2>
+
+          <div class="info-row">
+            <span class="info-label">الاسم:</span>
+
+            <span class="info-value info-value-name" id="userName">جار التحميل...</span>
+          </div>
+
+          <div class="info-row">
+            <span class="info-label">البريد الإلكتروني:</span>
+
+            <span class="info-value" id="userEmail">جار التحميل...</span>
+          </div>
+
+          <div class="info-row">
+            <span class="info-label">معرّف المستخدم:</span>
+
+            <span class="info-value" id="userId">جار التحميل...</span>
+
+            <button class="btn copy" id="copyUserIdBtn" title="نسخ معرّف المستخدم">
+              <i class="fa-solid fa-copy"></i>
+            </button>
+          </div>
+
+          <div class="info-row">
+            <span class="info-label">تاريخ الإنشاء:</span>
+
+            <span class="info-value" id="createdAt">جار التحميل...</span>
+          </div>
+
+          <div class="info-row">
+            <span class="info-label">آخر تسجيل دخول:</span>
+
+            <span class="info-value" id="lastSignIn">جار التحميل...</span>
+          </div>
+        </div>
+
+        <div class="box">
+          <h3 class="section-title"><i class="fa-solid fa-address-card" style="color:#6ee7f3"></i> معلومات التواصل</h3>
+
+          <p class="muted fs-9">حدد بيانات التواصل العامة التي تظهر في صفحة مشروعك. يبقى بريد تسجيل الدخول عبر Google خاصاً.</p>
+
+          <form id="contactInfoForm" class="contact-form" novalidate>
+            <div>
+              <label class="field" for="contactEmail">
+                <input id="contactEmail" type="email" placeholder="بريد التواصل: your@email.com" autocomplete="email">
+              </label>
+            </div>
+
+            <div>
+              <label class="field" for="phoneNumber">
+                <input id="phoneNumber" type="tel" placeholder="رقم الهاتف: +968 XXXXXXXX" autocomplete="tel">
+              </label>
+              <p class="help-text">تظهر للعامة فقط عند إضافتها.</p>
+            </div>
+
+            <div class="row">
+              <button class="btn primary ghost" id="saveContactBtn" type="submit">
+                <i class="fa-solid fa-floppy-disk"></i> حفظ بيانات التواصل
+              </button>
+            </div>
+
+          </form>
+        </div>
+
+        <!-- <div class="box">
+          <h3 class="section-title"><i class="fa-solid fa-wand-magic-sparkles" style="color:#6ee7f3"></i> AI Usage Today</h3>
+
+          <p class="muted fs-9">Your NexCore AI chat usage resets every day.</p>
+
+          <div id="aiUsageContent">
+            <div class="info-row" style="flex-direction:column;align-items:flex-start;gap:6px">
+              <div style="width:100%;display:flex;justify-content:space-between;align-items:center">
+                <span class="info-label">Messages used</span>
+                <span class="info-value" id="aiUsageText" style="font-family:inherit">Loading…</span>
+              </div>
+              <div class="ai-usage-bar-wrap" style="width:100%">
+                <div class="ai-usage-bar" id="aiUsageBar" style="width:0%"></div>
+              </div>
+              <div class="ai-usage-numbers">
+                <span id="aiUsedLabel">0 used </span>
+                <span id="aiMaxLabel">— / —</span>
+              </div>
+            </div>
+            <p id="aiUsageMsg" class="help-text" aria-live="polite"></p>
+          </div>
+
+        </div> -->
+
+        <div class="box">
+          <h3 class="section-title"><i class="fa-solid fa-download" style="color:#6ee7f3"></i> تصدير البيانات</h3>
+
+          <p class="muted fs-9">نزّل معلومات حسابك وبيانات مشروعك بصيغتي JSON و TXT.</p>
+
+
+
+          <div class="row">
+            <button class="btn primary ghost" id="exportAccountBtn">
+
+              <i class="fa-solid fa-file-export"></i> تصدير بيانات حسابي
+
+            </button>
+
+            <button class="btn primary ghost" id="exportProjectsBtn">
+
+              <i class="fa-solid fa-folder-open"></i> تصدير مشروعي
+
+            </button>
+          </div>
+
+        </div>
+
+        <div class="box">
+          <h3 class="section-title"><i class="fa-solid fa-right-from-bracket" style="color:#6ee7f3"></i> الجلسة</h3>
+
+          <p class="muted fs-9">سجّل الخروج من حسابك في NexCore Labs.</p>
+
+          <button class="btn logout" id="logoutBtn">
+
+            <i class="fa-solid fa-right-from-bracket"></i> تسجيل الخروج
+
+          </button>
+        </div>
+
+        <div class="box">
+          <h3 class="section-title"><i class="fa-solid fa-folder-open" style="color:#6ee7f3"></i> بيانات المشروع</h3>
+
+          <p class="muted fs-9">احذف بيانات مشروعك. سيؤدي ذلك إلى إزالة جميع معلومات مشروعك من NexCore Labs.</p>
+
+          <div class="notice-box warning">
+            <strong><i class="fa-solid fa-triangle-exclamation"></i> تحذير:</strong> لا يمكن التراجع عن هذا الإجراء. سيتم حذف مشروعك نهائياً وإزالته من المركز.
+
+          </div>
+
+          <button class="btn danger" id="deleteProjectBtn">
+
+            <i class="fa-solid fa-trash"></i> حذف مشروعي
+
+          </button>
+        </div>
+
+        <div class="box">
+          <h3 class="section-title"><i class="fa-solid fa-user-xmark" style="color:#6ee7f3"></i> حذف الحساب</h3>
+
+          <p class="muted" style="font-size:.9rem;">احذف حسابك في NexCore Labs وجميع البيانات المرتبطة به نهائياً.</p>
+
+          <div class="notice-box warning">
+            <strong><i class="fa-solid fa-triangle-exclamation"></i> تحذير:</strong> هذا الإجراء <strong>غير قابل للتراجع</strong>. حذف حسابك سيؤدي إلى:
+
+            <ul style="margin:8px 0 0 20px;line-height:1.8">
+              <li>حذف جميع مشاريعك وبياناتك نهائياً</li>
+
+              <li>إزالة حسابك من NexCore Labs</li>
+
+              <li>تسجيل خروجك فوراً</li>
+            </ul>
+
+          </div>
+
+          <button class="btn danger" id="deleteAccountBtn">
+
+            <i class="fa-solid fa-user-slash"></i> حذف الحساب
+
+          </button>
+        </div>
+
+        <hr>
+
+        <div class="box bg-dark-15">
+          <h3 class="section-title"><i class="fa-solid fa-circle-info" style="color:#6ee7f3"></i> تحتاج مساعدة؟</h3>
+
+          <p class="muted" style="font-size:.9rem;margin-bottom:12px;">
+
+            إذا كانت لديك أسئلة أو تحتاج مساعدة في حسابك، تواصل مع فريق NexCore Labs.
+
+          </p>
+
+          <a href="/ar/faq.html" class="btn primary ghost" style="margin-right:8px;"><i class="fa-solid fa-question-circle"></i> الأسئلة الشائعة</a>
+          <a href="/ar/index.html#contact" class="btn primary ghost"><i class="fa-solid fa-envelope"></i> اتصل بنا</a>
+        </div>
+      </div>
+
+      <!-- نافذة تأكيد حذف المشروع -->
+
+      <div id="deleteProjectModal" class="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="deleteProjectModalTitle">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 id="deleteProjectModalTitle"><i class="fa-solid fa-triangle-exclamation"></i> حذف المشروع</h2>
+
+            <span class="close" id="closeProjectModal">&times;</span>
+          </div>
+
+          <p style="margin-bottom:16px;">هذا الإجراء <strong>دائم وغير قابل للتراجع</strong>. ستتم إزالة مشروعك من المركز.</p>
+
+          <div class="notice-box warning" style="margin-bottom:20px;">
+            <strong>سيتم حذف:</strong>
+
+            <ul style="margin:8px 0 0 20px;line-height:1.8">
+              <li>قائمة مشروعك في المركز</li>
+
+              <li>جميع معلومات المشروع والبيانات الوصفية</li>
+
+              <li>صفحة مشروعك العامة</li>
+            </ul>
+
+          </div>
+
+          <div class="modal-actions">
+            <button class="btn danger" id="confirmDeleteProjectBtn">
+
+              <i class="fa-solid fa-trash"></i> حذف مشروعي
+
+            </button>
+
+            <button class="btn primary ghost" id="cancelDeleteProjectBtn">
+
+              <i class="fa-solid fa-xmark"></i> إلغاء
+
+            </button>
+          </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- نافذة تأكيد حذف الحساب -->
+
+      <div id="deleteAccountModal" class="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="deleteModalTitle">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 id="deleteModalTitle"><i class="fa-solid fa-triangle-exclamation"></i> حذف الحساب</h2>
+
+            <span class="close" id="closeModal">&times;</span>
+          </div>
+
+
+
+          <p style="margin-bottom:16px;">هذا الإجراء <strong>دائم وغير قابل للتراجع</strong>. سيتم حذف جميع بياناتك.</p>
+
+
+
+          <div class="notice-box warning" style="margin-bottom:20px;">
+            <strong>سيتم حذف:</strong>
+
+            <ul style="margin:8px 0 0 20px;line-height:1.8">
+              <li>جميع مشاريعك</li>
+
+              <li>معلومات حسابك</li>
+
+              <li>جميع البيانات المرتبطة</li>
+            </ul>
+
+          </div>
+
+
+
+          <label for="confirmDeleteInput" style="display:block;margin-bottom:8px;opacity:.9">اكتب اسم المستخدم (<strong id="confirmUsernameHint" style="font-family: 'Courier New', monospace; color: #ff7878;"></strong>) للتأكيد:</label>
+
+          <input type="text" id="confirmDeleteInput" placeholder="" autocomplete="off">
+
+
+
+          <div class="checkbox-row">
+            <input type="checkbox" class="checkbox" id="confirmCheckbox">
+
+            <label for="confirmCheckbox">أفهم أن هذا الإجراء غير قابل للتراجع وأن جميع بياناتي ستُحذف نهائياً</label>
+          </div>
+
+
+
+          <div class="modal-actions">
+            <button class="btn danger" id="confirmDeleteBtn" disabled>
+
+              <i class="fa-solid fa-trash"></i> حذف حسابي
+
+            </button>
+
+            <button class="btn primary ghost" id="cancelDeleteBtn">
+
+              <i class="fa-solid fa-xmark"></i> إلغاء
+
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+
+
+        <div class="nexcore-sign">
+          <img id="nexcoreSign" src="../assets/images/nexcore-word.webp" alt="NexCore Labs">
+
+        </div>
+      </main>
+
+      <footer class="site-footer">
+        <div class="container footer-inner">
+          <div class="f-left">
+            <a class="paypal" href="https://www.paypal.me/nexcorelabs" target="_blank" rel="noopener" title="بايبال"><i class="fa-solid fa-heart" style="color: #6EE7F3;"></i> ادعمنا عبر <i class="fa-brands fa-paypal"></i></a>
+
+            <br>
+
+            <small title="جميع الحقوق محفوظة">مختبرات نكسكور © <span id="year"></span> <span id="splitter">|</span>
+
+              <a href="https://github.com/NexCoreLabs/NexCore/blob/main/LICENSE" target="_blank" rel="noopener" class="license-link">
+
+                <i class="fa-solid fa-scale-balanced"></i> رخصة MIT
+
+              </a>            </small>
+
+          </div>
+
+          <div class="f-right footer-line"></div>
+        </div>
+      </footer>
+
+  <script src="../assets/js/script.js"></script>
+
+  <script src="../assets/js/supabase-client.js"></script>
+
+  <script src="../assets/js/auth-ui-db.js"></script>
+
+  <script>
+
+    const sb = window.supabaseClient;
+
+    let currentUser = null;
+    let _toastTimer = null;
+
+    function setMsg(_elId, text, isError = false) {
+      if (!text) return;
+      const toast = document.getElementById('toast');
+      toast.textContent = text;
+      toast.className = 'show' + (isError ? ' error' : '');
+      clearTimeout(_toastTimer);
+      _toastTimer = setTimeout(() => toast.classList.remove('show'), 3800);
+    }
+
+    function downloadText(filename, text) {
+
+      const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+
+      const a = document.createElement("a");
+
+      a.href = URL.createObjectURL(blob);
+
+      a.download = filename;
+
+      document.body.appendChild(a);
+
+      a.click();
+
+      document.body.removeChild(a);
+
+      URL.revokeObjectURL(a.href);
+
+    }
+
+    async function requireAuth() {
+
+      const { data: sessionData, error: sessionErr } = await sb.auth.getSession();
+
+      if (sessionErr) {
+
+        console.error("Session error:", sessionErr);
+
+        window.location.href = "/ar/auth.html";
+
+        return null;
+
+      }
+
+      const session = sessionData?.session;
+
+      if (!session) {
+
+        window.location.href = "/ar/auth.html";
+
+        return null;
+
+      }
+
+      return session;
+
+    }
+
+    function getUserAvatarUrl(user) {
+      if (!user) return null;
+      const metadata = user.user_metadata || {};
+      const direct = metadata.avatar_url || metadata.picture || null;
+      if (direct) return String(direct).trim();
+
+      if (Array.isArray(user.identities)) {
+        for (const identity of user.identities) {
+          const d = identity?.identity_data || {};
+          const candidate = d.avatar_url || d.picture || null;
+          if (candidate) return String(candidate).trim();
+        }
+      }
+      return null;
+    }
+
+    async function loadAccountInfo(session) {
+
+      let user = session.user;
+
+      try {
+
+        const { data } = await sb.auth.getUser();
+
+        if (data?.user) user = data.user;
+
+      } catch (error) {
+
+        console.warn("Falling back to session user for account info:", error?.message || error);
+
+      }
+
+      const metadata = user.user_metadata || {};
+
+      const fullName = (metadata.full_name || metadata.name || metadata.user_name || "").trim();
+
+      const displayName = fullName || (user.email ? user.email.split("@")[0] : "غير متاح");
+
+      const avatarEl = document.getElementById("accountAvatar");
+      if (avatarEl) {
+        const avatarUrl = getUserAvatarUrl(user);
+        if (avatarUrl) {
+          avatarEl.src = avatarUrl;
+        } else {
+          avatarEl.src = "../assets/images/nexcore-icon.png";
+        }
+        avatarEl.onerror = () => {
+          avatarEl.src = "../assets/images/nexcore-icon.png";
+        };
+      }
+
+
+
+      document.getElementById("userName").textContent = displayName;
+
+      document.getElementById("userEmail").textContent = user.email || "غير متاح";
+
+      document.getElementById("userId").textContent = user.id || "غير متاح";
+
+
+
+      const createdDate = user.created_at
+
+        ? new Date(user.created_at).toLocaleDateString('ar-OM', {
+
+            year: 'numeric',
+
+            month: 'short',
+
+            day: 'numeric',
+
+            hour: '2-digit',
+
+            minute: '2-digit'
+
+          })
+
+        : "غير متاح";
+
+
+
+      document.getElementById("createdAt").textContent = createdDate;
+
+
+
+      const lastSignInDate = user.last_sign_in_at
+
+        ? new Date(user.last_sign_in_at).toLocaleDateString('ar-OM', {
+
+            year: 'numeric',
+
+            month: 'short',
+
+            day: 'numeric',
+
+            hour: '2-digit',
+
+            minute: '2-digit'
+
+          })
+
+        : "غير متاح";
+
+
+
+      document.getElementById("lastSignIn").textContent = lastSignInDate;
+
+      currentUser = user;
+
+      await loadContactInfo(user.id);
+
+    }
+
+    async function loadContactInfo(userId) {
+
+      try {
+
+        const { data, error } = await sb
+
+          .from("users")
+
+          .select("contact_email, phone_number")
+
+          .eq("id", userId)
+
+          .maybeSingle();
+
+        if (error) {
+
+          console.warn("Could not load contact info:", error.message);
+
+          return;
+
+        }
+
+        document.getElementById("contactEmail").value = (data?.contact_email || "").trim();
+
+        document.getElementById("phoneNumber").value = (data?.phone_number || "").trim();
+
+      } catch (error) {
+
+        console.warn("Could not load contact info:", error?.message || error);
+
+      }
+
+    }
+
+    function validateContactInputs(contactEmail, phoneNumber) {
+
+      const emailValue = String(contactEmail || "").trim();
+
+      const phoneValue = String(phoneNumber || "").trim();
+
+      if (emailValue) {
+
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!emailPattern.test(emailValue)) {
+
+          return { ok: false, message: "يرجى إدخال بريد تواصل صالح.", isخطأ: true };
+
+        }
+
+      }
+
+      if (phoneValue) {
+
+        const phonePattern = /^\+?[0-9()\-\s]{6,20}$/;
+
+        if (!phonePattern.test(phoneValue)) {
+
+          return { ok: false, message: "يرجى إدخال رقم هاتف صالحاً بالصيغة الدولية.", isخطأ: true };
+
+        }
+
+      }
+
+      return { ok: true, email: emailValue || null, phone: phoneValue || null };
+
+    }
+
+    async function saveContactInfo(event) {
+
+      event.preventDefault();
+
+      if (!currentUser?.id) {
+
+        setMsg("contactMsg", "لم يتم تسجيل الدخول. يرجى تسجيل الدخول مرة أخرى.", true);
+
+        return;
+
+      }
+
+      const btn = document.getElementById("saveContactBtn");
+
+      const contactEmail = document.getElementById("contactEmail").value;
+
+      const phoneNumber = document.getElementById("phoneNumber").value;
+
+      const validation = validateContactInputs(contactEmail, phoneNumber);
+
+      if (!validation.ok) {
+
+        setMsg("contactMsg", validation.message, true);
+
+        return;
+
+      }
+
+      btn.disabled = true;
+
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> جار الحفظ...';
+
+      setMsg("contactMsg", "");
+
+      try {
+
+        const payload = {
+
+          contact_email: validation.email,
+
+          phone_number: validation.phone,
+
+          updated_at: new Date().toISOString()
+
+        };
+
+        const { data: updatedRows, error } = await sb
+
+          .from("users")
+
+          .update(payload)
+
+          .eq("id", currentUser.id)
+
+          .select("id");
+
+        if (error) {
+
+          throw new Error(error.message);
+
+        }
+
+        if (!updatedRows || updatedRows.length === 0) {
+
+          const { error: upsertError } = await sb
+
+            .from("users")
+
+            .upsert({ id: currentUser.id, ...payload }, { onConflict: "id" });
+
+          if (upsertError) {
+
+            throw new Error(upsertError.message);
+
+          }
+
+        }
+
+        setMsg("contactMsg", "✓ تم تحديث بيانات التواصل.");
+
+      } catch (error) {
+
+        setMsg("contactMsg", "خطأ: " + (error?.message || error), true);
+
+      } finally {
+
+        btn.disabled = false;
+
+        btn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> حفظ بيانات التواصل';
+
+      }
+
+    }
+
+    async function logout() {
+
+      try {
+
+        const btn = document.getElementById("logoutBtn");
+
+        btn.disabled = true;
+
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> جار تسجيل الخروج...';
+
+
+
+        await sb.auth.signOut();
+
+        setMsg("logoutMsg", "تم تسجيل الخروج بنجاح. جار التحويل...");
+
+
+
+        setTimeout(() => {
+
+          window.location.href = "/ar/auth.html";
+
+        }, 1000);
+
+      } catch (error) {
+
+        setMsg("logoutMsg", error.message, true);
+
+        document.getElementById("logoutBtn").disabled = false;
+
+        document.getElementById("logoutBtn").innerHTML = '<i class="fa-solid fa-right-from-bracket"></i> تسجيل الخروج';
+
+      }
+
+    }
+
+    function openDeleteProjectModal() {
+
+      const modal = document.getElementById("deleteProjectModal");
+
+      setMsg("projectModalMsg", "", false);
+
+      document.getElementById("confirmDeleteProjectBtn").disabled = false;
+
+      document.getElementById("confirmDeleteProjectBtn").innerHTML = '<i class="fa-solid fa-trash"></i> حذف مشروعي';
+
+      modal.setAttribute("aria-hidden", "false");
+
+      document.body.style.overflow = "hidden";
+
+      requestAnimationFrame(() => modal.classList.add("open"));
+
+    }
+
+    function closeDeleteProjectModal() {
+
+      const modal = document.getElementById("deleteProjectModal");
+
+      modal.classList.remove("open");
+
+      modal.setAttribute("aria-hidden", "true");
+
+      document.body.style.overflow = "";
+
+    }
+
+    async function deleteProject() {
+
+      closeDeleteProjectModal();
+
+      try {
+
+        const btn = document.getElementById("deleteProjectBtn");
+
+        const confirmBtn = document.getElementById("confirmDeleteProjectBtn");
+
+        btn.disabled = true;
+
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> جار الحذف...';
+
+        confirmBtn.disabled = true;
+
+        confirmBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> جار الحذف...';
+
+        setMsg("deleteMsg", "");
+
+        setMsg("projectModalMsg", "", false);
+
+        // Get user's session
+
+        const { data: { session } } = await sb.auth.getSession();
+
+        if (!session) {
+
+          throw new Error("لم يتم تسجيل الدخول");
+
+        }
+
+        // Get user's project(s) - RLS ensures only user's projects are returned
+
+        const { data: projects, error: fetchError } = await sb
+
+          .from("projects")
+
+          .select("*")
+
+          .eq("owner_user_id", session.user.id);
+
+        if (fetchError) {
+
+          throw new Error(fetchError.message);
+
+        }
+
+        if (!projects || projects.length === 0) {
+
+          setMsg("deleteMsg", "لم يتم العثور على مشروع لحذفه.");
+
+          btn.disabled = false;
+
+          btn.innerHTML = '<i class="fa-solid fa-trash"></i> حذف مشروعي';
+
+          return;
+
+        }
+
+        // Delete all user's projects (usually just one due to constraint)
+
+        for (const project of projects) {
+
+          const { error: deleteError } = await sb
+
+            .from("projects")
+
+            .delete()
+
+            .eq("id", project.id);
+
+          if (deleteError) {
+
+            throw new Error(deleteError.message);
+
+          }
+
+        }
+
+        setMsg("deleteMsg", "✓ تم حذف المشروع بنجاح.");
+
+        btn.innerHTML = '<i class="fa-solid fa-check"></i> تم الحذف';
+
+        setTimeout(() => {
+
+          window.location.href = "/dashboard.html";
+
+        }, 2000);
+
+      } catch (error) {
+
+        setMsg("deleteMsg", "خطأ: " + error.message, true);
+
+        const btn = document.getElementById("deleteProjectBtn");
+
+        btn.disabled = false;
+
+        btn.innerHTML = '<i class="fa-solid fa-trash"></i> حذف مشروعي';
+
+      }
+
+    }
+
+    async function exportAccountData() {
+
+      try {
+
+        const btn = document.getElementById("exportAccountBtn");
+
+        btn.disabled = true;
+
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> جار التصدير...';
+
+
+
+        const { data: { session } } = await sb.auth.getSession();
+
+        if (!session) {
+
+          throw new Error("لم يتم تسجيل الدخول");
+
+        }
+
+      const user = session.user;
+
+      let contactEmail = "";
+
+      let phoneNumber = "";
+
+      try {
+
+        const { data: contactData } = await sb
+
+          .from("users")
+
+          .select("contact_email, phone_number")
+
+          .eq("id", user.id)
+
+          .maybeSingle();
+
+        contactEmail = (contactData?.contact_email || "").trim();
+
+        phoneNumber = (contactData?.phone_number || "").trim();
+
+      } catch (error) {
+
+        console.warn("Failed to include contact info in account export:", error?.message || error);
+
+      }
+
+      const exportData = {
+
+          email: user.email,
+
+          user_id: user.id,
+
+          contact_email: contactEmail || null,
+
+          phone_number: phoneNumber || null,
+
+          created_at: user.created_at,
+
+          last_sign_in_at: user.last_sign_in_at,
+
+          export_date: new Date().toISOString(),
+
+          export_source: "إعدادات حساب NexCore Labs"
+
+        };
+
+        // Generate timestamp for filenames
+
+        const now = new Date();
+
+        const dateStr = now.toISOString().split('T')[0]; // YYYY-MM-DD
+
+        const timeStr = now.toTimeString().split(' ')[0].replace(/:/g, ''); // HHmmss
+
+        const timestamp = `${dateStr}_${timeStr.substring(0, 4)}`; // YYYY-MM-DD_HHmm
+
+        const baseFilename = `nexcorelabs_account_${user.email.substring(0, 7)}_(${timestamp})`;
+
+        // Export JSON
+
+        const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+
+        const url = URL.createObjectURL(blob);
+
+        const a = document.createElement('a');
+
+        a.href = url;
+
+        a.download = `${baseFilename}.json`;
+
+        document.body.appendChild(a);
+
+        a.click();
+
+        document.body.removeChild(a);
+
+        URL.revokeObjectURL(url);
+
+        // Export TXT (human-readable)
+
+        const createdDate = user.created_at
+
+          ? new Date(user.created_at).toLocaleString('ar-OM', {
+
+              dateStyle: 'medium',
+
+              timeStyle: 'short'
+
+            })
+
+          : "غير متاح";
+
+
+
+        const lastSignIn = user.last_sign_in_at
+
+          ? new Date(user.last_sign_in_at).toLocaleString('ar-OM', {
+
+              dateStyle: 'medium',
+
+              timeStyle: 'short'
+
+            })
+
+          : "غير متاح";
+
+        const txtContent = `NexCore Labs - تصدير بيانات الحساب
+
+وقت التصدير: ${new Date().toISOString()}
+
+--- معلومات الحساب ---
+
+البريد الإلكتروني: ${user.email || "غير متاح"}
+
+معرّف المستخدم: ${user.id || "غير متاح"}
+
+بريد التواصل العام: ${contactEmail || "غير محدد"}
+
+رقم الهاتف العام: ${phoneNumber || "غير محدد"}
+
+تاريخ إنشاء الحساب: ${createdDate}
+
+آخر تسجيل دخول: ${lastSignIn}`;
+
+        downloadText(`${baseFilename}.txt`, txtContent);
+
+        setMsg("exportMsg", "✓ تم تصدير بيانات الحساب (JSON + TXT).");
+
+        btn.disabled = false;
+
+        btn.innerHTML = '<i class="fa-solid fa-file-export"></i> تصدير بيانات حسابي';
+
+      } catch (error) {
+
+        setMsg("exportMsg", "خطأ: " + error.message, true);
+
+        const btn = document.getElementById("exportAccountBtn");
+
+        btn.disabled = false;
+
+        btn.innerHTML = '<i class="fa-solid fa-file-export"></i> تصدير بيانات حسابي';
+
+      }
+
+    }
+
+    async function exportProjects() {
+
+      try {
+
+        const btn = document.getElementById("exportProjectsBtn");
+
+        btn.disabled = true;
+
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> جار التصدير...';
+
+
+
+        const { data: { session } } = await sb.auth.getSession();
+
+        if (!session) {
+
+          throw new Error("لم يتم تسجيل الدخول");
+
+        }
+
+        // Get user's project(s) - RLS ensures only user's projects are returned
+
+        const { data: projects, error } = await sb
+
+          .from("projects")
+
+          .select("*")
+
+          .eq("owner_user_id", session.user.id);
+
+        if (error) {
+
+          throw new Error(error.message);
+
+        }
+
+        const projectCount = projects?.length || 0;
+
+
+
+        // Generate timestamp for filenames
+
+        const now = new Date();
+
+        const dateStr = now.toISOString().split('T')[0]; // YYYY-MM-DD
+
+        const timeStr = now.toTimeString().split(' ')[0].replace(/:/g, ''); // HHmmss
+
+        const timestamp = `${dateStr}_${timeStr.substring(0, 4)}`; // YYYY-MM-DD_HHmm
+
+        const baseFilename = `nexcorelabs_project_${session.user.email.substring(0, 7)}_(${timestamp})`;
+
+        const exportData = {
+
+          user_id: session.user.id,
+
+          export_date: new Date().toISOString(),
+
+          project_count: projectCount,
+
+          projects: projects || [],
+
+          export_source: "إعدادات حساب NexCore Labs"
+
+        };
+
+        // Export JSON
+
+        const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+
+        const url = URL.createObjectURL(blob);
+
+        const a = document.createElement('a');
+
+        a.href = url;
+
+        a.download = `${baseFilename}.json`;
+
+        document.body.appendChild(a);
+
+        a.click();
+
+        document.body.removeChild(a);
+
+        URL.revokeObjectURL(url);
+
+        // Export TXT (human-readable)
+
+        let txtContent = `NexCore Labs - تصدير المشاريع
+
+وقت التصدير: ${new Date().toISOString()}
+
+معرّف المستخدم: ${session.user.id}
+
+البريد الإلكتروني: ${session.user.email || "غير متاح"}
+
+---
+
+إجمالي المشاريع: ${projectCount}`;
+
+        if (projectCount === 0) {
+
+          txtContent += "المشاريع: 0 (لم يتم العثور على مشاريع).\n";
+
+        } else {
+
+          txtContent += "\n";
+
+          projects.forEach((project, index) => {
+
+            txtContent += `\nالمشروع #${index + 1}\n`;
+
+            txtContent += `\n`;
+
+            txtContent += `ID: ${project.id || "غير متاح"}\n`;
+
+            txtContent += `المعرّف العام: ${project.public_id || "غير متاح"}\n`;
+
+            txtContent += `الاسم: ${project.name || "بلا عنوان"}\n`;
+
+            txtContent += `Slug: ${project.slug || "غير متاح"}\n`;
+
+            txtContent += `الوصف: ${project.description || "لا يوجد وصف"}\n`;
+
+            txtContent += `الحالة: ${project.published ? "منشور" : "مسودة"}\n`;
+
+
+
+            if (project.created_at) {
+
+              const createdDate = new Date(project.created_at).toLocaleString('ar-OM', {
+
+                dateStyle: 'medium',
+
+                timeStyle: 'short'
+
+              });
+
+              txtContent += `تاريخ الإنشاء: ${createdDate}\n`;
+
+            }
+
+
+
+            if (project.image_url) {
+
+              txtContent += `رابط الصورة: ${project.image_url}\n`;
+
+            }
+
+            if (project.website) {
+
+              txtContent += `الموقع: ${project.website}\n`;
+
+            }
+
+            if (project.github_url) {
+
+              txtContent += `GitHub: ${project.github_url}\n`;
+
+            }
+
+            if (project.x_url) {
+
+              txtContent += `X (Twitter): ${project.x_url}\n`;
+
+            }
+
+            if (project.instagram_url) {
+
+              txtContent += `Instagram: ${project.instagram_url}\n`;
+
+            }
+
+            if (project.linkedin_url) {
+
+              txtContent += `LinkedIn: ${project.linkedin_url}\n`;
+
+            }
+
+            txtContent += `\n`;
+
+          });
+
+        }
+
+        txtContent += `\nنهاية التصدير - NexCore Labs`;
+
+        downloadText(`${baseFilename}.txt`, txtContent);
+
+        setMsg("exportMsg", `✓ تم تصدير المشروع (JSON + TXT).`);
+
+        btn.disabled = false;
+
+        btn.innerHTML = '<i class="fa-solid fa-folder-open"></i> تصدير مشروعي';
+
+      } catch (error) {
+
+        setMsg("exportMsg", "خطأ: " + error.message, true);
+
+        const btn = document.getElementById("exportProjectsBtn");
+
+        btn.disabled = false;
+
+        btn.innerHTML = '<i class="fa-solid fa-folder-open"></i> تصدير مشروعي';
+
+      }
+
+    }
+
+    // async function fetchAiUsage(token) {
+    //   const usageTextEl = document.getElementById('aiUsageText');
+    //   const usedLabelEl = document.getElementById('aiUsedLabel');
+    //   const maxLabelEl = document.getElementById('aiMaxLabel');
+    //   const barEl = document.getElementById('aiUsageBar');
+    //   const msgEl = document.getElementById('aiUsageMsg');
+
+    //   try {
+    //     let authToken = token;
+    //     if (!authToken) {
+    //       const { data, error } = await sb.auth.getSession();
+    //       if (error) throw new Error(error.message || 'Session read failed');
+    //       authToken = data?.session?.access_token || null;
+    //     }
+    //     if (!authToken) throw new Error('No active session token');
+
+    //     const res = await fetch('/api/ai?usage=1&chat=1', {
+    //       headers: { Authorization: `Bearer ${authToken}` }
+    //     });
+
+    //     let payload = {};
+    //     try { payload = await res.json(); } catch (_) {}
+    //     if (!res.ok) {
+    //       const detail = payload?.error || payload?.message || `HTTP ${res.status}`;
+    //       throw new Error(detail);
+    //     }
+
+    //     const used = Number(payload.used ?? 0);
+    //     const max = Math.max(1, Number(payload.max ?? 3));
+    //     const rem = Number(payload.remaining ?? Math.max(0, max - used));
+    //     const pct = Math.max(0, Math.min(100, Math.round((used / max) * 100)));
+
+    //     usageTextEl.textContent = rem > 0
+    //       ? `${rem} message${rem === 1 ? '' : 's'} remaining`
+    //       : 'Daily limit reached';
+    //     usedLabelEl.textContent = `${used} used - ${pct}% usage | `;
+    //     maxLabelEl.textContent = `${max} daily limit`;
+
+    //     barEl.style.width = `${pct}%`;
+    //     barEl.className = 'ai-usage-bar' + (pct >= 100 ? ' full' : pct >= 70 ? ' warn' : '');
+
+    //     usageTextEl.style.color = rem === 0 ? '#ff7878' : pct >= 70 ? '#f3c96e' : '#6ee7f3';
+    //     if (msgEl) msgEl.textContent = '';
+    //   } catch (error) {
+    //     usageTextEl.textContent = 'Usage unavailable';
+    //     usedLabelEl.textContent = '—';
+    //     maxLabelEl.textContent = '—';
+    //     barEl.style.width = '0%';
+    //     barEl.className = 'ai-usage-bar';
+    //     usageTextEl.style.color = '#ff7878';
+    //     if (msgEl) msgEl.textContent = 'Could not load AI usage right now.';
+    //     setMsg('aiUsageMsg', 'Could not load AI usage.', true);
+    //     console.warn('AI usage fetch failed:', error?.message || error);
+    //   }
+    // }
+
+    function openDeleteAccountModal() {
+
+      const modal = document.getElementById("deleteAccountModal");
+
+      modal.setAttribute("aria-hidden", "false");
+
+      document.body.style.overflow = "hidden";
+
+      document.getElementById("confirmDeleteInput").value = "";
+
+      document.getElementById("confirmCheckbox").checked = false;
+
+      document.getElementById("confirmDeleteBtn").disabled = true;
+
+      // Set username hint from current user's email
+      const email = currentUser?.email || "";
+      const username = email.split("@")[0] || "";
+      const hint = document.getElementById("confirmUsernameHint");
+      if (hint) hint.textContent = username;
+      const input = document.getElementById("confirmDeleteInput");
+      if (input) input.placeholder = username;
+
+      setMsg("modalMsg", "", false);
+
+      requestAnimationFrame(() => modal.classList.add("open"));
+
+    }
+
+    function closeDeleteAccountModal() {
+
+      const modal = document.getElementById("deleteAccountModal");
+
+      modal.classList.remove("open");
+
+      modal.setAttribute("aria-hidden", "true");
+
+      document.body.style.overflow = "";
+
+    }
+
+    function checkDeleteConfirmation() {
+
+      const input = document.getElementById("confirmDeleteInput").value;
+
+      const checkbox = document.getElementById("confirmCheckbox").checked;
+
+      const btn = document.getElementById("confirmDeleteBtn");
+
+      const email = currentUser?.email || "";
+      const username = email.split("@")[0];
+
+      btn.disabled = !(username && input === username && checkbox);
+
+    }
+
+    function buildDeleteError(result, fallback) {
+
+      let msg = result?.details || result?.error || result?.message || fallback || "فشل حذف الحساب";
+
+      if (result?.step) {
+
+        msg = `[${result.step}] ${msg}`;
+
+      }
+
+      if (result?.code) {
+
+        msg += ` (code: ${result.code})`;
+
+      }
+
+      if (result?.hint) {
+
+        msg += `\nتلميح: ${result.hint}`;
+
+      }
+
+      return msg;
+
+    }
+
+    async function confirmDeleteAccount() {
+
+      const btn = document.getElementById("confirmDeleteBtn");
+
+      const cancelBtn = document.getElementById("cancelDeleteBtn");
+
+
+
+      try {
+
+        btn.disabled = true;
+
+        cancelBtn.disabled = true;
+
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> جار الحذف...';
+
+
+
+        setMsg("modalMsg", "جار حذف الحساب...");
+
+        // Retrieve session using Supabase v2 API
+
+        const { data, error } = await sb.auth.getSession();
+
+        if (error) {
+
+          throw new Error("فشل قراءة الجلسة: " + error.message);
+
+        }
+
+        const token = data?.session?.access_token;
+
+        if (!token) {
+
+          throw new Error("لا توجد جلسة نشطة، يرجى تسجيل الدخول مرة أخرى.");
+
+        }
+
+        console.log("Delete token length:", token?.length);
+
+        // Call server-side delete account API with Bearer token
+
+        const response = await fetch("/api/delete-account", {
+
+          method: "POST",
+
+          headers: {
+
+            "Authorization": `Bearer ${token}`,
+
+            "Content-Type": "application/json",
+
+            "Accept": "application/json"
+
+          },
+
+          body: JSON.stringify({})
+
+        });
+
+        // Log raw response for diagnosis
+
+        console.log("delete-account status:", response.status);
+
+        const raw = await response.text();
+
+        console.log("delete-account raw:", raw);
+
+        // Parse the response safely
+
+        let result = {};
+
+        try {
+
+          result = JSON.parse(raw);
+
+        } catch (parseError) {
+
+          console.error("Failed to parse response as JSON:", parseError);
+
+          result = { error: raw || "خطأ غير معروف من الخادم" };
+
+        }
+
+        // Check if response is not ok
+
+        if (!response.ok) {
+
+          const fallback = raw || `HTTP ${response.status}`;
+
+          throw new Error(buildDeleteError(result, fallback));
+
+        }
+
+        // Check if the response indicates success
+
+        if (!result.ok) {
+
+          // Even if response.ok, the result might indicate failure
+
+          throw new Error(buildDeleteError(result));
+
+        }
+
+        // Success
+
+        setMsg("modalMsg", "✓ تم حذف الحساب بنجاح. جار التحويل...");
+
+
+
+        // Sign out locally
+
+        await sb.auth.signOut();
+
+
+
+        setTimeout(() => {
+
+          window.location.href = "/ar/auth.html?deleted=1";
+
+        }, 2000);
+
+      } catch (error) {
+
+        console.error("Delete account error:", error);
+
+        setMsg("modalMsg", "خطأ: " + error.message, true);
+
+        btn.disabled = false;
+
+        cancelBtn.disabled = false;
+
+        btn.innerHTML = '<i class="fa-solid fa-trash"></i> حذف حسابي';
+
+      }
+
+    }
+
+    async function copyUserId() {
+
+      const userIdText = document.getElementById("userId").textContent;
+
+      const btn = document.getElementById("copyUserIdBtn");
+
+
+
+      if (userIdText === "جار التحميل..." || userIdText === "غير متاح") return;
+
+
+
+      try {
+
+        await navigator.clipboard.writeText(userIdText);
+
+
+
+        // Visual feedback
+
+        const originalHTML = btn.innerHTML;
+
+        btn.classList.add("copied");
+
+        btn.innerHTML = '<i class="fa-solid fa-check"></i>';
+
+
+
+        setTimeout(() => {
+
+          btn.classList.remove("copied");
+
+          btn.innerHTML = originalHTML;
+
+        }, 2000);
+
+      } catch (error) {
+
+        console.error("فشل النسخ:", error);
+
+        btn.innerHTML = '<i class="fa-solid fa-xmark"></i> فشل';
+
+        setTimeout(() => {
+
+          btn.innerHTML = '<i class="fa-solid fa-copy"></i> نسخ';
+
+        }, 2000);
+
+      }
+
+    }
+
+    document.addEventListener("DOMContentLoaded", async () => {
+
+      const session = await requireAuth();
+
+      if (!session) return;
+
+      // Monitor for session loss
+
+      sb.auth.onAuthStateChange((_event, session) => {
+
+        if (!session) {
+
+          console.log("Session lost, redirecting to auth page");
+
+          window.location.href = "/ar/auth.html";
+
+        }
+
+      });
+
+      await loadAccountInfo(session);
+
+      document.getElementById("logoutBtn").addEventListener("click", logout);
+
+      document.getElementById("deleteProjectBtn").addEventListener("click", openDeleteProjectModal);
+
+      document.getElementById("copyUserIdBtn").addEventListener("click", copyUserId);
+
+      document.getElementById("contactInfoForm").addEventListener("submit", saveContactInfo);
+
+      document.getElementById("exportAccountBtn").addEventListener("click", exportAccountData);
+
+      document.getElementById("exportProjectsBtn").addEventListener("click", exportProjects);
+
+      document.getElementById("deleteAccountBtn").addEventListener("click", openDeleteAccountModal);
+
+
+
+      // Delete project modal listeners
+
+      document.getElementById("closeProjectModal").addEventListener("click", closeDeleteProjectModal);
+
+      document.getElementById("cancelDeleteProjectBtn").addEventListener("click", closeDeleteProjectModal);
+
+      document.getElementById("confirmDeleteProjectBtn").addEventListener("click", deleteProject);
+
+      // Delete account modal listeners
+
+      document.getElementById("closeModal").addEventListener("click", closeDeleteAccountModal);
+
+      document.getElementById("cancelDeleteBtn").addEventListener("click", closeDeleteAccountModal);
+
+      document.getElementById("confirmDeleteBtn").addEventListener("click", confirmDeleteAccount);
+
+      document.getElementById("confirmDeleteInput").addEventListener("input", checkDeleteConfirmation);
+
+      document.getElementById("confirmCheckbox").addEventListener("change", checkDeleteConfirmation);
+
+      // Close modals when clicking outside or pressing Escape
+
+      window.addEventListener("click", (event) => {
+
+        if (event.target === document.getElementById("deleteAccountModal")) closeDeleteAccountModal();
+
+        if (event.target === document.getElementById("deleteProjectModal")) closeDeleteProjectModal();
+
+      });
+
+      window.addEventListener("keydown", (event) => {
+
+        if (event.key !== "Escape") return;
+
+        closeDeleteAccountModal();
+
+        closeDeleteProjectModal();
+
+      });
+
+    });
+
+  </script>
+
+  <script src="../assets/js/cookies.js" defer></script>
+
+  <div id="toast" role="alert" aria-live="assertive"></div>
+
+</body>
+
+</html>

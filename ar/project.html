@@ -1,0 +1,2353 @@
+﻿<!DOCTYPE html>
+
+<html lang="ar" dir="rtl">
+
+<head>
+
+    <!-- مدير الموافقة على الكوكيز v2 -->
+
+    <link rel="stylesheet" href="../assets/css/cookies.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="NexCore Labs">
+    <meta name="theme-color" content="#0a0b1c">
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <title>المشروع | NexCore Labs</title>
+
+    <meta name="description" content="اعرض تفاصيل المشروع على NexCore Labs">
+    <meta property="og:url" content="https://nexcorelabs.vercel.app/ar/project.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="المشروع | NexCore Labs">
+    <meta property="og:description" content="اعرض تفاصيل المشروع على NexCore Labs">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:domain" content="nexcorelabs.vercel.app">
+    <meta property="twitter:url" content="https://nexcorelabs.vercel.app/ar/project.html">
+    <meta name="twitter:title" content="المشروع | NexCore Labs">
+    <meta name="twitter:description" content="اعرض تفاصيل المشروع على NexCore Labs">
+    <link rel="icon" href="../assets/images/nexcore-icon.png" type="image/png">
+    <link rel="apple-touch-icon" href="../assets/images/nexcore-logo.webp">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/admin-button.css">
+        <link rel="stylesheet" href="../assets/css/arabic.css">
+    <link rel="stylesheet" href="../assets/css/ai-chat.css">
+    <!-- <link rel="stylesheet" href="../assets/css/unminified-css.css"> -->
+    <link rel="stylesheet" href="../assets/css/project-categories.css">
+    <link rel="manifest" href="../manifest.json">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.2/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <style>
+
+        .project-wrap {
+
+            max-width: 880px;
+
+            margin: 60px auto;
+
+            padding: 20px;
+
+            color: #fff;
+
+        }
+
+        .project-hero {
+
+            text-align: center;
+
+            padding: 20px;
+
+            background: rgba(10, 11, 28, 0.35);
+
+            border: 1px solid rgba(255, 255, 255, 0.08);
+
+            border-radius: 20px;
+
+            margin-top: 60px;
+            margin-bottom: 30px;
+
+            -webkit-backdrop-filter: blur(3px);
+
+            backdrop-filter: blur(3px);
+
+        }
+
+        .project-hero h1 {
+
+            font-size: 2.5rem;
+
+            margin: 0;
+
+            font-weight: 700;
+
+        }
+
+        .project-id {
+
+            display: inline-block;
+
+            background: rgba(110, 231, 243, 0.18);
+
+            border: 1px solid rgba(110, 231, 243, 0.35);
+
+            padding: 6px 12px;
+
+            border-radius: 8px;
+
+            font-size: 0.9rem;
+
+            margin-bottom: 10px;
+
+        }
+
+        .project-stats {
+
+            display: flex;
+
+            gap: 12px;
+
+            justify-content: center;
+
+            margin-top: 20px;
+
+            flex-wrap: wrap;
+
+        }
+
+        .stat-badge {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 6px;
+
+            background: rgba(255, 255, 255, 0.06);
+
+            border: 1px solid rgba(255, 255, 255, 0.12);
+
+            padding: 8px 14px;
+
+            border-radius: 8px;
+
+            font-size: 0.9rem;
+
+            opacity: 0.85;
+
+        }
+
+        .stat-badge i {
+
+            color: #6ee7f3;
+
+        }
+
+        .project-image {
+
+            max-width: 400px;
+
+            width: 90%;
+
+            border-radius: 16px;
+
+            margin: 20px auto 30px;
+
+            display: block;
+
+            border: 2px solid rgba(255, 255, 255, 0.06);
+
+            padding: 10px;
+
+        }
+
+        .project-section {
+
+            background: rgba(10, 11, 28, 0.25);
+
+            border: 1px solid rgba(255, 255, 255, 0.06);
+
+            border-radius: 16px;
+
+            padding: 24px;
+
+            margin-bottom: 20px;
+
+            -webkit-backdrop-filter: blur(3px);
+
+            backdrop-filter: blur(3px);
+
+        }
+
+        .project-section h2 {
+
+            margin: 0 0 16px;
+
+            font-size: 1.3rem;
+
+            opacity: 0.9;
+
+        }
+
+        .project-description {
+
+            line-height: 1.6;
+
+            opacity: 0.85;
+
+            white-space: pre-wrap;
+
+        }
+
+        .social-links {
+
+            display: flex;
+
+            gap: 12px;
+
+            flex-wrap: wrap;
+
+            margin-top: 16px;
+
+        }
+
+        .social-link {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            padding: 10px 16px;
+
+            background: rgba(255, 255, 255, 0.06);
+
+            border: 1px solid rgba(255, 255, 255, 0.12);
+
+            border-radius: 10px;
+
+            color: #6ee7f3;
+
+            text-decoration: none;
+
+            transition: all 0.2s;
+
+        }
+
+        .social-link:hover {
+
+            background: rgba(110, 231, 243, 0.15);
+
+            border-color: rgba(110, 231, 243, 0.35);
+
+            transform: translateY(-2px);
+
+        }
+
+        .actions {
+
+            display: flex;
+
+            gap: 12px;
+
+            flex-wrap: wrap;
+
+            margin-top: 20px;
+
+            justify-content: center;
+
+        }
+
+        .not-found {
+
+            text-align: center;
+
+            padding: 80px 20px;
+
+        }
+
+        .not-found h1 {
+
+            font-size: 3rem;
+
+            margin-bottom: 16px;
+
+        }
+
+        .qr-container {
+
+            display: inline-flex;
+
+            justify-content: center;
+
+            margin-top: 24px;
+
+            padding: 12px;
+
+            background: #fff;
+
+            border-radius: 12px;
+
+        }
+
+        .qr-section {
+
+            text-align: center;
+
+        }
+
+        #qr {
+
+            display: inline-block;
+
+        }
+
+        /* ------ Creator Section ------ */
+
+        .creators-grid {
+
+            display: flex;
+
+            margin-top: 4px;
+
+        }
+
+        .creator-card {
+
+            width: 100%;
+
+            background: rgba(255, 255, 255, 0.04);
+
+            border: 1px solid rgba(110, 231, 243, 0.12);
+
+            border-radius: 14px;
+
+            padding: 16px;
+
+            text-align: left;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            transition: all 0.25s ease;
+
+        }
+
+        .creator-card:hover {
+
+            border-color: rgba(110, 231, 243, 0.35);
+
+            box-shadow: 0 0 20px rgba(110, 231, 243, 0.08);
+
+            transform: translateY(-2px);
+
+        }
+
+        .creator-avatar {
+
+            width: 64px;
+
+            height: 64px;
+
+            border-radius: 50%;
+
+            margin: 0;
+
+            display: block;
+
+            object-fit: cover;
+
+            border: 2px solid rgba(110, 231, 243, 0.35);
+
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+
+            flex-shrink: 0;
+
+        }
+
+        .creator-avatar-placeholder {
+
+            width: 64px;
+
+            height: 64px;
+
+            border-radius: 50%;
+
+            margin: 0;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background: rgba(110, 231, 243, 0.1);
+
+            border: 2px solid rgba(110, 231, 243, 0.35);
+
+            font-size: 1.5rem;
+
+            color: #6ee7f3;
+
+            font-weight: 700;
+
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+
+            flex-shrink: 0;
+
+        }
+
+        .creator-name {
+
+            font-size: 1rem;
+
+            font-weight: 600;
+
+            margin: 0;
+
+            line-height: 1.3;
+
+        }
+
+        .creator-meta {
+
+            min-width: 0;
+
+            flex: 1;
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 8px;
+
+        }
+
+        .creator-contact-title {
+
+            margin: 0;
+
+            font-size: 0.78rem;
+
+            opacity: 0.65;
+
+            letter-spacing: 0.02em;
+
+        }
+
+        .creator-contact-links {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 8px;
+
+        }
+
+        .creator-contact-link {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 6px;
+
+            padding: 6px 10px;
+
+            border-radius: 999px;
+
+            border: 1px solid rgba(110, 231, 243, 0.22);
+
+            background: rgba(110, 231, 243, 0.06);
+
+            color: #9fe9f4;
+
+            text-decoration: none;
+
+            font-size: 0.78rem;
+
+            line-height: 1;
+
+            white-space: nowrap;
+
+            transition: all 0.2s ease;
+
+        }
+
+        .creator-contact-link:hover {
+
+            border-color: rgba(110, 231, 243, 0.5);
+
+            background: rgba(110, 231, 243, 0.14);
+
+            color: #d6fbff;
+
+        }
+
+        @media (max-width: 560px) {
+
+            .creator-card {
+
+                flex-direction: column;
+
+                align-items: flex-start;
+
+            }
+
+            .creator-avatar,
+
+            .creator-avatar-placeholder {
+
+                width: 54px;
+
+                height: 54px;
+
+            }
+
+            .creator-name {
+
+                font-size: 0.95rem;
+
+            }
+
+            .creator-contact-link {
+
+                font-size: 0.74rem;
+
+                padding: 6px 9px;
+
+            }
+
+        }
+
+        /* ------ AI Insights Section ------ */
+
+        .ai-insights-section {
+
+            border-color: rgba(110, 231, 243, 0.22) !important;
+
+            box-shadow: 0 0 28px rgba(110, 231, 243, 0.06), inset 0 0 24px rgba(110, 231, 243, 0.02);
+
+            position: relative;
+
+            overflow: hidden;
+
+        }
+
+        .ai-insights-section::before {
+
+            content: '';
+
+            position: absolute;
+
+            top: 0; left: 0; right: 0;
+
+            height: 2px;
+
+            background: linear-gradient(90deg, transparent, rgba(110, 231, 243, 0.5), transparent);
+
+            border-radius: 16px 16px 0 0;
+
+        }
+
+        .ai-insights-section h2 {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 9px;
+
+        }
+
+        .ai-icon {
+
+            color: #6ee7f3;
+
+            font-size: 1rem;
+
+            opacity: 0.9;
+
+        }
+
+        .ai-insights-summary {
+
+            line-height: 1.7;
+
+            opacity: 0.85;
+
+            margin: 0 0 16px;
+
+            font-size: 0.94rem;
+
+        }
+
+        .ai-insights-bullets {
+
+            list-style: none;
+
+            padding: 0;
+
+            margin: 0;
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 9px;
+
+        }
+
+        .ai-insights-bullets li {
+
+            display: flex;
+
+            align-items: flex-start;
+
+            gap: 9px;
+
+            font-size: 0.88rem;
+
+            opacity: 0.8;
+
+            line-height: 1.5;
+
+        }
+
+        .ai-insights-bullets li::before {
+
+            content: '▸';
+
+            color: #6ee7f3;
+
+            flex-shrink: 0;
+
+            line-height: 1.5;
+
+        }
+
+        .ai-insights-placeholder {
+
+            text-align: center;
+
+            padding: 8px 0;
+
+            font-size: 0.9rem;
+
+        }
+
+        .ai-loading {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            justify-content: center;
+
+            padding: 16px 0;
+
+            opacity: 0.7;
+
+            font-size: 0.9rem;
+
+        }
+
+            .ai-btn {
+
+      position: relative;
+
+      overflow: hidden;
+
+      transition: all 0.3s ease;
+
+    }
+
+    .ai-btn.loading {
+
+      box-shadow:
+
+        0 0 20px rgba(110, 231, 243, 0.6),
+
+        0 0 40px rgba(110, 231, 243, 0.3);
+
+      transform: translateY(-1px);
+
+    }
+
+    .ai-btn.loading::before {
+
+      content: "";
+
+      position: absolute;
+
+      inset: 0;
+
+      background: linear-gradient(
+
+        120deg,
+
+        transparent 20%,
+
+        rgba(255,255,255,0.4),
+
+        transparent 80%
+
+      );
+
+      animation: shimmer 1.4s infinite;
+
+    }
+
+    @keyframes shimmer {
+
+      0% { transform: translateX(-100%); }
+
+      100% { transform: translateX(100%); }
+
+    }
+
+    .ai-sparkle-layer {
+
+      position: absolute;
+
+      inset: 0;
+
+      pointer-events: none;
+
+    }
+
+    .ai-btn .ai-sparkle-layer::before,
+
+    .ai-btn .ai-sparkle-layer::after {
+
+      content: "✦";
+
+      position: absolute;
+
+      font-size: 10px;
+
+      opacity: 0.4;
+
+      color: #6EE7F3;
+
+      animation: floatSparkle 3s ease-in-out infinite;
+
+    }
+
+    .ai-btn .ai-sparkle-layer::before {
+
+      top: 20%;
+
+      left: 30%;
+
+    }
+
+    .ai-btn .ai-sparkle-layer::after {
+
+      bottom: 25%;
+
+      right: 35%;
+
+    }
+
+    @keyframes floatSparkle {
+
+      0% { transform: translateY(0px) rotate(0deg); opacity: 0.4; }
+
+      50% { transform: translateY(-4px) rotate(180deg); opacity: 0.8; }
+
+      100% { transform: translateY(0px) rotate(360deg); opacity: 0.4; }
+
+    }
+
+    .ai-burst-sparkle {
+
+      position: absolute;
+
+      font-size: 12px;
+
+      color: #6EE7F3;
+
+      animation: burstSparkle 0.8s ease-out forwards;
+
+    }
+
+    @keyframes burstSparkle {
+
+      0% {
+
+        opacity: 1;
+
+        transform: scale(0.5) translateY(0);
+
+      }
+
+      100% {
+
+        opacity: 0;
+
+        transform: scale(1.6) translateY(-20px);
+
+      }
+
+    }
+
+    /* ── Toast notification ── */
+    #toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(16px);border: 2px solid rgba(255, 255, 255, 0.06);background: rgba(10, 11, 28, 0.6);color:#6ee7f3;padding:10px 22px;border-radius:12px;font-size:.875rem;font-weight:500;z-index:10001;opacity:0;pointer-events:none;transition:opacity .22s,transform .22s;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);max-width:min(420px,90vw);text-align:center;box-shadow:0 8px 32px rgba(0,0,0,.55);white-space:pre-line;}
+    #toast.show{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:all;}
+    #toast.error{border-color:rgba(255,120,120,.28);color:#ff7878;}
+    .embed-modal{display:flex;position:fixed;inset:0;z-index:9999;align-items:center;justify-content:center;padding:16px;box-sizing:border-box;background:rgba(2,6,23,.75);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity .25s ease;}
+    .embed-modal.open{opacity:1;pointer-events:all;}
+    .embed-modal-content{position:relative;width:100%;max-width:480px;background:linear-gradient(160deg,#0d1421,#0a0f1e);border:1px solid rgba(115,189,215,.18);border-radius:16px;padding:24px;box-shadow:0 24px 60px rgba(2,6,23,.85);transform:translateY(16px) scale(.97);opacity:0;transition:transform .32s cubic-bezier(.2,.9,.3,1),opacity .25s ease;}
+    .embed-modal.open .embed-modal-content{transform:translateY(0) scale(1);opacity:1;}
+    .embed-modal-content::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,rgba(115,189,215,.5),transparent);border-radius:16px 16px 0 0;pointer-events:none;}
+    .embed-modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
+    .embed-modal-header h2{margin:0;color:var(--primary-accent);display:flex;align-items:center;gap:10px;font-size:1.1rem;}
+    .embed-modal-close{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:8px;color:rgba(255,255,255,.45);font-size:22px;font-weight:bold;cursor:pointer;line-height:1;flex-shrink:0;transition:background .18s,color .18s;}
+    .embed-modal-close:hover{background:rgba(255,255,255,.08);color:#fff;}
+    .embed-modal-desc{font-size:.85rem;color:var(--muted);margin-bottom:18px;}
+    .embed-preview-wrapper{margin-bottom:16px;border-radius:12px;overflow:hidden;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);}
+    .embed-preview-wrapper iframe{display:block;}
+    .embed-code-block{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:10px;overflow:hidden;}
+    .embed-code-header{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.06);font-size:.75rem;color:var(--muted);font-family:monospace;}
+    .embed-copy-btn{display:flex;align-items:center;gap:5px;background:rgba(115,189,215,.1);border:1px solid rgba(115,189,215,.25);border-radius:6px;padding:4px 10px;color:var(--primary-accent);font-size:.75rem;font-family:Inter,sans-serif;cursor:pointer;transition:background .2s,border-color .2s;}
+    .embed-copy-btn:hover{background:rgba(115,189,215,.2);border-color:rgba(115,189,215,.45);}
+    .embed-code{display:block;width:100%;background:transparent;border:none;padding:12px;color:var(--light-accent);font-family:monospace;font-size:.78rem;resize:none;line-height:1.6;box-sizing:border-box;}
+    .embed-code:focus{outline:none;}
+    /* ── Sign-in Modal ── */
+    .ai-chat-modal-overlay{position:fixed;inset:0;z-index:9999;background:rgba(2,6,23,.75);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;visibility:hidden;pointer-events:none;transition:opacity 220ms ease,visibility 220ms ease;}
+    .ai-chat-modal-overlay.open{opacity:1;visibility:visible;pointer-events:auto;}
+    .ai-chat-modal-panel{background:rgba(10,11,28,.95);border:1px solid rgba(110,231,243,.12);border-radius:18px;width:100%;max-width:460px;position:relative;box-shadow:0 24px 80px rgba(0,0,0,.8),inset 0 0 0 1px rgba(255,255,255,.04);opacity:0;transform:scale(.96) translateY(14px);transition:transform 260ms cubic-bezier(.2,.9,.3,1),opacity 220ms ease;}
+    .ai-chat-modal-overlay.open .ai-chat-modal-panel{opacity:1;transform:scale(1) translateY(0);}
+    .ai-chat-modal-panel::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,#6ee7f3,transparent);opacity:.4;border-radius:18px 18px 0 0;pointer-events:none;}
+    .ai-chat-modal-close{position:absolute;top:14px;right:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);color:var(--muted);width:28px;height:28px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;z-index:2;transition:background .18s,color .18s,border-color .18s;}
+    .ai-chat-modal-close:hover{background:rgba(255,255,255,.08);color:#eaf6fb;border-color:rgba(255,255,255,.15);}
+    .ai-chat-modal-header{padding:26px 26px 0;}
+    .ai-chat-modal-header h2{font-size:20px;color:#eaf6fb;margin:0 0 6px;font-weight:700;display:flex;align-items:center;gap:8px;}
+    .ai-chat-modal-header p{font-size:13.5px;color:var(--muted);margin:0;}
+    .ai-chat-modal-body{padding:20px 26px 26px;display:flex;flex-direction:column;gap:16px;}
+    .ai-chat-modal-body>p{margin:0;color:var(--muted);font-size:13px;line-height:1.55;}
+    .ai-chat-form-error{font-size:13px;color:#ff7878;background:rgba(255,107,107,.08);border:1px solid rgba(255,107,107,.2);border-radius:8px;padding:10px 14px;}
+    .ai-chat-form-error.hidden{display:none;}
+    </style>
+    <!-- Vercel Web Analytics -->
+    <script>
+        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+    <!-- Vercel Speed Insights -->
+    <script>
+        window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/speed-insights/script.js"></script>
+    <link rel="alternate" hreflang="en" href="../project.html">
+    <link rel="alternate" hreflang="ar" href="project.html">
+
+</head>
+
+<body>
+
+      <div class="background">
+      <img class="logo-img" id="logoImg" src="../assets/images/nexcore-logo.webp" alt="شعار NexCore Labs">
+
+      <div id="spotLight" class="spot-light"></div>
+    </div>
+
+    <header class="navbar">
+      <div class="nav-container">
+        <div class="logo">
+          <h1 id="logo">NexCore <span>Labs</span></h1>
+        </div>
+
+        <div class="dropdown">
+        <div class="core-menu" id="coreMenu" aria-label="فتح القائمة" title="القائمة">
+          <span class="dot" aria-hidden="true"></span>
+          <span class="dot" aria-hidden="true"></span>
+          <span class="dot" aria-hidden="true"></span>
+          <span class="dot" aria-hidden="true"></span>
+          <span class="dot" aria-hidden="true"></span>
+          <span class="dot" aria-hidden="true"></span>
+        </div>
+
+
+
+        <div id="myDropdown" class="dropdown-content">
+            <a href="../project.html" class="lang-switch-pill" title="View English site">
+              <div class="pill-slider"></div>
+              <span class="pill-text en-text"><img src="../assets/images/uk.webp" alt="United Kingdom flag"> EN</span>
+              <span class="pill-text ar-text"><img src="../assets/images/oman.webp" alt="Oman flag"> ع</span>
+            </a>
+
+          <a href="auth.html" class="magic-signup fade" title="تسجيل الدخول إلى حسابك"><i class="fa-solid fa-key"></i> الوصول إلى النواة</a>
+          <input type="search" placeholder="ابحث..." id="myInput" onkeyup="filterFunction()" title="بحث...">
+
+          <a href="hub.html" class="fade" title="مركز NexCore Labs"><i class="fa-solid fa-house"></i> المركز</a>
+          <a href="hub.html#projects" class="fade" title="المشاريع"><i class="fa-solid fa-diagram-project"></i> المشاريع</a>
+          <a href="ai-chat.html" class="fade" title="NexCore AI" style="color:#6ee7f3;"><i class="fa-solid fa-wand-magic-sparkles"></i> NexCore AI</a>
+
+          <div class="div-menu-line"></div>
+
+          <a href="index.html#tools" class="mt-0" title="الأدوات والأنظمة"><i class="fa-solid fa-screwdriver-wrench"></i> الأدوات والأنظمة</a>
+          <a href="index.html#about" title="حول NexCore Labs"><i class="fa-solid fa-circle-info"></i> من نحن</a>
+          <a href="index.html#team" title="فريق NexCore Labs"><i class="fa-solid fa-users"></i> الفريق</a>
+          <a href="index.html#contact" title="اتصل بـ NexCore Labs"><i class="fa-solid fa-paper-plane"></i> اتصل بنا</a>
+
+          <div class="div-menu-line"></div>
+
+          <a href="roadmap.html" class="fade mt-0" title="لوحة الميزات والخريطة"><i class="fa-solid fa-route"></i> لوحة الميزات</a>
+          <a href="releases.html" class="fade" title="الإصدارات والتحديثات"><i class="fa-solid fa-clock-rotate-left"></i> الإصدارات والتحديثات</a>
+
+          <div class="div-menu-line"></div>
+
+          <a href="pricing.html" class="fade mt-0" title="خطط التسعير"><i class="fa-solid fa-tag"></i> التسعير <span class="new-badge">جديد</span></a>
+          <a href="faq.html" class="fade" title="الأسئلة الشائعة والدعم"><i class="fa-solid fa-circle-question"></i> الأسئلة الشائعة</a>
+          <a href="how-to-use.html" class="fade" title="كيفية استخدام NexCore Labs"><i class="fa-solid fa-book-open"></i> كيفية الاستخدام</a>
+          <a href="terms.html" class="fade" title="شروط الخدمة"><i class="fa-solid fa-file-contract"></i> الشروط</a>
+          <a href="privacy-policy.html" class="fade" title="سياسة الخصوصية"><i class="fa-solid fa-shield-halved"></i> الخصوصية</a>
+        </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+    <div class="project-wrap">
+        <div id="loading" style="text-align: center; padding: 100px 20px;">
+            <p style="opacity: 0.7;">جار تحميل المشروع...</p>
+        </div>
+
+        <div id="notFound" class="not-found" style="display: none;">
+            <h1>404</h1>
+
+            <p>لم يتم العثور على المشروع</p>
+
+            <div class="actions">
+                <a href="hub.html" class="btn primary ghost">
+
+                    <i class="fas fa-home"></i> العودة إلى المركز
+
+                </a>
+            </div>
+        </div>
+
+        <div id="projectContent" style="display: none;">
+            <div class="project-hero">
+                <div class="project-id" id="projectId">Proj-#</div>
+
+                <h1 id="projectName">اسم المشروع</h1>
+
+                <div class="project-category-row" id="projectCategoryRow">
+                  <span class="project-category-label">التصنيف:</span>
+
+                  <span class="project-category cat-uncategorized">🏷 غير مصنف</span>
+                </div>
+
+                <img id="projectImage" class="project-image" alt="" style="display: none;" />
+
+                <div class="project-stats">
+                    <div class="stat-badge">
+                        <i class="fas fa-eye"></i>
+
+                        <span id="viewCount">-</span> مشاهدة
+
+                    </div>
+
+                    <div class="stat-badge">
+                        <i class="fas fa-calendar"></i>
+
+                        <span id="createdDate">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-section">
+                <h2>حول المشروع</h2>
+
+                <div class="project-description" id="pageDescription">
+
+                    لا يوجد وصف متاح.
+
+                </div>
+            </div>
+
+            <div class="project-section" id="socialSection" style="display: none;">
+                <h2>الروابط</h2>
+
+                <div class="social-links" id="socialLinks"></div>
+            </div>
+
+            <!-- AI Project Insights -->
+
+            <div class="project-section ai-insights-section" id="aiInsightsSection">
+                <h2><i class="fas fa-microchip ai-icon"></i> رؤى المشروع بالذكاء الاصطناعي</h2>
+
+                <div id="aiInsightsContent">
+                    <p class="ai-insights-summary" id="aiSummaryText"></p>
+
+                    <ul class="ai-insights-bullets" id="aiInsightsBullets"></ul>
+
+                </div>
+
+                <div id="aiInsightsPlaceholder" class="ai-insights-placeholder" style="display: none;">
+                    <p>ستظهر رؤى الذكاء الاصطناعي هنا بعد إنشائها.</p>
+
+                    <button class="btn primary ai-btn" id="generateInsightsBtn" style="width:100%;max-width:320px; text-align: center; justify-content: center; letter-spacing: 2px;">
+
+                    <span class="ai-btn-text">إنشاء</span>
+
+                    <span class="ai-sparkle-layer"></span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Creators Section -->
+
+            <div class="project-section" id="creatorsSection" style="display: none;">
+                <h2>صاحب المشروع</h2>
+
+                <div class="creators-grid" id="creatorsGrid"></div>
+            </div>
+
+            <div class="project-section qr-section">
+                <h2>شارك هذا المشروع</h2>
+
+                <div class="actions">
+                    <button class="btn primary ghost" id="shareBtn">
+                        <i class="fas fa-share-alt"></i> مشاركة الرابط
+                    </button>
+                    <button class="btn primary ghost" id="copyBtn">
+                        <i class="fas fa-copy"></i> نسخ الرابط
+                    </button>
+                    <button class="btn primary ghost" id="embedBtn">
+                        <i class="fas fa-code"></i> تضمين
+                    </button>
+                </div>
+
+            </div>
+
+            <div id="ownerActions" class="project-section" style="display: none; text-align: center;">
+                <a href="../dashboard.html" class="btn primary ghost">
+
+                    <i class="fas fa-edit"></i> تعديل في لوحة التحكم
+
+                </a>
+            </div>
+        </div>
+    </div>
+    </main>
+
+    <!-- Embed Modal -->
+    <div id="embedModal" class="embed-modal" role="dialog" aria-modal="true" aria-label="تضمين المشروع">        <div class="embed-modal-content">
+            <div class="embed-modal-header">
+                <h2><i class="fas fa-code"></i> تضمين هذا المشروع</h2>
+                <span class="embed-modal-close" id="embedModalClose" title="إغلاق">&times;</span>
+            </div>
+            <p class="embed-modal-desc">الصق هذا المقتطف في موقعك لتضمين بطاقة هذا المشروع.</p>
+            <div class="embed-preview-wrapper">
+                <iframe id="embedPreviewFrame" src="" width="100%" height="220" frameborder="0" loading="lazy" title="معاينة التضمين"></iframe>
+            </div>
+            <div class="embed-code-block">
+                <div class="embed-code-header">
+                    <span>HTML</span>
+                    <button id="copyEmbedBtn" class="embed-copy-btn"><i class="fas fa-copy"></i> نسخ</button>
+                </div>
+                <textarea id="embedCode" class="embed-code" readonly rows="3"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sign-in Modal for AI Insights -->
+    <div class="ai-chat-modal-overlay" id="signinModal" role="dialog" aria-modal="true" aria-label="تسجيل الدخول لإنشاء رؤى الذكاء الاصطناعي">
+        <div class="ai-chat-modal-panel">
+            <button class="ai-chat-modal-close" id="signinModalClose" aria-label="إغلاق"><i class="fa-solid fa-xmark"></i></button>
+            <div class="ai-chat-modal-header">
+                <h2><i class="fa-solid fa-key" style="color:#6ee7f3;"></i> تسجيل الدخول إلى NexCore</h2>
+                <p>سجّل الدخول للوصول إلى ميزات الذكاء الاصطناعي في هذا المشروع.</p>
+            </div>
+            <div class="ai-chat-modal-body">
+                <p id="signinModalDesc">تابع باستخدام Google لتسجيل الدخول واستخدام NexCore AI.</p>
+                <button class="google-btn" id="signinGoogleBtn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path>
+                        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path>
+                        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"></path>
+                        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"></path>
+                    </svg>
+                    <span id="signinGoogleBtnText">المتابعة مع Google</span>
+                </button>
+                <div class="ai-chat-form-error hidden" id="signinError"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../assets/js/script.js"></script>
+
+    <script src="../assets/js/supabase-client.js"></script>
+
+    <script src="../assets/js/auth-ui-db.js"></script>
+    <script src="../assets/js/ai-chat.js"></script>
+
+    <script src="../assets/js/project-categories.js"></script>
+
+    <script>
+      window.NEXCORE_AR_CATEGORY_LABELS = {
+        technology: "التقنية",
+        business: "الأعمال",
+        education: "التعليم",
+        finance: "المالية",
+        healthcare: "الصحة",
+        environment: "البيئة",
+        social: "الأثر الاجتماعي",
+        ecommerce: "التجارة الإلكترونية",
+        productivity: "الإنتاجية",
+        entertainment: "الترفيه",
+        travel: "السفر",
+        food: "الأغذية",
+        realestate: "العقارات",
+        research: "البحث",
+        "art-design": "الفن والتصميم",
+        "sports-fitness": "الرياضة واللياقة",
+        community: "المجتمع",
+        uncategorized: "غير مصنف"
+      };
+      window.buildArabicCategoryBadge = function(value) {
+        var pc = window.ProjectCategories;
+        var key = pc && pc.displayCategory ? pc.displayCategory(value) : "uncategorized";
+        var icon = pc && pc.CATEGORY_ICONS ? (pc.CATEGORY_ICONS[key] || pc.CATEGORY_ICONS.uncategorized || "") : "";
+        var cls = pc && pc.getCategoryClass ? pc.getCategoryClass(key) : "cat-uncategorized";
+        var label = window.NEXCORE_AR_CATEGORY_LABELS[key] || window.NEXCORE_AR_CATEGORY_LABELS.uncategorized;
+        return `<span class="project-category ${cls}">${icon}${label}</span>`;
+      };
+    </script>
+
+
+
+    <script>
+
+        const sb = window.supabaseClient;
+
+        function getSlugFromUrl() {
+
+            const params = new URLSearchParams(window.location.search);
+
+            return params.get('slug');
+
+        }
+
+        function showNotFound() {
+
+            document.getElementById('loading').style.display = 'none';
+
+            document.getElementById('notFound').style.display = 'block';
+
+            document.getElementById('projectContent').style.display = 'none';
+
+        }
+
+        async function renderProject(project, isOwner) {
+
+            try {
+
+                document.getElementById('loading').style.display = 'none';
+
+                document.getElementById('projectContent').style.display = 'block';
+
+                // Update page title
+
+                document.title = `${project.name} • NexCore Labs`;
+
+                // Update meta tags safely
+
+                try {
+
+                    const ogTitle = document.querySelector('meta[property="og:title"]');
+
+                    const twitterTitle = document.querySelector('meta[name="twitter:title"]');
+
+                    if (ogTitle) ogTitle.content = `${project.name} • NexCore Labs`;
+
+                    if (twitterTitle) twitterTitle.content = `${project.name} • NexCore Labs`;
+
+
+
+                    if (project.page_description) {
+
+                        const desc = document.querySelector('meta[name="description"]');
+
+                        const ogDesc = document.querySelector('meta[property="og:description"]');
+
+                        const twitterDesc = document.querySelector('meta[name="twitter:description"]');
+
+                        if (desc) desc.content = project.card_description;
+
+                        if (ogDesc) ogDesc.content = project.card_description;
+
+                        if (twitterDesc) twitterDesc.content = project.card_description;
+
+                    }
+
+                } catch (e) {
+
+                    console.warn('Failed to update meta tags:', e);
+
+                }
+
+                // Populate content
+
+                document.getElementById('projectId').textContent = project.public_id || 'Proj-#';
+
+                document.getElementById('projectName').textContent = project.name || 'مشروع بلا عنوان';
+
+                // Expose project context so the AI chat widget can answer questions about this project
+                window.nexcoreProjectContext = {
+                    title:       project.name             || '',
+                    description: project.page_description || ''
+                };
+
+                document.getElementById('pageDescription').textContent = project.page_description || 'لا يوجد وصف متاح.';
+
+                const categoryRow = document.getElementById('projectCategoryRow');
+
+                if (categoryRow) {
+
+                    const badgeHtml = window.ProjectCategories?.buildCategoryBadge
+
+                        ? window.buildArabicCategoryBadge(project.category)
+
+                        : '<span class="project-category cat-uncategorized">🏷 غير مصنف</span>';
+
+                    categoryRow.innerHTML = `<span class="project-category-label">التصنيف:</span>${badgeHtml}`;
+
+                }
+
+            // Show image if available
+
+            if (project.image_url && project.image_url.startsWith('http')) {
+
+                const img = document.getElementById('projectImage');
+
+                img.onerror = function() {
+
+                    console.warn('Failed to load project image:', project.image_url);
+
+                    img.style.display = 'none';
+
+                };
+
+                img.onload = function() {
+
+                    img.style.display = 'block';
+
+                    // Update OG image only if loaded successfully
+
+                    try {
+
+                        document.querySelector('meta[property="og:image"]').content = project.image_url;
+
+                        document.querySelector('meta[name="twitter:image"]').content = project.image_url;
+
+                    } catch (e) {
+
+                        console.warn('Failed to update meta tags:', e);
+
+                    }
+
+                };
+
+                img.src = project.image_url;
+
+            }
+
+            // Populate social links
+
+            const socialLinks = [];
+
+            if (project.website) {
+
+                socialLinks.push({ icon: 'fas fa-globe', label: 'الموقع', url: project.website });
+
+            }
+
+            if (project.x_url) {
+
+                socialLinks.push({ icon: 'fab fa-x-twitter', label: 'X', url: project.x_url });
+
+            }
+
+            if (project.github_url) {
+
+                socialLinks.push({ icon: 'fab fa-github', label: 'GitHub', url: project.github_url });
+
+            }
+
+            if (project.linkedin_url) {
+
+                socialLinks.push({ icon: 'fab fa-linkedin', label: 'LinkedIn', url: project.linkedin_url });
+
+            }
+
+            if (project.instagram_url) {
+
+                socialLinks.push({ icon: 'fab fa-instagram', label: 'Instagram', url: project.instagram_url });
+
+            }
+
+            if (socialLinks.length > 0) {
+
+                const container = document.getElementById('socialLinks');
+
+                container.innerHTML = '';
+
+                socialLinks.forEach(link => {
+
+                    const a = document.createElement('a');
+
+                    a.className = 'social-link';
+
+                    a.href = link.url;
+
+                    a.target = '_blank';
+
+                    a.rel = 'noopener noreferrer';
+
+                    a.innerHTML = `<i class="${link.icon}"></i> ${link.label}`;
+
+                    container.appendChild(a);
+
+                });
+
+                document.getElementById('socialSection').style.display = 'block';
+
+            }
+
+            // Show owner actions if this is the owner
+
+            if (isOwner) {
+
+                const editLink = document.querySelector('#ownerActions a');
+
+                if (editLink) {
+
+                    editLink.href = `../dashboard.html?slug=${encodeURIComponent(project.slug || '')}`;
+
+                }
+
+                document.getElementById('ownerActions').style.display = 'block';
+
+            }
+
+            // Render AI insights and creator section
+
+            renderAiInsights(project);
+            checkPendingInsights(project);
+
+            await renderCreators(project);
+
+            } catch (error) {
+
+                console.error('Error rendering project:', error);
+
+                // Show error message but don't break the page
+
+                const contentDiv = document.getElementById('projectContent');
+
+                if (contentDiv) {
+
+                    contentDiv.innerHTML = '<div style="text-align: center; padding: 40px;"><p style="color: #ff7878;">حدث خطأ أثناء تحميل المشروع. يرجى تحديث الصفحة.</p></div>';
+
+                    contentDiv.style.display = 'block';
+
+                }
+
+                document.getElementById('loading').style.display = 'none';
+
+            }
+
+        }
+
+        function setupShareButtons(project, currentUrl) {
+
+            // Remove existing listeners by cloning buttons
+
+            const shareBtn = document.getElementById('shareBtn');
+
+            const copyBtn = document.getElementById('copyBtn');
+
+
+
+            if (!shareBtn || !copyBtn) {
+
+                console.warn('Share buttons not found');
+
+                return;
+
+            }
+
+
+
+            const newShareBtn = shareBtn.cloneNode(true);
+
+            const newCopyBtn = copyBtn.cloneNode(true);
+
+            shareBtn.replaceWith(newShareBtn);
+
+            copyBtn.replaceWith(newCopyBtn);
+
+            function copyToClipboard() {
+
+                navigator.clipboard.writeText(currentUrl).then(() => {
+
+                    const btn = document.getElementById('copyBtn');
+
+                    const originalText = btn.innerHTML;
+
+                    btn.innerHTML = '<i class="fas fa-check"></i> تم النسخ!';
+
+                    setTimeout(() => {
+
+                        btn.innerHTML = originalText;
+
+                    }, 2000);
+
+                }).catch(() => {
+                    showToast('تعذر نسخ الرابط. يرجى نسخه يدوياً.', true);
+                });
+
+            }
+
+            // Share button
+
+            document.getElementById('shareBtn').addEventListener('click', async () => {
+
+                if (navigator.share) {
+
+                    try {
+
+                        await navigator.share({
+
+                            title: project.name,
+
+                            text: project.description || `شاهد ${project.name} على NexCore Labs`,
+
+                            url: currentUrl
+
+                        });
+
+                    } catch (err) {
+
+                        if (err.name !== 'AbortError') {
+
+                            copyToClipboard();
+
+                        }
+
+                    }
+
+                } else {
+
+                    copyToClipboard();
+
+                }
+
+            });
+
+            // Copy button
+
+            document.getElementById('copyBtn').addEventListener('click', copyToClipboard);
+
+        }
+
+        function setupEmbedButton(slug) {
+
+            const embedBtn = document.getElementById('embedBtn');
+            const modal = document.getElementById('embedModal');
+            const closeBtn = document.getElementById('embedModalClose');
+            const previewFrame = document.getElementById('embedPreviewFrame');
+            const embedCodeEl = document.getElementById('embedCode');
+            const copyEmbedBtn = document.getElementById('copyEmbedBtn');
+
+            if (!embedBtn || !modal) return;
+
+            const embedUrl = `${window.location.origin}/embed?slug=${encodeURIComponent(slug)}`;
+            const snippet = `<iframe src="${embedUrl}" width="360" height="220" frameborder="0" style="border-radius:12px;border:none;" loading="lazy" title="مشروع NexCore"></iframe>`;
+
+            embedCodeEl.value = snippet;
+
+            function openModal() {
+                previewFrame.src = embedUrl;
+                modal.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeModal() {
+                modal.classList.remove('open');
+                document.body.style.overflow = '';
+                setTimeout(() => { previewFrame.src = ''; }, 300);
+            }
+
+            embedBtn.addEventListener('click', openModal);
+            closeBtn.addEventListener('click', closeModal);
+            modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+            document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
+
+            copyEmbedBtn.addEventListener('click', () => {
+                navigator.clipboard.writeText(snippet).then(() => {
+                    copyEmbedBtn.innerHTML = '<i class="fas fa-check"></i> تم النسخ!';
+                    setTimeout(() => { copyEmbedBtn.innerHTML = '<i class="fas fa-copy"></i> نسخ'; }, 2000);
+                }).catch(() => {
+                    embedCodeEl.select();
+                    document.execCommand('copy');
+                });
+            });
+
+        }
+
+        async function trackVisit(slug) {
+
+            try {
+
+                const response = await fetch('/api/track-visit', {
+
+                    method: 'POST',
+
+                    headers: {
+
+                        'Content-Type': 'application/json'
+
+                    },
+
+                    body: JSON.stringify({
+
+                        page_path: `/project/${slug}`
+
+                    })
+
+                });
+
+
+
+                if (response.ok) {
+
+                    const data = await response.json();
+
+                    return data.visits || 0;
+
+                }
+
+            } catch (err) {
+
+                console.warn('Failed to track visit:', err);
+
+            }
+
+            return null;
+
+        }
+
+        async function getTotalViews(slug) {
+
+            try {
+
+                const { data, error } = await sb
+
+                    .from('page_visits_daily')
+
+                    .select('visits')
+
+                    .eq('page_path', `/project/${slug}`);
+
+
+
+                if (error) throw error;
+
+
+
+                if (data && data.length > 0) {
+
+                    const total = data.reduce((sum, row) => sum + (row.visits || 0), 0);
+
+                    return total;
+
+                }
+
+            } catch (err) {
+
+                console.warn('Failed to get total views:', err);
+
+            }
+
+            return 0;
+
+        }
+
+        async function loadProject() {
+
+            const slug = getSlugFromUrl();
+
+
+
+            if (!slug) {
+
+                showNotFound();
+
+                return;
+
+            }
+
+            // First, try to fetch as a public project (for logged-out users)
+
+            let { data, error } = await sb
+
+                .from('projects')
+
+                .select('*')
+
+                .eq('slug', slug)
+
+                .eq('published', true)
+
+                .single();
+
+            let isOwner = false;
+
+            // If not found publicly, check if user is logged in and owns it
+
+            if (error || !data) {
+
+                const { data: { session } } = await sb.auth.getSession();
+
+
+
+                if (session) {
+
+                    // Try to fetch without published filter (owner can view draft)
+
+                    const ownerQuery = await sb
+
+                        .from('projects')
+
+                        .select('*')
+
+                        .eq('slug', slug)
+
+                        .eq('owner_user_id', session.user.id)
+
+                        .single();
+
+
+
+                    if (ownerQuery.data) {
+
+                        data = ownerQuery.data;
+
+                        isOwner = true;
+
+                    } else {
+
+                        showNotFound();
+
+                        return;
+
+                    }
+
+                } else {
+
+                    showNotFound();
+
+                    return;
+
+                }
+
+            }
+
+            await renderProject(data, isOwner);
+
+
+
+            // Track visit and get total views
+
+            trackVisit(slug);
+
+            const totalViews = await getTotalViews(slug);
+
+            document.getElementById('viewCount').textContent = totalViews.toLocaleString('ar-OM');
+
+
+
+            // Set created date
+
+            if (data.created_at) {
+
+                const createdDate = new Date(data.created_at);
+
+                const formattedDate = createdDate.toLocaleDateString('ar-OM', {
+
+                    year: 'numeric',
+
+                    month: 'short',
+
+                    day: 'numeric'
+
+                });
+
+                document.getElementById('createdDate').textContent = formattedDate;
+
+            }
+
+
+
+            // Setup share/copy buttons
+
+            const currentUrl = window.location.href;
+            const langSwitch = document.querySelector('.lang-switch-pill');
+            if (langSwitch && data.slug) { langSwitch.href = `../project.html?slug=${encodeURIComponent(data.slug)}`; }
+
+            try {
+
+                setupShareButtons(data, currentUrl);
+
+            } catch (e) {
+
+                console.error('Failed to setup share buttons:', e);
+
+            }
+
+            try {
+
+                setupEmbedButton(data.slug);
+
+            } catch (e) {
+
+                console.error('Failed to setup embed button:', e);
+
+            }
+
+            // Setup social share buttons
+
+            try {
+
+                setupSocialShare(data, currentUrl);
+
+            } catch (e) {
+
+                console.error('Failed to setup social share:', e);
+
+            }
+
+
+
+        }
+
+        /* ---- Sign-in Modal for AI Insights ---- */
+
+        function openSigninModal(project) {
+            if (project && project.slug) {
+                sessionStorage.setItem('pendingInsightsSlug', project.slug);
+            }
+            const modal = document.getElementById('signinModal');
+            if (modal) modal.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeSigninModal() {
+            const modal = document.getElementById('signinModal');
+            if (modal) modal.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        // Expose to ai-chat.js widget so it opens this modal instead of an error bubble
+        window.nexaiOnAuthRequired = () => openSigninModal();
+
+        (function wireSigninModal() {
+            const modal = document.getElementById('signinModal');
+            const closeBtn = document.getElementById('signinModalClose');
+            const googleBtn = document.getElementById('signinGoogleBtn');
+            const googleBtnText = document.getElementById('signinGoogleBtnText');
+            const errorEl = document.getElementById('signinError');
+
+            if (closeBtn) closeBtn.addEventListener('click', closeSigninModal);
+            if (modal) modal.addEventListener('click', (e) => { if (e.target === modal) closeSigninModal(); });
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && modal?.classList.contains('open')) closeSigninModal();
+            });
+
+            if (googleBtn) {
+                googleBtn.addEventListener('click', async () => {
+                    if (errorEl) errorEl.classList.add('hidden');
+                    googleBtn.disabled = true;
+                    if (googleBtnText) googleBtnText.textContent = 'جار التحويل…';
+                    try {
+                        const { error } = await sb.auth.signInWithOAuth({
+                            provider: 'google',
+                            options: { redirectTo: window.location.href }
+                        });
+                        if (error) throw error;
+                    } catch (err) {
+                        if (errorEl) {
+                            errorEl.textContent = err?.message || 'فشل تسجيل الدخول. يرجى المحاولة مرة أخرى.';
+                            errorEl.classList.remove('hidden');
+                        }
+                        googleBtn.disabled = false;
+                        if (googleBtnText) googleBtnText.textContent = 'المتابعة مع Google';
+                    }
+                });
+            }
+        })();
+
+        async function checkPendingInsights(project) {
+            const pending = sessionStorage.getItem('pendingInsightsSlug');
+            if (!pending || pending !== project.slug) return;
+            const { data: { session } } = await sb.auth.getSession();
+            if (!session) return;
+            sessionStorage.removeItem('pendingInsightsSlug');
+            setTimeout(() => generateAiInsights(project), 400);
+        }
+
+        /* ---- AI Insights ---- */
+
+        function renderAiInsights(project) {
+
+            const contentDiv = document.getElementById('aiInsightsContent');
+
+            const placeholder = document.getElementById('aiInsightsPlaceholder');
+
+            const summaryEl = document.getElementById('aiSummaryText');
+
+            const bulletsEl = document.getElementById('aiInsightsBullets');
+
+            if (!contentDiv || !placeholder) return;
+
+            if (project.ai_summary) {
+
+                summaryEl.textContent = project.ai_summary;
+
+                bulletsEl.innerHTML = '';
+
+                const insights = Array.isArray(project.ai_insights) ? project.ai_insights : [];
+
+                insights.forEach(insight => {
+
+                    const li = document.createElement('li');
+
+                    li.textContent = insight;
+
+                    bulletsEl.appendChild(li);
+
+                });
+
+                contentDiv.style.display = 'block';
+
+                placeholder.style.display = 'none';
+
+            } else {
+
+                contentDiv.style.display = 'none';
+
+                placeholder.style.display = 'block';
+
+                const generateBtn = document.getElementById('generateInsightsBtn');
+
+                if (generateBtn) {
+
+                    generateBtn.addEventListener('click', () => generateAiInsights(project));
+
+                }
+
+            }
+
+        }
+
+        async function generateAiInsights(project) {
+
+            const contentDiv = document.getElementById('aiInsightsContent');
+
+            const placeholder = document.getElementById('aiInsightsPlaceholder');
+
+            const summaryEl = document.getElementById('aiSummaryText');
+
+            const bulletsEl = document.getElementById('aiInsightsBullets');
+
+            // Require auth — AI endpoint needs a Bearer token
+
+            const { data: { session } } = await sb.auth.getSession();
+
+            if (!session) {
+
+                openSigninModal(project);
+
+                return;
+
+            }
+
+            placeholder.innerHTML = '<div class="ai-loading"><i class="fas fa-spinner fa-spin"></i> جار إنشاء الرؤى...</div>';
+
+            const descriptionText = (project.page_description || project.card_description || '').trim();
+
+            if (!descriptionText) {
+
+                placeholder.innerHTML = '<p style="opacity:0.6;">لا يوجد وصف للمشروع يمكن إنشاء الرؤى منه.</p>';
+
+                return;
+
+            }
+
+            try {
+
+                const response = await fetch('/api/ai', {
+
+                    method: 'POST',
+
+                    headers: {
+
+                        'Content-Type': 'application/json',
+
+                        'Authorization': `Bearer ${session.access_token}`
+
+                    },
+
+                    body: JSON.stringify({
+
+                        action: 'project_insights',
+
+                        project_name: project.name || '',
+
+                        text: descriptionText
+
+                    })
+
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+
+                    const msg = data?.error || 'فشل إنشاء الرؤى بالذكاء الاصطناعي';
+
+                    placeholder.innerHTML = `
+
+                        <p style="opacity:0.7;">${escapeHtml(msg)}</p>
+
+                        <button class="btn primary ghost ai-gen-btn" id="generateInsightsBtn">
+
+                            <i class="fas fa-redo"></i> حاول مرة أخرى
+
+                        </button>`;
+
+                    const retryBtn = document.getElementById('generateInsightsBtn');
+
+                    if (retryBtn) retryBtn.addEventListener('click', () => generateAiInsights(project));
+
+                    return;
+
+                }
+
+                summaryEl.textContent = data.summary || '';
+
+                bulletsEl.innerHTML = '';
+
+                (data.insights || []).forEach(insight => {
+
+                    const li = document.createElement('li');
+
+                    li.textContent = insight;
+
+                    bulletsEl.appendChild(li);
+
+                });
+
+                contentDiv.style.display = 'block';
+
+                placeholder.style.display = 'none';
+
+                // Show remaining usage hint
+
+                if (typeof data.remaining === 'number') {
+
+                    const hint = document.createElement('p');
+
+                    hint.style.cssText = 'opacity:0.45; font-size:0.78rem; margin-top:14px;';
+
+                    hint.textContent = `إجراءات الذكاء الاصطناعي المتبقية اليوم: ${data.remaining}`;
+
+                    contentDiv.appendChild(hint);
+
+                }
+
+            } catch (err) {
+
+                placeholder.innerHTML = `
+
+                    <p>تعذر إنشاء الرؤى حالياً.</p>
+
+                    <button class="btn primary ghost ai-gen-btn" id="generateInsightsBtn">
+
+                        <i class="fas fa-redo"></i> حاول مرة أخرى
+
+                    </button>`;
+
+                const retryBtn = document.getElementById('generateInsightsBtn');
+
+                if (retryBtn) retryBtn.addEventListener('click', () => generateAiInsights(project));
+
+            }
+
+        }
+
+        /* ---- Creators ---- */
+
+        function getMetadataDisplayName(metadata) {
+
+            const candidate = metadata?.full_name || metadata?.name || metadata?.user_name || metadata?.preferred_username;
+
+            return typeof candidate === 'string' && candidate.trim() ? candidate.trim() : '';
+
+        }
+
+        async function fetchCreatorProfile(project) {
+
+            const creatorFromProject = (project.creator_name || '').trim();
+
+            const avatarFromProject = (project.creator_avatar_url || '').trim();
+
+            let sessionUser = null;
+
+            const profile = {
+
+                display_name: creatorFromProject || '',
+
+                avatar_url: /^https?:\/\//i.test(avatarFromProject) ? avatarFromProject : null,
+
+                contact_email: '',
+
+                phone_number: '',
+
+                viewer_signed_in: false
+
+            };
+
+            try {
+
+                const { data: sessionData } = await sb.auth.getSession();
+
+                sessionUser = sessionData?.session?.user || null;
+
+                profile.viewer_signed_in = !!sessionUser;
+
+            } catch (error) {
+
+                console.warn('Could not determine viewer session:', error?.message || error);
+
+            }
+
+            if (project.owner_user_id) {
+
+                try {
+
+                    const { data: publicProfile, error } = await sb
+
+                        .from('user_public_profiles')
+
+                        .select('name, avatar_url')
+
+                        .eq('id', project.owner_user_id)
+
+                        .maybeSingle();
+
+                    if (!error && publicProfile) {
+
+                        if (!profile.display_name) {
+
+                            profile.display_name = (publicProfile.name || '').trim();
+
+                        }
+
+                        if (!profile.avatar_url && publicProfile.avatar_url) {
+
+                            profile.avatar_url = publicProfile.avatar_url;
+
+                        }
+
+                    }
+
+                } catch (error) {
+
+                    console.warn('Could not load creator profile from user_public_profiles:', error?.message || error);
+
+                }
+
+                if (!profile.contact_email && !profile.phone_number) {
+
+                    try {
+
+                        const { data: ownerUser, error } = await sb
+
+                            .from('users')
+
+                            .select('contact_email, phone_number')
+
+                            .eq('id', project.owner_user_id)
+
+                            .maybeSingle();
+
+                        if (!error && ownerUser) {
+
+                            profile.contact_email = String(ownerUser.contact_email || '').trim();
+
+                            profile.phone_number = String(ownerUser.phone_number || '').trim();
+
+                        }
+
+                    } catch (error) {
+
+                        console.warn('Could not load creator contact info from users:', error?.message || error);
+
+                    }
+
+                }
+
+            }
+
+            try {
+
+                if (sessionUser && sessionUser.id === project.owner_user_id) {
+
+                    const metadataName = getMetadataDisplayName(sessionUser.user_metadata || {});
+
+                    const metadataAvatar = sessionUser.user_metadata?.avatar_url || sessionUser.user_metadata?.picture || null;
+
+                    if (!profile.display_name && metadataName) {
+
+                        profile.display_name = metadataName;
+
+                    }
+
+                    if (!profile.avatar_url && metadataAvatar) {
+
+                        profile.avatar_url = metadataAvatar;
+
+                    }
+
+                }
+
+            } catch (error) {
+
+                console.warn('Session fallback for creator profile failed:', error?.message || error);
+
+            }
+
+            return {
+
+                display_name: profile.display_name || 'صاحب المشروع',
+
+                avatar_url: profile.avatar_url || null,
+
+                contact_email: profile.contact_email || '',
+
+                phone_number: profile.phone_number || '',
+
+                viewer_signed_in: !!profile.viewer_signed_in
+
+            };
+
+        }
+
+        async function renderCreators(project) {
+
+            const section = document.getElementById('creatorsSection');
+
+            const grid = document.getElementById('creatorsGrid');
+
+            if (!section || !grid) return;
+
+            const profile = await fetchCreatorProfile(project);
+
+            grid.innerHTML = '';
+
+            grid.appendChild(buildCreatorCard(profile, project));
+
+            section.style.display = 'block';
+
+        }
+
+        function buildCreatorCard(profile, project) {
+
+            const card = document.createElement('div');
+
+            card.className = 'creator-card';
+
+            const name = profile.display_name || 'صاحب المشروع';
+
+            const initial = name.charAt(0).toUpperCase();
+
+            let avatarHtml;
+
+            if (profile.avatar_url && /^https?:\/\//i.test(profile.avatar_url)) {
+
+                const safeAvatar = escapeAttr(profile.avatar_url);
+
+                avatarHtml = `<img class="creator-avatar is-loaded" src="${safeAvatar}" alt="${escapeAttr(name)}" loading="eager"
+
+                    style="opacity:1;"
+
+                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+
+                    <div class="creator-avatar-placeholder" style="display:none;">${escapeHtml(initial)}</div>`;
+
+            } else {
+
+                avatarHtml = `<div class="creator-avatar-placeholder">${escapeHtml(initial)}</div>`;
+
+            }
+
+            const hasEmail = profile.contact_email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(profile.contact_email);
+
+            const hasPhone = profile.phone_number && /^\+?[0-9()\-\s]{6,20}$/.test(profile.phone_number);
+
+            const emailSubject = encodeURIComponent(`بخصوص ${project.name || 'مشروعك'} على NexCore Labs`);
+
+            const emailBody = encodeURIComponent(`مرحباً ${name},\n\nأود التواصل معك بخصوص مشروعك.`);
+
+            const emailHref = hasEmail ? `mailto:${encodeURIComponent(profile.contact_email)}?subject=${emailSubject}&body=${emailBody}` : '';
+
+            const phoneHref = hasPhone ? `tel:${profile.phone_number.replace(/[^\d+]/g, '')}` : '';
+
+            const contactLinks = [
+
+                hasEmail ? `<a href="${escapeAttr(emailHref)}" class="creator-contact-link"><i class="fas fa-envelope"></i> ${escapeHtml(profile.contact_email)}</a>` : '',
+
+                hasPhone ? `<a href="${escapeAttr(phoneHref)}" class="creator-contact-link"><i class="fas fa-phone"></i> ${escapeHtml(profile.phone_number)}</a>` : ''
+
+            ].filter(Boolean).join('');
+
+            const loginRequiredText = !profile.viewer_signed_in
+
+                ? '<p style="opacity:.8;margin:0;">سجّل الدخول لعرض بيانات تواصل صاحب المشروع إن كانت متوفرة.</p>'
+
+                : '';
+
+            const emptyContactText = contactLinks
+
+                ? ''
+
+                : (loginRequiredText || '<p style="opacity:.7;margin:0;">لم تتم إضافة بيانات تواصل عامة.</p>');
+
+            card.innerHTML = `
+
+                ${avatarHtml}
+
+                <div class="creator-meta">
+                    <p class="creator-name">${escapeHtml(name)}</p>
+
+                    <p class="creator-contact-title">معلومات التواصل</p>
+
+                    <div class="creator-contact-links">
+
+                        ${contactLinks}
+
+                        ${emptyContactText}
+
+                    </div>
+                </div>
+
+            `;
+
+            return card;
+
+        }
+
+        function escapeHtml(text) {
+
+            const div = document.createElement('div');
+
+            div.appendChild(document.createTextNode(String(text || '')));
+
+            return div.innerHTML;
+
+        }
+
+        function escapeAttr(value) {
+
+            return String(value || '').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+
+        }
+
+        /* ---- Social Share ---- */
+
+        function setupSocialShare(project, currentUrl) {
+
+            const projectTitle = encodeURIComponent((project.name || 'شاهد هذا المشروع على NexCore Labs') + ' — NexCore Labs');
+
+            const encodedUrl = encodeURIComponent(currentUrl);
+
+            const shareXBtn = document.getElementById('shareXBtn');
+
+            const shareLinkedinBtn = document.getElementById('shareLinkedinBtn');
+
+            const shareWhatsappBtn = document.getElementById('shareWhatsappBtn');
+
+            if (shareXBtn) {
+
+                shareXBtn.addEventListener('click', () => {
+
+                    window.open(`https://twitter.com/intent/tweet?text=${projectTitle}&url=${encodedUrl}`, '_blank', 'noopener,noreferrer,width=600,height=400');
+
+                });
+
+            }
+
+            if (shareLinkedinBtn) {
+
+                shareLinkedinBtn.addEventListener('click', () => {
+
+                    window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`, '_blank', 'noopener,noreferrer,width=600,height=500');
+
+                });
+
+            }
+
+            if (shareWhatsappBtn) {
+
+                shareWhatsappBtn.addEventListener('click', () => {
+
+                    window.open(`https://wa.me/?text=${projectTitle}%20${encodedUrl}`, '_blank', 'noopener,noreferrer');
+
+                });
+
+            }
+
+        }
+
+        document.addEventListener('DOMContentLoaded', loadProject);
+
+    </script>
+
+    <script src="../assets/js/cookies.js" defer></script>
+
+    <div id="toast" role="alert" aria-live="assertive"></div>
+
+    <script>
+      (function(){
+        var _t=null;
+        window.showToast=function(text,isError){
+          if(!text)return;
+          var el=document.getElementById('toast');
+          el.textContent=text;
+          el.className='show'+(isError?' error':'');
+          clearTimeout(_t);
+          _t=setTimeout(function(){el.classList.remove('show');},3800);
+        };
+      })();
+    </script>
+
+</body>
+
+</html>
