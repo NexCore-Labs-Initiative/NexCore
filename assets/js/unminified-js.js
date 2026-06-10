@@ -409,13 +409,24 @@ function showWebsiteLabel() {
   }
 }
 
-document.getElementById('bookmarkBtn').addEventListener('click', function(e) {
-  e.preventDefault();
-  
-  // Detect if the user is on a Mac
-  const isMac = navigator.userAgent.toLowerCase().includes('mac');
-  const shortcut = isMac ? 'Cmd + D' : 'Ctrl + D';
-  
-  // You can replace this alert with a beautiful custom modal or toast notification!
-  alert(`To bookmark this page, press ${shortcut} on your keyboard.`);
-});
+const bookmarkBtn = document.getElementById('bookmarkBtn');
+
+if (bookmarkBtn) {
+  bookmarkBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+
+    const userAgent = navigator.userAgent || '';
+    const isMobilePhone = navigator.userAgentData?.mobile
+      ?? /Android|iPhone|iPod|IEMobile|Opera Mini/i.test(userAgent);
+
+    if (isMobilePhone) {
+      alert('To bookmark this page on your phone, open the browser menu or Share menu, then choose Add bookmark.');
+      return;
+    }
+
+    const isMac = /Mac/i.test(userAgent);
+    const shortcut = isMac ? 'Cmd + D' : 'Ctrl + D';
+
+    alert(`To bookmark this page, press ${shortcut} on your keyboard.`);
+  });
+}
