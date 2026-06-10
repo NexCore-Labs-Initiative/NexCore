@@ -2047,7 +2047,7 @@
                             auto_activated:  result.auto_activated === true,
                             submitted_at:    new Date().toISOString(),
                         }));
-                        window.location.href = '/order-confirmation';
+                        window.location.href = '/ar/order-confirmation.html';
 
                     } catch (err) {
                         statusEl.style.display = 'none';
@@ -2318,7 +2318,7 @@
                     auto_activated: false,
                     submitted_at:   new Date().toISOString(),
                 }));
-                window.location.href = '/order-confirmation';
+                window.location.href = '/ar/order-confirmation.html';
 
             } catch (err) {
                 alert(err.message || 'حدث خطأ ما. يرجى المحاولة مرة أخرى.');
