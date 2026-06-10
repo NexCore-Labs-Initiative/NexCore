@@ -165,7 +165,7 @@
                             <div class="form-box">
                                 <h2 id="formTitle">الوصول إلى النواة</h2>
 
-                                <p class="form-desc" id="formDesc">سجل الدخول باستخدام حسابك على Google</p>
+                                <p class="form-desc" id="formDesc">سجل الدخول باستخدام حسابك على جوجل</p>
 
                                 <button class="google-btn" id="googleSignInBtn">
 
@@ -181,7 +181,7 @@
 
                                     </svg>
 
-                                    <span id="btnText">المتابعة مع Google</span>
+                                    <span id="btnText">المتابعة بواسطة جوجل</span>
                                 </button>
 
                                 <div class="squ-notice">
@@ -190,7 +190,7 @@
                                 </div>
 
                                 <div style="margin-top:14px; text-align:center; font-size:13px; color:#9aa3b2;">
-                                    هل أنت من خارج جامعة السلطان قابوس؟ <a href="../pricing.html" style="color:#6ee7f3; text-decoration:none; border-bottom:1px solid rgba(110,231,243,0.35); transition:border-color 0.2s;">احصل على الموافقة في NexCore Labs ←</a>
+                                    هل أنت من خارج جامعة السلطان قابوس؟ <a href="pricing.html" style="color:#6ee7f3; text-decoration:none; border-bottom:1px solid rgba(110,231,243,0.35); transition:border-color 0.2s;">احصل على الموافقة في NexCore Labs ←</a>
                                 </div>
                             </div>
                         </div>
@@ -274,7 +274,7 @@
                 if (session) {
                     const allowed = await enforceSquEmail(session);
                     if (!allowed) return false;
-                    window.location.href = '/dashboard.html';
+                    window.location.href = '/ar/dashboard.html';
                     return true;
                 }
                 return false;
@@ -312,7 +312,7 @@
                     const allowed = await enforceSquEmail(session);
                     if (!allowed) return;
                     sessionStorage.setItem('auth_mode', currentMode);
-                    window.location.href = '/dashboard.html';
+                    window.location.href = '/ar/dashboard.html';
                 } else if (event === 'SIGNED_OUT') {
                     if (suppressSignedOutNote) {
                         suppressSignedOutNote = false;
@@ -340,7 +340,7 @@
             function showNote(text, isError = false) {
                 showToast(text, isError);
                 googleBtn.disabled = false;
-                btnText.textContent = 'المتابعة مع Google';
+                btnText.textContent = 'المتابعة بواسطة جوجل';
             }
 
             async function signInWithGoogle() {
@@ -352,7 +352,7 @@
                     const { data, error } = await sb.auth.signInWithOAuth({
                         provider: 'google',
                         options: {
-                            redirectTo: `${window.location.origin}/dashboard.html`
+                            redirectTo: `${window.location.origin}/ar/dashboard.html`
                         }
                     });
 
@@ -364,7 +364,7 @@
                     console.error('خطأ في تسجيل الدخول:', error);
                     showNote(error.message || 'فشل تسجيل الدخول. يرجى المحاولة مرة أخرى.', true);
                     googleBtn.disabled = false;
-                    btnText.textContent = 'المتابعة مع Google';
+                    btnText.textContent = 'المتابعة بواسطة جوجل';
                 }
             }
 

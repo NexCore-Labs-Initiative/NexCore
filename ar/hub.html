@@ -247,7 +247,25 @@
         }
 
         const categoryIcons = window.ProjectCategories?.CATEGORY_ICONS || {};
-        const categoryLabels = window.ProjectCategories?.CATEGORY_LABELS || {};
+        const categoryLabels = {
+          technology: 'التقنية',
+          business: 'الأعمال',
+          education: 'التعليم',
+          finance: 'المالية',
+          healthcare: 'الرعاية الصحية',
+          environment: 'البيئة',
+          agriculture: 'الزراعة',
+          food: 'الطعام',
+          travel: 'السفر',
+          transportation: 'النقل',
+          'real-estate': 'العقارات',
+          'media-entertainment': 'الإعلام والترفيه',
+          'art-design': 'الفن والتصميم',
+          'sports-fitness': 'الرياضة واللياقة',
+          community: 'المجتمع',
+          lifestyle: 'نمط الحياة',
+          uncategorized: 'غير مصنف'
+        };
         const categoryOrder = window.ProjectCategories?.CATEGORY_ORDER || [];
         const uncategorizedIcon = window.ProjectCategories?.getCategoryIconMarkup?.('uncategorized') || '';
 
@@ -259,6 +277,14 @@
         function normalizeCategory(value) {
           const normalized = window.ProjectCategories?.normalizeCategory?.(value);
           return normalized || 'uncategorized';
+        }
+
+        function buildArabicCategoryBadge(value) {
+          const category = normalizeCategory(value);
+          const label = categoryLabels[category] || categoryLabels.uncategorized;
+          const icon = categoryIcons[category] || uncategorizedIcon;
+          const categoryClass = window.ProjectCategories?.getCategoryClass?.(category) || `cat-${category}`;
+          return `<span class="project-category ${categoryClass}">${icon}${label}</span>`;
         }
 
         function renderCategoryStats(projects) {
@@ -332,15 +358,13 @@
           container.innerHTML = '';
 
           sorted.forEach((project) => {
-            const link = `/project.html?slug=${encodeURIComponent(project.slug)}`;
+            const link = `/ar/project.html?slug=${encodeURIComponent(project.slug)}`;
             const views = project.views || 0;
             const createdDate = project.created_at
               ? new Date(project.created_at).toLocaleDateString('ar-SA', { year: 'numeric', month: 'short', day: 'numeric' })
               : 'غير متاح';
 
-            const badgeHtml = window.ProjectCategories?.buildCategoryBadge
-              ? window.ProjectCategories.buildCategoryBadge(project.category)
-              : `<span class="project-category cat-uncategorized">${uncategorizedIcon}غير مصنف</span>`;
+            const badgeHtml = buildArabicCategoryBadge(project.category);
 
             const card = document.createElement('a');
             card.className = 'project-card-link';
