@@ -26,11 +26,11 @@
   },
   "homepage": "https://github.com/NexCoreLabs/NexCore#readme",
   "dependencies": {
-    "@google/genai": "^1.43.0",
-    "@supabase/supabase-js": "^2.94.1",
+    "@google/genai": "^2.8.0",
+    "@supabase/supabase-js": "^2.108.1",
     "@vercel/speed-insights": "^2.0.0",
-    "dotenv": "^17.4.1",
-    "nodemailer": "^8.0.8",
-    "vercel": "^50.33.0"
+    "dotenv": "^17.4.2",
+    "nodemailer": "^8.0.10",
+    "vercel": "^54.11.1"
   }
 }
