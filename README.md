@@ -36,6 +36,17 @@ Visit the live version here:
 See [CHANGELOG.md](CHANGELOG.md) for the full version history.  
 Current version: **v2.9.1**
 
+### Release automation
+
+`assets/data/releases.json` is the canonical bilingual release history. Use:
+
+- `npm run release:draft` to create a Gemini-assisted draft.
+- `npm run release:generate` to regenerate changelogs and version files.
+- `npm run release:validate` to validate release data and version constants.
+- `npm run release:check` to verify generated files are current.
+
+The **Draft bilingual release** GitHub workflow opens a review PR from `dev` or another selected branch. It requires the `GEMINI_API_KEY` repository secret and optionally reads the `GEMINI_MODEL` repository variable. After that PR is merged, run **Publish release** from `main` to create the annotated tag and GitHub Release.
+
 ---
 
 ## 🧭 Author

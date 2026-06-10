@@ -7,7 +7,12 @@
     "lib": "lib"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npm run release:test",
+    "release:draft": "node scripts/releases/draft.js",
+    "release:generate": "node scripts/releases/generate.js",
+    "release:validate": "node scripts/releases/validate.js",
+    "release:check": "node scripts/releases/check.js",
+    "release:test": "node scripts/releases/test.js"
   },
   "repository": {
     "type": "git",
