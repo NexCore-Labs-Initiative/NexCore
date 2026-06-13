@@ -523,6 +523,45 @@
       </div>
     </section>
 
+    <section class="newsletter-panel panel" aria-labelledby="newsletter-title">
+      <div class="container">
+        <div class="newsletter-card reveal">
+          <div class="newsletter-copy">
+            <span class="newsletter-kicker"><i class="fa-regular fa-envelope"></i> NexCore Updates</span>
+            <h2 id="newsletter-title" class="section-title">Stay connected to the Core.</h2>
+            <p>Get occasional updates about new tools, projects, and releases from NexCore Labs.</p>
+          </div>
+
+          <form id="newsletter-form" class="newsletter-form" novalidate>
+            <div class="newsletter-controls">
+              <label class="sr-only" for="newsletter-email">Email address</label>
+              <input
+                id="newsletter-email"
+                name="email"
+                type="email"
+                inputmode="email"
+                autocomplete="email"
+                placeholder="you@example.com"
+                maxlength="254"
+                required
+              >
+              <button id="newsletter-submit" type="submit" class="btn primary">
+                <span>Subscribe</span>
+              </button>
+            </div>
+
+            <div class="newsletter-honeypot" aria-hidden="true">
+              <label for="newsletter-company">Company</label>
+              <input id="newsletter-company" name="company" type="text" tabindex="-1" autocomplete="off">
+            </div>
+
+            <p id="newsletter-message" class="newsletter-message" role="status" aria-live="polite"></p>
+            <p class="newsletter-note">No spam. Unsubscribe anytime from the <a href="unsubscribe.html">unsubscribe page</a>.</p>
+          </form>
+        </div>
+      </div>
+    </section>
+
     <div class="nexcore-sign">
       <img id="nexcoreSign" src="assets/images/nexcore-word.webp" alt="NexCore Labs">
 
@@ -557,6 +596,8 @@
   <script src="assets/js/unminified-js.js"></script>
 
   <script src="assets/js/supabase-client.js"></script>
+
+  <script src="assets/js/newsletter.js"></script>
 
   <script src="assets/js/auth-ui-db.js"></script>
   <script src="assets/js/ai-chat.js"></script>

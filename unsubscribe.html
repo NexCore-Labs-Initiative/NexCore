@@ -1,4 +1,3 @@
-<!-- FILE COMMENTED OUT: unsubscribe.html — START -->
 <!DOCTYPE html>
 <html lang="en">
     <head>          <!-- Google tag (gtag.js) -->
@@ -80,90 +79,113 @@
 
     <main>
         <div>
-            <h2>Unsubscribe</h2>
-            <p id="status">Ready to unsubscribe.</p>
+            <h2 id="unsubscribe-title">Unsubscribe</h2>
+            <p id="status" role="status" aria-live="polite">Ready to unsubscribe.</p>
 
             <form id="unsubscribe-form" class="subscribe-box" style="margin-top:10px;">
-                <input type="email" id="unsubscribe-email" placeholder="Enter your email" />
-                <button type="submit" id="confirm" class="btn ghost fade">Unsubscribe</button>
+                <input type="email" id="unsubscribe-email" placeholder="Enter your email" autocomplete="email" required />
+                <button type="submit" id="confirm" class="btn ghost">Unsubscribe</button>
             </form>
         </div>
     </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
     (function () {
-      const SUPABASE_URL = 'https://qacupmuqeuqspfhwosfu.supabase.co';
-      const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFhY3VwbXVxZXVxc3BmaHdvc2Z1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA4ODc0MDksImV4cCI6MjA3NjQ2MzQwOX0.wg3Csls252_yP4P0-CgYrop0W1DqtlyNO2XpbdZ5Zzk';
-
-      let supabaseClient;
-      try {
-        supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
-        console.log('Supabase client initialized (unsubscribe).');
-      } catch (err) {
-        console.error('Failed to initialize Supabase client:', err);
-      }
-
       document.addEventListener('DOMContentLoaded', () => {
         const form = document.getElementById('unsubscribe-form');
         const emailInput = document.getElementById('unsubscribe-email');
         const status = document.getElementById('status');
+        const button = document.getElementById('confirm');
+        const title = document.getElementById('unsubscribe-title');
+        const isArabic = new URLSearchParams(window.location.search).get('lang') === 'ar';
+        const copy = isArabic ? {
+          title: 'إلغاء الاشتراك',
+          ready: 'أدخل بريدك الإلكتروني لإلغاء الاشتراك.',
+          placeholder: 'أدخل بريدك الإلكتروني',
+          button: 'إلغاء الاشتراك',
+          processing: 'جارٍ إلغاء الاشتراك...',
+          invalid: 'أدخل بريدًا إلكترونيًا صالحًا.',
+          success: 'تم إلغاء اشتراكك بنجاح.',
+          notFound: 'هذا البريد غير مشترك أو تم إلغاء اشتراكه مسبقًا.',
+          unavailable: 'خدمة إلغاء الاشتراك غير متاحة حاليًا.',
+          failed: 'تعذر إلغاء الاشتراك. حاول مرة أخرى.'
+        } : {
+          title: 'Unsubscribe',
+          ready: 'Enter your email to unsubscribe.',
+          placeholder: 'Enter your email',
+          button: 'Unsubscribe',
+          processing: 'Unsubscribing...',
+          invalid: 'Please enter a valid email address.',
+          success: 'You have been unsubscribed successfully.',
+          notFound: 'This email is not subscribed or is already inactive.',
+          unavailable: 'Unsubscribe service is currently unavailable.',
+          failed: 'We could not unsubscribe you. Please try again.'
+        };
 
         if (!form) {
           console.error('Unsubscribe form not found.');
           return;
         }
 
-        // prefill email input from ?email=... if present
+        if (isArabic) {
+          document.documentElement.lang = 'ar';
+          document.documentElement.dir = 'rtl';
+          document.title = 'NexCore | إلغاء الاشتراك';
+        }
+        title.textContent = copy.title;
+        status.textContent = copy.ready;
+        emailInput.placeholder = copy.placeholder;
+        button.textContent = copy.button;
+
         const initialEmail = new URLSearchParams(window.location.search).get('email');
         if (initialEmail) {
-          emailInput.value = initialEmail;
-        }
-
-        if (!supabaseClient) {
-          status.textContent = '❌ Unsubscribe service unavailable.';
-          return;
+          emailInput.value = initialEmail.trim().toLowerCase();
         }
 
         form.addEventListener('submit', async (e) => {
           e.preventDefault();
 
-          // email preference: input field or ?email= query param or prompt fallback
-          let email = (emailInput.value || new URLSearchParams(window.location.search).get('email') || '').trim().toLowerCase();
-          if (!email) {
-            email = prompt('Enter your email to unsubscribe:');
-            if (!email) { status.textContent = 'Cancelled.'; return; }
-            email = email.trim().toLowerCase();
+          const email = emailInput.value.trim().toLowerCase();
+          emailInput.value = email;
+          if (!email || !emailInput.checkValidity()) {
+            status.textContent = copy.invalid;
+            emailInput.focus();
+            return;
           }
 
-          status.textContent = 'Processing...';
+          button.disabled = true;
+          emailInput.readOnly = true;
+          button.textContent = copy.processing;
+          status.textContent = copy.processing;
 
           try {
-            const { data, error } = await supabaseClient
-              .from('email_subscribers')
-              .delete()
-              .eq('email', email)
-              .select();
+            const response = await fetch('/api/newsletter', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                action: 'unsubscribe',
+                email
+              })
+            });
+            const result = await response.json().catch(() => ({}));
 
-            if (error) {
-              console.error('Supabase delete error:', error);
-              status.textContent = '❌ ' + (error.message || 'Failed to unsubscribe');
-              return;
+            if (!response.ok) {
+              throw new Error(result.error || 'Unsubscribe failed');
             }
 
-            if (data && data.length) {
-              console.log('Unsubscribed:', data);
-              status.textContent = '✅ Unsubscribed successfully.';
+            if (result.status === 'unsubscribed') {
+              status.textContent = copy.success;
               emailInput.value = '';
             } else {
-              console.log('No rows deleted (email not found).');
-              status.textContent = '⚠️ Email not found.';
+              status.textContent = copy.notFound;
             }
           } catch (err) {
             console.error('Unexpected error while unsubscribing:', err);
-            status.textContent = '❌ Unexpected error. Check console.';
+            status.textContent = copy.failed;
           } finally {
-            console.info('Tip: If deletes fail, check that the table `email_subscribers` exists and RLS/policies allow the anon role to delete or use a server-side unsubscribe flow.');
+            button.disabled = false;
+            emailInput.readOnly = false;
+            button.textContent = copy.button;
           }
         });
       });

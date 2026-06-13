@@ -3434,3 +3434,137 @@ html[dir="rtl"] .pill-slider { transform: translateX(57px); }
 html[dir="rtl"] .lang-switch-pill:hover .pill-slider {
     transform: translateX(0px);
 }
+
+/* Newsletter subscription */
+.newsletter-panel {
+    margin-top: 0;
+}
+
+.newsletter-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 520px);
+    gap: 48px;
+    align-items: center;
+    padding: 34px;
+    border: 1px solid rgba(110, 231, 243, 0.14);
+    border-radius: 18px;
+    background: linear-gradient(135deg, rgba(110, 231, 243, 0.07), rgba(10, 11, 28, 0.48) 48%, rgba(172, 217, 229, 0.04));
+    box-shadow: 0 18px 50px rgba(2, 6, 23, 0.45);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+
+.newsletter-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    color: #6ee7f3;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+}
+
+.newsletter-copy {
+    text-align: center;
+    justify-content: center;
+}
+
+.newsletter-copy p,
+.newsletter-note {
+    color: var(--muted);
+}
+
+.newsletter-copy p {
+    max-width: 52ch;
+}
+
+.newsletter-controls {
+    display: flex;
+    gap: 10px;
+}
+
+.newsletter-controls input[aria-invalid="true"] {
+    border-color: rgba(255, 120, 120, 0.8);
+    box-shadow: 0 0 12px rgba(255, 120, 120, 0.12);
+}
+
+.newsletter-controls button {
+    justify-content: center;
+    min-width: 126px;
+}
+
+.newsletter-controls button:disabled {
+    cursor: wait;
+    opacity: 0.68;
+}
+
+.newsletter-message {
+    min-height: 24px;
+    margin: 10px 0 0;
+    color: #6ee7f3;
+    font-size: 14px;
+}
+
+.newsletter-message.is-error {
+    color: #ff9090;
+}
+
+.newsletter-note {
+    margin: 2px 0 0;
+    font-size: 12px;
+}
+
+.newsletter-note a {
+    color: #6ee7f3;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.newsletter-honeypot {
+    position: absolute !important;
+    left: -10000px !important;
+    width: 1px !important;
+    height: 1px !important;
+    overflow: hidden !important;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+@media screen and (max-width: 900px) {
+    .newsletter-card {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        text-align: center;
+    }
+
+    .newsletter-copy p {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media screen and (max-width: 560px) {
+    .newsletter-card {
+        padding: 24px 18px;
+    }
+
+    .newsletter-controls {
+        flex-direction: column;
+    }
+
+    .newsletter-controls button {
+        width: 100%;
+    }
+}

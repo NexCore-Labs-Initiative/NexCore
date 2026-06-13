@@ -192,7 +192,36 @@ for (const marker of ["مدة تشغيل", "سبعة أيام", "48 ساعة", "
   assert(arabicPolicy.includes(marker), `Arabic policy is missing: ${marker}`);
 }
 
-for (const file of ["api/submit-subscription.js", "api/bank-transfer.js", "api/paypal-capture.js"]) {
+const disabledPaymentApis = [
+  "submit-subscription.js",
+  "bank-transfer.js",
+  "paypal-capture.js",
+  "check-email-order.js",
+  "update-subscription-status.js",
+  "receipt-url.js",
+];
+
+for (const fileName of disabledPaymentApis) {
+  assert(
+    !fs.existsSync(path.join(root, "api", fileName)),
+    `api/${fileName} must stay outside the deployable API directory while payments are paused`
+  );
+  assert(
+    fs.existsSync(path.join(root, "disabled-payment-api", fileName)),
+    `disabled-payment-api/${fileName} must preserve the disabled handler`
+  );
+}
+
+assert(
+  read(".vercelignore").split(/\r?\n/).includes("disabled-payment-api/"),
+  "The disabled payment API archive must not be uploaded in Vercel deployments"
+);
+
+for (const file of [
+  "disabled-payment-api/submit-subscription.js",
+  "disabled-payment-api/bank-transfer.js",
+  "disabled-payment-api/paypal-capture.js",
+]) {
   const source = read(file);
   assert(source.includes("../lib/pricingPolicy"), `${file} must use the canonical pricing module`);
   assert(source.includes("validatePaymentsEnabled"), `${file} must reject requests while payments are paused`);
@@ -231,18 +260,18 @@ async function expectEndpointPaymentPause(handler, body) {
 }
 
 Promise.all([
-  expectEndpointPaymentPause(require("../api/submit-subscription"), {
+  expectEndpointPaymentPause(require("../disabled-payment-api/submit-subscription"), {
     user_name: "Test User",
     user_email: "test@example.com",
     selected_features: [{ id: "lifetime" }],
     payment_method: "paypal",
   }),
-  expectEndpointPaymentPause(require("../api/bank-transfer"), {
+  expectEndpointPaymentPause(require("../disabled-payment-api/bank-transfer"), {
     user_name: "Test User",
     user_email: "test@example.com",
     selected_features: [{ id: "lifetime" }],
   }),
-  expectEndpointPaymentPause(require("../api/paypal-capture"), {
+  expectEndpointPaymentPause(require("../disabled-payment-api/paypal-capture"), {
     paypal_order_id: "TEST-ORDER",
     user_name: "Test User",
     user_email: "test@example.com",
