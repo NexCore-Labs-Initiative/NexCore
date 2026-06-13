@@ -33,6 +33,16 @@
   <priority>0.80</priority>
 </url>
 <url>
+  <loc>https://nexcorelabs.vercel.app/pricing-policy.html</loc>
+  <lastmod>2026-06-11T00:00:00+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://nexcorelabs.vercel.app/ar/pricing-policy.html</loc>
+  <lastmod>2026-06-11T00:00:00+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
   <loc>https://nexcorelabs.vercel.app/faq.html</loc>
   <lastmod>2026-02-03T18:25:15+00:00</lastmod>
   <priority>0.80</priority>

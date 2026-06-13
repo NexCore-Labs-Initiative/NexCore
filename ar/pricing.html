@@ -685,6 +685,23 @@
             gap: 6px;
         }
         .submit-note i { color: #6ee7f3; }
+        .policy-consent {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            margin: 22px 0 14px;
+            padding: 16px;
+            border: 1px solid rgba(110,231,243,0.22);
+            border-radius: 12px;
+            background: rgba(110,231,243,0.05);
+            color: #cbd5e0;
+            line-height: 1.75;
+            font-size: 13px;
+        }
+        .policy-consent input { width: 18px; height: 18px; margin-top: 3px; accent-color: #6ee7f3; flex: 0 0 auto; }
+        .policy-consent a { color: #6ee7f3; text-decoration: underline; }
+        .policy-consent.invalid { border-color: rgba(255,120,120,0.65); background: rgba(255,120,120,0.07); }
+        .policy-consent-note { min-height: 18px; margin: -7px 0 12px; color: #ff9696; font-size: 12px; }
 
         /* Success State */
         .order-success {
@@ -1016,6 +1033,7 @@
           <a href="releases.html" class="fade" title="الإصدارات والتحديثات"><i class="fa-solid fa-clock-rotate-left"></i> الإصدارات والتحديثات</a>
           <div class="div-menu-line"></div>
           <a href="pricing.html" class="fade mt-0" title="خطط التسعير"><i class="fa-solid fa-tag"></i> التسعير <span class="new-badge">جديد</span></a>
+          <a href="pricing-policy.html" class="fade" title="سياسة التسعير والفوترة"><i class="fa-solid fa-receipt"></i> سياسة التسعير</a>
           <a href="faq.html" class="fade" title="الأسئلة الشائعة والدعم"><i class="fa-solid fa-circle-question"></i> الأسئلة الشائعة</a>
           <a href="how-to-use.html" class="fade" title="كيفية استخدام NexCore Labs"><i class="fa-solid fa-book-open"></i> كيفية الاستخدام</a>
           <a href="terms.html" class="fade" title="شروط الخدمة"><i class="fa-solid fa-file-contract"></i> الشروط</a>
@@ -1030,11 +1048,10 @@
         <section class="pricing-hero">
             <div class="pricing-hero-badge"><i class="fa-solid fa-tag"></i> وصول مرن</div>
             <h1>ابنِ وصولك إلى NexCore <span class="beta-badge"><i class="fa-solid fa-flask"></i> تجريبي</span></h1>
-            <p>لا خطط جامدة. اختر الميزات التي تحتاجها وادفع فقط مقابل ما تستخدمه. جميع الأسعار بالريال العُماني.</p>
-            <div class="beta-banner" id="betaBanner">
-                <i class="fa-solid fa-triangle-exclamation"></i>
-                <span><strong>نظام التسعير هذا في المرحلة التجريبية.</strong> قد تواجه أحياناً أخطاء أو سلوكاً غير متوقع. إذا حدث أي خلل في طلبك، تواصل معنا مباشرة وسنعالجه بسرعة.</span>
-                <button class="beta-banner-close" onclick="document.getElementById('betaBanner').style.display='none'" aria-label="إغلاق"><i class="fa-solid fa-xmark"></i></button>
+            <p>لا خطط جامدة ولا تجديدات مخفية. اختر الميزات التي تحتاجها وشاهد المبلغ الكامل قبل الدفع. جميع الأسعار بالريال العُماني.</p>
+            <div class="beta-banner" id="paymentPauseBanner" role="status">
+                <i class="fa-solid fa-shield-halved"></i>
+                <span><strong>الدفع متوقف مؤقتاً.</strong> نعرض الأسعار للشفافية فقط، ولا تقبل NexCore حالياً PayPal أو التحويل البنكي أو الدفع عبر الهاتف أو أي طلب مدفوع إلى أن تكتمل المراجعة القانونية والتنظيمية. يرجى عدم إرسال أي مبلغ.</span>
             </div>
         </section>
 
@@ -1073,7 +1090,7 @@
                                 <div class="addon-icon"><i class="fa-solid fa-infinity"></i></div>
                                 <div class="addon-info">
                                     <span class="addon-name">وصول مدى الحياة</span>
-                                    <span class="addon-desc">مشروعك لا تنتهي صلاحيته على NexCore</span>
+                                    <span class="addon-desc">لا رسوم تجديد مجدولة؛ يستمر الوصول ما دامت NexCore تشغّل هذه الخدمة</span>
                                 </div>
                                 <span class="addon-lock-badge">مشمول دائماً</span>
                                 <span class="addon-price">٠.٩٥٠ ريال عُماني</span>
@@ -1135,7 +1152,7 @@
                         <i class="fa-solid fa-headset"></i>
                         <div>
                             <h3>مدة الدعم</h3>
-                            <p>إرشاد تقني عبر البريد الإلكتروني وواتساب لمشروعك على NexCore. اختر مدة واحدة.</p>
+                            <p>إرشاد عبر البريد وواتساب لميزات NexCore والمشكلات التي تديرها المنصة. يبدأ الدعم عند تفعيل الوصول.</p>
                         </div>
                     </div>
                     <div class="support-options">
@@ -1218,16 +1235,17 @@
         <section class="order-form-section" id="orderFormSection">
             <div class="order-form-container">
                 <div class="order-form-header">
-                    <h2><i class="fa-solid fa-file-signature"></i> إرسال طلبك</h2>
-                    <p>املأ بياناتك أدناه. ستتم مراجعة طلبك وتفعيله خلال نحو ٤٨ ساعة.</p>
+                    <h2><i class="fa-solid fa-pause"></i> الطلبات المدفوعة لم تُفتح بعد</h2>
+                    <p>نعمل على استكمال المتطلبات القانونية والتنظيمية قبل قبول الأموال، ولذلك لا نجمع حالياً بيانات الدفع أو التحويل.</p>
+                    <a href="index.html#contact" class="btn ghost"><i class="fa-solid fa-paper-plane"></i> اسألنا</a>
                 </div>
 
                 <!-- Order summary -->
-                <div class="order-summary" id="orderSummaryDisplay">
+                <div class="order-summary" id="orderSummaryDisplay" hidden>
                     <div class="order-summary-empty">اختر الميزات أعلاه لعرض ملخص طلبك هنا.</div>
                 </div>
 
-                <form id="orderForm" novalidate>
+                <form id="orderForm" novalidate hidden>
                     <div class="form-row">
                         <div class="form-field">
                             <label for="orderName">الاسم الكامل *</label>
@@ -1263,24 +1281,24 @@
                         <div class="payment-options">
                             <!-- تحويل بنكي -->
                             <label class="payment-option" onclick="onPaymentChange()">
-                                <input type="radio" name="payment" value="bank_transfer" checked>
+                                <input type="radio" name="payment" value="bank_transfer" disabled>
                                 <div class="payment-card">
                                     <div class="payment-icon" style="color:#ffb432;"><i class="fa-solid fa-building-columns"></i></div>
                                     <div class="payment-info">
                                         <span class="payment-name">تحويل بنكي</span>
-                                        <span class="payment-desc">حوّل مباشرة إلى حسابنا في بنك مسقط<br><span style="color:#ffb432;"><i class="fa-solid fa-clock" style="font-size:10px;"></i> يتم التحقق خلال نحو ٤٨ ساعة بعد التحويل</span></span>
+                                        <span class="payment-desc">غير متاح أثناء توقف الدفع. لا تحوّل أي مبلغ باستخدام تفاصيل بنكية قديمة.</span>
                                     </div>
                                     <div class="payment-badge" style="background:rgba(255,180,50,0.12);color:#ffb432;border:1px solid rgba(255,180,50,0.25);">تحقق ~٤٨ ساعة</div>
                                 </div>
                             </label>
                             <!-- PayPal -->
                             <label class="payment-option" onclick="onPaymentChange()">
-                                <input type="radio" name="payment" value="paypal">
+                                <input type="radio" name="payment" value="paypal" disabled>
                                 <div class="payment-card">
                                     <div class="payment-icon" style="color:#0070ba;"><i class="fa-brands fa-paypal"></i></div>
                                     <div class="payment-info">
                                         <span class="payment-name">PayPal</span>
-                                        <span class="payment-desc">ادفع بأمان عبر PayPal بالدولار الأمريكي · ١ ريال عُماني = ٢.٦٠ دولار أمريكي<br><span style="color:#25d366;"><i class="fa-solid fa-bolt" style="font-size:10px;"></i> تفعيل فوري - بدون انتظار</span><br><span style="color:#9aa3b2;font-size:11px;"><i class="fa-solid fa-circle-info" style="font-size:10px;"></i> تُضاف رسوم معالجة بسيطة من PayPal إلى الإجمالي</span></span>
+                                        <span class="payment-desc">غير متاح أثناء توقف الدفع. سيظهر مبلغ الدولار الكامل وأي رسوم معالجة قبل الدفع إذا أعيد فتح صفحة الإتمام.</span>
                                     </div>
                                     <span class="payment-badge instant"><i class="fa-solid fa-bolt"></i> فوري</span>
                                 </div>
@@ -1293,52 +1311,10 @@
 
                         <!-- Bank details card -->
                         <div class="bank-details-card">
-                            <h4><i class="fa-solid fa-building-columns"></i> تفاصيل التحويل البنكي</h4>
-                            <div class="bank-detail-row">
-                                <span class="bank-detail-label">اسم البنك</span>
-                                <span class="bank-detail-value">Bank Muscat</span>
-                            </div>
-                            <div class="bank-detail-row">
-                                <span class="bank-detail-label">اسم الحساب</span>
-                                <span class="bank-detail-value">AL FARIS MUJAHIDHAMOODHILAL AL ZAKW</span>
-                            </div>
-                            <div class="bank-detail-row">
-                                <span class="bank-detail-label">رقم الحساب</span>
-                                <span class="bank-detail-value bank-detail-copy">
-                                    <span id="accNoValue" data-copy-value="0409011343820023">٠٤٠٩٠١١٣٤٣٨٢٠٠٢٣</span>
-                                    <button type="button" class="btn-copy-field" onclick="copyBankField('accNoValue', this)" title="نسخ رقم الحساب"><i class="fa-solid fa-copy"></i></button>
-                                </span>
-                            </div>
-                            <div class="bank-detail-row">
-                                <span class="bank-detail-label">IBAN</span>
-                                <span class="bank-detail-value bank-detail-copy">
-                                    <span id="ibanValue" data-copy-value="OM1402704090113438200 23">OM١٤٠٢٧٠٤٠٩٠١١٣٤٣٨٢٠٠ ٢٣</span>
-                                    <button type="button" class="btn-copy-field" onclick="copyBankField('ibanValue', this)" title="نسخ IBAN"><i class="fa-solid fa-copy"></i></button>
-                                </span>
-                            </div>
-                            <div class="bank-detail-row">
-                                <span class="bank-detail-label">SWIFT / BIC</span>
-                                <span class="bank-detail-value bank-detail-copy">
-                                    <span id="swiftValue">BMUSOMRXXXX</span>
-                                    <button type="button" class="btn-copy-field" onclick="copyBankField('swiftValue', this)" title="نسخ SWIFT"><i class="fa-solid fa-copy"></i></button>
-                                </span>
-                            </div>
-
-                            <!-- Mobile Payment divider -->
-                            <div class="bank-detail-divider">
-                                <span><i class="fa-solid fa-mobile-screen-button"></i> الدفع عبر الهاتف (عُمان)</span>
-                            </div>
-                            <div class="bank-detail-row">
-                                <span class="bank-detail-label">رقم الهاتف</span>
-                                <span class="bank-detail-value bank-detail-copy">
-                                    <span id="mobilePayValue" data-copy-value="+968 93281000">٩٣٢٨١٠٠٠ ٩٦٨+</span>
-                                    <button type="button" class="btn-copy-field" onclick="copyBankField('mobilePayValue', this)" title="نسخ رقم الهاتف"><i class="fa-solid fa-copy"></i></button>
-                                </span>
-                            </div>
-
+                            <h4><i class="fa-solid fa-lock"></i> التحويل البنكي غير متاح</h4>
                             <div class="bank-reference-note">
                                 <i class="fa-solid fa-circle-info"></i>
-                                <span>أدرج <strong>اسمك الكامل وبريدك الإلكتروني</strong> في خانة مرجع/رسالة التحويل.</span>
+                                <span>تم حجب تفاصيل التحويل البنكي والدفع عبر الهاتف أثناء توقف الدفع. لا تستخدم أي تفاصيل محفوظة من صفحة أو رسالة أو صورة قديمة.</span>
                             </div>
                         </div>
 
@@ -1399,6 +1375,19 @@
                         </div>
                     </div><!-- /#bankTransferDetails -->
 
+                    <label class="policy-consent" id="policyConsentWrap">
+                        <input type="checkbox" id="acceptPricingPolicy">
+                        <span>
+                            قرأت وأوافق على
+                            <a href="pricing-policy.html" target="_blank" rel="noopener">سياسة التسعير والفوترة</a>
+                            و<a href="terms.html" target="_blank" rel="noopener">شروط الخدمة</a>.
+                            أفهم أن الوصول مدى الحياة يستمر طوال مدة تشغيل خدمة NexCore ذات الصلة،
+                            وأن أهلية الاسترجاع الاختياري تنتهي عند نشر المشروع، أو تفعيل الوصول أو استخدامه،
+                            أو بدء الإعداد أو المراجعة ذات الأولوية، أو استفادتي من أي ميزة مدفوعة.
+                        </span>
+                    </label>
+                    <div class="policy-consent-note" id="policyConsentNote" role="alert"></div>
+
                     <!-- PayPal Button Container -->
                     <div id="paypalButtonContainer" class="paypal-btn-wrap hidden">
                         <div id="paypalFeeNote" class="paypal-fee-note"></div>
@@ -1436,8 +1425,7 @@
     <footer class="site-footer">
         <div class="container footer-inner">
             <div class="f-left">
-                <a class="paypal" href="https://www.paypal.me/nexcorelabs" target="_blank" rel="noopener" title="بايبال"><i
-                    class="fa-solid fa-heart text-accent"></i> ادعمنا عبر <i class="fa-brands fa-paypal"></i></a>
+                <a class="paypal" href="https://www.paypal.me/nexcorelabs" target="_blank" rel="noopener" title="مساهمة اختيارية عبر PayPal"><i class="fa-solid fa-heart" style="color: #6EE7F3;"></i> مساهمة اختيارية لدعم تطوير المنصة</a>
 
                 <br>
 
@@ -1467,6 +1455,8 @@
         //  Feature Catalog & Bundle Definitions
         // ─────────────────────────────────────────────────────────────────
         const OMR_TO_USD = 2.60;
+        const PRICING_POLICY_VERSION = '2026-06-13';
+        const PAYMENTS_ENABLED = false;
         const ARABIC_DIGITS = ['٠','١','٢','٣','٤','٥','٦','٧','٨','٩'];
         function toArabicDigits(value) {
             return String(value).replace(/\d/g, (digit) => ARABIC_DIGITS[Number(digit)]);
@@ -1485,6 +1475,17 @@
         // Convert USD back to OMR for display
         function convertUsdToOmr(usd) {
             return Math.round(usd / OMR_TO_USD * 1000) / 1000;
+        }
+
+        function ensurePolicyAccepted() {
+            const checkbox = document.getElementById('acceptPricingPolicy');
+            const wrap = document.getElementById('policyConsentWrap');
+            const note = document.getElementById('policyConsentNote');
+            const accepted = checkbox?.checked === true;
+            wrap?.classList.toggle('invalid', !accepted);
+            if (note) note.textContent = accepted ? '' : 'يرجى قراءة سياسة التسعير والفوترة والموافقة عليها قبل المتابعة.';
+            if (!accepted) checkbox?.focus();
+            return accepted;
         }
 
         const FEATURE_CATALOG = {
@@ -1663,6 +1664,17 @@
             const btSection   = document.getElementById('bankTransferDetails');
             const activationNote = document.getElementById('activationNote');
 
+            if (!PAYMENTS_ENABLED) {
+                ppContainer?.classList.add('hidden');
+                submitWrap?.classList.add('hidden');
+                btSection?.classList.add('hidden');
+                document.querySelectorAll('input[name="payment"]').forEach((input) => {
+                    input.checked = false;
+                    input.disabled = true;
+                });
+                return;
+            }
+
             // ── مراجعة أولوية: lock when PayPal, unlock for تحويل بنكي ──
             const priorityLabel = document.getElementById('priorityReviewOption');
             const priorityInput = document.getElementById('priorityReviewInput');
@@ -1722,7 +1734,7 @@
                 el.innerHTML = 'اختر الميزات أعلاه لعرض مبلغ التحويل.';
             } else {
                 const usd = Math.round(total * OMR_TO_USD * 100) / 100;
-                el.innerHTML = `حوّل <span class="bank-amount-omr">${formatOmr(total)}</span> إلى الحساب أعلاه. <span style="font-size:11px;color:#9aa3b2;">&asymp; ${formatUsd(usd)} للمرجع فقط - يرجى الدفع بالريال العُماني.</span>`;
+                el.innerHTML = `الإجمالي النهائي للتحويل البنكي: <span class="bank-amount-omr">${formatOmr(total)}</span>. لا تضيف NexCore رسوماً على التحويل. <span style="font-size:11px;color:#9aa3b2;">&asymp; ${formatUsd(usd)} للمرجع فقط - يرجى الدفع بالريال العُماني.</span>`;
             }
         }
 
@@ -1966,6 +1978,9 @@
                 style: { layout: 'vertical', color: 'blue', shape: 'rect', label: 'pay' },
 
                 async createOrder(data, actions) {
+                    if (!ensurePolicyAccepted()) {
+                        return Promise.reject(new Error('Pricing policy acceptance required'));
+                    }
                     // Validate form fields before opening PayPal popup
                     const nameNote  = document.getElementById('nameNote');
                     const emailNote = document.getElementById('emailNote');
@@ -1990,7 +2005,7 @@
                         const chkData = await chk.json();
                         if (chkData.has_order) {
                             emailNote.textContent = chkData.status === 'active'
-                                ? 'هذا البريد لديه اشتراك نشط بالفعل. سجّل الدخول عبر Google في nexcorelabs.vercel.app/ar/auth.html.'
+                                ? 'هذا البريد لديه وصول نشط إلى NexCore. سجّل الدخول عبر Google في nexcorelabs.vercel.app/ar/auth.html.'
                                 : 'لديك طلب معلق بالفعل لهذا البريد. تحقق من بريدك للحصول على رقم الفاتورة.';
                             emailNote.className = 'field-note err';
                             emailEl.classList.add('invalid');
@@ -2000,7 +2015,7 @@
                     return actions.order.create({
                         purchase_units: [{
                             amount: { value: totalUsd, currency_code: 'USD' },
-                            description: 'اشتراك NexCore Labs',
+                            description: 'طلب وصول NexCore Labs',
                         }],
                     });
                 },
@@ -2023,6 +2038,8 @@
                                 whatsapp_number:   document.getElementById('orderWhatsapp').value.trim() || null,
                                 selected_features: getSelectedFeatures(),
                                 notes:             document.getElementById('orderNotes').value.trim() || null,
+                                accept_pricing_policy: true,
+                                pricing_policy_version: PRICING_POLICY_VERSION,
                             }),
                         });
 
@@ -2044,6 +2061,7 @@
                             total_omr:       totalOmr,
                             total_usd:       totalUsd,
                             payment_method:  'paypal',
+                            pricing_policy_version: PRICING_POLICY_VERSION,
                             auto_activated:  result.auto_activated === true,
                             submitted_at:    new Date().toISOString(),
                         }));
@@ -2178,6 +2196,7 @@
         // ─────────────────────────────────────────────────────────────────
         document.getElementById('orderForm').addEventListener('submit', async (e) => {
             e.preventDefault();
+            if (!PAYMENTS_ENABLED) return;
 
             const nameEl  = document.getElementById('orderName');
             const emailEl = document.getElementById('orderEmail');
@@ -2225,6 +2244,7 @@
             }
 
             const payment = document.querySelector('input[name="payment"]:checked')?.value || 'bank_transfer';
+            if (!ensurePolicyAccepted()) return;
 
             // ── تحويل بنكي extra validation ─────────────────────────────
             if (payment === 'bank_transfer') {
@@ -2278,6 +2298,8 @@
                         receipt_url:          uploadedReceiptUrl || null,
                         bank_transaction_ref: document.getElementById('bankTxRef').value.trim() || null,
                         notes:                document.getElementById('orderNotes').value.trim() || null,
+                        accept_pricing_policy: true,
+                        pricing_policy_version: PRICING_POLICY_VERSION,
                     };
                 } else {
                     // PayPal handled separately via PayPal SDK — this path is a fallback
@@ -2289,6 +2311,8 @@
                         selected_features: features,
                         payment_method:    payment,
                         notes:             document.getElementById('orderNotes').value.trim() || null,
+                        accept_pricing_policy: true,
+                        pricing_policy_version: PRICING_POLICY_VERSION,
                     };
                 }
 
@@ -2315,6 +2339,7 @@
                     total_omr:      totalOmr,
                     total_usd:      totalUsd,
                     payment_method: payment,
+                    pricing_policy_version: PRICING_POLICY_VERSION,
                     auto_activated: false,
                     submitted_at:   new Date().toISOString(),
                 }));
@@ -2333,9 +2358,10 @@
         document.querySelectorAll('input[name="support"], input[name="addon"]').forEach(el => {
             el.addEventListener('change', updateTotal);
         });
+        document.getElementById('acceptPricingPolicy')?.addEventListener('change', ensurePolicyAccepted);
 
         updateTotal();    // initial price bar render
-        onPaymentChange(); // show bank transfer section by default (it's pre-selected)
+        onPaymentChange();
 
         // Year
         const setArabicFooterYear = () => {

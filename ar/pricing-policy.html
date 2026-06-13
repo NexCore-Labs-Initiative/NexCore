@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NexCore Labs | سياسة التسعير والفوترة</title>
+  <meta name="description" content="قواعد واضحة للتسعير والدفع والدعم والاسترجاع في NexCore Labs.">
+  <link rel="canonical" href="https://nexcorelabs.vercel.app/ar/pricing-policy">
+  <link rel="alternate" hreflang="en" href="../pricing-policy.html">
+  <link rel="alternate" hreflang="ar" href="pricing-policy.html">
+  <link rel="stylesheet" href="../assets/css/cookies.css">
+  <link rel="stylesheet" href="../assets/css/admin-button.css">
+  <link rel="stylesheet" href="../assets/css/unminified-css.css">
+  <link rel="stylesheet" href="../assets/css/arabic.css">
+  <link rel="manifest" href="../manifest.json">
+  <link rel="icon" href="../assets/images/nexcore-icon.png" type="image/png">
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+  <style>
+    .policy-shell { max-width: 900px; margin: 60px auto 0; padding: 40px 20px; }
+    .policy-hero { text-align: center; margin: 40px 0; padding-top: 40px; }
+    .policy-hero h1 { margin: 10px 0; font-size: clamp(2rem, 5vw, 2.8rem); }
+    .policy-hero p { max-width: 720px; margin: 0 auto; color: #cbd5e0; line-height: 1.9; }
+    .policy-badge { display: inline-flex; gap: 8px; align-items: center; padding: 7px 13px; border: 1px solid rgba(110,231,243,.35); border-radius: 999px; color: #6ee7f3; background: rgba(110,231,243,.07); }
+    .policy-meta { margin: 22px auto 0; max-width: 700px; padding: 14px 18px; border-radius: 12px; background: rgba(255,255,255,.04); color: #9aa3b2; font-size: 14px; }
+    .trust-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 28px 0; }
+    .trust-card { border: 1px solid rgba(110,231,243,.16); background: rgba(10,11,28,.62); border-radius: 12px; backdrop-filter: blur(3px); }
+    .trust-card { padding: 20px; }
+    .trust-card i { color: #6ee7f3; font-size: 22px; }
+    .trust-card h2 { font-size: 17px; margin: 12px 0 7px; }
+    .trust-card p { margin: 0; color: #b8c3d1; line-height: 1.8; font-size: 14px; }
+    .policy-section { margin-bottom: 50px; scroll-margin-top: 80px; }
+    .policy-section h2 { color: #6ee7f3; margin: 0 0 20px; padding-bottom: 15px; border-bottom: 2px solid rgba(110,231,243,.2); font-size: 2rem; }
+    .policy-section h3 { margin: 20px 0 8px; font-size: 17px; }
+    .policy-section p, .policy-section li { color: #cbd5e0; line-height: 1.9; }
+    .policy-section ul { padding-right: 22px; }
+    .price-table-wrap { width: 100%; margin-top: 14px; overflow-x: auto; border: 1px solid rgba(255,255,255,.08); border-radius: 12px; background: rgba(255,255,255,.025); }
+    .price-table { width: 100%; min-width: 680px; border-collapse: collapse; }
+    .price-table th, .price-table td { padding: 12px; border-bottom: 1px solid rgba(255,255,255,.08); text-align: right; }
+    .price-table th { color: #6ee7f3; }
+    .price-table td:last-child { white-space: nowrap; font-weight: 700; color: #eaf6fb; }
+    .plain-note { padding: 20px; margin: 20px 0; border-right: 4px solid #6ee7f3; background: rgba(122,217,234,.1); border-radius: 8px; color: #dce8ef; line-height: 1.8; backdrop-filter: blur(3px); }
+    .policy-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 28px; }
+    .change-log { font-size: 14px; }
+    @media (max-width: 760px) {
+      .trust-grid { grid-template-columns: 1fr; }
+      .policy-shell { padding: 30px 16px; }
+      .policy-section h2 { font-size: 1.65rem; }
+      .price-table { font-size: 13px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="background">
+    <img class="logo-img" id="logoImg" src="../assets/images/nexcore-logo.webp" alt="شعار NexCore Labs">
+    <div id="spotLight" class="spot-light"></div>
+  </div>
+
+  <header class="navbar">
+    <div class="nav-container">
+      <div class="logo">
+        <h1 id="logo"><a href="index.html" style="text-decoration:none;color:inherit;">NexCore <span>Labs</span></a></h1>
+      </div>
+      <div class="dropdown">
+        <div class="core-menu" id="coreMenu" aria-label="فتح القائمة" title="القائمة">
+          <span class="dot" aria-hidden="true"></span><span class="dot" aria-hidden="true"></span>
+          <span class="dot" aria-hidden="true"></span><span class="dot" aria-hidden="true"></span>
+          <span class="dot" aria-hidden="true"></span><span class="dot" aria-hidden="true"></span>
+        </div>
+        <div id="myDropdown" class="dropdown-content">
+          <a href="../pricing-policy.html" class="lang-switch-pill" title="View English site">
+            <div class="pill-slider"></div>
+            <span class="pill-text en-text"><img src="../assets/images/uk.webp" alt="United Kingdom flag"> EN</span>
+            <span class="pill-text ar-text"><img src="../assets/images/oman.webp" alt="علم عُمان"> ع</span>
+          </a>
+          <a href="auth.html" class="magic-signup fade" title="تسجيل الدخول إلى حسابك"><i class="fa-solid fa-key"></i> الوصول إلى النواة</a>
+          <input type="search" placeholder="ابحث..." id="myInput" onkeyup="filterFunction()" title="بحث...">
+          <a href="hub.html" class="fade" title="مركز NexCore Labs"><i class="fa-solid fa-house"></i> المركز</a>
+          <a href="hub.html#projects" class="fade" title="المشاريع"><i class="fa-solid fa-diagram-project"></i> المشاريع</a>
+          <a href="ai-chat.html" class="fade" title="NexCore AI"><i class="fa-solid fa-wand-magic-sparkles"></i> NexCore AI</a>
+          <div class="div-menu-line"></div>
+          <a href="index.html#tools" class="mt-0" title="الأدوات والأنظمة"><i class="fa-solid fa-screwdriver-wrench"></i> الأدوات والأنظمة</a>
+          <a href="index.html#about" title="حول NexCore Labs"><i class="fa-solid fa-circle-info"></i> من نحن</a>
+          <a href="index.html#team" title="فريق NexCore Labs"><i class="fa-solid fa-users"></i> الفريق</a>
+          <a href="index.html#contact" title="اتصل بنا"><i class="fa-solid fa-paper-plane"></i> اتصل بنا</a>
+          <div class="div-menu-line"></div>
+          <a href="roadmap.html" class="fade mt-0" title="لوحة الميزات"><i class="fa-solid fa-route"></i> لوحة الميزات</a>
+          <a href="releases.html" class="fade" title="الإصدارات والتحديثات"><i class="fa-solid fa-clock-rotate-left"></i> الإصدارات والتحديثات</a>
+          <div class="div-menu-line"></div>
+          <a href="pricing.html" class="fade mt-0" title="خطط التسعير"><i class="fa-solid fa-tag"></i> التسعير <span class="new-badge">جديد</span></a>
+          <a href="pricing-policy.html" class="fade" title="سياسة التسعير والفوترة"><i class="fa-solid fa-receipt"></i> سياسة التسعير</a>
+          <a href="faq.html" class="fade" title="الأسئلة الشائعة"><i class="fa-solid fa-circle-question"></i> الأسئلة الشائعة</a>
+          <a href="how-to-use.html" class="fade" title="كيفية الاستخدام"><i class="fa-solid fa-book-open"></i> كيفية الاستخدام</a>
+          <a href="terms.html" class="fade" title="شروط الخدمة"><i class="fa-solid fa-file-contract"></i> الشروط</a>
+          <a href="privacy-policy.html" class="fade" title="سياسة الخصوصية"><i class="fa-solid fa-shield-halved"></i> الخصوصية</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="policy-shell">
+    <section class="policy-hero">
+      <span class="policy-badge"><i class="fa-solid fa-handshake"></i> اتفاق واضح قبل الدفع</span>
+      <h1>سياسة التسعير والفوترة</h1>
+      <p>نريدك أن تعرف بالضبط ما الذي تشتريه، وكم سيكلفك، وماذا سيحدث بعد ذلك. لا رسوم دورية مخفية ولا وعود لا نستطيع الوفاء بها بمسؤولية.</p>
+      <div class="policy-meta">
+        إصدار السياسة: <strong>2026-06-13</strong> &nbsp;|&nbsp;
+        سارية من: <strong>13 يونيو 2026</strong> &nbsp;|&nbsp;
+        آخر تحديث: <strong>13 يونيو 2026</strong>
+      </div>
+    </section>
+
+    <p class="plain-note"><strong>الحالة الحالية:</strong> الطلبات المدفوعة وجميع وسائل الدفع متوقفة مؤقتاً إلى أن تكمل NexCore مراجعتها القانونية والتنظيمية. نعرض الأسعار للشفافية فقط. لا ترسل تحويلاً بنكياً أو دفعاً عبر الهاتف أو PayPal أو أي مبلغ آخر حتى إزالة هذا التنبيه.</p>
+
+    <nav class="table-of-contents" aria-label="محتويات سياسة التسعير">
+      <h2><i class="fa-solid fa-list"></i> جدول المحتويات</h2>
+      <ul>
+        <li><a href="#pricing">1. كيف يعمل التسعير</a></li>
+        <li><a href="#payment">2. الدفع والتفعيل</a></li>
+        <li><a href="#support">3. الدعم</a></li>
+        <li><a href="#refunds">4. الاسترجاع</a></li>
+        <li><a href="#changes">5. التغييرات وإيقاف الخدمة</a></li>
+      </ul>
+    </nav>
+    <section class="trust-grid" aria-label="التزاماتنا في التسعير">
+      <article class="trust-card">
+        <i class="fa-solid fa-receipt"></i>
+        <h2>السعر الكامل قبل الدفع</h2>
+        <p>نعرض مبلغ التحويل البنكي أو إجمالي PayPal كاملاً قبل المتابعة.</p>
+      </article>
+      <article class="trust-card">
+        <i class="fa-solid fa-rotate-left"></i>
+        <h2>فترة استرجاع عادلة</h2>
+        <p>يمكنك طلب الاسترجاع خلال سبعة أيام فقط قبل بدء تنفيذ الخدمة.</p>
+      </article>
+      <article class="trust-card">
+        <i class="fa-solid fa-comments"></i>
+        <h2>حدود دعم واضحة</h2>
+        <p>نوضح ما يشمله الدعم، ومتى يبدأ، وما يحتاج إلى اتفاق منفصل.</p>
+      </article>
+    </section>
+
+    <section class="policy-section" id="pricing">
+      <h2>1. كيف يعمل التسعير</h2>
+      <p>يحصل حاملو بريد جامعة السلطان قابوس المؤهلون على وصول مجاني وفق شروط الأهلية. NexCore مبادرة طلابية مستقلة، ولا تديرها أو ترعاها أو تعتمدها أو ترخصها جامعة السلطان قابوس ما لم نعلن خلاف ذلك بعد الحصول على موافقة كتابية. يمكن للمستخدمين المعتمدين من خارج الجامعة إنشاء طلب وصول برسوم تدفع مرة واحدة بعد إعادة فتح الطلبات المدفوعة. الدعم اختياري ويستمر فقط للمدة المختارة.</p>
+      <div class="price-table-wrap" role="region" aria-label="أسعار NexCore" tabindex="0">
+      <table class="price-table">
+        <thead><tr><th>العنصر</th><th>ما يشمله</th><th>السعر</th></tr></thead>
+        <tbody>
+          <tr><td>الوصول مدى الحياة</td><td>الوصول واستضافة المشروع طوال مدة تشغيل خدمة NexCore ذات الصلة.</td><td>0.950 ر.ع</td></tr>
+          <tr><td>المراجعة ذات الأولوية</td><td>مراجعة طلب التحويل البنكي للنشر خلال 24 ساعة بعد التحقق من الدفع واستلام طلب مكتمل ومؤهل.</td><td>0.300 ر.ع</td></tr>
+          <tr><td>دعم: أسبوع</td><td rowspan="5">إرشاد عبر البريد وWhatsApp لميزات NexCore والمشكلات التي تديرها المنصة.</td><td>0.250 ر.ع</td></tr>
+          <tr><td>دعم: شهر</td><td>0.500 ر.ع</td></tr>
+          <tr><td>دعم: 3 أشهر</td><td>1.000 ر.ع</td></tr>
+          <tr><td>دعم: 6 أشهر</td><td>1.500 ر.ع</td></tr>
+          <tr><td>دعم: سنة</td><td>2.500 ر.ع</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p class="plain-note"><strong>معنى "الوصول مدى الحياة":</strong> لا توجد له رسوم تجديد مجدولة، ويستمر ما دامت NexCore تشغّل الخدمة ذات الصلة. لا يعني ذلك التزام NexCore أو مزود الاستضافة بالعمل إلى الأبد.</p>
+    </section>
+
+    <section class="policy-section" id="payment">
+      <h2>2. الدفع والتفعيل</h2>
+      <p>توضح هذه القواعد طريقة الدفع بعد إعادة فتح الطلبات المدفوعة. ستعرض صفحة الدفع المبلغ الكامل المستحق قبل تأكيد العميل للدفع.</p>
+      <ul>
+        <li><strong>التحويل البنكي:</strong> ادفع إجمالي الريال العماني الظاهر عند الدفع. نتحقق عادة من التحويلات المكتملة خلال نحو 48 ساعة.</li>
+        <li><strong>PayPal:</strong> يتم الدفع بالدولار وفق سعر الصرف والإجمالي الظاهرين في صفحة الدفع عند إتمام العملية. قد يكون التقدير المضبوط 1 ر.ع = 2.60 دولار، لكن المبلغ المؤكد عند الدفع هو المعتمد. نعرض السعر الأساسي ورسوم المعالجة والإجمالي الكامل قبل الدفع.</li>
+        <li><strong>الضرائب:</strong> الأسعار المعروضة هي الإجمالي على العميل ما لم تكن NexCore ملزمة قانوناً بتحصيل ضريبة. سنعرض أي ضريبة مطلوبة قبل الدفع.</li>
+        <li><strong>حماية السعر:</strong> لن يتغير السعر الذي يحسبه الخادم لطلبك المرسل بسبب تعديل لاحق للأسعار العامة.</li>
+      </ul>
+    </section>
+
+    <section class="policy-section" id="support">
+      <h2>3. الدعم</h2>
+      <p>تبدأ مدة الدعم عند تفعيل الوصول: فور تأكيد دفع PayPal، أو عند اعتماد طلب التحويل البنكي.</p>
+      <p>يشمل الدعم الإرشاد وإصلاح وظائف NexCore التي تديرها المنصة والمتعلقة بمشروعك. لا يشمل تطويراً مخصصاً غير محدود أو إعادة التصميم أو رسوم خدمات خارجية أو إصلاح كود لا تديره NexCore، إلا باتفاق مكتوب منفصل.</p>
+      <p>نستهدف الرد خلال 48 ساعة. هذا هدف للخدمة وليس ضماناً لمدة حل المشكلة. نعطي الأولوية لحوادث الأمان أو المشكلات التي تؤثر في المنصة بأكملها.</p>
+    </section>
+
+    <section class="policy-section" id="refunds">
+      <h2>4. الاسترجاع</h2>
+      <ul>
+        <li>أرسل الطلب خلال سبعة أيام تقويمية من تأكيد الدفع.</li>
+        <li>لا يحق للعميل طلب استرجاع اختياري بعد بدء تنفيذ الخدمة. ويبدأ التنفيذ عند نشر المشروع، أو تفعيل الوصول أو استخدامه، أو بدء الإعداد أو المراجعة ذات الأولوية، أو استفادة العميل من أي ميزة مدفوعة.</li>
+        <li>إذا تعذر على NexCore تقديم خدمة مدفوعة بسبب إخفاق من جانبنا، سنقدم استرجاعاً كاملاً أو حلاً آخر نتفق عليه معك.</li>
+        <li>قد نخصم رسوم معالج الدفع التي لم تُعد إلى NexCore من الاسترجاع الاختياري، وسنوضح الخصم لك.</li>
+        <li>لا تحد هذه السياسة من الحقوق التي لا يجوز استبعادها قانوناً بموجب أنظمة حماية المستهلك المعمول بها.</li>
+      </ul>
+      <p class="plain-note">لطلب الاسترجاع، راسل <a href="mailto:nexcorelabs@outlook.com">nexcorelabs@outlook.com</a> أو تواصل عبر WhatsApp على <a href="https://wa.me/96893281000">+968 93281000</a>. أرفق رقم الفاتورة والبريد المستخدم في الطلب.</p>
+    </section>
+
+    <section class="policy-section" id="changes">
+      <h2>5. التغييرات وإيقاف الخدمة</h2>
+      <p>قد نغير أسعار الطلبات المستقبلية، لكننا لن نرفع سعر طلب مكتمل بأثر رجعي. إذا خططت NexCore لإيقاف خدمة الاستضافة ذات الصلة، فسنقدم إشعاراً معقولاً حيثما أمكن، ونوضح خيارات التصدير أو النقل أو الرصيد أو الاسترجاع وفق الظروف والقانون المعمول به.</p>
+      <h3>سجل تغييرات السياسة</h3>
+      <p class="change-log"><strong>2026-06-13:</strong> إيقاف طلبات الخدمات المدفوعة مؤقتاً، وتوضيح استقلال NexCore، وسعر الصرف عند الدفع، والوقت الذي تنتهي فيه أهلية الاسترجاع الاختياري.</p>
+      <p class="change-log"><strong>2026-06-11:</strong> أول سياسة مبنية على الثقة، وتوضح السعر الكامل والوصول مدى الحياة وحدود الدعم والتفعيل والاسترجاع والموافقة على السياسة.</p>
+    </section>
+
+    <div class="policy-actions">
+      <a href="pricing.html" class="btn primary"><i class="fa-solid fa-tag"></i> شاهد الأسعار</a>
+      <a href="terms.html" class="btn ghost"><i class="fa-solid fa-file-contract"></i> اقرأ الشروط</a>
+      <a href="index.html#contact" class="btn ghost"><i class="fa-solid fa-paper-plane"></i> اسألنا</a>
+    </div>
+
+    <div class="nexcore-sign">
+      <img id="nexcoreSign" src="../assets/images/nexcore-word.webp" alt="NexCore Labs">
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="f-left">
+        <a class="paypal" href="https://www.paypal.me/nexcorelabs" target="_blank" rel="noopener" title="مساهمة اختيارية عبر PayPal"><i class="fa-solid fa-heart" style="color:#6EE7F3;"></i> مساهمة اختيارية لدعم تطوير المنصة</a>
+        <br>
+        <small title="جميع الحقوق محفوظة">NexCore Labs © <span id="year"></span> <span id="splitter">|</span>
+          <a href="https://github.com/NexCoreLabs/NexCore/blob/main/LICENSE" target="_blank" rel="noopener" class="license-link"><i class="fa-solid fa-scale-balanced"></i> رخصة MIT</a>
+        </small>
+      </div>
+      <div class="f-right footer-line"></div>
+    </div>
+  </footer>
+  <script src="../assets/js/script.js"></script>
+  <script src="../assets/js/supabase-client.js"></script>
+  <script src="../assets/js/auth-ui-db.js"></script>
+  <script src="../version.js"></script>
+  <script src="../assets/js/cookies.js" defer></script>
+</body>
+</html>

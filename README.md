@@ -1,19 +1,20 @@
 # NexCore Labs 🌐
 
-> **Bringing projects to life online — making every idea count.**
+> **Empower our SQU Community to do more.**
 
-NexCore Labs is a creative web development and innovation initiative founded in 2025 at Sultan Qaboos University.  
-We provide professional digital solutions and showcase platforms for student-led projects, empowering teams to highlight their core ideas and contributions effectively.
+NexCore Labs is an independent, student-led initiative founded in 2025 by students from Sultan Qaboos University.
+
+We bring together useful tools, shared knowledge, project visibility, and collaboration to help the SQU community achieve more. NexCore is not operated, sponsored, or endorsed by the university.
 
 ---
 
 ## 🚀 Mission
 
-To bring projects to life online, transforming every idea into an impactful digital experience.
+To empower our SQU community to do more.
 
 ## 🌍 Vision
 
-To become the go-to hub for showcasing innovation, connecting creators and audiences worldwide.
+To become a trusted student-led platform where the SQU community can discover tools, share work, collaborate, and move ideas forward.
 
 ---
 

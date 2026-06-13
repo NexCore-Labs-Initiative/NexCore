@@ -23,31 +23,15 @@
 
 const nodemailer = require("nodemailer");
 const { getSupabaseAdmin } = require("../lib/supabaseAdmin");
+const {
+  PRICING_POLICY_VERSION,
+  calcPayPalUsd,
+  validateAndPriceFeatures,
+  validatePaymentsEnabled,
+  validatePolicyAcceptance,
+} = require("../lib/pricingPolicy");
 
 // ── Constants ─────────────────────────────────────────────────────────────────
-
-const OMR_TO_USD = 2.60;
-
-// PayPal processing fee gross-up — must match pricing.html
-const PAYPAL_FEE_RATE  = 0.0349; // 3.49%
-const PAYPAL_FEE_FIXED = 0.49;   // $0.49 fixed
-
-function calcPayPalUsd(baseUsd) {
-  return Math.ceil(((baseUsd + PAYPAL_FEE_FIXED) / (1 - PAYPAL_FEE_RATE)) * 100) / 100;
-}
-
-const FEATURE_CATALOG = {
-  support_1week:  { label: "Support — 1 Week",    price: 0.250 },
-  support_1month: { label: "Support — 1 Month",   price: 0.500 },
-  support_3months:{ label: "Support — 3 Months",  price: 1.000 },
-  support_6months:{ label: "Support — 6 Months",  price: 1.500 },
-  support_1year:  { label: "Support — 1 Year",    price: 2.500 },
-  lifetime:       { label: "Lifetime Access",     price: 0.950 },
-  setup:          { label: "Professional Setup",  price: 0.450 },
-  priority:       { label: "Priority Review",     price: 0.300 },
-  spotlight:      { label: "Featured Spotlight",  price: 0.750 },
-  badge:          { label: "Custom Badge",        price: 0.200 },
-};
 
 // ── PayPal helpers ────────────────────────────────────────────────────────────
 
@@ -139,12 +123,12 @@ function buildActivationEmail(billId, name, features, totalOmr, totalUsd, paypal
 
     <div style="text-align:center;margin-bottom:32px;">
       <h1 style="color:#6ee7f3;font-size:26px;margin:0;letter-spacing:-0.5px;">NexCore Labs</h1>
-      <p style="color:#9aa3b2;margin:6px 0 0;font-size:14px;">Subscription Activated ✅</p>
+      <p style="color:#9aa3b2;margin:6px 0 0;font-size:14px;">Access Activated</p>
     </div>
 
     <div style="background:rgba(110,231,243,0.04);border:1px solid rgba(110,231,243,0.18);border-radius:14px;padding:28px;">
       <p style="margin:0 0 16px;font-size:16px;">Hi <strong>${name}</strong>,</p>
-      <p style="margin:0 0 20px;color:#cbd5e0;">Your PayPal payment was confirmed and your NexCore subscription is now <strong style="color:#6ee7f3;">active</strong>!</p>
+      <p style="margin:0 0 20px;color:#cbd5e0;">Your PayPal payment was confirmed and your NexCore access is now <strong style="color:#6ee7f3;">active</strong>.</p>
 
       <div style="background:rgba(110,231,243,0.08);border:1px solid rgba(110,231,243,0.3);border-radius:10px;padding:18px;margin-bottom:20px;text-align:center;">
         <p style="margin:0;color:#9aa3b2;font-size:12px;text-transform:uppercase;letter-spacing:1px;">Your Bill ID</p>
@@ -220,6 +204,9 @@ module.exports = async (req, res) => {
   if (req.method === "OPTIONS") return res.status(200).end();
   if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed." });
 
+  const paymentStatusError = validatePaymentsEnabled();
+  if (paymentStatusError) return res.status(503).json({ error: paymentStatusError });
+
   const {
     paypal_order_id,
     user_name,
@@ -227,6 +214,8 @@ module.exports = async (req, res) => {
     whatsapp_number,
     selected_features,
     notes,
+    accept_pricing_policy,
+    pricing_policy_version,
   } = req.body || {};
 
   // ── Input validation ────────────────────────────────────────────────────────
@@ -244,24 +233,15 @@ module.exports = async (req, res) => {
   if (!Array.isArray(selected_features) || selected_features.length === 0)
     return res.status(400).json({ error: "At least one feature must be selected." });
 
+  const policyError = validatePolicyAcceptance(accept_pricing_policy, pricing_policy_version);
+  if (policyError) return res.status(400).json({ error: policyError });
+
   // ── Validate features & compute expected total ──────────────────────────────
-  const validatedFeatures = [];
-  let computedTotal = 0;
-
-  for (const f of selected_features) {
-    const item = FEATURE_CATALOG[f.id];
-    if (!item) return res.status(400).json({ error: `Unknown feature: ${f.id}` });
-    validatedFeatures.push({ id: f.id, label: item.label, price: item.price });
-    computedTotal += item.price;
-  }
-
-  const supportCount = validatedFeatures.filter((f) => f.id.startsWith("support_")).length;
-  if (supportCount > 1)
-    return res.status(400).json({ error: "Only one support duration can be selected." });
-
-  computedTotal = Math.round(computedTotal * 1000) / 1000;
-  
-  const baseUsd = Math.round(computedTotal * OMR_TO_USD * 100) / 100;
+  const pricedOrder = validateAndPriceFeatures(selected_features, "paypal");
+  if (pricedOrder.error) return res.status(400).json({ error: pricedOrder.error });
+  const validatedFeatures = pricedOrder.features;
+  const computedTotal = pricedOrder.totalOmr;
+  const baseUsd = pricedOrder.baseUsd;
   const expectedUsd = calcPayPalUsd(baseUsd);
 
   // ── Duplicate order check ───────────────────────────────────────────────────
@@ -278,7 +258,7 @@ module.exports = async (req, res) => {
   if (existingOrder) {
     const msg =
       existingOrder.status === "active"
-        ? `This email already has an active NexCore subscription. Sign in at nexcorelabs.vercel.app/auth with your Google account.`
+        ? `This email already has active NexCore access. Sign in at nexcorelabs.vercel.app/auth with your Google account.`
         : `You already have a pending order (${existingOrder.bill_id}). Check your inbox for the confirmation email.`;
     return res.status(409).json({ error: msg });
   }
@@ -342,6 +322,8 @@ module.exports = async (req, res) => {
     status:            "active",
     activated_at:      new Date().toISOString(),
     notes:             notes ? String(notes).trim() : null,
+    pricing_policy_version: PRICING_POLICY_VERSION,
+    pricing_policy_accepted_at: new Date().toISOString(),
   });
 
   if (dbError) {
@@ -365,7 +347,7 @@ module.exports = async (req, res) => {
       expectedUsd,
       String(paypal_order_id).trim()
     );
-    await sendEmail(email, `🎉 Your NexCore Subscription is Active — Bill #${billId}`, html);
+    await sendEmail(email, `Your NexCore Access is Active - Bill #${billId}`, html);
   } catch (emailErr) {
     console.error("Email send error:", emailErr);
   }

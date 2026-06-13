@@ -1,18 +1,20 @@
 {
   "name": "nexcore",
   "version": "2.9.1",
-  "description": "> **Bringing projects to life online — making every idea count.**",
+  "description": "Empower our SQU Community to do more.",
   "main": "service-worker.js",
   "directories": {
     "lib": "lib"
   },
   "scripts": {
-    "test": "npm run release:test",
+    "test": "npm run release:test && npm run pricing:test && npm run branding:test",
     "release:draft": "node scripts/releases/draft.js",
     "release:generate": "node scripts/releases/generate.js",
     "release:validate": "node scripts/releases/validate.js",
     "release:check": "node scripts/releases/check.js",
-    "release:test": "node scripts/releases/test.js"
+    "release:test": "node scripts/releases/test.js",
+    "pricing:test": "node scripts/pricing-policy-test.js",
+    "branding:test": "node scripts/branding-test.js"
   },
   "repository": {
     "type": "git",

@@ -541,10 +541,10 @@
             <img class="por-logo" src="assets/images/nexcore-logo.webp" alt="NexCore Labs logo" width="42" height="42">
             <p class="por-company">Receipt</p>
             <div class="por-subtitle">
-                <span>NexCore Labs Subscription</span>
+                <span>NexCore Labs Access Order</span>
                 <span id="printDateLabel"></span>
             </div>
-            <p class="por-note">We received your NexCore Labs subscription order. This receipt is formatted for printing or saving as a PDF.</p>
+            <p class="por-note">We received your NexCore Labs access order. This receipt is formatted for printing or saving as a PDF.</p>
         </div>
 
         <div class="confirm-wrap" id="confirmWrap">
@@ -623,11 +623,11 @@
 
             // ── Header ────────────────────────────────────────────────────
             const headerIcon  = isPayPalActive ? 'fa-circle-check paypal-active' : 'fa-circle-check success';
-            const headerTitle = isPayPalActive  ? '🎉 Subscription Activated!'
+            const headerTitle = isPayPalActive  ? '🎉 Access Activated!'
                               : isBankTransfer  ? 'Transfer Submitted!'
                               : 'Order Submitted!';
             const headerSub   = isPayPalActive
-                ? 'Your PayPal payment is confirmed and your subscription is now active.'
+                ? 'Your PayPal payment is confirmed and your NexCore access is now active.'
                 : isBankTransfer
                 ? 'Your bank transfer details have been received and are awaiting verification.'
                 : 'Your order has been received. Check the instructions below to complete payment.';
@@ -636,7 +636,7 @@
             const paypalBlock = isPayPalActive ? `
                 <div class="paypal-activated-banner">
                     <div class="banner-icon"><i class="fa-solid fa-shield-check"></i></div>
-                    <h2>Your Subscription is Active</h2>
+                    <h2>Your NexCore Access is Active</h2>
                     <p>
                         Your email has been added to the NexCore access list.<br>
                         Sign in now using your Google account to access your dashboard.
@@ -657,7 +657,7 @@
                         <strong style="color:#ffb432;">pending verification</strong>.
                     </p>
                     <p>
-                        Our team will verify your transfer and activate your subscription within <strong>approximately 48 hours</strong>.
+                        Our team will verify your transfer and activate your access within <strong>approximately 48 hours</strong>.
                         A confirmation email has been sent to <strong style="color:#eaf6fb;">${escHtml(order.user_email)}</strong>.
                     </p>
                     <p style="font-size:13px;color:#9aa3b2;">
@@ -683,6 +683,7 @@
                     <div class="meta-row"><span class="meta-label">Name</span><span class="meta-value">${escHtml(order.user_name || '—')}</span></div>
                     <div class="meta-row"><span class="meta-label">Email</span><span class="meta-value">${escHtml(order.user_email)}</span></div>
                     <div class="meta-row"><span class="meta-label">Payment</span><span class="meta-value">${escHtml(paymentLabel)}</span></div>
+                    ${order.pricing_policy_version ? `<div class="meta-row"><span class="meta-label">Pricing Policy</span><span class="meta-value"><a href="/pricing-policy" target="_blank" rel="noopener">Version ${escHtml(order.pricing_policy_version)}</a></span></div>` : ''}
                     ${metaDate ? `<div class="meta-row"><span class="meta-label">Submitted</span><span class="meta-value">${metaDate}</span></div>` : ''}
 
                     <div class="features-section">

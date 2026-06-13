@@ -12,16 +12,16 @@
 
   <title>ذكاء NexCore AI - اسأل أي شيء</title>
 
-  <meta name="description" content="تحدث مع NexCore AI واسأل عن المنصة ومشاريع الطلاب.">
+  <meta name="description" content="تحدث مع NexCore AI عن المنصة والأدوات والخدمات وموارد مجتمع جامعة السلطان قابوس والمشاريع المنشورة.">
   <meta property="og:url" content="https://nexcorelabs.vercel.app/ar/ai-chat.html">
   <meta property="og:type" content="website">
   <meta property="og:title" content="ذكاء NexCore AI - اسأل أي شيء">
-  <meta property="og:description" content="تحدث مع NexCore AI واسأل عن المنصة ومشاريع الطلاب.">
+  <meta property="og:description" content="اسأل NexCore AI عن أدوات المنصة وخدماتها وموارد مجتمع جامعة السلطان قابوس والمشاريع المنشورة.">
   <meta name="twitter:card" content="summary_large_image">
   <meta property="twitter:domain" content="nexcorelabs.vercel.app">
   <meta property="twitter:url" content="https://nexcorelabs.vercel.app/ar/ai-chat.html">
   <meta name="twitter:title" content="ذكاء NexCore AI - اسأل أي شيء">
-  <meta name="twitter:description" content="تحدث مع NexCore AI واسأل عن المنصة ومشاريع الطلاب.">
+  <meta name="twitter:description" content="اسأل NexCore AI عن أدوات المنصة وخدماتها وموارد مجتمع جامعة السلطان قابوس والمشاريع المنشورة.">
 
   <link rel="stylesheet" href="../assets/css/unminified-css.css">
 
@@ -699,7 +699,7 @@
       <!-- ── Page header ─────────────────────────────────────── -->
       <div class="chat-page-header reveal">
         <h1>ذكاء NexCore AI</h1>
-        <p>اسألني أي شيء عن NexCore Labs ومشاريعها.</p>
+        <p>اسأل عن NexCore Labs وأدواتها وخدماتها وموارد المجتمع والمشاريع المنشورة.</p>
       </div>
 
       <!-- ── Chat card ───────────────────────────────────────── -->
@@ -753,7 +753,8 @@
 
       <!-- ── Capability chips ────────────────────────────────── -->
       <div class="chat-capabilities reveal">
-        <span class="chat-cap"><i class="fa-solid fa-diagram-project"></i> أسئلة وأجوبة مشاريع الطلاب</span>
+        <span class="chat-cap"><i class="fa-solid fa-users"></i> موارد مجتمع جامعة السلطان قابوس</span>
+        <span class="chat-cap"><i class="fa-solid fa-diagram-project"></i> أسئلة وأجوبة المشاريع المنشورة</span>
         <span class="chat-cap"><i class="fa-solid fa-circle-info"></i> مساعدة منصة NexCore</span>
       </div>
 
@@ -787,8 +788,7 @@
   <footer class="site-footer">
     <div class="container footer-inner">
       <div class="f-left">
-          <a class="paypal" href="https://www.paypal.me/nexcorelabs" target="_blank" rel="noopener" title="بايبال"><i
-              class="fa-solid fa-heart text-accent"></i> ادعمنا عبر <i class="fa-brands fa-paypal"></i></a>
+          <a class="paypal" href="https://www.paypal.me/nexcorelabs" target="_blank" rel="noopener" title="مساهمة اختيارية عبر PayPal"><i class="fa-solid fa-heart" style="color: #6EE7F3;"></i> مساهمة اختيارية لدعم تطوير المنصة</a>
 
           <br>
 
@@ -1304,16 +1304,13 @@
         const bubble = document.createElement('div');
         bubble.className = 'pmsg-bubble pmsg-support-bubble';
         bubble.innerHTML = renderMarkdown(
-          'نفدت أرصدة الذكاء الاصطناعي لدينا - نحتاج إلى القليل من الدعم لإبقاء الخدمة تعمل. ♥\n\n' +
-          'إذا كانت NexCore مفيدة لك، ففكر في دعمنا حتى يبقى الذكاء الاصطناعي متاحًا للجميع.'
+          'أرصدة الذكاء الاصطناعي غير متاحة مؤقتاً. يرجى المحاولة لاحقاً.'
         );
 
         const btn = document.createElement('a');
         btn.className = 'pmsg-support-btn';
-        btn.href = 'https://www.paypal.me/nexcorelabs';
-        btn.target = '_blank';
-        btn.rel = 'noopener noreferrer';
-        btn.innerHTML = '&#9829;&nbsp; الدعم عبر PayPal';
+        btn.href = 'pricing.html';
+        btn.innerHTML = '&#9829;&nbsp; حالة الدفع';
 
         const meta = document.createElement('div');
         meta.className = 'pmsg-meta';

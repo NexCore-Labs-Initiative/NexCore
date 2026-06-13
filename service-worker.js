@@ -1,5 +1,5 @@
 /* Improved Service Worker — robust caching, offline fallback, and runtime strategies */
-const CACHE_VERSION = 'v2.9.1';
+const CACHE_VERSION = 'v2.9.1-slogan-20260613';
 const CACHE_PREFIX = 'nexcore-cache-';
 const CACHE_NAME = `${CACHE_PREFIX}${CACHE_VERSION}`;
 const IMAGE_CACHE_PREFIX = 'nexcore-images-';
@@ -21,6 +21,8 @@ const PRECACHE_URLS = [
   '/dashboard.html',
   '/embed.html',
   '/pricing.html',
+  '/pricing-policy.html',
+  '/ar/pricing-policy.html',
   '/order-confirmation.html',
   '/arabic-demo.html',
   '/faq.html',

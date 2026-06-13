@@ -37,12 +37,12 @@ function buildStatusEmail(billId, name, status, adminNotes) {
   const statusLabel = isActive ? "Activated ✅" : "Rejected ❌";
 
   const bodyContent = isActive
-    ? `<p style="color:#cbd5e0;">Great news! Your NexCore subscription has been <strong style="color:#6ee7f3;">activated</strong>.</p>
+    ? `<p style="color:#cbd5e0;">Great news! Your NexCore access has been <strong style="color:#6ee7f3;">activated</strong>.</p>
        <p style="color:#cbd5e0;">You can now sign in with your Google account at:</p>
        <div style="text-align:center;margin:16px 0;">
          <a href="https://nexcorelabs.vercel.app/auth" style="display:inline-block;padding:12px 28px;background:rgba(110,231,243,0.15);border:1px solid #6ee7f3;border-radius:8px;color:#6ee7f3;text-decoration:none;font-weight:600;">Sign In to NexCore</a>
        </div>`
-    : `<p style="color:#cbd5e0;">Unfortunately, your NexCore subscription order could not be processed at this time.</p>
+    : `<p style="color:#cbd5e0;">Unfortunately, your NexCore access order could not be processed at this time.</p>
        ${adminNotes ? `<div style="background:rgba(255,120,120,0.08);border:1px solid rgba(255,120,120,0.25);border-radius:8px;padding:14px;margin:12px 0;"><p style="margin:0;color:#cbd5e0;font-size:14px;"><strong style="color:#ff7878;">Reason:</strong> ${adminNotes}</p></div>` : ""}
        <p style="color:#cbd5e0;">If you have questions, reach us on WhatsApp: <strong style="color:#fff;">+968 93281000</strong></p>`;
 
@@ -181,7 +181,7 @@ module.exports = async (req, res) => {
         admin_notes
       );
       const subjectMap = {
-        active: `Your NexCore Subscription is Now Active — Bill #${order.bill_id}`,
+        active: `Your NexCore Access is Now Active - Bill #${order.bill_id}`,
         rejected: `Update on Your NexCore Order — Bill #${order.bill_id}`,
       };
       await sendEmail(order.user_email, subjectMap[status], html);

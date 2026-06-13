@@ -7,7 +7,7 @@
     <meta name="author" content="NexCore Labs">
     <meta name="theme-color" content="#0a0b1c">
     <meta name="robots" content="noindex, nofollow">
-    <meta name="description" content="تأكيد طلب اشتراك NexCore Labs وتفاصيل الإيصال.">
+    <meta name="description" content="تأكيد طلب وصول NexCore Labs وتفاصيل الإيصال.">
     <title>NexCore Labs | تأكيد الطلب</title>
 
     <link rel="icon" href="../assets/images/nexcore-icon.png" type="image/png">
@@ -548,10 +548,10 @@
             <img class="por-logo" src="../assets/images/nexcore-logo.webp" alt="شعار NexCore Labs" width="42" height="42">
             <p class="por-company">الإيصال</p>
             <div class="por-subtitle">
-                <span>اشتراك NexCore Labs</span>
+                <span>طلب وصول NexCore Labs</span>
                 <span id="printDateLabel"></span>
             </div>
-            <p class="por-note">استلمنا طلب اشتراكك في NexCore Labs. تم تنسيق هذا الإيصال للطباعة أو الحفظ كملف PDF.</p>
+            <p class="por-note">استلمنا طلب وصولك إلى NexCore Labs. تم تنسيق هذا الإيصال للطباعة أو الحفظ كملف PDF.</p>
         </div>
 
         <div class="confirm-wrap" id="confirmWrap">
@@ -636,11 +636,11 @@
 
             // ── Header ────────────────────────────────────────────────────
             const headerIcon  = isPayPalActive ? 'fa-circle-check paypal-active' : 'fa-circle-check success';
-            const headerTitle = isPayPalActive  ? 'تم تفعيل الاشتراك!'
+            const headerTitle = isPayPalActive  ? 'تم تفعيل الوصول!'
                               : isBankTransfer  ? 'تم إرسال التحويل!'
                               : 'تم إرسال الطلب!';
             const headerSub   = isPayPalActive
-                ? 'تم تأكيد دفعة PayPal واشتراكك نشط الآن.'
+                ? 'تم تأكيد دفعة PayPal ووصولك إلى NexCore نشط الآن.'
                 : isBankTransfer
                 ? 'تم استلام تفاصيل التحويل البنكي وهي بانتظار التحقق.'
                 : 'تم استلام طلبك. راجع التعليمات أدناه لإكمال الدفع.';
@@ -649,7 +649,7 @@
             const paypalBlock = isPayPalActive ? `
                 <div class="paypal-activated-banner">
                     <div class="banner-icon"><i class="fa-solid fa-shield-check"></i></div>
-                    <h2>اشتراكك نشط الآن</h2>
+                    <h2>وصولك إلى NexCore نشط الآن</h2>
                     <p>
                         تمت إضافة بريدك الإلكتروني إلى قائمة وصول NexCore.<br>
                         سجّل الدخول الآن باستخدام حساب Google للوصول إلى لوحة التحكم.
@@ -670,7 +670,7 @@
                         <strong style="color:#ffb432;">قيد التحقق</strong>.
                     </p>
                     <p>
-                        سيتحقق فريقنا من التحويل ويفعّل اشتراكك خلال <strong>حوالي ٤٨ ساعة</strong>.
+                        سيتحقق فريقنا من التحويل ويفعّل وصولك خلال <strong>حوالي ٤٨ ساعة</strong>.
                         تم إرسال رسالة تأكيد إلى <strong style="color:#eaf6fb;">${escHtml(order.user_email)}</strong>.
                     </p>
                     <p style="font-size:13px;color:#9aa3b2;">
@@ -696,6 +696,7 @@
                     <div class="meta-row"><span class="meta-label">الاسم</span><span class="meta-value">${escHtml(order.user_name || '—')}</span></div>
                     <div class="meta-row"><span class="meta-label">البريد الإلكتروني</span><span class="meta-value">${escHtml(order.user_email)}</span></div>
                     <div class="meta-row"><span class="meta-label">طريقة الدفع</span><span class="meta-value">${escHtml(paymentLabel)}</span></div>
+                    ${order.pricing_policy_version ? `<div class="meta-row"><span class="meta-label">سياسة التسعير</span><span class="meta-value"><a href="/ar/pricing-policy" target="_blank" rel="noopener">الإصدار ${escHtml(order.pricing_policy_version)}</a></span></div>` : ''}
                     ${metaDate ? `<div class="meta-row"><span class="meta-label">تاريخ الإرسال</span><span class="meta-value">${metaDate}</span></div>` : ''}
 
                     <div class="features-section">

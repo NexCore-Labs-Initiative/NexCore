@@ -548,16 +548,13 @@
     const bubble = document.createElement('div');
     bubble.className = 'nexai-bubble nexai-support-bubble';
     bubble.innerHTML = renderMarkdown(
-      'Our AI credits have run out \u2014 we need a little help to keep the service running. \u2665\n\n' +
-      'If NexCore has been useful to you, consider supporting us so the AI stays available for everyone.'
+      'Our AI credits are temporarily unavailable. Please try again later.'
     );
 
     const btn = document.createElement('a');
     btn.className = 'nexai-support-btn';
-    btn.href = 'https://www.paypal.me/nexcorelabs';
-    btn.target = '_blank';
-    btn.rel = 'noopener noreferrer';
-    btn.innerHTML = '&#9829;&nbsp; Support via PayPal';
+    btn.href = 'pricing.html';
+    btn.innerHTML = 'View payment status';
 
     const time = document.createElement('span');
     time.className = 'nexai-msg-time';

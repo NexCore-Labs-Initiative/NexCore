@@ -12,16 +12,16 @@
 
   <title>NexCore AI — Ask Anything</title>
 
-  <meta name="description" content="Chat with NexCore AI — ask about the platform and student projects.">
+  <meta name="description" content="Chat with NexCore AI about the platform, tools, services, SQU community resources, and published projects.">
   <meta property="og:url" content="https://nexcorelabs.vercel.app/ai-chat.html">
   <meta property="og:type" content="website">
   <meta property="og:title" content="NexCore AI — Ask Anything">
-  <meta property="og:description" content="Chat with NexCore AI — ask about the platform and student projects.">
+  <meta property="og:description" content="Ask NexCore AI about platform tools, services, SQU community resources, and published projects.">
   <meta name="twitter:card" content="summary_large_image">
   <meta property="twitter:domain" content="nexcorelabs.vercel.app">
   <meta property="twitter:url" content="https://nexcorelabs.vercel.app/ai-chat.html">
   <meta name="twitter:title" content="NexCore AI — Ask Anything">
-  <meta name="twitter:description" content="Chat with NexCore AI — ask about the platform and student projects.">
+  <meta name="twitter:description" content="Ask NexCore AI about platform tools, services, SQU community resources, and published projects.">
 
   <link rel="stylesheet" href="assets/css/unminified-css.css">
 
@@ -701,7 +701,7 @@
       <!-- ── Page header ─────────────────────────────────────── -->
       <div class="chat-page-header reveal">
         <h1>NexCore AI Intelligence</h1>
-        <p>Ask me anything about NexCore Labs and its projects.</p>
+        <p>Ask about NexCore Labs, its tools, services, community resources, and published projects.</p>
       </div>
 
       <!-- ── Chat card ───────────────────────────────────────── -->
@@ -755,7 +755,8 @@
 
       <!-- ── Capability chips ────────────────────────────────── -->
       <div class="chat-capabilities reveal">
-        <span class="chat-cap"><i class="fa-solid fa-diagram-project"></i> Student project Q&amp;A</span>
+        <span class="chat-cap"><i class="fa-solid fa-users"></i> SQU community resources</span>
+        <span class="chat-cap"><i class="fa-solid fa-diagram-project"></i> Published project Q&amp;A</span>
         <span class="chat-cap"><i class="fa-solid fa-circle-info"></i> NexCore platform help</span>
       </div>
 
@@ -789,8 +790,7 @@
   <footer class="site-footer">
     <div class="container footer-inner">
       <div class="f-left">
-        <a class="paypal" href="https://www.paypal.me/nexcorelabs" target="_blank" rel="noopener" title="PayPal" style="color:#6EE7F3;"></i> Support us via <i class="fa-brands fa-paypal"></i>
-        </a>
+        <a class="paypal" href="https://www.paypal.me/nexcorelabs" target="_blank" rel="noopener" title="Optional contribution via PayPal"><i class="fa-solid fa-heart" style="color: #6EE7F3;"></i> Optional contribution to support platform development</a>
         <br>
         <small>NexCore Labs © <span id="yearFooter"></span>
           <span id="splitter"> | </span>
@@ -1304,16 +1304,13 @@
         const bubble = document.createElement('div');
         bubble.className = 'pmsg-bubble pmsg-support-bubble';
         bubble.innerHTML = renderMarkdown(
-          'Our AI credits have run out \u2014 we need a little help to keep the service running. \u2665\n\n' +
-          'If NexCore has been useful to you, consider supporting us so the AI stays available for everyone.'
+          'Our AI credits are temporarily unavailable. Please try again later.'
         );
 
         const btn = document.createElement('a');
         btn.className = 'pmsg-support-btn';
-        btn.href = 'https://www.paypal.me/nexcorelabs';
-        btn.target = '_blank';
-        btn.rel = 'noopener noreferrer';
-        btn.innerHTML = '&#9829;&nbsp; Support via PayPal';
+        btn.href = 'pricing.html';
+        btn.innerHTML = '&#9829;&nbsp; View payment status';
 
         const meta = document.createElement('div');
         meta.className = 'pmsg-meta';
