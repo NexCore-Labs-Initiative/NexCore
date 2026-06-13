@@ -14,6 +14,7 @@
     { "source": "/releases", "destination": "/releases.html" },
     { "source": "/roadmap", "destination": "/roadmap.html" },
     { "source": "/terms", "destination": "/terms.html" },
+    { "source": "/unsubscribe", "destination": "/unsubscribe.html" },
     { "source": "/thanks", "destination": "/thanks.html" },
     { "source": "/ai-chat", "destination": "/ai-chat.html" },
     { "source": "/admin-users", "destination": "/admin-users.html" },
@@ -37,6 +38,7 @@
     { "source": "/ar/releases", "destination": "/ar/releases.html" },
     { "source": "/ar/roadmap", "destination": "/ar/roadmap.html" },
     { "source": "/ar/terms", "destination": "/ar/terms.html" },
+    { "source": "/ar/unsubscribe", "destination": "/ar/unsubscribe.html" },
     { "source": "/ar/thanks", "destination": "/ar/thanks.html" }
   ]
 }

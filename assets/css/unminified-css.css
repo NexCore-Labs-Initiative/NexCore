@@ -3506,11 +3506,13 @@ html[dir="rtl"] .lang-switch-pill:hover .pill-slider {
 .newsletter-message.is-error {
     color: #ff9090;
     margin-top: 4px;
+    text-align: center;
 }
 
 .newsletter-note {
     margin: 2px 0 0;
     font-size: 12px;
+    text-align: center;
 }
 
 .newsletter-note a {
@@ -3573,9 +3575,5 @@ html[dir="rtl"] .lang-switch-pill:hover .pill-slider {
     .newsletter-controls button {
         margin: 0 auto;
         width: 70%;
-    }
-
-    .newsletter-note {
-        text-align: center;
     }
 }
