@@ -710,7 +710,7 @@
           <div class="cc-dot" aria-hidden="true"></div>
           <div class="cc-title">
             مساعد NexCore AI
-            <div class="cc-subtitle" id="page-status">RAG · Gemini · قاعدة المعرفة</div>
+            <div class="cc-subtitle" id="page-status">قيد التطوير</div>
           </div>
           <span id="page-usage-pill" title="الرسائل المتبقية اليوم"></span>
         </div>
@@ -719,9 +719,9 @@
         <div id="page-messages" role="log" aria-live="polite" aria-label="رسائل المحادثة">
           <div class="page-welcome" style="color:#f0d8a0;">
             <span class="page-welcome-icon" aria-hidden="true" style="opacity:1;">⏸</span>
-            <p><strong>محادثة الذكاء الاصطناعي معطلة مؤقتًا</strong><br>
-               تم إيقاف مساعد NexCore AI مؤقتًا للحفاظ على حدود واجهة البرمجة.<br>
-               يرجى العودة لاحقًا.</p>
+            <p><strong>ذكاء NexCore قيد التطوير</strong><br>
+               نعمل على تطوير تجربة ذكية أكثر دقة وفاعلية.<br>
+               ستتوفر قريبًا ضمن منصة NexCore Labs.</p>
           </div>
         </div>
 
@@ -734,13 +734,14 @@
             <textarea
               id="page-input"
               rows="1"
-              placeholder="اسأل NexCore AI أي شيء..."
+              placeholder="ذكاء NexCore قيد التطوير"
               maxlength="500"
               aria-label="حقل الرسالة"
               autocomplete="off"
               spellcheck="true"
+              disabled
             ></textarea>
-            <button id="page-send" class="btn primary" aria-label="إرسال الرسالة" title="إرسال (Enter)">
+            <button id="page-send" class="btn primary" aria-label="إرسال الرسالة" title="إرسال (Enter)" disabled>
               <svg viewBox="0 0 24 24" aria-hidden="true">
                 <line x1="22" y1="2" x2="11" y2="13"/>
                 <polygon points="22 2 15 22 11 13 2 9 22 2"/>
@@ -1435,9 +1436,9 @@
         const elSend   = document.getElementById('page-send');
         const elStatus = document.getElementById('page-status');
         const elSugg   = document.getElementById('page-suggestions');
-        if (elInput)  { elInput.disabled = true; elInput.placeholder = 'محادثة الذكاء الاصطناعي معطلة مؤقتًا'; }
+        if (elInput)  { elInput.disabled = true; elInput.placeholder = 'ذكاء NexCore قيد التطوير'; }
         if (elSend)   elSend.disabled = true;
-        if (elStatus) elStatus.textContent = 'غير متاح مؤقتًا';
+        if (elStatus) elStatus.textContent = 'قيد التطوير';
         if (elSugg)   elSugg.style.display = 'none';
         document.getElementById('yearFooter').textContent = new Date().getFullYear();
         return; // skip all auth / API calls

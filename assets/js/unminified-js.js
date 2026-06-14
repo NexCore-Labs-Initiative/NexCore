@@ -25,6 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
     dir: "rtl",
     formRequired: "يرجى تعبئة جميع الحقول.",
     formSending: "جارٍ الإرسال...",
+    formError: "تعذر إرسال الرسالة. حاول مرة أخرى.",
     menuHint: "&#x1F44B; أنا القائمة",
     rotator: [
       `<div class="flag-includes"><img src="../assets/images/oman.webp" alt="علم عمان"><span>صُنع بفخر في عمان</span></div>`,
@@ -39,6 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
     dir: "ltr",
     formRequired: "Please fill all fields.",
     formSending: "Sending...",
+    formError: "We couldn't send your message. Please try again.",
     menuHint: "&#x1F44B; I'm the menu",
     rotator: [
       `<div class="flag-includes"><img src="assets/images/oman.webp" alt="Oman flag"><span>Proudly Built in Oman</span></div>`,
@@ -230,17 +232,46 @@ if (yearEl) {
     document.addEventListener("mouseleave", () => { glass.style.transform = ""; });
   }
 
-  // simple form handling
+  // Contact form handling
   if (form) {
-    form.addEventListener("submit", (ev) => {
-      const name = form.name.value.trim();
-      const email = form.email.value.trim();
-      const message = form.message.value.trim();
+    form.addEventListener("submit", async (ev) => {
+      ev.preventDefault();
+
+      const name = form.elements.namedItem("name")?.value.trim();
+      const email = form.elements.namedItem("email")?.value.trim();
+      const message = form.elements.namedItem("message")?.value.trim();
+
       if (!name || !email || !message) {
-        ev.preventDefault();
         setNotice(locale.formRequired, true);
-      } else {
-        setNotice(locale.formSending);
+        return;
+      }
+
+      const submitButton = form.querySelector('button[type="submit"]');
+      const originalButtonText = submitButton?.textContent;
+
+      if (submitButton) submitButton.disabled = true;
+      setNotice(locale.formSending);
+
+      try {
+        const response = await fetch(form.action, {
+          method: "POST",
+          body: new FormData(form),
+          headers: { Accept: "application/json" }
+        });
+        const result = await response.json().catch(() => ({}));
+
+        if (!response.ok || result.success === false) {
+          throw new Error(result.message || "Web3Forms submission failed");
+        }
+
+        window.location.assign(form.dataset.successUrl || "/thanks.html");
+      } catch (error) {
+        console.error("Contact form submission failed:", error);
+        setNotice(locale.formError, true);
+        if (submitButton) {
+          submitButton.disabled = false;
+          submitButton.textContent = originalButtonText;
+        }
       }
     });
   }

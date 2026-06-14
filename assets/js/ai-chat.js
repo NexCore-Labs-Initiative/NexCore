@@ -548,7 +548,7 @@
     const bubble = document.createElement('div');
     bubble.className = 'nexai-bubble nexai-support-bubble';
     bubble.innerHTML = renderMarkdown(
-      'Our AI credits are temporarily unavailable. Please try again later.'
+      'NexCore Intelligence is being prepared for its next release.'
     );
 
     const btn = document.createElement('a');
@@ -606,15 +606,15 @@
         const notice = document.createElement('div');
         notice.className = 'nexai-msg ai';
         notice.innerHTML = `<div class="nexai-bubble" style="background:rgba(255,180,0,0.07);border-color:rgba(255,180,0,0.2);color:#f0d8a0;">
-          <strong>AI Chat is temporarily disabled</strong><br>
-          The NexCore AI assistant is currently paused to preserve API limits. Please check back later.
+          <strong>NexCore Intelligence is under development</strong><br>
+          We are building a smarter, more accurate, and more capable experience. It will be available soon on NexCore Labs.
         </div>`;
         elMessages.appendChild(notice);
         messageCount++;
       }
       elInput.disabled = true;
       elSend.disabled  = true;
-      elStatus.textContent = 'Temporarily unavailable';
+      elStatus.textContent = 'Under development';
       return;
     }
 
