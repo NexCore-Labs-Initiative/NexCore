@@ -1935,6 +1935,35 @@ textarea:focus {
     opacity: 0.9;
 }
 
+.dropdown-content a.ai-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #55f0e6;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.ai-link-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    color: currentColor;
+    filter: drop-shadow(0 0 6px rgba(85, 240, 230, 0.35));
+    transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.ai-link:hover .ai-link-icon,
+.ai-link:focus-visible .ai-link-icon {
+    transform: rotate(-8deg) scale(1.08);
+    filter: drop-shadow(0 0 10px rgba(85, 240, 230, 0.6));
+}
+
+.ai-link:focus-visible {
+    outline: 2px solid rgba(85, 240, 230, 0.65);
+    outline-offset: 2px;
+}
+
 
 .dropdown-content a:not(.lang-switch-pill, .magic-signup):hover {
     color: #6ee7f3;
