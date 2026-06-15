@@ -30,6 +30,7 @@
         admin: 'لوحة الإدارة',
         accountTitle: 'إعدادات الحساب',
         account: 'إعدادات الحساب',
+        accountActionsTitle: 'إجراءات الحساب',
         logoutTitle: 'تسجيل الخروج',
         logout: 'تسجيل الخروج',
         logoutFailed: 'تعذر تسجيل الخروج. يرجى المحاولة مرة أخرى.',
@@ -45,6 +46,7 @@
         admin: 'Admin Panel',
         accountTitle: 'Account Settings',
         account: 'Account Settings',
+        accountActionsTitle: 'Account actions',
         logoutTitle: 'Logout',
         logout: 'Logout',
         logoutFailed: 'Failed to logout. Please try again.',
@@ -221,25 +223,27 @@
                 <a href="${routePrefix}/auth.html" id="navAuth" class="magic-signup fade" title="${copy.signInTitle}" lang="${copy.lang}" dir="${copy.dir}" style="display: none;">
                     <i class="fa-solid fa-arrow-right-to-bracket"></i> ${copy.accessCore}
                 </a>
-                <a href="${routePrefix}/dashboard.html" id="navDashboard" class="fade" title="${copy.dashboardTitle}" lang="${copy.lang}" dir="${copy.dir}" style="display: none;">
-                    <i class="fa-solid fa-gauge"></i> ${copy.dashboard}
-                </a>
-                <a href="${routePrefix}/admin-users.html" id="navAdmin" class="fade" title="${copy.adminTitle}" lang="${copy.lang}" dir="${copy.dir}" style="display: none;">
-                    <i class="fa-solid fa-user-shield"></i> ${copy.admin}
-                </a>
-                <a href="${routePrefix}/account.html" id="navAccount" class="fade" title="${copy.accountTitle}" lang="${copy.lang}" dir="${copy.dir}" style="display: none;">
-                    <i class="fa-solid fa-user-gear"></i> ${copy.account}
-                </a>
-                <div id="navUser" lang="${copy.lang}" dir="${copy.dir}" style="display: none; padding: 0.75rem 1rem; color: rgba(255,255,255,0.7); font-size: 0.9rem; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 0.5rem;">
-                    <span style="display: inline-flex; align-items: center; gap: 0.5rem;">
-                        <img id="navUserAvatar" src="" alt="" style="width: 24px; height: 24px; border-radius: 50%; object-fit: cover; display: none; border: 1px solid rgba(255,255,255,0.25);">
+                <div id="navUser" class="nav-user-toolbar" lang="${copy.lang}" dir="${copy.dir}" style="display: none;">
+                    <span class="nav-user-identity">
+                        <img id="navUserAvatar" class="nav-user-avatar" src="" alt="" style="display: none;">
                         <i id="navUserIcon" class="fa-solid fa-user" aria-hidden="true"></i>
                         <span id="navUserName"></span>
                     </span>
+                    <span class="nav-user-actions" role="group" aria-label="${copy.accountActionsTitle}">
+                        <a href="${routePrefix}/dashboard.html" id="navDashboard" class="nav-user-action" title="${copy.dashboardTitle}" aria-label="${copy.dashboardTitle}" lang="${copy.lang}" style="display: none;">
+                            <i class="fa-solid fa-gauge" aria-hidden="true"></i>
+                        </a>
+                        <a href="${routePrefix}/admin-users.html" id="navAdmin" class="nav-user-action" title="${copy.adminTitle}" aria-label="${copy.adminTitle}" lang="${copy.lang}" style="display: none;">
+                            <i class="fa-solid fa-user-shield" aria-hidden="true"></i>
+                        </a>
+                        <a href="${routePrefix}/account.html" id="navAccount" class="nav-user-action" title="${copy.accountTitle}" aria-label="${copy.accountTitle}" lang="${copy.lang}" style="display: none;">
+                            <i class="fa-solid fa-user-gear" aria-hidden="true"></i>
+                        </a>
+                        <button type="button" id="navLogout" class="nav-user-action nav-user-action--logout" title="${copy.logoutTitle}" aria-label="${copy.logoutTitle}" lang="${copy.lang}" style="display: none;">
+                            <i class="fa-solid fa-arrow-right-from-bracket" aria-hidden="true"></i>
+                        </button>
+                    </span>
                 </div>
-                <a href="#" id="navLogout" class="fade" title="${copy.logoutTitle}" lang="${copy.lang}" dir="${copy.dir}" style="display: none;">
-                    <i class="fa-solid fa-arrow-right-from-bracket"></i> ${copy.logout}
-                </a>
             `;
 
             // Replace the first menu item with our auth elements
@@ -294,16 +298,16 @@
 
                 // User is logged in
                 if (navAuth) navAuth.style.display = 'none';
-                if (navDashboard) navDashboard.style.display = 'block';
-                if (navAccount) navAccount.style.display = 'block';
+                if (navDashboard) navDashboard.style.display = 'inline-flex';
+                if (navAccount) navAccount.style.display = 'inline-flex';
 
                 // Show admin button only for admins
                 if (navAdmin) {
-                    navAdmin.style.display = userIsAdmin ? 'block' : 'none';
+                    navAdmin.style.display = userIsAdmin ? 'inline-flex' : 'none';
                 }
 
                 if (navUser) {
-                    navUser.style.display = 'block';
+                    navUser.style.display = 'flex';
                     if (navUserName) {
                         navUserName.textContent = getUserDisplayName(session.user);
                     }
@@ -321,7 +325,7 @@
                         }
                     }
                 }
-                if (navLogout) navLogout.style.display = 'block';
+                if (navLogout) navLogout.style.display = 'inline-flex';
 
                 // Send User-ID to GA4 for cross-device tracking
                 setGAUserId(session.user.id);

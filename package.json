@@ -7,14 +7,15 @@
     "lib": "lib"
   },
   "scripts": {
-    "test": "npm run release:test && npm run pricing:test && npm run branding:test",
+    "test": "npm run release:test && npm run pricing:test && npm run branding:test && npm run auth-nav:test",
     "release:draft": "node scripts/releases/draft.js",
     "release:generate": "node scripts/releases/generate.js",
     "release:validate": "node scripts/releases/validate.js",
     "release:check": "node scripts/releases/check.js",
     "release:test": "node scripts/releases/test.js",
     "pricing:test": "node scripts/pricing-policy-test.js",
-    "branding:test": "node scripts/branding-test.js"
+    "branding:test": "node scripts/branding-test.js",
+    "auth-nav:test": "node scripts/auth-nav-test.js"
   },
   "repository": {
     "type": "git",
