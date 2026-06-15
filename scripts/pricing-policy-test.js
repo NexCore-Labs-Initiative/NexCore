@@ -18,6 +18,26 @@ const {
 const root = path.resolve(__dirname, "..");
 const read = (file) => fs.readFileSync(path.join(root, file), "utf8");
 
+const menuFiles = [
+  ...fs.readdirSync(root)
+    .filter((file) => file.endsWith(".html"))
+    .map((file) => file),
+  ...fs.readdirSync(path.join(root, "ar"))
+    .filter((file) => file.endsWith(".html"))
+    .map((file) => `ar/${file}`),
+].filter((file) => read(file).includes('id="myDropdown"'));
+
+for (const file of menuFiles) {
+  const html = read(file);
+  const menuStart = html.indexOf('id="myDropdown"');
+  const headerEnd = html.indexOf("</header>", menuStart);
+  const menu = html.slice(menuStart, headerEnd);
+  assert(
+    /href="[^"]*pricing-policy(?:\.html)?"/.test(menu),
+    `${file} navigation must link to the Pricing Policy`
+  );
+}
+
 for (const file of ["pricing.html", "ar/pricing.html"]) {
   const html = read(file);
   assert(
