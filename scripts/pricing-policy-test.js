@@ -84,7 +84,7 @@ for (const file of [
 
 const englishFooterFiles = [
   "account.html",
-  "ai-chat.html",
+  "intelligence.html",
   "auth.html",
   "dashboard.html",
   "faq.html",
@@ -99,7 +99,7 @@ const englishFooterFiles = [
 ];
 const arabicFooterFiles = [
   "ar/account.html",
-  "ar/ai-chat.html",
+  "ar/intelligence.html",
   "ar/auth.html",
   "ar/dashboard.html",
   "ar/faq.html",

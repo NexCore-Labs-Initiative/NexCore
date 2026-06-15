@@ -1,5 +1,5 @@
 /* Improved Service Worker — robust caching, offline fallback, and runtime strategies */
-const CACHE_VERSION = 'v2.9.1-ai-development-copy-20260614';
+const CACHE_VERSION = 'v2.9.1-intelligence-rename-20260615';
 const CACHE_PREFIX = 'nexcore-cache-';
 const CACHE_NAME = `${CACHE_PREFIX}${CACHE_VERSION}`;
 const IMAGE_CACHE_PREFIX = 'nexcore-images-';
@@ -10,8 +10,8 @@ const PRECACHE_URLS = [
   '/index.html',
   '/hub.html',
   '/project.html',
-  '/ai-chat.html',
-  '/ar/ai-chat.html',
+  '/intelligence',
+  '/ar/intelligence',
   '/admin-users.html',
   '/roadmap.html',
   '/releases.html',

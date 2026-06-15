@@ -10,18 +10,18 @@
   <meta name="theme-color" content="#0a0b1c">
   <meta name="mobile-web-app-capable" content="yes">
 
-  <title>NexCore AI — Ask Anything</title>
+  <title>NexCore Intelligence | NexCore Labs</title>
 
-  <meta name="description" content="Chat with NexCore AI about the platform, tools, services, SQU community resources, and published projects.">
-  <meta property="og:url" content="https://nexcorelabs.vercel.app/ai-chat.html">
+  <meta name="description" content="NexCore Intelligence is the developing intelligent assistant for NexCore Labs, platform tools, SQU community resources, and published projects.">
+  <meta property="og:url" content="https://nexcorelabs.vercel.app/intelligence">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="NexCore AI — Ask Anything">
-  <meta property="og:description" content="Ask NexCore AI about platform tools, services, SQU community resources, and published projects.">
+  <meta property="og:title" content="NexCore Intelligence | NexCore Labs">
+  <meta property="og:description" content="NexCore Intelligence is under development as a smarter way to explore NexCore Labs and its community resources.">
   <meta name="twitter:card" content="summary_large_image">
   <meta property="twitter:domain" content="nexcorelabs.vercel.app">
-  <meta property="twitter:url" content="https://nexcorelabs.vercel.app/ai-chat.html">
-  <meta name="twitter:title" content="NexCore AI — Ask Anything">
-  <meta name="twitter:description" content="Ask NexCore AI about platform tools, services, SQU community resources, and published projects.">
+  <meta property="twitter:url" content="https://nexcorelabs.vercel.app/intelligence">
+  <meta name="twitter:title" content="NexCore Intelligence | NexCore Labs">
+  <meta name="twitter:description" content="NexCore Intelligence is under development as a smarter way to explore NexCore Labs and its community resources.">
 
   <link rel="stylesheet" href="assets/css/unminified-css.css">
 
@@ -36,10 +36,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
   <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.2/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/4.0.0/uicons-solid-straight/css/uicons-solid-straight.css'>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-        <link rel="alternate" hreflang="en" href="ai-chat.html">
-        <link rel="alternate" hreflang="ar" href="ar/ai-chat.html">
+  <link rel="canonical" href="https://nexcorelabs.vercel.app/intelligence">
+  <link rel="alternate" hreflang="en" href="https://nexcorelabs.vercel.app/intelligence">
+  <link rel="alternate" hreflang="ar" href="https://nexcorelabs.vercel.app/ar/intelligence">
+  <link rel="alternate" hreflang="x-default" href="https://nexcorelabs.vercel.app/intelligence">
 
   <!-- Vercel Web Analytics -->
   <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
@@ -658,7 +661,7 @@
         </div>
 
         <div id="myDropdown" class="dropdown-content">
-          <a href="ar/ai-chat.html" class="lang-switch-pill mixed-content" title="View Arabic site">
+          <a href="/ar/intelligence" class="lang-switch-pill mixed-content" title="View Arabic site">
               <div class="pill-slider"></div>
               <span class="pill-text en-text"><img src="assets/images/uk.webp" alt="United Kingdom flag"> EN</span>
               <span class="pill-text ar-text"><img src="assets/images/oman.webp" alt="Oman flag"> ع</span>
@@ -669,7 +672,7 @@
 
           <a href="hub.html" class="fade" title="NexCore Labs Hub"><i class="fa-solid fa-house"></i> Hub</a>
           <a href="hub.html#projects" class="fade" title="Projects"><i class="fa-solid fa-diagram-project"></i> Projects</a>
-          <a href="ai-chat.html" class="fade" title="NexCore AI — Ask Anything" style="color:#6ee7f3;"><i class="fa-solid fa-wand-magic-sparkles"></i> NexCore AI</a>
+          <a href="/intelligence" class="fade" title="NexCore Intelligence" style="color:#6ee7f3;"><i class="fa-solid fa-wand-magic-sparkles"></i> NexCore Intelligence</a>
 
           <div class="div-menu-line"></div>
 
@@ -700,7 +703,7 @@
 
       <!-- ── Page header ─────────────────────────────────────── -->
       <div class="chat-page-header reveal">
-        <h1>NexCore AI Intelligence</h1>
+        <h1>NexCore Intelligence</h1>
         <p>Ask about NexCore Labs, its tools, services, community resources, and published projects.</p>
       </div>
 
@@ -711,7 +714,7 @@
         <div class="chat-card-header">
           <div class="cc-dot" aria-hidden="true"></div>
           <div class="cc-title">
-            NexCore AI Assistant
+            NexCore Intelligence
             <div class="cc-subtitle" id="page-status">RAG · Gemini · Knowledge Base</div>
           </div>
           <span id="page-usage-pill" title="Messages remaining today"></span>
@@ -720,7 +723,7 @@
         <!-- Messages -->
         <div id="page-messages" role="log" aria-live="polite" aria-label="Chat messages">
           <div class="page-welcome" style="color:#f0d8a0;">
-            <span class="page-welcome-icon" aria-hidden="true" style="opacity:1;">⏸</span>
+            <span class="page-welcome-icon" aria-hidden="true" style="opacity:1;"><i class="fi fi-ss-crossed-hammers"></i></span>
             <p><strong>NexCore Intelligence is under development</strong><br>
                We are building a smarter, more accurate, and more capable experience.<br>
                It will be available soon on NexCore Labs.</p>
@@ -736,7 +739,7 @@
             <textarea
               id="page-input"
               rows="1"
-              placeholder="Ask NexCore AI anything…"
+              placeholder="Ask NexCore Intelligence anything…"
               maxlength="500"
               aria-label="Message input"
               autocomplete="off"
@@ -769,7 +772,7 @@
       <button class="ai-chat-modal-close" aria-label="Close sign-in modal"><i class="fa-solid fa-xmark"></i></button>
       <div class="ai-chat-modal-header">
         <h2><i class="fa-solid fa-lock" style="color:#6ee7f3;"></i> Sign in to Chat</h2>
-        <p>Log in to start asking NexCore AI questions.</p>
+        <p>Log in to start asking NexCore Intelligence questions.</p>
       </div>
       <div class="ai-chat-modal-body">
         <p>Continue with Google to sign in and access the AI assistant.</p>
@@ -971,7 +974,7 @@
           elInputWrap.innerHTML = `
             <div class="chat-signin-prompt">
               <i class="fa-solid fa-sparkles" style="color:#6ee7f3;font-size:32px;display:block;margin-bottom:14px;"></i>
-              <p>Sign in to start chatting with NexCore AI</p>
+              <p>Sign in to start using NexCore Intelligence</p>
               <button id="open-signin-modal-btn" class="btn primary">
                 <i class="fa-solid fa-key"></i> Sign In
               </button>
@@ -992,7 +995,7 @@
                 <textarea
                   id="page-input"
                   rows="1"
-                  placeholder="Ask NexCore AI anything…"
+                  placeholder="Ask NexCore Intelligence anything…"
                   maxlength="500"
                   aria-label="Message input"
                   autocomplete="off"
@@ -1168,7 +1171,7 @@
         el.className = 'pmsg ai';
         el.innerHTML = `<div class="page-typing">
           <div class="page-typing-dots"><span></span><span></span><span></span></div>
-          <span class="page-typing-label">NexCore AI is thinking…</span>
+          <span class="page-typing-label">NexCore Intelligence is thinking…</span>
         </div>`;
         elMessages.appendChild(el);
         typingEl = el;
@@ -1390,7 +1393,7 @@
             const { error } = await sb.auth.signInWithOAuth({
               provider: 'google',
               options: {
-                redirectTo: `${window.location.origin}/ai-chat.html`
+                redirectTo: `${window.location.origin}/intelligence`
               }
             });
             if (error) throw error;

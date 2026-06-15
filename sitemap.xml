@@ -73,8 +73,13 @@
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://nexcorelabs.vercel.app/ai-chat.html</loc>
-  <lastmod>2026-04-11T18:25:15+00:00</lastmod>
+  <loc>https://nexcorelabs.vercel.app/intelligence</loc>
+  <lastmod>2026-06-15T00:00:00+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://nexcorelabs.vercel.app/ar/intelligence</loc>
+  <lastmod>2026-06-15T00:00:00+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 

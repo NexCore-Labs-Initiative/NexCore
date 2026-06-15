@@ -219,8 +219,8 @@ function checkMinuteLimit(userId) {
 async function handleChat(req, res, supabase, user) {
   if (CHAT_DISABLED) {
     return res.status(503).json({
-      error: 'AI Chat is temporarily disabled',
-      message: 'The NexCore AI Chat is currently paused. Please check back later.'
+      error: 'NexCore Intelligence is under development',
+      message: 'NexCore Intelligence is under development and will be available soon.'
     });
   }
 
