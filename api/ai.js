@@ -19,7 +19,13 @@ const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY;
 const GEMINI_API_KEY    = process.env.GEMINI_API_KEY;
 
 // ─── Assist config ─────────────────────────────────────────────────────────────
-const GEMINI_MODEL = process.env.GEMINI_MODEL || 'models/gemini-2.5-flash';
+const GEMINI_MODEL = process.env.GEMINI_MODEL || 'models/gemini-flash-latest';
+const GEMINI_FALLBACK_MODEL =
+  process.env.GEMINI_FALLBACK_MODEL ||
+  (GEMINI_MODEL === 'models/gemini-flash-latest'
+    ? 'models/gemini-3.1-flash-lite'
+    : 'models/gemini-flash-latest');
+const ASSIST_RETRY_DELAY_MS = parseInt(process.env.GEMINI_ASSIST_RETRY_DELAY_MS || '1200', 10);
 
 // ─── Chat config ───────────────────────────────────────────────────────────────
 // Feature flag — set to true to block all chat requests
@@ -42,6 +48,73 @@ const NO_EVIDENCE_REPLY  = 'I do not have verified NexCore data for that yet. Pl
 // ─── Chat helpers ──────────────────────────────────────────────────────────────
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function getGeminiErrorMessage(error) {
+  return String(error?.message || error || '');
+}
+
+function isGeminiQuotaError(error) {
+  const message = getGeminiErrorMessage(error).toLowerCase();
+  return message.includes('429') ||
+    message.includes('resource_exhausted') ||
+    message.includes('quota');
+}
+
+function isGeminiUnavailableError(error) {
+  const message = getGeminiErrorMessage(error).toLowerCase();
+  return message.includes('503') ||
+    message.includes('unavailable') ||
+    message.includes('high demand');
+}
+
+function buildAssistRequest(request, model) {
+  const config = { ...request.config };
+
+  // Gemini 2.5+ may spend the whole short output budget on hidden reasoning.
+  if (!model.includes('gemini-2.0')) {
+    config.thinkingConfig = { thinkingBudget: 0 };
+  }
+
+  return { ...request, model, config };
+}
+
+async function generateAssistContent(ai, request) {
+  const models = [...new Set([GEMINI_MODEL, GEMINI_FALLBACK_MODEL].filter(Boolean))];
+  let lastError;
+
+  for (let modelIndex = 0; modelIndex < models.length; modelIndex++) {
+    const model = models[modelIndex];
+    const attempts = modelIndex === 0 ? 2 : 1;
+
+    for (let attempt = 1; attempt <= attempts; attempt++) {
+      try {
+        return {
+          result: await ai.models.generateContent(buildAssistRequest(request, model)),
+          model
+        };
+      } catch (error) {
+        lastError = error;
+        const unavailable = isGeminiUnavailableError(error);
+        const quotaExceeded = isGeminiQuotaError(error);
+
+        if (!unavailable && !quotaExceeded) throw error;
+
+        if (unavailable && attempt < attempts) {
+          console.warn(`[ai-assist] ${model} unavailable, retrying once...`);
+          await sleep(ASSIST_RETRY_DELAY_MS);
+          continue;
+        }
+
+        if (modelIndex < models.length - 1) {
+          console.warn(`[ai-assist] ${model} failed, trying fallback model ${models[modelIndex + 1]}...`);
+        }
+        break;
+      }
+    }
+  }
+
+  throw lastError || new Error('No Gemini model is available');
 }
 
 function normalizeText(s) {
@@ -146,8 +219,8 @@ function checkMinuteLimit(userId) {
 async function handleChat(req, res, supabase, user) {
   if (CHAT_DISABLED) {
     return res.status(503).json({
-      error: 'AI Chat is temporarily disabled',
-      message: 'The NexCore AI Chat is currently paused. Please check back later.'
+      error: 'NexCore Intelligence is under development',
+      message: 'NexCore Intelligence is under development and will be available soon.'
     });
   }
 
@@ -307,7 +380,9 @@ async function handleChat(req, res, supabase, user) {
   let systemInstruction = `You are the NexCore AI Assistant — a focused, concise assistant exclusively for NexCore Labs.
 
 ## STRICT SCOPE — topics you are allowed to answer:
-- NexCore Labs: platform features, how to submit or view projects, accounts, AI tools, FAQs
+- NexCore Labs: its mission to empower the SQU community, platform features, tools, services, accounts, AI tools, FAQs
+- SQU community use of NexCore for collaboration, project visibility, shared knowledge, and practical digital support
+- How to submit, manage, discover, or view projects on NexCore
 - Student projects listed on NexCore Labs (use the search_projects or get_project_details tools for live data)
 - Direct follow-up questions that relate to the above topics
 
@@ -637,22 +712,28 @@ ${text}`;
   }
 
   const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
-  console.log('Using model:', GEMINI_MODEL);
+  console.log('Using model:', GEMINI_MODEL, 'fallback:', GEMINI_FALLBACK_MODEL);
 
   let result;
+  let usedModel = GEMINI_MODEL;
   try {
-    result = await ai.models.generateContent({
-      model:    GEMINI_MODEL,
+    const generated = await generateAssistContent(ai, {
       contents: [{ role: 'user', parts: [{ text: prompt }] }],
-      generationConfig: {
+      config: {
         temperature:     0.7,
-        maxOutputTokens: action === 'card_summary' ? 150 : 500
+        maxOutputTokens: action === 'card_summary' ? 300 : 700
       }
     });
+    result = generated.result;
+    usedModel = generated.model;
   } catch (geminiErr) {
     console.error('Gemini API error:', geminiErr?.message || geminiErr);
-    if (geminiErr?.message?.includes('429') || geminiErr?.message?.includes('quota')) {
-      return res.status(503).json({ error: 'AI temporarily unavailable', details: 'Quota exceeded. Try later.', model: GEMINI_MODEL });
+    if (isGeminiQuotaError(geminiErr) || isGeminiUnavailableError(geminiErr)) {
+      return res.status(503).json({
+        error: 'AI temporarily unavailable',
+        details: 'Gemini is at capacity. Please try again shortly.',
+        model: GEMINI_MODEL
+      });
     }
     return res.status(500).json({ error: 'Gemini API failed', details: geminiErr?.message || String(geminiErr), model: GEMINI_MODEL });
   }
@@ -679,7 +760,7 @@ ${text}`;
     }
   }
 
-  return res.status(200).json({ text: generatedText.trim(), used, remaining });
+  return res.status(200).json({ text: generatedText.trim(), used, remaining, model: usedModel });
 }
 
 // ─── Main handler ──────────────────────────────────────────────────────────────

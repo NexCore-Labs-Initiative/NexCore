@@ -15,6 +15,70 @@
     '<path d="M14 3a5 5 0 0 0 7 7 9 9 0 1 1-9-9h2Z"/>' +
     '<circle cx="8.5" cy="10.5" r="1"/><circle cx="13.5" cy="13.5" r="1"/><circle cx="10.5" cy="16.5" r=".9"/>' +
     '</svg>';
+  const I18N = {
+    en: {
+      dir: 'ltr',
+      settings: 'Cookie Settings',
+      title: 'Privacy &amp; Cookies',
+      desc: 'We use cookies to enhance your experience, ensure security, and improve our services.',
+      acceptAll: 'Accept all',
+      rejectOptional: 'Reject optional',
+      customize: 'Customize settings',
+      necessary: 'Necessary',
+      always: 'Always enabled',
+      necessaryLabel: 'Necessary cookies - always enabled',
+      necessaryDesc: 'Required for login, Supabase authentication, and core functionality.',
+      analytics: 'Analytics',
+      analyticsLabel: 'Toggle analytics cookies',
+      analyticsDesc: 'Allows anonymous usage analytics to help improve the platform.',
+      externalMedia: 'External Media',
+      externalMediaLabel: 'Toggle external media cookies',
+      externalMediaDesc: 'Allows content from external platforms such as LinkedIn or YouTube.',
+      aiServices: 'AI Services',
+      aiServicesLabel: 'Toggle AI services cookies',
+      aiServicesDesc: 'Allows AI usage tracking and feature improvements.',
+      comingSoon: 'Coming soon',
+      save: 'Save preferences',
+      privacy: 'Privacy Policy',
+      privacyHref: 'privacy-policy.html',
+    },
+    ar: {
+      dir: 'rtl',
+      settings: 'إعدادات ملفات تعريف الارتباط',
+      title: 'الخصوصية وملفات تعريف الارتباط',
+      desc: 'نستخدم الكوكيز لتحسين تجربتك، وضمان الأمان، وتطوير خدماتنا.',
+      acceptAll: 'قبول الكل',
+      rejectOptional: 'رفض الاختيارية',
+      customize: 'تخصيص الإعدادات',
+      necessary: 'الضرورية',
+      always: 'مفعلة دائماً',
+      necessaryLabel: 'الكوكيز الضرورية - مفعلة دائماً',
+      necessaryDesc: 'مطلوبة لتسجيل الدخول، ومصادقة Supabase، والوظائف الأساسية.',
+      analytics: 'التحليلات',
+      analyticsLabel: 'تبديل كوكيز التحليلات',
+      analyticsDesc: 'تسمح بتحليلات استخدام مجهولة تساعدنا على تحسين المنصة.',
+      externalMedia: 'الوسائط الخارجية',
+      externalMediaLabel: 'تبديل كوكيز الوسائط الخارجية',
+      externalMediaDesc: 'تسمح بعرض محتوى من منصات خارجية مثل LinkedIn أو YouTube.',
+      aiServices: 'خدمات الذكاء الاصطناعي',
+      aiServicesLabel: 'تبديل كوكيز خدمات الذكاء الاصطناعي',
+      aiServicesDesc: 'تسمح بتتبع استخدام الذكاء الاصطناعي وتحسين الميزات.',
+      comingSoon: 'قريباً',
+      save: 'حفظ',
+      privacy: 'سياسة الخصوصية',
+      privacyHref: 'privacy-policy.html',
+    },
+  };
+
+  function getLocale() {
+    var lang = (document.documentElement.getAttribute('lang') || '').toLowerCase();
+    var path = window.location.pathname || '';
+    return lang.indexOf('ar') === 0 || /(^|\/)ar(\/|$)/.test(path) ? 'ar' : 'en';
+  }
+
+  function t() {
+    return I18N[getLocale()] || I18N.en;
+  }
 
   // ─── Storage helpers ───────────────────────
 
@@ -106,31 +170,33 @@
   // ─── Modal HTML ────────────────────────────
 
   function buildModalHTML() {
+    var copy = t();
     return [
       '<div id="nexcore-cookie-overlay" class="ncc-overlay" role="dialog"',
       '     aria-modal="true" aria-labelledby="ncc-title"',
-      '     aria-describedby="ncc-desc" aria-hidden="true" tabindex="-1">',
+      '     aria-describedby="ncc-desc" aria-hidden="true" tabindex="-1"',
+      '     lang="' + getLocale() + '" dir="' + copy.dir + '">',
       '  <div class="ncc-panel" role="document">',
       '    <div class="ncc-header">',
-      '      <span class="ncc-icon" aria-hidden="true" title="Cookie Settings">' + COOKIE_ICON_SVG + '</span>',
-      '      <h2 id="ncc-title" class="ncc-title">Privacy &amp; Cookies</h2>',
+      '      <span class="ncc-icon" aria-hidden="true" title="' + copy.settings + '">' + COOKIE_ICON_SVG + '</span>',
+      '      <h2 id="ncc-title" class="ncc-title">' + copy.title + '</h2>',
       '      <p id="ncc-desc" class="ncc-desc">',
-      '        We use cookies to enhance your experience, ensure security, and improve our services.',
+      '        ' + copy.desc,
       '      </p>',
       '    </div>',
 
       '    <div class="ncc-actions-top">',
       '      <button id="ncc-accept-all" class="ncc-btn ncc-btn-primary" type="button">',
-      '        Accept all',
+      '        ' + copy.acceptAll,
       '      </button>',
       '      <button id="ncc-reject-opt" class="ncc-btn ncc-btn-ghost" type="button">',
-      '        Reject optional',
+      '        ' + copy.rejectOptional,
       '      </button>',
       '    </div>',
 
       '    <details class="ncc-customize">',
       '      <summary>',
-      '        <span>Customize settings</span>',
+      '        <span>' + copy.customize + '</span>',
       '        <i class="ncc-chevron" aria-hidden="true">&#9662;</i>',
       '      </summary>',
 
@@ -141,71 +207,71 @@
       '        <div class="ncc-category">',
       '          <div class="ncc-cat-header">',
       '            <div class="ncc-cat-info">',
-      '              <span class="ncc-cat-name">Necessary</span>',
-      '              <span class="ncc-cat-always">Always enabled</span>',
+      '              <span class="ncc-cat-name">' + copy.necessary + '</span>',
+      '              <span class="ncc-cat-always">' + copy.always + '</span>',
       '            </div>',
-      '            <label class="ncc-toggle ncc-toggle-locked" aria-label="Necessary cookies — always enabled">',
+      '            <label class="ncc-toggle ncc-toggle-locked" aria-label="' + copy.necessaryLabel + '">',
       '              <input type="checkbox" checked disabled aria-disabled="true">',
       '              <span class="ncc-slider"></span>',
       '            </label>',
       '          </div>',
-      '          <p class="ncc-cat-desc">Required for login, Supabase authentication, and core functionality.</p>',
+      '          <p class="ncc-cat-desc">' + copy.necessaryDesc + '</p>',
       '        </div>',
 
       // Analytics
       '        <div class="ncc-category">',
       '          <div class="ncc-cat-header">',
       '            <div class="ncc-cat-info">',
-      '              <span class="ncc-cat-name">Analytics</span>',
+      '              <span class="ncc-cat-name">' + copy.analytics + '</span>',
       '            </div>',
-      '            <label class="ncc-toggle" aria-label="Toggle analytics cookies">',
+      '            <label class="ncc-toggle" aria-label="' + copy.analyticsLabel + '">',
       '              <input type="checkbox" id="ncc-chk-analytics" name="analytics">',
       '              <span class="ncc-slider"></span>',
       '            </label>',
       '          </div>',
-      '          <p class="ncc-cat-desc">Allows anonymous usage analytics to help improve the platform.</p>',
+      '          <p class="ncc-cat-desc">' + copy.analyticsDesc + '</p>',
       '        </div>',
 
       // External Media
       '        <div class="ncc-category">',
       '          <div class="ncc-cat-header">',
       '            <div class="ncc-cat-info">',
-      '              <span class="ncc-cat-name">External Media</span>',
+      '              <span class="ncc-cat-name">' + copy.externalMedia + '</span>',
       '            </div>',
-      '            <label class="ncc-toggle" aria-label="Toggle external media cookies">',
+      '            <label class="ncc-toggle" aria-label="' + copy.externalMediaLabel + '">',
       '              <input type="checkbox" id="ncc-chk-external" name="external_media">',
       '              <span class="ncc-slider"></span>',
       '            </label>',
       '          </div>',
-      '          <p class="ncc-cat-desc">Allows content from external platforms such as LinkedIn or YouTube.</p>',
+      '          <p class="ncc-cat-desc">' + copy.externalMediaDesc + '</p>',
       '        </div>',
 
       // AI Services
       '        <div class="ncc-category">',
       '          <div class="ncc-cat-header">',
       '            <div class="ncc-cat-info">',
-      '              <span class="ncc-cat-name">AI Services</span>',
-      '              <span class="ncc-cat-badge">Coming soon</span>',
+      '              <span class="ncc-cat-name">' + copy.aiServices + '</span>',
+      '              <span class="ncc-cat-badge">' + copy.comingSoon + '</span>',
       '            </div>',
-      '            <label class="ncc-toggle" aria-label="Toggle AI services cookies">',
+      '            <label class="ncc-toggle" aria-label="' + copy.aiServicesLabel + '">',
       '              <input type="checkbox" id="ncc-chk-ai" name="ai_services">',
       '              <span class="ncc-slider"></span>',
       '            </label>',
       '          </div>',
-      '          <p class="ncc-cat-desc">Allows AI usage tracking and feature improvements.</p>',
+      '          <p class="ncc-cat-desc">' + copy.aiServicesDesc + '</p>',
       '        </div>',
 
       '      </div>',// end .ncc-categories
 
       '      <div class="ncc-actions-bottom">',
-      '        <button id="ncc-save" class="ncc-btn ncc-btn-save" type="button">Save preferences</button>',
+      '        <button id="ncc-save" class="ncc-btn ncc-btn-save" type="button">' + copy.save + '</button>',
       '      </div>',
       '      </div>',// end .ncc-customize-body
 
       '    </details>',
 
       '    <div class="ncc-modal-footer">',
-      '      <a href="privacy-policy.html" class="ncc-link">Privacy Policy</a>',
+      '      <a href="' + copy.privacyHref + '" class="ncc-link">' + copy.privacy + '</a>',
       '    </div>',
 
       '  </div>',// end .ncc-panel
@@ -213,7 +279,7 @@
 
       // Floating settings button
       '<button id="nexcore-cookie-settings-btn" class="ncc-floating-btn"',
-      '        aria-label="Cookie Settings" title="Cookie Settings" type="button">',
+      '        aria-label="' + copy.settings + '" title="' + copy.settings + '" type="button">',
       '  <span class="ncc-cookie-icon" aria-hidden="true">' + COOKIE_ICON_SVG + '</span>',
       '</button>',
     ].join('\n');

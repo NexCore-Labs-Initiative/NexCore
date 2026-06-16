@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+
+<html lang="ar" dir="rtl">
+
+    <head>
+
+        <!-- مدير الموافقة على الكوكيز v2 -->
+
+        <link rel="stylesheet" href="../assets/css/cookies.css">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="NexCore Labs">
+        <meta name="keywords" content="نكسكور لابز، تسجيل الدخول، التسجيل، المصادقة، جامعات عمان، كليات عمان، جامعة السلطان قابوس، عمان">
+        <meta name="theme-color" content="#0a0b1c">
+        <meta name="mobile-web-app-capable" content="yes">
+
+        <title>NexCore Labs | تسجيل الدخول</title>
+
+        <meta name="description" content="سجل الدخول إلى NexCore Labs باستخدام حسابك على Google.">
+
+        <!-- Facebook Meta Tags -->
+
+        <meta property="og:url" content="https://nexcorelabs.vercel.app/ar/auth.html">
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="NexCore Labs | تسجيل الدخول">
+        <meta property="og:description" content="سجل الدخول إلى NexCore Labs باستخدام حسابك على Google.">
+        <meta property="og:image" content="https://opengraph.b-cdn.net/production/images/af5a4481-2baa-47be-8838-5160bafa4f79.png?token=_5DjeK6KYgg8DW7Qsk5XfrtI2h_CW3YcCJlwxMJ3sEc&height=1080&width=1080&expires=33306259895">
+
+        <!-- Twitter Meta Tags -->
+
+        <meta name="twitter:card" content="summary_large_image">
+        <meta property="twitter:domain" content="nexcorelabs.vercel.app">
+        <meta property="twitter:url" content="https://nexcorelabs.vercel.app/ar/auth.html">
+        <meta name="twitter:title" content="NexCore Labs | تسجيل الدخول">
+        <meta name="twitter:description" content="سجل الدخول إلى NexCore Labs باستخدام حسابك على Google.">
+        <meta name="twitter:image" content="https://opengraph.b-cdn.net/production/images/af5a4481-2baa-47be-8838-5160bafa4f79.png?token=_5DjeK6KYgg8DW7Qsk5XfrtI2h_CW3YcCJlwxMJ3sEc&height=1080&width=1080&expires=33306259895">
+        <link rel="icon" href="../assets/images/nexcore-icon.png" type="image/png">
+        <link rel="apple-touch-icon" href="../assets/images/nexcore-logo.webp">
+        <link rel="stylesheet" href="../assets/css/style.css">
+        <link rel="stylesheet" href="../assets/css/admin-button.css">
+        <link rel="stylesheet" href="../assets/css/arabic.css">
+
+        <!-- <link rel="stylesheet" href="../assets/css/unminified-css.css"> -->
+
+        <link rel="manifest" href="../manifest.json">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+        <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.2/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+        <link rel="alternate" hreflang="en" href="../auth.html">
+        <link rel="alternate" hreflang="ar" href="auth.html">
+
+    <style>
+        .mt-0 { margin-top: 0 !important; }
+        .p-3-0 { padding: 3rem 0 !important; }
+        .mt-1rem { margin-top: 1rem !important; }
+        .pl-1-25rem { padding-left: 1.25rem !important; }
+        .d-none { display: none !important; }
+        .auth-msg-box { padding: 1rem; background: rgba(110, 231, 243, 0.1); border-radius: 8px; margin-bottom: 1rem; color: #6EE7F3; }
+        .auth-note-box { padding: 0.875rem; background: rgba(255, 120, 120, 0.12); border: 1px solid rgba(255, 120, 120, 0.3); border-radius: 8px; margin-bottom: 1rem; color: #ff8888; font-size: 0.9rem; line-height: 1.5; }
+        /* ── Toast notification ── */
+        #toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(16px);border: 2px solid rgba(255, 255, 255, 0.06);background: rgba(10, 11, 28, 0.6);color:#6ee7f3;padding:10px 22px;border-radius:12px;font-size:.875rem;font-weight:500;z-index:10001;opacity:0;pointer-events:none;transition:opacity .22s,transform .22s;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);max-width:min(420px,90vw);text-align:center;box-shadow:0 8px 32px rgba(0,0,0,.55);white-space:pre-line;}
+        #toast.show{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:all;}
+        #toast.error{border-color:rgba(255,120,120,.28);color:#ff7878;}
+    </style>
+    </head>
+
+    <body>
+
+        <div class="background">
+            <img class="logo-img" id="logoImg" src="../assets/images/nexcore-logo.webp" alt="شعار NexCore Labs">
+
+            <div id="spotLight" class="spot-light"></div>
+        </div>
+
+        <header class="navbar">
+            <div class="nav-container">
+                <div class="logo">
+                    <h1 id="logo">NexCore <span>Labs</span></h1>
+                </div>
+
+                <div class="dropdown">
+                    <div class="core-menu" id="coreMenu" aria-label="فتح القائمة" title="القائمة">
+                        <span class="dot" aria-hidden="true"></span>
+                        <span class="dot" aria-hidden="true"></span>
+                        <span class="dot" aria-hidden="true"></span>
+                        <span class="dot" aria-hidden="true"></span>
+                        <span class="dot" aria-hidden="true"></span>
+                        <span class="dot" aria-hidden="true"></span>
+                    </div>
+
+        <div id="myDropdown" class="dropdown-content">
+                    <a href="../auth.html" class="lang-switch-pill" title="View English site">
+              <div class="pill-slider"></div>
+              <span class="pill-text en-text"><img src="../assets/images/uk.webp" alt="United Kingdom flag"> EN</span>
+              <span class="pill-text ar-text"><img src="../assets/images/oman.webp" alt="Oman flag"> ع</span>
+          </a>
+          <a href="auth.html" class="magic-signup fade" title="تسجيل الدخول إلى حسابك"><i class="fa-solid fa-key"></i> الوصول إلى النواة</a>
+          <input type="search" placeholder="ابحث..." id="myInput" onkeyup="filterFunction()" title="بحث...">
+
+          <a href="hub.html" class="fade" title="مركز NexCore Labs"><i class="fa-solid fa-house"></i> المركز</a>
+          <a href="hub.html#projects" class="fade" title="المشاريع"><i class="fa-solid fa-diagram-project"></i> المشاريع</a>
+          <a href="/ar/intelligence" class="fade ai-link" title="ذكاء NexCore"><svg class="ai-link-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <circle cx="12" cy="12" r="3.2" fill="currentColor"/>
+              <circle cx="5.5" cy="7" r="1.8" fill="currentColor" opacity="0.85"/>
+              <circle cx="18.5" cy="7" r="1.8" fill="currentColor" opacity="0.85"/>
+              <circle cx="12" cy="19" r="1.8" fill="currentColor" opacity="0.85"/>
+              <path d="M7.1 8.2L9.6 10.1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" opacity="0.75"/>
+              <path d="M16.9 8.2L14.4 10.1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" opacity="0.75"/>
+              <path d="M12 15.2V17.1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" opacity="0.75"/>
+              <path d="M12 3.2V4.7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+              <path d="M20.8 12H19.3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+              <path d="M4.7 12H3.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            </svg> ذكاء NexCore</a>
+
+          <div class="div-menu-line"></div>
+
+          <a href="index.html#tools" class="mt-0" title="الأدوات والأنظمة"><i class="fa-solid fa-screwdriver-wrench"></i> الأدوات والأنظمة</a>
+          <a href="index.html#about" title="حول NexCore Labs"><i class="fa-solid fa-circle-info"></i> من نحن</a>
+          <a href="index.html#team" title="فريق NexCore Labs"><i class="fa-solid fa-users"></i> الفريق</a>
+          <a href="index.html#contact" title="اتصل بـ NexCore Labs"><i class="fa-solid fa-paper-plane"></i> اتصل بنا</a>
+
+          <div class="div-menu-line"></div>
+
+          <a href="roadmap.html" class="fade mt-0" title="لوحة الميزات والخريطة"><i class="fa-solid fa-route"></i> لوحة الميزات</a>
+          <a href="releases.html" class="fade" title="الإصدارات والتحديثات"><i class="fa-solid fa-clock-rotate-left"></i> الإصدارات والتحديثات</a>
+
+          <div class="div-menu-line"></div>
+
+          <a href="pricing.html" class="fade mt-0" title="خطط التسعير"><i class="fa-solid fa-tag"></i> التسعير <span class="new-badge">جديد</span></a>
+          <a href="pricing-policy.html" class="fade" title="سياسة التسعير والفوترة"><i class="fa-solid fa-receipt"></i> سياسة التسعير <span class="new-badge">جديد</span></a>
+          <a href="faq.html" class="fade" title="الأسئلة الشائعة والدعم"><i class="fa-solid fa-circle-question"></i> الأسئلة الشائعة</a>
+          <a href="how-to-use.html" class="fade" title="كيفية استخدام NexCore Labs"><i class="fa-solid fa-book-open"></i> كيفية الاستخدام</a>
+          <a href="terms.html" class="fade" title="شروط الخدمة"><i class="fa-solid fa-file-contract"></i> الشروط</a>
+          <a href="privacy-policy.html" class="fade" title="سياسة الخصوصية"><i class="fa-solid fa-shield-halved"></i> الخصوصية</a>
+        </div>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <section class="panel p-3-0">
+                <div class="container">
+                    <div class="signup-wrapper">
+                        <!-- العمود الأيسر: المعلومات -->
+
+                        <div class="signup-info">
+                            <div class="info-block">
+                                <div class="auth-content-text" id="signupContent">
+                                    <h3><i class="fa-solid fa-rocket"></i> لماذا تنضم إلى NexCore؟</h3>
+
+                                    <p>وافق رؤية مشروعك مع خبرتنا واجعل أفكارك حقيقة على الإنترنت. نحن نوفر حلولاً رقمية شاملة مصممة خصيصاً للمشاريع التي يقودها الطلاب.</p>
+
+                                    <ul class="mt-1rem pl-1-25rem">
+                                        <li>تطوير الصفحات الاحترافي</li>
+                                        <li>الدعم التقني والإرشادات</li>
+                                        <li>فرصة بناء المحفظة</li>
+                                        <li>بيئة العمل التعاوني</li>
+                                    </ul>
+
+                                </div>
+                            </div>
+
+                            <div class="info-block">
+                                <h3><i class="fa-solid fa-graduation-cap"></i> مجتمع الطلاب العماني</h3>
+
+                                <p>NexCore Labs مفتوحة لطلاب الجامعات والكليات في جميع أنحاء عمان. طلاب جامعة السلطان قابوس يحصلون على <strong style="color:#6ee7f3;">وصول مجاني</strong> تلقائياً. من جامعة أخرى في عمان؟ يمكنك الحصول على مشروعك على المنصة — <a href="../pricing.html" style="color:#6ee7f3; text-decoration:none; border-bottom:1px solid rgba(110,231,243,0.3);">انظر كيف ←</a></p>
+                            </div>
+                        </div>
+
+                        <!-- العمود الأيمن: نموذج المصادقة -->
+
+                        <div class="signup-form">
+                            <div class="form-box">
+                                <h2 id="formTitle">الوصول إلى النواة</h2>
+
+                                <p class="form-desc" id="formDesc">سجل الدخول باستخدام حسابك على جوجل</p>
+
+                                <button class="google-btn" id="googleSignInBtn">
+
+                                    <svg class="google-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+
+                                        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+
+                                        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+
+                                        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+
+                                        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+
+                                    </svg>
+
+                                    <span id="btnText">المتابعة بواسطة جوجل</span>
+                                </button>
+
+                                <div class="squ-notice">
+                                    <i class="fa-solid fa-info-circle"></i>
+                                    المسموح: أعضاء جامعة السلطان قابوس (@student.squ.edu.om / @squ.edu.om) والمستخدمون المعتمدون.
+                                </div>
+
+                                <div style="margin-top:14px; text-align:center; font-size:13px; color:#9aa3b2;">
+                                    هل أنت من خارج جامعة السلطان قابوس؟ <a href="pricing.html" style="color:#6ee7f3; text-decoration:none; border-bottom:1px solid rgba(110,231,243,0.35); transition:border-color 0.2s;">احصل على الموافقة في NexCore Labs ←</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="nexcore-sign">
+                <img id="nexcoreSign" src="../assets/images/nexcore-word.webp" alt="NexCore Labs">
+            </div>
+        </main>
+
+        <footer class="site-footer">
+            <div class="container footer-inner">
+                <div class="f-left">
+                    <a class="paypal" href="https://www.paypal.me/nexcorelabs" target="_blank" rel="noopener" title="مساهمة اختيارية عبر PayPal"><i class="fa-solid fa-heart" style="color: #6EE7F3;"></i> مساهمة اختيارية لدعم تطوير المنصة</a>
+
+                    <br>
+
+                    <small title="جميع الحقوق محفوظة">NexCore Labs © <span id="year"></span> <span id="splitter">|</span>
+                        <a href="https://github.com/NexCoreLabs/NexCore/blob/main/LICENSE" target="_blank" rel="noopener"
+                            class="license-link">
+                            <i class="fa-solid fa-scale-balanced"></i> رخصة MIT
+                        </a>
+                    </small>
+                </div>
+
+                <div class="f-right"><small>تمكين بيئتنا لفعل المزيد</small></div>
+            </div>
+        </footer>
+
+        <script src="../assets/js/script.js"></script>
+        <script src="../assets/js/supabase-client.js"></script>
+        <script src="../assets/js/auth-ui-db.js"></script>
+        <script src="../version.js"></script>
+
+        <script>
+            const sb = window.supabaseClient;
+            const currentMode = 'login';
+            const ALLOWED_DOMAINS = ['squ.edu.om', 'student.squ.edu.om'];
+            const APPROVED_EMAILS = [];
+            const AUTH_NOTICE_KEY = 'auth_notice';
+            const RESTRICTED_EMAIL_NOTICE = 'فقط عناوين البريد الإلكترونية لجامعة السلطان قابوس (@student.squ.edu.om / @squ.edu.om) يمكنها تسجيل الدخول.';
+            let suppressSignedOutNote = false;
+
+            const googleBtn = document.getElementById('googleSignInBtn');
+            const btnText = document.getElementById('btnText');
+
+            function isAllowedEmail(email) {
+                if (typeof email !== 'string') return false;
+                const normalized = email.trim().toLowerCase();
+                const isDomainAllowed = ALLOWED_DOMAINS.some(domain => normalized.endsWith(`@${domain}`));
+                const isWhitelisted = APPROVED_EMAILS.some(approvedEmail => normalized === approvedEmail.toLowerCase());
+                return isDomainAllowed || isWhitelisted;
+            }
+
+            function stashAuthNotice(message) {
+                try {
+                    sessionStorage.setItem(AUTH_NOTICE_KEY, message);
+                } catch (_) {}
+            }
+
+            async function enforceSquEmail(session) {
+                const email = session?.user?.email || '';
+                if (!session?.user || isAllowedEmail(email)) return true;
+                stashAuthNotice(RESTRICTED_EMAIL_NOTICE);
+                suppressSignedOutNote = true;
+                try {
+                    await sb.auth.signOut();
+                } catch (_) {}
+                showNote(RESTRICTED_EMAIL_NOTICE, true);
+                try {
+                    sessionStorage.removeItem(AUTH_NOTICE_KEY);
+                } catch (_) {}
+                return false;
+            }
+
+            async function checkExistingSession() {
+                const { data: { session } } = await sb.auth.getSession();
+                if (session) {
+                    const allowed = await enforceSquEmail(session);
+                    if (!allowed) return false;
+                    window.location.href = '/ar/dashboard.html';
+                    return true;
+                }
+                return false;
+            }
+
+            function checkURLForErrors() {
+                const params = new URLSearchParams(window.location.search);
+                const hashParams = new URLSearchParams(window.location.hash.substring(1));
+                const error = params.get('error') || hashParams.get('error');
+                const errorDescription = params.get('error_description') || hashParams.get('error_description');
+                const authNotice = params.get('auth_notice');
+                const storedNotice = sessionStorage.getItem(AUTH_NOTICE_KEY);
+
+                if (authNotice === 'restricted_email' || storedNotice) {
+                    showNote(storedNotice || RESTRICTED_EMAIL_NOTICE, true);
+                    sessionStorage.removeItem(AUTH_NOTICE_KEY);
+                    const cleanUrl = window.location.pathname;
+                    window.history.replaceState({}, '', cleanUrl);
+                    return true;
+                }
+
+                if (error || errorDescription) {
+                    const message = errorDescription || error || 'فشل المصادقة';
+                    showNote(message, true);
+                    const cleanUrl = window.location.pathname;
+                    window.history.replaceState({}, '', cleanUrl);
+                    return true;
+                }
+
+                return false;
+            }
+
+            sb.auth.onAuthStateChange(async (event, session) => {
+                if (event === 'SIGNED_IN' && session) {
+                    const allowed = await enforceSquEmail(session);
+                    if (!allowed) return;
+                    sessionStorage.setItem('auth_mode', currentMode);
+                    window.location.href = '/ar/dashboard.html';
+                } else if (event === 'SIGNED_OUT') {
+                    if (suppressSignedOutNote) {
+                        suppressSignedOutNote = false;
+                        return;
+                    }
+                } else if (event === 'USER_DELETED') {
+                    showNote('تم إزالة وصول الحساب.', true);
+                }
+            });
+
+            let _toastTimer = null;
+            function showToast(text, isError = false) {
+                if (!text) return;
+                const toast = document.getElementById('toast');
+                toast.textContent = text;
+                toast.className = 'show' + (isError ? ' error' : '');
+                clearTimeout(_toastTimer);
+                _toastTimer = setTimeout(() => toast.classList.remove('show'), 4500);
+            }
+
+            function showMessage(text, isError = false) {
+                showToast(text, isError);
+            }
+
+            function showNote(text, isError = false) {
+                showToast(text, isError);
+                googleBtn.disabled = false;
+                btnText.textContent = 'المتابعة بواسطة جوجل';
+            }
+
+            async function signInWithGoogle() {
+                try {
+                    googleBtn.disabled = true;
+                    btnText.textContent = 'إعادة التوجيه…';
+                    sessionStorage.setItem('auth_mode', currentMode);
+
+                    const { data, error } = await sb.auth.signInWithOAuth({
+                        provider: 'google',
+                        options: {
+                            redirectTo: `${window.location.origin}/ar/dashboard.html`
+                        }
+                    });
+
+                    if (error) {
+                        throw error;
+                    }
+
+                } catch (error) {
+                    console.error('خطأ في تسجيل الدخول:', error);
+                    showNote(error.message || 'فشل تسجيل الدخول. يرجى المحاولة مرة أخرى.', true);
+                    googleBtn.disabled = false;
+                    btnText.textContent = 'المتابعة بواسطة جوجل';
+                }
+            }
+
+            googleBtn.addEventListener('click', signInWithGoogle);
+
+            async function init() {
+                const hasSession = await checkExistingSession();
+                if (hasSession) return;
+                checkURLForErrors();
+            }
+
+            init();
+        </script>
+
+        <script src="../assets/js/cookies.js"></script>
+        <div id="toast" role="alert" aria-live="assertive"></div>
+
+    </body>
+
+</html>

@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <link rel="stylesheet" href="../assets/css/cookies.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="NexCore Labs">
+    <meta name="theme-color" content="#0a0b1c">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="description" content="تأكيد طلب وصول NexCore Labs وتفاصيل الإيصال.">
+    <title>NexCore Labs | تأكيد الطلب</title>
+
+    <link rel="icon" href="../assets/images/nexcore-icon.png" type="image/png">
+    <link rel="apple-touch-icon" href="../assets/images/nexcore-logo.webp">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/admin-button.css">
+    <link rel="stylesheet" href="../assets/css/arabic.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+
+    <link rel="alternate" hreflang="en" href="../order-confirmation.html">
+    <link rel="alternate" hreflang="ar" href="order-confirmation.html">
+
+    <style>
+        /* ── Page layout ──────────────────────────────────────────────── */
+        body { background: #0a0b1c; color: #eaf6fb; font-family: 'Tajawal', 'Inter', sans-serif; }
+        main { min-height: 80vh; padding: 60px 0 80px; }
+        .confirm-wrap {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ── Header ──────────────────────────────────────────────────── */
+        .confirm-header {
+            text-align: center;
+            margin-bottom: 36px;
+        }
+        .confirm-icon {
+            font-size: 3.5rem;
+            margin-bottom: 14px;
+            display: block;
+        }
+        .confirm-icon.success  { color: #6ee7f3; }
+        .confirm-icon.paypal-active { color: #25d366; }
+        .confirm-header h1 {
+            font-size: 1.9rem;
+            font-weight: 800;
+            margin: 0 0 8px;
+        }
+        .confirm-header p {
+            color: #9aa3b2;
+            font-size: 15px;
+            margin: 0;
+        }
+
+        /* ── Card ─────────────────────────────────────────────────────── */
+        .confirm-card {
+            background: rgba(110,231,243,0.03);
+            border: 1px solid rgba(110,231,243,0.15);
+            border-radius: 18px;
+            padding: 32px;
+            margin-bottom: 20px;
+        }
+        .confirm-card + .confirm-card { margin-top: 0; }
+
+        /* ── Bill ID ──────────────────────────────────────────────────── */
+        .bill-id-block {
+            background: rgba(110,231,243,0.06);
+            border: 1px solid rgba(110,231,243,0.22);
+            border-radius: 12px;
+            padding: 20px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+        }
+        .bill-id-left { flex: 1; min-width: 0; }
+        .bill-id-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: #9aa3b2;
+            display: block;
+            margin-bottom: 6px;
+        }
+        .bill-id-value {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #6ee7f3;
+            letter-spacing: 4px;
+            word-break: break-all;
+        }
+        .bill-id-status {
+            display: block;
+            margin-top: 8px;
+            color: #9aa3b2;
+            font-size: 12px;
+            letter-spacing: 0;
+        }
+        .bill-id-status.success { color: #25d366; }
+        .bill-id-status.warning { color: #ffb432; }
+        .btn-copy {
+            background: rgba(110,231,243,0.1);
+            border: 1px solid rgba(110,231,243,0.3);
+            color: #6ee7f3;
+            padding: 8px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .btn-copy:hover { background: rgba(110,231,243,0.18); }
+
+        /* ── Meta row ─────────────────────────────────────────────────── */
+        .meta-row {
+            display: flex;
+            gap: 8px;
+            align-items: baseline;
+            margin-bottom: 8px;
+            font-size: 14px;
+            flex-wrap: wrap;
+        }
+        .meta-label { color: #9aa3b2; min-width: 90px; flex-shrink: 0; }
+        .meta-value { color: #eaf6fb; word-break: break-all; }
+
+        /* ── Features table ───────────────────────────────────────────── */
+        .features-section { margin-top: 24px; }
+        .features-section h3 {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #6ee7f3;
+            margin: 0 0 12px;
+        }
+        .features-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .features-table th {
+            text-align: right;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #9aa3b2;
+            padding: 8px 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+        }
+        .features-table th:last-child { text-align: left; }
+        .features-table td {
+            padding: 10px 12px;
+            font-size: 14px;
+            color: #cbd5e0;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+        .features-table td:last-child {
+            text-align: left;
+            color: #6ee7f3;
+            font-weight: 600;
+        }
+        .features-table tfoot td {
+            border-top: 1px solid rgba(110,231,243,0.2);
+            border-bottom: none;
+            font-weight: 700;
+            color: #eaf6fb;
+            font-size: 15px;
+            padding-top: 14px;
+        }
+        .features-table tfoot td:last-child {
+            color: #6ee7f3;
+            font-size: 18px;
+        }
+        .total-usd-note {
+            font-size: 12px;
+            color: #9aa3b2;
+            font-weight: 400;
+            display: block;
+        }
+
+        /* ── PayPal activated banner ──────────────────────────────────── */
+        .paypal-activated-banner {
+            background: linear-gradient(135deg, rgba(37,211,102,0.1), rgba(110,231,243,0.07));
+            border: 1px solid rgba(37,211,102,0.3);
+            border-radius: 14px;
+            padding: 28px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .paypal-activated-banner .banner-icon {
+            font-size: 2.5rem;
+            color: #25d366;
+            margin-bottom: 10px;
+        }
+        .paypal-activated-banner h2 {
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin: 0 0 10px;
+            color: #25d366;
+        }
+        .paypal-activated-banner p {
+            color: #cbd5e0;
+            font-size: 14px;
+            margin: 0 0 20px;
+            line-height: 1.6;
+        }
+        .btn-signin-google {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(110,231,243,0.12);
+            border: 1.5px solid #6ee7f3;
+            color: #6ee7f3;
+            font-weight: 700;
+            font-size: 15px;
+            padding: 13px 28px;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .btn-signin-google:hover {
+            background: rgba(110,231,243,0.22);
+            transform: translateY(-1px);
+        }
+        .email-note {
+            margin-top: 12px;
+            font-size: 13px;
+            color: #9aa3b2;
+        }
+        .email-note strong { color: #eaf6fb; }
+
+        /* ── Bank Transfer pending banner ────────────────────────────── */
+        .bank-transfer-banner {
+            background: linear-gradient(135deg, rgba(255,180,50,0.08), rgba(110,231,243,0.04));
+            border: 1px solid rgba(255,180,50,0.3);
+            border-radius: 14px;
+            padding: 26px 28px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .bank-transfer-banner .banner-icon {
+            font-size: 2.5rem;
+            color: #ffb432;
+            margin-bottom: 10px;
+        }
+        .bank-transfer-banner h2 {
+            font-size: 1.3rem;
+            font-weight: 800;
+            margin: 0 0 10px;
+            color: #ffb432;
+        }
+        .bank-transfer-banner p {
+            color: #cbd5e0;
+            font-size: 14px;
+            line-height: 1.65;
+            margin: 0 0 10px;
+        }
+        .bank-transfer-banner p:last-child { margin-bottom: 0; }
+
+        /* ── Action buttons ───────────────────────────────────────────── */
+        .action-row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        .btn-action {
+            flex: 1;
+            min-width: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 11px 18px;
+            border-radius: 9px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s;
+            border: none;
+        }
+        .btn-action.download {
+            background: rgba(110,231,243,0.1);
+            border: 1px solid rgba(110,231,243,0.3);
+            color: #6ee7f3;
+        }
+        .btn-action.download:hover { background: rgba(110,231,243,0.18); }
+        .btn-action.back {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #9aa3b2;
+        }
+        .btn-action.back:hover { color: #eaf6fb; background: rgba(255,255,255,0.07); }
+        .export-status {
+            margin: 12px 0 0;
+            color: #9aa3b2;
+            font-size: 12px;
+            line-height: 1.5;
+            text-align: center;
+        }
+        .export-status.active { color: #6ee7f3; }
+
+        /* ── Pending notice ───────────────────────────────────────────── */
+        .pending-notice {
+            background: rgba(255,180,50,0.07);
+            border: 1px solid rgba(255,180,50,0.22);
+            border-radius: 10px;
+            padding: 14px 18px;
+            font-size: 14px;
+            color: #cbd5e0;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+        .pending-notice i { color: #ffb432; margin-top: 2px; flex-shrink: 0; }
+
+        /* ── Print-only elements (hidden on screen) ───────────────────── */
+        .print-only { display: none; }
+
+        /* ── Print styles ─────────────────────────────────────────────── */
+        @media print {
+            @page { size: A4 portrait; margin: 16mm 18mm; }
+
+            /* ── Hide web-only elements ── */
+            header, footer, nav, .site-header, .site-footer,
+            .action-row, .confirm-header, .confirm-icon,
+            .btn-signin-google, .btn-copy,
+            .faq-row, .nexcore-sign, #cookieConsentBanner,
+            [id*="cookie"], [class*="cookie"],
+            .pending-notice,
+            .export-status,
+            .paypal-activated-banner, .bank-transfer-banner,
+            p[style*="text-align:center"] { display: none !important; }
+
+            /* ── Show print-only elements ── */
+            .print-only { display: block !important; }
+
+            /* ── Reset layout ── */
+            *, *::before, *::after { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+            html, body {
+                width: 100% !important;
+                min-width: 100% !important;
+                background: #fff !important;
+                color: #111 !important;
+                font-size: 10.5pt !important;
+                line-height: 1.35 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                overflow: visible !important;
+            }
+            main {
+                width: 100% !important;
+                min-height: auto !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                opacity: 1 !important;
+            }
+            .confirm-wrap {
+                width: 100% !important;
+                max-width: 168mm !important;
+                margin: 0 auto !important;
+                padding: 0 !important;
+                box-sizing: border-box !important;
+            }
+
+            /* ── Print receipt header ── */
+            #printOnlyHeader {
+                border-bottom: 1pt solid #d8d8d8;
+                padding-bottom: 14px !important;
+                margin-bottom: 18px !important;
+            }
+            #printOnlyHeader .por-company {
+                text-align: center;
+            }
+            .por-logo {
+                display: block;
+                width: 42px;
+                height: 42px;
+                margin: 15px auto 8px;
+                border-radius: 50%;
+                object-fit: cover;
+            }
+            .por-company {
+                font-size: 23pt;
+                font-weight: 700;
+                letter-spacing: 0;
+                margin: 0 0 16px;
+                color: #000;
+            }
+            .por-subtitle {
+                display: flex;
+                justify-content: space-between;
+                font-size: 9.5pt;
+                color: #555;
+            }
+            .por-subtitle span:first-child {
+                font-weight: 700;
+                color: #222;
+            }
+            .por-note {
+                max-width: 118mm;
+                margin: 16px 0 0;
+                color: #333;
+                font-size: 10pt;
+                line-height: 1.45;
+            }
+
+            /* ── Cards ── */
+            .confirm-card {
+                border: 1pt solid #e1e1e1 !important;
+                background: #fff !important;
+                border-radius: 0 !important;
+                padding: 0 !important;
+                margin: 0 0 14px !important;
+                break-inside: avoid;
+                box-shadow: none !important;
+                width: 100% !important;
+                max-width: none !important;
+                box-sizing: border-box !important;
+            }
+
+            /* ── Bill ID ── */
+            .bill-id-block {
+                background: #fff !important;
+                border: none !important;
+                border-bottom: 1pt solid #e5e5e5 !important;
+                border-radius: 0 !important;
+                padding: 13px 16px 15px !important;
+                margin: 0 !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+            }
+            .bill-id-label {
+                font-size: 8pt !important;
+                letter-spacing: 1px !important;
+                color: #555 !important;
+            }
+            .bill-id-value {
+                font-size: 14pt !important;
+                color: #000 !important;
+                letter-spacing: 1.2px !important;
+                word-break: keep-all !important;
+                white-space: nowrap !important;
+            }
+            .bill-id-status { display: none !important; }
+
+            /* ── Meta rows ── */
+            .meta-row {
+                display: flex !important;
+                align-items: baseline !important;
+                gap: 18px !important;
+                font-size: 10pt !important;
+                margin: 0 !important;
+                padding: 8px 16px !important;
+                border-bottom: 1pt solid #eeeeee !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+            }
+            .meta-label { color: #555 !important; flex: 0 0 32mm !important; min-width: 32mm !important; }
+            .meta-value { color: #000 !important; flex: 1 !important; word-break: normal !important; }
+
+            /* ── Features table ── */
+            .features-section { margin-top: 12px !important; }
+            .features-section h3 {
+                font-size: 9pt !important;
+                color: #333 !important;
+                border: none;
+                padding: 0 16px;
+                margin: 0 0 4px !important;
+            }
+            .features-table th {
+                color: #000 !important;
+                background: #fff !important;
+                border-bottom: 1pt solid #dddddd !important;
+                font-size: 8.5pt !important;
+                padding: 7px 8px !important;
+            }
+            .features-table th:first-child,
+            .features-table td:first-child { padding-left: 16px !important; }
+            .features-table th:last-child,
+            .features-table td:last-child { padding-right: 16px !important; }
+            .features-table td {
+                color: #222 !important;
+                border-bottom: 1pt solid #eeeeee !important;
+                font-size: 10.5pt !important;
+                padding: 8px !important;
+            }
+            .features-table td:last-child { color: #000 !important; font-weight: 600 !important; }
+            .features-table tfoot td {
+                border-top: 1pt solid #d7d7d7 !important;
+                border-bottom: none !important;
+                color: #000 !important;
+                font-size: 12pt !important;
+                padding-top: 10px !important;
+            }
+            .features-table tfoot td:last-child { color: #000 !important; }
+            .total-usd-note { color: #666 !important; font-size: 8.5pt !important; }
+
+            /* ── Print receipt footer ── */
+            #printOnlyFooter {
+                margin-top: 34px !important;
+                color: #333;
+            }
+            .por-thanks {
+                margin: 0 0 22px;
+                color: #eeeeee;
+                font-size: 28pt;
+                font-weight: 800;
+            }
+            .por-footer-brand {
+                margin: 0 0 10px;
+                color: #000;
+                font-size: 11pt;
+                font-weight: 800;
+            }
+            .por-footer-meta {
+                margin: 0;
+                color: #777;
+                font-size: 8.5pt;
+                line-height: 1.5;
+            }
+        }
+    </style>
+
+    <!-- Vercel Web Analytics -->
+    <script>window.va = window.va || function() { (window.vaq = window.vaq || []).push(arguments); };</script>
+    <script defer src="/_vercel/insights/script.js"></script>
+    <script>window.si = window.si || function() { (window.siq = window.siq || []).push(arguments); };</script>
+    <script defer src="/_vercel/speed-insights/script.js"></script>
+    <link rel="alternate" hreflang="en" href="../order-confirmation.html">
+    <link rel="alternate" hreflang="ar" href="order-confirmation.html">
+</head>
+<body>
+
+    <!-- يتم تحميل الترويسة من script.js / مكوّن ترويسة الموقع -->
+
+    <main>
+        <!-- Print-only receipt header (hidden on screen) -->
+        <div id="printOnlyHeader" class="print-only confirm-wrap" aria-hidden="true">
+            <img class="por-logo" src="../assets/images/nexcore-logo.webp" alt="شعار NexCore Labs" width="42" height="42">
+            <p class="por-company">الإيصال</p>
+            <div class="por-subtitle">
+                <span>طلب وصول NexCore Labs</span>
+                <span id="printDateLabel"></span>
+            </div>
+            <p class="por-note">استلمنا طلب وصولك إلى NexCore Labs. تم تنسيق هذا الإيصال للطباعة أو الحفظ كملف PDF.</p>
+        </div>
+
+        <div class="confirm-wrap" id="confirmWrap">
+            <!-- JS renders content here -->
+            <div style="text-align:center;padding:80px 0;color:#9aa3b2;">
+                <i class="fa-solid fa-spinner fa-spin" style="font-size:2rem;color:#6ee7f3;"></i>
+                <p style="margin-top:14px;">جارٍ تحميل طلبك...</p>
+            </div>
+        </div>
+
+        <div id="printOnlyFooter" class="print-only confirm-wrap" aria-hidden="true">
+            <p class="por-thanks">شكراً لك.</p>
+            <p class="por-footer-brand">NexCore Labs</p>
+            <p class="por-footer-meta">
+                nexcorelabs.vercel.app<br>
+                لديك أسئلة؟ تواصل معنا عبر دعم NexCore Labs.
+            </p>
+        </div>
+    </main>
+
+    <script src="../assets/js/script.js"></script>
+    <script src="../version.js"></script>
+
+    <script>
+        // ─────────────────────────────────────────────────────────────────
+        //  Read order from sessionStorage
+        // ─────────────────────────────────────────────────────────────────
+        const OMR_TO_USD = 2.60;
+        let receiptExportStarted = false;
+
+        const yearEl = document.getElementById('year');
+        if (yearEl) yearEl.textContent = new Date().getFullYear();
+        const _pdate = document.getElementById('printDateLabel');
+        if (_pdate) _pdate.textContent = new Date().toLocaleDateString('ar-OM', { day: 'numeric', month: 'long', year: 'numeric' });
+
+        (function init() {
+            const raw = sessionStorage.getItem('nxc_order');
+
+            if (!raw) {
+                // No order data — redirect back to pricing
+                window.location.replace('/ar/pricing.html');
+                return;
+            }
+
+            let order;
+            try { order = JSON.parse(raw); }
+            catch (_) { window.location.replace('/ar/pricing.html'); return; }
+
+            // Clear immediately so Back button doesn't re-show stale data
+            sessionStorage.removeItem('nxc_order');
+
+            if (!order.bill_id || !order.user_email) {
+                window.location.replace('/ar/pricing.html');
+                return;
+            }
+
+            render(order);
+        })();
+
+        // ─────────────────────────────────────────────────────────────────
+        //  Render the page
+        // ─────────────────────────────────────────────────────────────────
+        function render(order) {
+            const isPayPalActive  = order.payment_method === 'paypal' && order.auto_activated === true;
+            const isBankTransfer  = order.payment_method === 'bank_transfer';
+
+            const ARABIC_DIGITS = ['٠','١','٢','٣','٤','٥','٦','٧','٨','٩'];
+            const toArabicDigits = (value) => String(value).replace(/\d/g, (digit) => ARABIC_DIGITS[Number(digit)]);
+            const formatOmr = (value) => toArabicDigits(Number(value).toFixed(3)) + ' ريال عُماني';
+            const formatUsd = (value) => toArabicDigits(Number(value).toFixed(2)) + ' دولار أمريكي';
+
+            const featureRows = (order.features || []).map(f =>
+                `<tr>
+                    <td>${escHtml(f.label)}</td>
+                    <td>${formatOmr(f.price)}</td>
+                </tr>`
+            ).join('');
+
+            const metaDate = order.submitted_at
+                ? new Date(order.submitted_at).toLocaleString('ar-OM', { dateStyle: 'medium', timeStyle: 'short' })
+                : '';
+
+            // ── Header ────────────────────────────────────────────────────
+            const headerIcon  = isPayPalActive ? 'fa-circle-check paypal-active' : 'fa-circle-check success';
+            const headerTitle = isPayPalActive  ? 'تم تفعيل الوصول!'
+                              : isBankTransfer  ? 'تم إرسال التحويل!'
+                              : 'تم إرسال الطلب!';
+            const headerSub   = isPayPalActive
+                ? 'تم تأكيد دفعة PayPal ووصولك إلى NexCore نشط الآن.'
+                : isBankTransfer
+                ? 'تم استلام تفاصيل التحويل البنكي وهي بانتظار التحقق.'
+                : 'تم استلام طلبك. راجع التعليمات أدناه لإكمال الدفع.';
+
+            // ── PayPal activated block ─────────────────────────────────────
+            const paypalBlock = isPayPalActive ? `
+                <div class="paypal-activated-banner">
+                    <div class="banner-icon"><i class="fa-solid fa-shield-check"></i></div>
+                    <h2>وصولك إلى NexCore نشط الآن</h2>
+                    <p>
+                        تمت إضافة بريدك الإلكتروني إلى قائمة وصول NexCore.<br>
+                        سجّل الدخول الآن باستخدام حساب Google للوصول إلى لوحة التحكم.
+                    </p>
+                    <a href="/ar/auth.html" class="btn-signin-google">
+                        <i class="fa-brands fa-google"></i> تسجيل الدخول عبر Google
+                    </a>
+                    <p class="email-note">استخدم البريد الإلكتروني الذي أدخلته: <strong>${escHtml(order.user_email)}</strong></p>
+                </div>` : '';
+
+            // ── Bank Transfer pending banner ───────────────────────────────
+            const bankTransferBlock = isBankTransfer ? `
+                <div class="bank-transfer-banner">
+                    <div class="banner-icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
+                    <h2>التحويل قيد المراجعة</h2>
+                    <p>
+                        استلمنا تفاصيل التحويل البنكي وطلبك الآن
+                        <strong style="color:#ffb432;">قيد التحقق</strong>.
+                    </p>
+                    <p>
+                        سيتحقق فريقنا من التحويل ويفعّل وصولك خلال <strong>حوالي ٤٨ ساعة</strong>.
+                        تم إرسال رسالة تأكيد إلى <strong style="color:#eaf6fb;">${escHtml(order.user_email)}</strong>.
+                    </p>
+                    <p style="font-size:13px;color:#9aa3b2;">
+                        لديك أسئلة؟ تواصل مع دعم NexCore Labs.
+                    </p>
+                </div>` : '';
+            // ── Payment label in receipt card ─────────────────────────────────
+            const paymentLabel = isBankTransfer ? 'تحويل بنكي' : (order.payment_method === 'paypal' ? 'PayPal' : (order.payment_method || '—'));
+            // ── Main receipt card ──────────────────────────────────────────
+            const receiptCard = `
+                <div class="confirm-card" id="receiptCard">
+                    <div class="bill-id-block">
+                        <div class="bill-id-left">
+                            <span class="bill-id-label">رقم الفاتورة</span>
+                            <span class="bill-id-value" id="billIdValue">${escHtml(order.bill_id)}</span>
+                            <span class="bill-id-status" id="billIdCopyStatus">سنحاول نسخ رقم الفاتورة تلقائياً.</span>
+                        </div>
+                        <button class="btn-copy" onclick="copyBillId()" id="copyBtn" title="نسخ رقم الفاتورة">
+                            <i class="fa-solid fa-copy"></i> نسخ
+                        </button>
+                    </div>
+
+                    <div class="meta-row"><span class="meta-label">الاسم</span><span class="meta-value">${escHtml(order.user_name || '—')}</span></div>
+                    <div class="meta-row"><span class="meta-label">البريد الإلكتروني</span><span class="meta-value">${escHtml(order.user_email)}</span></div>
+                    <div class="meta-row"><span class="meta-label">طريقة الدفع</span><span class="meta-value">${escHtml(paymentLabel)}</span></div>
+                    ${order.pricing_policy_version ? `<div class="meta-row"><span class="meta-label">سياسة التسعير</span><span class="meta-value"><a href="/ar/pricing-policy" target="_blank" rel="noopener">الإصدار ${escHtml(order.pricing_policy_version)}</a></span></div>` : ''}
+                    ${metaDate ? `<div class="meta-row"><span class="meta-label">تاريخ الإرسال</span><span class="meta-value">${metaDate}</span></div>` : ''}
+
+                    <div class="features-section">
+                        <h3>الميزات المختارة</h3>
+                        <table class="features-table">
+                            <thead>
+                                <tr><th>الميزة</th><th>السعر</th></tr>
+                            </thead>
+                            <tbody>${featureRows}</tbody>
+                            <tfoot>
+                                <tr>
+                                    <td>الإجمالي</td>
+                                    <td>
+                                        ${formatOmr(order.total_omr)}
+                                        <span class="total-usd-note">≈ ${formatUsd(order.total_usd)}</span>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+
+                    <div class="action-row">
+                        <button class="btn-action download" onclick="downloadPDF()">
+                            <i class="fa-solid fa-file-pdf"></i> حفظ الإيصال
+                        </button>
+                        <a href="/ar/pricing.html" class="btn-action back">
+                            <i class="fa-solid fa-arrow-right"></i> العودة إلى الأسعار
+                        </a>
+                    </div>
+                    <p class="export-status" id="receiptExportStatus">ستُفتح نافذة حفظ الإيصال تلقائياً.</p>
+                </div>`;
+
+            // ── Compose full page ──────────────────────────────────────────
+            document.getElementById('confirmWrap').innerHTML = `
+                <div class="confirm-header">
+                    <span class="confirm-icon ${isPayPalActive ? 'paypal-active' : 'success'}">
+                        <i class="fa-solid ${isPayPalActive ? 'fa-circle-check' : 'fa-circle-check'}"></i>
+                    </span>
+                    <h1>${headerTitle}</h1>
+                    <p>${headerSub}</p>
+                </div>
+
+                ${paypalBlock}
+                ${bankTransferBlock}
+                ${receiptCard}
+
+                <p style="text-align:center;color:#9aa3b2;font-size:13px;margin-top:24px;">
+                    تم إرسال رسالة تأكيد إلى <strong style="color:#eaf6fb;">${escHtml(order.user_email)}</strong>.
+                    إذا لم تجدها، تحقق من مجلد الرسائل غير المرغوب فيها.
+                </p>
+            `;
+
+            autoCopyBillId();
+            autoExportReceipt();
+        }
+
+        // ─────────────────────────────────────────────────────────────────
+        //  Helpers
+        // ─────────────────────────────────────────────────────────────────
+        function escHtml(str) {
+            return String(str || '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
+        function setBillIdCopyStatus(message, state) {
+            const status = document.getElementById('billIdCopyStatus');
+            if (!status) return;
+
+            status.textContent = message;
+            status.classList.remove('success', 'warning');
+            if (state) status.classList.add(state);
+        }
+
+        async function writeClipboardText(value) {
+            if (!value) return false;
+
+            if (navigator.clipboard && window.isSecureContext) {
+                await navigator.clipboard.writeText(value);
+                return true;
+            }
+
+            const ta = document.createElement('textarea');
+            ta.value = value;
+            ta.setAttribute('readonly', '');
+            ta.style.position = 'fixed';
+            ta.style.top = '-9999px';
+            ta.style.opacity = '0';
+            document.body.appendChild(ta);
+            ta.select();
+
+            let copied = false;
+            try {
+                copied = document.execCommand('copy');
+            } finally {
+                ta.remove();
+            }
+
+            return copied;
+        }
+
+        async function copyBillId() {
+            const val = document.getElementById('billIdValue')?.textContent || '';
+            try {
+                const copied = await writeClipboardText(val);
+                if (!copied) throw new Error('Clipboard copy was blocked.');
+
+                const btn = document.getElementById('copyBtn');
+                if (btn) {
+                    btn.innerHTML = '<i class="fa-solid fa-check"></i> تم النسخ!';
+                    setTimeout(() => { btn.innerHTML = '<i class="fa-solid fa-copy"></i> نسخ'; }, 2500);
+                }
+                setBillIdCopyStatus('تم نسخ رقم الفاتورة إلى الحافظة.', 'success');
+                return true;
+            } catch (_) {
+                setBillIdCopyStatus('تم حظر النسخ التلقائي. اضغط نسخ لحفظ رقم الفاتورة.', 'warning');
+                return false;
+            }
+        }
+
+        function autoCopyBillId() {
+            // Browsers may block clipboard writes that are not triggered by a user action.
+            setTimeout(() => { copyBillId(); }, 250);
+        }
+
+        function setReceiptExportStatus(message, active = false) {
+            const status = document.getElementById('receiptExportStatus');
+            if (!status) return;
+
+            status.textContent = message;
+            status.classList.toggle('active', active);
+        }
+
+        function autoExportReceipt() {
+            if (receiptExportStarted) return;
+            receiptExportStarted = true;
+
+            setReceiptExportStatus('جارٍ تجهيز الإيصال للحفظ...', true);
+            setTimeout(() => {
+                setReceiptExportStatus('اختر "حفظ كملف PDF" في النافذة للاحتفاظ بالإيصال.', true);
+                downloadPDF();
+            }, 1200);
+        }
+
+        function downloadPDF() {
+            window.print();
+        }
+    </script>
+</body>
+</html>
