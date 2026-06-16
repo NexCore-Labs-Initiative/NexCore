@@ -1,6 +1,6 @@
 # NexCore Labs 🌐
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) ![Founded](https://img.shields.io/badge/Founded-2025-blue) ![Community](https://img.shields.io/badge/Community-SQU-orange) ![Open Source](https://img.shields.io/badge/Open%20Source-Yes-brightgreen)
 
 > **Empowering our SQU Community to do more.**
 
