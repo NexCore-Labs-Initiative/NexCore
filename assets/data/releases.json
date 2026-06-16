@@ -106,6 +106,17 @@
               "file:index.html",
               "file:ar/index.html"
             ]
+          },
+          {
+            "text": {
+              "en": "Replaced separate authenticated menu rows with a compact `navUser` toolbar that keeps the avatar/name beside Dashboard, Admin, Account, and Logout icons.",
+              "ar": "استبدال صفوف قائمة المستخدم المنفصلة بشريط `navUser` مدمج يضع الصورة والاسم بجانب أيقونات لوحة التحكم، والإدارة، والحساب، وتسجيل الخروج."
+            },
+            "evidence": [
+              "file:assets/js/auth-ui-db.js",
+              "file:assets/css/style.css",
+              "file:assets/css/unminified-css.css"
+            ]
           }
         ],
         "fixes": [
@@ -174,6 +185,17 @@
               "file:package.json",
               "file:version.js",
               "file:service-worker.js"
+            ]
+          },
+          {
+            "text": {
+              "en": "Centralized authenticated navigation in the shared auth UI generator with stable action IDs and CSS coverage for both production and readable style bundles.",
+              "ar": "تجميع تنقل المستخدم الموثق داخل مولّد واجهة المصادقة المشترك مع معرّفات إجراءات ثابتة وتغطية CSS في ملفي الأنماط الإنتاجي والمقروء."
+            },
+            "evidence": [
+              "file:assets/js/auth-ui-db.js",
+              "file:scripts/auth-nav-test.js",
+              "file:assets/css/style.css"
             ]
           }
         ],

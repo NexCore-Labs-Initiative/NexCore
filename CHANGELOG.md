@@ -19,6 +19,7 @@ A major bilingual launch for NexCore Labs with full Arabic localization, NexCore
 - Refined Arabic UI direction, typography, logo alignment, line-height, and language switching for a smoother bilingual experience.
 - Updated Arabic hub project cards with localized category chips and links that keep visitors inside the Arabic project experience.
 - Updated the official contact surface with the NexCore Labs phone number and refreshed team information.
+- Replaced separate authenticated menu rows with a compact `navUser` toolbar that keeps the avatar/name beside Dashboard, Admin, Account, and Logout icons.
 
 #### Fixes
 
@@ -33,6 +34,7 @@ A major bilingual launch for NexCore Labs with full Arabic localization, NexCore
 - Created the localized Arabic page set and aligned route handling, metadata, navigation, and shared runtime-generated UI across English and Arabic.
 - Updated NexCore Intelligence backend and frontend paths, including Gemini Flash configuration and the renamed intelligence route.
 - Bumped website version surfaces to `v3.0.0`, including package metadata, runtime version, release asset query strings, and the feature-dated service-worker cache namespace.
+- Centralized authenticated navigation in the shared auth UI generator with stable action IDs and CSS coverage for both production and readable style bundles.
 
 #### Database Changes
 
