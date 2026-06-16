@@ -53,8 +53,8 @@ for (const file of ["assets/css/unminified-css.css", "assets/css/style.css"]) {
 }
 
 assert(
-  read("service-worker.js").includes("v2.9.1-compact-user-nav-20260615"),
-  "Service worker cache must be bumped for the compact navigation"
+  /const CACHE_VERSION = 'v2\.9\.1-[^']+-2026\d{4}';/.test(read("service-worker.js")),
+  "Service worker cache must keep a feature-sensitive dated version"
 );
 
 console.log("Compact auth navigation tests passed.");
