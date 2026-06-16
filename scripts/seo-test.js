@@ -105,7 +105,7 @@ for (const page of flattenPages()) {
 
 assertIncludes(
   read("service-worker.js"),
-  "v2.9.1-seo-assets-20260616",
+  "v2.9.1-seo-title-balance-20260616",
   "service worker cache must be bumped for SEO asset refresh"
 );
 

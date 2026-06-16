@@ -130,7 +130,7 @@ write(
 const serviceWorkerPath = "service-worker.js";
 const serviceWorker = read(serviceWorkerPath).replace(
   /const CACHE_VERSION = '([^']+)';/,
-  "const CACHE_VERSION = 'v2.9.1-seo-assets-20260616';"
+  "const CACHE_VERSION = 'v2.9.1-seo-title-balance-20260616';"
 );
 write(serviceWorkerPath, serviceWorker);
 

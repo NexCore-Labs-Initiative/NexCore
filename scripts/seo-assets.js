@@ -110,17 +110,17 @@ const PAGE_PAIRS = [
     en: {
       file: "hub.html",
       path: "/hub",
-      title: "NexCore Labs | Hub for SQU Projects",
+      title: "NexCore Labs | Project Hub",
       description:
-        "Explore published student work, shared resources, and community projects from the NexCore Labs hub for the SQU community.",
+        "Explore published student work, shared resources, and community projects from the NexCore Labs project hub.",
       breadcrumb: "Hub",
     },
     ar: {
       file: "ar/hub.html",
       path: "/ar/hub",
-      title: "NexCore Labs | مركز مشاريع مجتمع جامعة السلطان قابوس",
+      title: "NexCore Labs | مركز المشاريع",
       description:
-        "استكشف أعمال الطلاب والموارد المشتركة ومشاريع المجتمع من مركز NexCore Labs لمجتمع جامعة السلطان قابوس.",
+        "استكشف أعمال الطلاب والموارد المشتركة ومشاريع المجتمع من مركز المشاريع في NexCore Labs.",
       breadcrumb: "المركز",
     },
   },
@@ -130,17 +130,17 @@ const PAGE_PAIRS = [
     en: {
       file: "how-to-use.html",
       path: "/how-to-use",
-      title: "How to Use NexCore Labs | SQU Community Guide",
+      title: "How to Use NexCore Labs | Platform Guide",
       description:
-        "Learn how to use NexCore Labs to access tools, discover projects, sign in, and get practical support as part of the SQU community.",
+        "Learn how to use NexCore Labs to access tools, discover projects, sign in, and get practical support.",
       breadcrumb: "How to Use",
     },
     ar: {
       file: "ar/how-to-use.html",
       path: "/ar/how-to-use",
-      title: "كيفية استخدام NexCore Labs | دليل مجتمع جامعة السلطان قابوس",
+      title: "كيفية استخدام NexCore Labs | دليل المنصة",
       description:
-        "تعرّف على كيفية استخدام NexCore Labs للوصول إلى الأدوات واكتشاف المشاريع وتسجيل الدخول والحصول على دعم عملي ضمن مجتمع جامعة السلطان قابوس.",
+        "تعرّف على كيفية استخدام NexCore Labs للوصول إلى الأدوات واكتشاف المشاريع وتسجيل الدخول والحصول على دعم عملي.",
       breadcrumb: "كيفية الاستخدام",
     },
   },
@@ -152,7 +152,7 @@ const PAGE_PAIRS = [
       path: "/pricing",
       title: "NexCore Labs | Access & Pricing",
       description:
-        "Review NexCore Labs access options, paused paid-order status, and transparent pricing context for SQU users and wider Oman student teams.",
+        "Review NexCore Labs access options, paused paid-order status, and transparent pricing context for students and project teams.",
       breadcrumb: "Pricing",
     },
     ar: {
@@ -160,7 +160,7 @@ const PAGE_PAIRS = [
       path: "/ar/pricing",
       title: "NexCore Labs | الوصول والأسعار",
       description:
-        "راجع خيارات الوصول في NexCore Labs وحالة إيقاف الطلبات المدفوعة مؤقتاً وسياق التسعير الشفاف لمستخدمي جامعة السلطان قابوس وفرق الطلاب في عمان.",
+        "راجع خيارات الوصول في NexCore Labs وحالة إيقاف الطلبات المدفوعة مؤقتاً وسياق التسعير الشفاف للطلاب وفرق المشاريع.",
       breadcrumb: "الأسعار",
     },
   },
@@ -191,17 +191,17 @@ const PAGE_PAIRS = [
     en: {
       file: "faq.html",
       path: "/faq",
-      title: "NexCore Labs | FAQ for SQU Community",
+      title: "NexCore Labs | Frequently Asked Questions",
       description:
-        "Find clear answers about NexCore Labs, SQU access, project visibility, pricing status, security, and support.",
+        "Find clear answers about NexCore Labs, platform access, project visibility, pricing status, security, and support.",
       breadcrumb: "FAQ",
     },
     ar: {
       file: "ar/faq.html",
       path: "/ar/faq",
-      title: "NexCore Labs | الأسئلة الشائعة لمجتمع جامعة السلطان قابوس",
+      title: "NexCore Labs | الأسئلة الشائعة",
       description:
-        "اعثر على إجابات واضحة حول NexCore Labs والوصول لمجتمع جامعة السلطان قابوس وإبراز المشاريع وحالة التسعير والأمان والدعم.",
+        "اعثر على إجابات واضحة حول NexCore Labs والوصول إلى المنصة وإبراز المشاريع وحالة التسعير والأمان والدعم.",
       breadcrumb: "الأسئلة الشائعة",
     },
   },
@@ -213,7 +213,7 @@ const PAGE_PAIRS = [
       path: "/roadmap",
       title: "NexCore Labs | Feature Requests & Roadmap",
       description:
-        "Vote on feature ideas, suggest improvements, and follow the NexCore Labs roadmap for community-driven platform updates.",
+        "Vote on feature ideas, suggest improvements, and follow the NexCore Labs roadmap for platform updates.",
       breadcrumb: "Roadmap",
     },
     ar: {
@@ -221,7 +221,7 @@ const PAGE_PAIRS = [
       path: "/ar/roadmap",
       title: "NexCore Labs | طلبات الميزات وخارطة الطريق",
       description:
-        "صوّت على أفكار الميزات واقترح التحسينات وتابع خارطة طريق NexCore Labs لتحديثات المنصة التي يقودها المجتمع.",
+        "صوّت على أفكار الميزات واقترح التحسينات وتابع خارطة طريق NexCore Labs لتحديثات المنصة.",
       breadcrumb: "خارطة الطريق",
     },
   },
@@ -293,7 +293,7 @@ const PAGE_PAIRS = [
       path: "/intelligence",
       title: "NexCore Intelligence | NexCore Labs",
       description:
-        "Preview NexCore Intelligence, a developing assistant experience for exploring NexCore Labs and its community resources.",
+        "Preview NexCore Intelligence, a developing assistant experience for exploring NexCore Labs resources.",
       breadcrumb: "NexCore Intelligence",
     },
     ar: {
@@ -301,7 +301,7 @@ const PAGE_PAIRS = [
       path: "/ar/intelligence",
       title: "ذكاء NexCore | NexCore Labs",
       description:
-        "استعرض ذكاء NexCore، تجربة مساعد قيد التطوير لاستكشاف NexCore Labs وموارد مجتمعها.",
+        "استعرض ذكاء NexCore، تجربة مساعد قيد التطوير لاستكشاف NexCore Labs ومواردها.",
       breadcrumb: "ذكاء NexCore",
     },
   },
