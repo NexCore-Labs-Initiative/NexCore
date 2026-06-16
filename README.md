@@ -1,42 +1,61 @@
 # NexCore Labs 🌐
 
-> **Empower our SQU Community to do more.**
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-NexCore Labs is an independent, student-led initiative founded in 2025 by students from Sultan Qaboos University.
+> **Empowering our SQU Community to do more.**
 
-We bring together useful tools, shared knowledge, project visibility, and collaboration to help the SQU community achieve more. NexCore is not operated, sponsored, or endorsed by the university.
+NexCore Labs is an independent, student-led initiative founded in 2025 by students of Sultan Qaboos University (SQU).
+
+We build tools, showcase projects, encourage collaboration, and create opportunities that help students and teams transform ideas into meaningful impact. Our goal is to make innovation more accessible and to strengthen the culture of building, sharing, and learning within the SQU community.
+
+NexCore Labs is not operated, sponsored, or endorsed by Sultan Qaboos University.
 
 ---
 
 ## 🚀 Mission
 
-To empower our SQU community to do more.
+Empower our SQU Community to do more.
+
+---
 
 ## 🌍 Vision
 
-To become a trusted student-led platform where the SQU community can discover tools, share work, collaborate, and move ideas forward.
+To become a trusted student-led hub that enables students, teams, and initiatives to discover opportunities, showcase their work, collaborate effectively, and bring ideas to life.
 
 ---
 
-## 🔒 Progressive Web App (PWA)
+## ✨ What We Do
 
-NexCore Labs supports offline mode and caching using a custom **Service Worker**.
-Install the app on your desktop or phone for quick access and seamless performance.
-
----
-
-## 📸 Preview
-
-Visit the live version here:
-👉 [**NexCore Labs**](https://nexcorelabs.vercel.app/)
+* Develop useful tools and resources for the SQU community.
+* Showcase student projects and initiatives.
+* Support collaboration across disciplines and interests.
+* Promote innovation, learning, and knowledge sharing.
+* Create digital experiences that make participation easier and more accessible.
 
 ---
 
-## 🧭 Author
+## 🔗 Live Platform
+
+Visit NexCore Labs:
+
+[https://nexcorelabs.vercel.app](https://nexcorelabs.vercel.app/)
+
+---
+
+## 🏫 Community
+
+Built by students, for students.
+
+We believe that small improvements, shared knowledge, and collaborative effort can create lasting impact throughout our community.
+
+---
+
+## 👥 Team
 
 **NexCore Labs Team**
-_2025 Cohort — Sultan Qaboos University_
+Founded in 2025 by [*Al-Faris Mujahid AlZakwani*](https://x.com/AlFarisMujahid_)
+Sultan Qaboos University
 
 ---
 
-> _Progress makes **improvement**, not perfection._
+> *Progress is built through continuous improvement, not perfection.*
