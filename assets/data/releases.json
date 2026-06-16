@@ -2,6 +2,260 @@
   "schema_version": 1,
   "releases": [
     {
+      "version": "v3.0.0",
+      "date": "2026-06-16",
+      "title": {
+        "en": "The Multilingual Intelligence Breakthrough",
+        "ar": "اختراق الذكاء متعدد اللغات"
+      },
+      "summary": {
+        "en": "A major bilingual launch for NexCore Labs with full Arabic localization, NexCore Intelligence, stronger international SEO, new subscription touchpoints, and cleaner platform foundations.",
+        "ar": "إطلاق ثنائي اللغة كبير لـ NexCore Labs مع تعريب كامل، وهوية NexCore Intelligence، وتحسينات SEO دولية، ونقاط اشتراك جديدة، وأساس تقني أنظف للمنصة."
+      },
+      "tags": [
+        "feature",
+        "improvement",
+        "fix"
+      ],
+      "user_updates": {
+        "features": [
+          {
+            "text": {
+              "en": "Launched a complete **Arabic experience** under `/ar/`, covering the homepage, hub, dashboard, project pages, account flows, legal pages, pricing pages, releases, and support content.",
+              "ar": "إطلاق تجربة **عربية كاملة** ضمن `/ar/` تشمل الصفحة الرئيسية، المركز، لوحة التحكم، صفحات المشاريع، الحساب، الصفحات القانونية، الأسعار، الإصدارات، ومحتوى الدعم."
+            },
+            "evidence": [
+              "file:ar/index.html",
+              "file:ar/hub.html",
+              "file:vercel.json"
+            ]
+          },
+          {
+            "text": {
+              "en": "Rebranded AI Chat into **NexCore Intelligence (NCI)** with a dedicated `intelligence.html` experience and refreshed navigation across English and Arabic pages.",
+              "ar": "إعادة تقديم AI Chat باسم **NexCore Intelligence (NCI)** مع تجربة مخصصة في `intelligence.html` وتحديث التنقل في الصفحات الإنجليزية والعربية."
+            },
+            "evidence": [
+              "file:intelligence.html",
+              "file:ar/intelligence.html",
+              "file:api/ai.js"
+            ]
+          },
+          {
+            "text": {
+              "en": "Added a new **newsletter subscription** flow powered by Supabase, including unsubscribe support and Arabic unsubscribe coverage.",
+              "ar": "إضافة تدفق **اشتراك النشرة البريدية** المدعوم بـ Supabase مع دعم إلغاء الاشتراك وتغطية عربية لصفحة الإلغاء."
+            },
+            "evidence": [
+              "file:api/newsletter.js",
+              "file:assets/js/newsletter.js",
+              "file:ar/unsubscribe.html"
+            ]
+          },
+          {
+            "text": {
+              "en": "Added one-click **Bookmark** support in the contact area with mobile-aware behavior for easier return visits.",
+              "ar": "إضافة زر **حفظ الصفحة** في قسم التواصل مع سلوك مناسب للهواتف لتسهيل العودة إلى الموقع."
+            },
+            "evidence": [
+              "file:index.html",
+              "file:assets/js/unminified-js.js",
+              "file:assets/js/script.js"
+            ]
+          }
+        ],
+        "improvements": [
+          {
+            "text": {
+              "en": "Improved international SEO with `hreflang` coverage, localized metadata, Arabic social previews, and clean English/Arabic route rewrites.",
+              "ar": "تحسين SEO الدولي عبر `hreflang`، وبيانات وصفية محلية، ومعاينات اجتماعية عربية، وروابط نظيفة للصفحات الإنجليزية والعربية."
+            },
+            "evidence": [
+              "file:scripts/seo-assets.js",
+              "file:scripts/seo-test.js",
+              "file:vercel.json"
+            ]
+          },
+          {
+            "text": {
+              "en": "Refined Arabic UI direction, typography, logo alignment, line-height, and language switching for a smoother bilingual experience.",
+              "ar": "تحسين اتجاه الواجهة العربية، والخطوط، ومحاذاة الشعار، وارتفاع الأسطر، ومبدل اللغة لتجربة ثنائية اللغة أكثر سلاسة."
+            },
+            "evidence": [
+              "file:assets/css/arabic.css",
+              "file:ar/index.html",
+              "file:ar/hub.html"
+            ]
+          },
+          {
+            "text": {
+              "en": "Updated Arabic hub project cards with localized category chips and links that keep visitors inside the Arabic project experience.",
+              "ar": "تحديث بطاقات المشاريع في المركز العربي بتصنيفات محلية وروابط تُبقي الزوار داخل تجربة المشروع العربية."
+            },
+            "evidence": [
+              "file:ar/hub.html",
+              "file:ar/project.html"
+            ]
+          },
+          {
+            "text": {
+              "en": "Updated the official contact surface with the NexCore Labs phone number and refreshed team information.",
+              "ar": "تحديث واجهة التواصل بالرقم الرسمي لـ NexCore Labs وتحديث معلومات الفريق."
+            },
+            "evidence": [
+              "file:index.html",
+              "file:ar/index.html"
+            ]
+          }
+        ],
+        "fixes": [
+          {
+            "text": {
+              "en": "Expanded service-worker precaching and clean-route support so localized pages and release assets are available more reliably after deployment.",
+              "ar": "توسيع التخزين المسبق في Service Worker ودعم الروابط النظيفة لتصبح الصفحات المحلية وأصول الإصدارات أكثر موثوقية بعد النشر."
+            },
+            "evidence": [
+              "file:service-worker.js",
+              "file:vercel.json"
+            ]
+          },
+          {
+            "text": {
+              "en": "Fixed contact form submissions so successful messages redirect to NexCore's own **Thanks** pages instead of the hosted Web3Forms success URL.",
+              "ar": "إصلاح إرسال نموذج التواصل بحيث تنتقل الرسائل الناجحة إلى صفحات **الشكر** الخاصة بـ NexCore بدلاً من رابط النجاح المستضاف لدى Web3Forms."
+            },
+            "evidence": [
+              "file:index.html",
+              "file:ar/index.html",
+              "file:assets/js/unminified-js.js"
+            ]
+          },
+          {
+            "text": {
+              "en": "Removed the experimental release automation layer so release content can be maintained manually while the workflow is redesigned later.",
+              "ar": "إزالة طبقة أتمتة الإصدارات التجريبية حتى يمكن إدارة محتوى الإصدارات يدوياً إلى حين إعادة تصميم التدفق لاحقاً."
+            },
+            "evidence": [
+              "file:package.json"
+            ]
+          }
+        ]
+      },
+      "developer_notes": {
+        "technical_changes": [
+          {
+            "text": {
+              "en": "Created the localized Arabic page set and aligned route handling, metadata, navigation, and shared runtime-generated UI across English and Arabic.",
+              "ar": "إنشاء مجموعة الصفحات العربية ومواءمة التوجيه، والبيانات الوصفية، والتنقل، والواجهات المُولدة وقت التشغيل بين الإنجليزية والعربية."
+            },
+            "evidence": [
+              "file:ar",
+              "file:assets/js/auth-ui-db.js",
+              "file:vercel.json"
+            ]
+          },
+          {
+            "text": {
+              "en": "Updated NexCore Intelligence backend and frontend paths, including Gemini Flash configuration and the renamed intelligence route.",
+              "ar": "تحديث مسارات الواجهة والخلفية لـ NexCore Intelligence، بما في ذلك إعداد Gemini Flash ومسار intelligence الجديد."
+            },
+            "evidence": [
+              "file:api/ai.js",
+              "file:api/models.js",
+              "file:intelligence.html"
+            ]
+          },
+          {
+            "text": {
+              "en": "Bumped website version surfaces to `v3.0.0`, including package metadata, runtime version, release asset query strings, and the feature-dated service-worker cache namespace.",
+              "ar": "تحديث أسطح إصدار الموقع إلى `v3.0.0` بما يشمل بيانات الحزمة، وإصدار التشغيل، وروابط أصول الإصدارات، ونطاق ذاكرة Service Worker المؤرخ حسب الميزة."
+            },
+            "evidence": [
+              "file:package.json",
+              "file:version.js",
+              "file:service-worker.js"
+            ]
+          }
+        ],
+        "database_changes": [
+          {
+            "text": {
+              "en": "Added newsletter subscription handling backed by Supabase while keeping unsubscribe flows available for localized users.",
+              "ar": "إضافة معالجة اشتراكات النشرة البريدية عبر Supabase مع إبقاء تدفقات إلغاء الاشتراك متاحة للمستخدمين المحليين."
+            },
+            "evidence": [
+              "file:api/newsletter.js",
+              "file:assets/js/unsubscribe.js"
+            ]
+          }
+        ],
+        "api_updates": [
+          {
+            "text": {
+              "en": "Updated AI API behavior around the Gemini Flash model path and retained model discovery support through the models endpoint.",
+              "ar": "تحديث سلوك API الذكاء الاصطناعي حول مسار Gemini Flash مع إبقاء دعم استكشاف النماذج عبر مسار models."
+            },
+            "evidence": [
+              "file:api/ai.js",
+              "file:api/models.js"
+            ]
+          }
+        ],
+        "internal_improvements": [
+          {
+            "text": {
+              "en": "Enabled Dependabot and refreshed npm package versions for stronger maintenance and security hygiene.",
+              "ar": "تفعيل Dependabot وتحديث إصدارات حزم npm لتعزيز الصيانة والأمان."
+            },
+            "evidence": [
+              "file:.github/dependabot.yml",
+              "file:package.json",
+              "file:package-lock.json"
+            ]
+          },
+          {
+            "text": {
+              "en": "Removed release automation workflows and scripts so the codebase stays simpler while a future release process is reconsidered.",
+              "ar": "إزالة تدفقات وسكربتات أتمتة الإصدارات لإبقاء قاعدة الكود أبسط إلى حين إعادة التفكير في عملية إصدار مستقبلية."
+            },
+            "evidence": [
+              "file:.github/workflows",
+              "file:scripts/releases",
+              "file:package.json"
+            ]
+          }
+        ]
+      },
+      "is_major_release": true,
+      "major_details": {
+        "en": {
+          "why_it_matters": "NexCore Labs now serves both English and Arabic audiences while giving its AI experience a stronger product identity.",
+          "description": "Version 3.0.0 expands NexCore Labs from an English-first student platform into a bilingual public experience with Arabic routes, localized content, cleaner international SEO, and the new NexCore Intelligence identity.",
+          "highlights": [
+            "Complete Arabic page set under `/ar/`",
+            "NexCore Intelligence rebrand and AI model updates",
+            "Localized SEO, clean routes, and service-worker coverage",
+            "Newsletter, bookmark, pricing policy, and contact updates"
+          ]
+        },
+        "ar": {
+          "why_it_matters": "أصبحت NexCore Labs تخدم الجمهورين العربي والإنجليزي مع هوية أقوى لتجربة الذكاء الاصطناعي.",
+          "description": "ينقل الإصدار 3.0.0 منصة NexCore Labs من تجربة إنجليزية أولاً إلى تجربة عامة ثنائية اللغة مع مسارات عربية، ومحتوى محلي، وتحسينات SEO دولية، وهوية NexCore Intelligence الجديدة.",
+          "highlights": [
+            "مجموعة صفحات عربية كاملة ضمن `/ar/`",
+            "إعادة تقديم تجربة الذكاء الاصطناعي باسم NexCore Intelligence",
+            "SEO محلي وروابط نظيفة وتغطية أفضل في Service Worker",
+            "تحديثات النشرة البريدية والحفظ وسياسة الأسعار والتواصل"
+          ]
+        }
+      },
+      "source": {
+        "base_tag": "v2.9.1",
+        "target": "dev + arabic-version",
+        "commit_range": "v2.9.1..dev, v2.9.1..arabic-version"
+      }
+    },
+    {
       "version": "v2.9.1",
       "date": "2026-05-25",
       "title": {

@@ -1,6 +1,6 @@
 {
   "name": "nexcore",
-  "version": "2.9.1",
+  "version": "3.0.0",
   "description": "Empower our SQU Community to do more.",
   "main": "service-worker.js",
   "directories": {

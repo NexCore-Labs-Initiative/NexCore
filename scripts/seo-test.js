@@ -105,7 +105,7 @@ for (const page of flattenPages()) {
 
 assertIncludes(
   read("service-worker.js"),
-  "v2.9.1-clean-route-precache-20260616",
+  "v3.0.0-production-assets-20260616",
   "service worker cache must be bumped for SEO asset refresh"
 );
 

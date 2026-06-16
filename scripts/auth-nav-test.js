@@ -53,7 +53,7 @@ for (const file of ["assets/css/unminified-css.css", "assets/css/style.css"]) {
 }
 
 assert(
-  /const CACHE_VERSION = 'v2\.9\.1-[^']+-2026\d{4}';/.test(read("service-worker.js")),
+  /const CACHE_VERSION = 'v\d+\.\d+\.\d+-[^']+-2026\d{4}';/.test(read("service-worker.js")),
   "Service worker cache must keep a feature-sensitive dated version"
 );
 

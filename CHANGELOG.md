@@ -1,5 +1,54 @@
 # Changelog
 
+## v3.0.0 - 16 June 2026
+
+### The Multilingual Intelligence Breakthrough
+
+A major bilingual launch for NexCore Labs with full Arabic localization, NexCore Intelligence, stronger international SEO, new subscription touchpoints, and cleaner platform foundations.
+
+#### New Features
+
+- Launched a complete **Arabic experience** under `/ar/`, covering the homepage, hub, dashboard, project pages, account flows, legal pages, pricing pages, releases, and support content.
+- Rebranded AI Chat into **NexCore Intelligence (NCI)** with a dedicated `intelligence.html` experience and refreshed navigation across English and Arabic pages.
+- Added a new **newsletter subscription** flow powered by Supabase, including unsubscribe support and Arabic unsubscribe coverage.
+- Added one-click **Bookmark** support in the contact area with mobile-aware behavior for easier return visits.
+
+#### Improvements
+
+- Improved international SEO with `hreflang` coverage, localized metadata, Arabic social previews, and clean English/Arabic route rewrites.
+- Refined Arabic UI direction, typography, logo alignment, line-height, and language switching for a smoother bilingual experience.
+- Updated Arabic hub project cards with localized category chips and links that keep visitors inside the Arabic project experience.
+- Updated the official contact surface with the NexCore Labs phone number and refreshed team information.
+
+#### Fixes
+
+- Expanded service-worker precaching and clean-route support so localized pages and release assets are available more reliably after deployment.
+- Fixed contact form submissions so successful messages redirect to NexCore's own **Thanks** pages instead of the hosted Web3Forms success URL.
+- Removed the experimental release automation layer so release content can be maintained manually while the workflow is redesigned later.
+
+### Developer Notes
+
+#### Technical Changes
+
+- Created the localized Arabic page set and aligned route handling, metadata, navigation, and shared runtime-generated UI across English and Arabic.
+- Updated NexCore Intelligence backend and frontend paths, including Gemini Flash configuration and the renamed intelligence route.
+- Bumped website version surfaces to `v3.0.0`, including package metadata, runtime version, release asset query strings, and the feature-dated service-worker cache namespace.
+
+#### Database Changes
+
+- Added newsletter subscription handling backed by Supabase while keeping unsubscribe flows available for localized users.
+
+#### API Updates
+
+- Updated AI API behavior around the Gemini Flash model path and retained model discovery support through the models endpoint.
+
+#### Internal Improvements
+
+- Enabled Dependabot and refreshed npm package versions for stronger maintenance and security hygiene.
+- Removed release automation workflows and scripts so the codebase stays simpler while a future release process is reconsidered.
+
+---
+
 ## v2.9.1 - 25 May 2026
 
 ### Control Panel and Payments
