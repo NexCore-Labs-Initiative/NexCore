@@ -105,8 +105,24 @@ for (const page of flattenPages()) {
 
 assertIncludes(
   read("service-worker.js"),
-  "v2.9.1-seo-title-balance-20260616",
+  "v2.9.1-clean-route-precache-20260616",
   "service worker cache must be bumped for SEO asset refresh"
 );
+
+const serviceWorker = read("service-worker.js");
+for (const page of flattenPages()) {
+  assertIncludes(
+    serviceWorker,
+    `'${page.path}'`,
+    `service worker must precache clean route ${page.path}`
+  );
+  if (!page.file.endsWith("index.html")) {
+    assertIncludes(
+      serviceWorker,
+      `'/${page.file.replace(/\\/g, "/")}'`,
+      `service worker must precache backing file ${page.file}`
+    );
+  }
+}
 
 console.log("SEO asset tests passed.");
