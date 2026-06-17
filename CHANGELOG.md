@@ -12,6 +12,7 @@ A major bilingual launch for NexCore Labs with full Arabic localization, NexCore
 - Rebranded AI Chat into **NexCore Intelligence (NCI)** with a dedicated `intelligence.html` experience and refreshed navigation across English and Arabic pages.
 - Added a new **newsletter subscription** flow powered by Supabase, including unsubscribe support and Arabic unsubscribe coverage.
 - Added one-click **Bookmark** support in the contact area with mobile-aware behavior for easier return visits.
+- Added **Generate Project Card** on project pages so visitors can preview a polished project card and download it as a PDF.
 
 #### Improvements
 
@@ -21,6 +22,7 @@ A major bilingual launch for NexCore Labs with full Arabic localization, NexCore
 - Updated the official contact surface with the NexCore Labs phone number and refreshed team information.
 - Refreshed the NexCore Labs brand design with an enhanced Core mark, updated wordmark assets, and a dedicated app icon for installable experiences.
 - Replaced separate authenticated menu rows with a compact `navUser` toolbar that keeps the avatar/name beside Dashboard, Admin, Account, and Logout icons.
+- Improved the dropdown menu by replacing the Hub icon with static Core dots and moving the premium-styled NexCore Intelligence link between Access the Core and search.
 
 #### Fixes
 
@@ -34,8 +36,9 @@ A major bilingual launch for NexCore Labs with full Arabic localization, NexCore
 
 - Created the localized Arabic page set and aligned route handling, metadata, navigation, and shared runtime-generated UI across English and Arabic.
 - Updated NexCore Intelligence backend and frontend paths, including Gemini Flash configuration and the renamed intelligence route.
-- Bumped website version surfaces to `v3.0.0`, including package metadata, runtime version, release asset query strings, and the feature-dated service-worker cache namespace.
+- Bumped website version surfaces to `v3.0.0`, including package metadata, runtime version, release asset query strings, and the pre-publish service-worker cache version.
 - Updated the PWA manifest and service-worker precache list so the enhanced brand icon set is used by installed apps and cached clients.
+- Added a localized project-card export module that builds the preview card client-side and lazily loads PDF capture libraries only when users request a download.
 - Centralized authenticated navigation in the shared auth UI generator with stable action IDs and CSS coverage for both production and readable style bundles.
 
 #### Database Changes

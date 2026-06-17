@@ -53,8 +53,8 @@ for (const file of ["assets/css/unminified-css.css", "assets/css/style.css"]) {
 }
 
 assert(
-  /const CACHE_VERSION = 'v\d+\.\d+\.\d+-[^']+-2026\d{4}';/.test(read("service-worker.js")),
-  "Service worker cache must keep a feature-sensitive dated version"
+  /const CACHE_VERSION = 'v3\.0\.0';/.test(read("service-worker.js")),
+  "Service worker cache must stay on v3.0.0 before publication"
 );
 
 console.log("Compact auth navigation tests passed.");

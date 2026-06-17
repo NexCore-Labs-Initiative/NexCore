@@ -62,6 +62,18 @@
               "file:assets/js/unminified-js.js",
               "file:assets/js/script.js"
             ]
+          },
+          {
+            "text": {
+              "en": "Added **Generate Project Card** on project pages so visitors can preview a polished project card and download it as a PDF.",
+              "ar": "إضافة زر **إنشاء بطاقة المشروع** في صفحات المشاريع ليتمكن الزوار من معاينة بطاقة مشروع مصممة وتنزيلها كملف PDF."
+            },
+            "evidence": [
+              "file:project.html",
+              "file:ar/project.html",
+              "file:assets/js/project-card-export.js",
+              "file:assets/css/project-card-export.css"
+            ]
           }
         ],
         "improvements": [
@@ -129,6 +141,18 @@
               "file:assets/css/style.css",
               "file:assets/css/unminified-css.css"
             ]
+          },
+          {
+            "text": {
+              "en": "Improved the dropdown menu by replacing the Hub icon with static Core dots and moving the premium-styled NexCore Intelligence link between Access the Core and search.",
+              "ar": "تحسين القائمة المنسدلة باستبدال أيقونة المركز بنقاط Core ثابتة، ونقل رابط NexCore Intelligence بتصميم مميز بين زر الوصول إلى النواة وحقل البحث."
+            },
+            "evidence": [
+              "file:index.html",
+              "file:ar/index.html",
+              "file:assets/css/style.css",
+              "file:assets/css/unminified-css.css"
+            ]
           }
         ],
         "fixes": [
@@ -190,8 +214,8 @@
           },
           {
             "text": {
-              "en": "Bumped website version surfaces to `v3.0.0`, including package metadata, runtime version, release asset query strings, and the feature-dated service-worker cache namespace.",
-              "ar": "تحديث أسطح إصدار الموقع إلى `v3.0.0` بما يشمل بيانات الحزمة، وإصدار التشغيل، وروابط أصول الإصدارات، ونطاق ذاكرة Service Worker المؤرخ حسب الميزة."
+              "en": "Bumped website version surfaces to `v3.0.0`, including package metadata, runtime version, release asset query strings, and the pre-publish service-worker cache version.",
+              "ar": "تحديث أسطح إصدار الموقع إلى `v3.0.0` بما يشمل بيانات الحزمة، وإصدار التشغيل، وروابط أصول الإصدارات، وإصدار ذاكرة Service Worker قبل النشر."
             },
             "evidence": [
               "file:package.json",
@@ -208,6 +232,18 @@
               "file:manifest.json",
               "file:service-worker.js",
               "file:assets/images/nexcore-appicon.webp"
+            ]
+          },
+          {
+            "text": {
+              "en": "Added a localized project-card export module that builds the preview card client-side and lazily loads PDF capture libraries only when users request a download.",
+              "ar": "إضافة وحدة محلية لتصدير بطاقة المشروع تبني المعاينة في المتصفح وتحمل مكتبات التقاط PDF عند طلب التنزيل فقط."
+            },
+            "evidence": [
+              "file:assets/js/project-card-export.js",
+              "file:assets/css/project-card-export.css",
+              "file:project.html",
+              "file:ar/project.html"
             ]
           },
           {
