@@ -33,6 +33,7 @@
     <link rel="stylesheet" href="../assets/css/ai-chat.css">
     <!-- <!-- <link rel="stylesheet" href="../assets/css/unminified-css.css"> --> -->
     <link rel="stylesheet" href="../assets/css/project-categories.css">
+    <link rel="stylesheet" href="../assets/css/project-card-export.css">
     <link rel="manifest" href="../manifest.json">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1042,6 +1043,9 @@
                     <button class="btn primary ghost" id="embedBtn">
                         <i class="fas fa-code"></i> تضمين
                     </button>
+                    <button class="btn primary ghost" id="projectCardBtn">
+                        <i class="fas fa-id-card"></i> إنشاء بطاقة المشروع
+                    </button>
                 </div>
 
             </div>
@@ -1109,6 +1113,7 @@
     <script src="../assets/js/ai-chat.js"></script>
 
     <script src="../assets/js/project-categories.js"></script>
+    <script src="../assets/js/project-card-export.js"></script>
 
     <script>
       window.NEXCORE_AR_CATEGORY_LABELS = {
@@ -1338,6 +1343,12 @@
                 });
 
                 document.getElementById('socialSection').style.display = 'block';
+
+            }
+
+            if (window.setupProjectCardButton) {
+
+                window.setupProjectCardButton(project, { links: socialLinks, locale: 'ar-OM' });
 
             }
 
