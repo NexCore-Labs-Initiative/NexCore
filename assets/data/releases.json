@@ -109,6 +109,18 @@
           },
           {
             "text": {
+              "en": "Refreshed the NexCore Labs brand design with an enhanced Core mark, updated wordmark assets, and a dedicated app icon for installable experiences.",
+              "ar": "تحديث هوية NexCore Labs البصرية بعلامة Core محسّنة، وأصول شعار نصي محدثة، وأيقونة تطبيق مخصصة لتجارب التثبيت."
+            },
+            "evidence": [
+              "file:assets/images/nexcore-logo.webp",
+              "file:assets/images/nexcore-icon.png",
+              "file:assets/images/nexcore-appicon.webp",
+              "file:manifest.json"
+            ]
+          },
+          {
+            "text": {
               "en": "Replaced separate authenticated menu rows with a compact `navUser` toolbar that keeps the avatar/name beside Dashboard, Admin, Account, and Logout icons.",
               "ar": "استبدال صفوف قائمة المستخدم المنفصلة بشريط `navUser` مدمج يضع الصورة والاسم بجانب أيقونات لوحة التحكم، والإدارة، والحساب، وتسجيل الخروج."
             },
@@ -185,6 +197,17 @@
               "file:package.json",
               "file:version.js",
               "file:service-worker.js"
+            ]
+          },
+          {
+            "text": {
+              "en": "Updated the PWA manifest and service-worker precache list so the enhanced brand icon set is used by installed apps and cached clients.",
+              "ar": "تحديث ملف PWA manifest وقائمة التخزين المسبق في Service Worker لاستخدام مجموعة الأيقونات المحسّنة في التطبيقات المثبتة والعملاء المخزنين."
+            },
+            "evidence": [
+              "file:manifest.json",
+              "file:service-worker.js",
+              "file:assets/images/nexcore-appicon.webp"
             ]
           },
           {

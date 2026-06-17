@@ -1,5 +1,5 @@
 /* Improved Service Worker — robust caching, offline fallback, and runtime strategies */
-const CACHE_VERSION = 'v3.0.0-release-notes-20260616';
+const CACHE_VERSION = 'v3.0.0-brand-refresh-20260617';
 const CACHE_PREFIX = 'nexcore-cache-';
 const CACHE_NAME = `${CACHE_PREFIX}${CACHE_VERSION}`;
 const IMAGE_CACHE_PREFIX = 'nexcore-images-';
@@ -112,6 +112,7 @@ const PRECACHE_URLS = [
   '/assets/data/releases.json',
   '/version.js',
 
+  '/assets/images/nexcore-appicon.webp',
   '/assets/images/nexcore-logo.webp',
   '/assets/images/nexcore-icon.png',
   '/assets/images/ceopic.webp',

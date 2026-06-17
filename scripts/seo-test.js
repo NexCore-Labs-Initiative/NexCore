@@ -105,7 +105,7 @@ for (const page of flattenPages()) {
 
 assertIncludes(
   read("service-worker.js"),
-  "v3.0.0-release-notes-20260616",
+  "v3.0.0-brand-refresh-20260617",
   "service worker cache must be bumped for SEO asset refresh"
 );
 
