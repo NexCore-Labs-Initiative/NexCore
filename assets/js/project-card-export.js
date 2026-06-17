@@ -311,6 +311,29 @@
     setTimeout(() => document.body.classList.remove("project-card-printing"), 500);
   }
 
+  function createProjectCardExportClone(preview) {
+    const wrapper = document.createElement("div");
+    const clone = preview.cloneNode(true);
+
+    clone.id = "projectCardPreviewExport";
+    clone.style.width = "720px";
+    clone.style.maxWidth = "none";
+    clone.style.minHeight = "420px";
+    clone.style.margin = "0";
+
+    wrapper.setAttribute("aria-hidden", "true");
+    wrapper.style.position = "fixed";
+    wrapper.style.left = "-10000px";
+    wrapper.style.top = "0";
+    wrapper.style.width = "720px";
+    wrapper.style.pointerEvents = "none";
+    wrapper.style.zIndex = "-1";
+    wrapper.appendChild(clone);
+    document.body.appendChild(wrapper);
+
+    return { wrapper, clone };
+  }
+
   async function downloadProjectCardPDF() {
     const copy = getCopy();
     const data = getProjectCardData();
@@ -321,11 +344,16 @@
     setStatus(copy.generating);
     if (downloadBtn) downloadBtn.disabled = true;
 
+    let exportWrapper = null;
+
     try {
       await ensurePdfLibraries();
-      const canvas = await window.html2canvas(preview, {
+      const { wrapper, clone } = createProjectCardExportClone(preview);
+      exportWrapper = wrapper;
+      const exportScale = Math.max(4, Math.min(5, (window.devicePixelRatio || 1) * 3));
+      const canvas = await window.html2canvas(clone, {
         backgroundColor: null,
-        scale: Math.min(2.5, window.devicePixelRatio || 2),
+        scale: exportScale,
         useCORS: true
       });
       const image = canvas.toDataURL("image/png");
@@ -349,6 +377,7 @@
       setStatus(copy.failed, true);
       setTimeout(printProjectCardFallback, 600);
     } finally {
+      if (exportWrapper) exportWrapper.remove();
       if (downloadBtn) downloadBtn.disabled = false;
     }
   }
