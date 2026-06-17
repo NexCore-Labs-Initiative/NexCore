@@ -149,7 +149,7 @@
       name: project.name || document.getElementById("projectName")?.textContent?.trim() || "Untitled Project",
       id: project.public_id || document.getElementById("projectId")?.textContent?.trim() || "Proj-#",
       category: source.categoryLabel || getProjectCategoryLabel(project.category),
-      description: project.page_description || project.card_description || document.getElementById("pageDescription")?.textContent?.trim() || copy.descriptionFallback,
+      description: project.card_description || project.page_description || document.getElementById("pageDescription")?.textContent?.trim() || copy.descriptionFallback,
       joinedDate: formatProjectDate(project.created_at, source.locale),
       links
     };
