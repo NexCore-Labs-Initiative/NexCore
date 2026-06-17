@@ -105,8 +105,8 @@ for (const page of flattenPages()) {
 
 assertIncludes(
   read("service-worker.js"),
-  "v3.0.0",
-  "service worker cache must match the pre-publish v3.0.0 version"
+  "v3.0.1-logout-confirm-20260617",
+  "service worker cache must match the logout confirmation rollout version"
 );
 
 const serviceWorker = read("service-worker.js");

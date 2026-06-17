@@ -53,8 +53,8 @@ for (const file of ["assets/css/unminified-css.css", "assets/css/style.css"]) {
 }
 
 assert(
-  /const CACHE_VERSION = 'v3\.0\.0';/.test(read("service-worker.js")),
-  "Service worker cache must stay on v3.0.0 before publication"
+  /const CACHE_VERSION = 'v3\.0\.1-logout-confirm-20260617';/.test(read("service-worker.js")),
+  "Service worker cache must stay on the logout confirmation rollout version"
 );
 
 console.log("Compact auth navigation tests passed.");

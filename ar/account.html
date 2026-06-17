@@ -171,6 +171,15 @@
 
     .modal-header h2{margin:0;color:#ff7878;display:flex;align-items:center;gap:10px;font-size:1.15rem;}
 
+    .modal--session .modal-content{
+      box-shadow:0 24px 72px rgba(2,6,23,.85),0 0 0 1px rgba(110,231,243,.06);
+      scrollbar-color:#6ee7f3 transparent;
+    }
+
+    .modal--session .modal-content::before{background:linear-gradient(90deg,transparent,#6ee7f3,transparent);}
+
+    .modal--session .modal-header h2{color:#6ee7f3;}
+
     .close{
 
       display:flex;align-items:center;justify-content:center;
@@ -498,6 +507,35 @@
 
           </button>
         </div>
+
+      <!-- نافذة تأكيد تسجيل الخروج -->
+
+      <div id="logoutModal" class="modal modal--session" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="logoutModalTitle">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 id="logoutModalTitle"><i class="fa-solid fa-right-from-bracket"></i> تسجيل الخروج؟</h2>
+
+            <span class="close" id="closeLogoutModal">&times;</span>
+          </div>
+
+          <p style="margin-bottom:16px;">هل أنت متأكد من رغبتك في تسجيل الخروج من حسابك في NexCore Labs؟</p>
+
+          <div class="modal-actions">
+            <button class="btn logout" id="confirmLogoutBtn">
+
+              <i class="fa-solid fa-right-from-bracket"></i> نعم، تسجيل الخروج
+
+            </button>
+
+            <button class="btn primary ghost" id="cancelLogoutBtn">
+
+              <i class="fa-solid fa-xmark"></i> إلغاء
+
+            </button>
+          </div>
+
+        </div>
+      </div>
 
         <div class="box">
           <h3 class="section-title"><i class="fa-solid fa-folder-open" style="color:#6ee7f3"></i> بيانات المشروع</h3>
@@ -1034,15 +1072,48 @@
 
     }
 
+    function openLogoutModal() {
+
+      const modal = document.getElementById("logoutModal");
+
+      document.getElementById("confirmLogoutBtn").disabled = false;
+
+      document.getElementById("confirmLogoutBtn").innerHTML = '<i class="fa-solid fa-right-from-bracket"></i> نعم، تسجيل الخروج';
+
+      modal.setAttribute("aria-hidden", "false");
+
+      document.body.style.overflow = "hidden";
+
+      requestAnimationFrame(() => modal.classList.add("open"));
+
+    }
+
+    function closeLogoutModal() {
+
+      const modal = document.getElementById("logoutModal");
+
+      modal.classList.remove("open");
+
+      modal.setAttribute("aria-hidden", "true");
+
+      document.body.style.overflow = "";
+
+    }
+
     async function logout() {
 
       try {
 
         const btn = document.getElementById("logoutBtn");
+        const confirmBtn = document.getElementById("confirmLogoutBtn");
 
         btn.disabled = true;
 
         btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> جار تسجيل الخروج...';
+
+        confirmBtn.disabled = true;
+
+        confirmBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> جار تسجيل الخروج...';
 
 
 
@@ -1065,6 +1136,12 @@
         document.getElementById("logoutBtn").disabled = false;
 
         document.getElementById("logoutBtn").innerHTML = '<i class="fa-solid fa-right-from-bracket"></i> تسجيل الخروج';
+
+        const confirmBtn = document.getElementById("confirmLogoutBtn");
+
+        confirmBtn.disabled = false;
+
+        confirmBtn.innerHTML = '<i class="fa-solid fa-right-from-bracket"></i> نعم، تسجيل الخروج';
 
       }
 
@@ -1931,7 +2008,7 @@
 
       await loadAccountInfo(session);
 
-      document.getElementById("logoutBtn").addEventListener("click", logout);
+      document.getElementById("logoutBtn").addEventListener("click", openLogoutModal);
 
       document.getElementById("deleteProjectBtn").addEventListener("click", openDeleteProjectModal);
 
@@ -1944,6 +2021,14 @@
       document.getElementById("exportProjectsBtn").addEventListener("click", exportProjects);
 
       document.getElementById("deleteAccountBtn").addEventListener("click", openDeleteAccountModal);
+
+      // Logout modal listeners
+
+      document.getElementById("closeLogoutModal").addEventListener("click", closeLogoutModal);
+
+      document.getElementById("cancelLogoutBtn").addEventListener("click", closeLogoutModal);
+
+      document.getElementById("confirmLogoutBtn").addEventListener("click", logout);
 
 
 
@@ -1975,6 +2060,8 @@
 
         if (event.target === document.getElementById("deleteProjectModal")) closeDeleteProjectModal();
 
+        if (event.target === document.getElementById("logoutModal")) closeLogoutModal();
+
       });
 
       window.addEventListener("keydown", (event) => {
@@ -1984,6 +2071,8 @@
         closeDeleteAccountModal();
 
         closeDeleteProjectModal();
+
+        closeLogoutModal();
 
       });
 
