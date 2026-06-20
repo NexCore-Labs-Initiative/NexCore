@@ -2,7 +2,7 @@
 
 const SITE_ORIGIN = "https://nexcorelabs.vercel.app";
 const OG_IMAGE =
-  "https://opengraph.b-cdn.net/production/images/af5a4481-2baa-47be-8838-5160bafa4f79.png?token=_5DjeK6KYgg8DW7Qsk5XfrtI2h_CW3YcCJlwxMJ3sEc&height=1080&width=1080&expires=33306259895";
+  "https://nexcorelabs.vercel.app/assets/images/nexcorelabs-og.png";
 
 const ORGANIZATION = {
   "@type": "Organization",
