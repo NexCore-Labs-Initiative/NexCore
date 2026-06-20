@@ -1,6 +1,6 @@
 # Changelog
 
-## v3.0.0 - 16 June 2026
+## v3.0.0 - 20 June 2026
 
 ### The Multilingual Intelligence Breakthrough
 
