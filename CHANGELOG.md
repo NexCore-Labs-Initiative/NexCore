@@ -20,6 +20,7 @@ A major bilingual launch for NexCore Labs with full Arabic localization, NexCore
 - Refined Arabic UI direction, typography, logo alignment, line-height, and language switching for a smoother bilingual experience.
 - Updated Arabic hub project cards with localized category chips and links that keep visitors inside the Arabic project experience.
 - Updated the official contact surface with the NexCore Labs phone number and refreshed team information.
+- Updated the NexCore Labs team roster following Mohammed AlAsmi's retirement from the Data & Analytics role.
 - Refreshed the NexCore Labs brand design with an enhanced Core mark, updated wordmark assets, and a dedicated app icon for installable experiences.
 - Replaced separate authenticated menu rows with a compact `navUser` toolbar that keeps the avatar/name beside Dashboard, Admin, Account, and Logout icons.
 - Improved the dropdown menu by replacing the Hub icon with static Core dots and moving the premium-styled NexCore Intelligence link between Access the Core and search.

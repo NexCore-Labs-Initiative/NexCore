@@ -121,6 +121,16 @@
           },
           {
             "text": {
+              "en": "Updated the NexCore Labs team roster following Mohammed AlAsmi's retirement from the Data & Analytics role.",
+              "ar": "تحديث قائمة فريق NexCore Labs بعد تقاعد محمد العاصمي من دور البيانات والتحليلات."
+            },
+            "evidence": [
+              "file:index.html",
+              "file:ar/index.html"
+            ]
+          },
+          {
+            "text": {
               "en": "Refreshed the NexCore Labs brand design with an enhanced Core mark, updated wordmark assets, and a dedicated app icon for installable experiences.",
               "ar": "تحديث هوية NexCore Labs البصرية بعلامة Core محسّنة، وأصول شعار نصي محدثة، وأيقونة تطبيق مخصصة لتجارب التثبيت."
             },
