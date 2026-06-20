@@ -171,6 +171,15 @@
 
     .modal-header h2{margin:0;color:#ff7878;display:flex;align-items:center;gap:10px;font-size:1.15rem;}
 
+    .modal--session .modal-content{
+      box-shadow:0 24px 72px rgba(2,6,23,.85),0 0 0 1px rgba(110,231,243,.06);
+      scrollbar-color:#6ee7f3 transparent;
+    }
+
+    .modal--session .modal-content::before{background:linear-gradient(90deg,transparent,#6ee7f3,transparent);}
+
+    .modal--session .modal-header h2{color:#6ee7f3;}
+
     .close{
 
       display:flex;align-items:center;justify-content:center;
@@ -305,12 +314,29 @@
 
 
         <div id="myDropdown" class="dropdown-content">
+          <a href="ar/account.html" class="lang-switch-pill mixed-content" title="View Arabic site">
+            <div class="pill-slider"></div>
+            <span class="pill-text en-text"><img src="assets/images/uk.webp" alt="United Kingdom flag"> EN</span>
+            <span class="pill-text ar-text"><img src="assets/images/oman.webp" alt="Oman flag"> ع</span>
+          </a>
+
           <a href="auth.html" class="magic-signup fade" title="Sign in to your account"><i class="fa-solid fa-key"></i> Access the Core</a>
+          <a href="/intelligence" class="fade ai-link" title="NexCore Intelligence"><svg class="ai-link-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <circle cx="12" cy="12" r="3.2" fill="currentColor"/>
+              <circle cx="5.5" cy="7" r="1.8" fill="currentColor" opacity="0.85"/>
+              <circle cx="18.5" cy="7" r="1.8" fill="currentColor" opacity="0.85"/>
+              <circle cx="12" cy="19" r="1.8" fill="currentColor" opacity="0.85"/>
+              <path d="M7.1 8.2L9.6 10.1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" opacity="0.75"/>
+              <path d="M16.9 8.2L14.4 10.1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" opacity="0.75"/>
+              <path d="M12 15.2V17.1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" opacity="0.75"/>
+              <path d="M12 3.2V4.7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+              <path d="M20.8 12H19.3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+              <path d="M4.7 12H3.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            </svg> NexCore Intelligence</a>
           <input type="search" placeholder="What?..." id="myInput" onkeyup="filterFunction()" title="Search...">
 
-          <a href="hub.html" class="fade" title="NexCore Labs Hub"><i class="fa-solid fa-house"></i> Hub</a>
+          <a href="hub.html" class="fade" title="NexCore Labs Hub"><span class="menu-dots-icon" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></span> Hub</a>
           <a href="hub.html#projects" class="fade" title="Projects"><i class="fa-solid fa-diagram-project"></i> Projects</a>
-          <a href="ai-chat.html" class="fade" title="NexCore AI — Ask Anything" style="color:#6ee7f3;"><i class="fa-solid fa-wand-magic-sparkles"></i> NexCore AI</a>
 
           <div class="div-menu-line"></div>
 
@@ -327,6 +353,7 @@
           <div class="div-menu-line"></div>
 
           <a href="pricing.html" class="fade mt-0" title="Pricing Plans"><i class="fa-solid fa-tag"></i> Pricing <span class="new-badge">New</span></a>
+          <a href="pricing-policy.html" class="fade" title="Pricing and Billing Policy"><i class="fa-solid fa-receipt"></i> Pricing Policy <span class="new-badge">New</span></a>
           <a href="faq.html" class="fade" title="FAQ & Support"><i class="fa-solid fa-circle-question"></i> FAQ</a>
           <a href="how-to-use.html" class="fade" title="How to Use NexCore Labs"><i class="fa-solid fa-book-open"></i> How to Use</a>
           <a href="terms.html" class="fade" title="Terms of Service"><i class="fa-solid fa-file-contract"></i> Terms</a>
@@ -422,7 +449,7 @@
         <!-- <div class="box">
           <h3 class="section-title"><i class="fa-solid fa-wand-magic-sparkles" style="color:#6ee7f3"></i> AI Usage Today</h3>
 
-          <p class="muted fs-9">Your NexCore AI chat usage resets every day.</p>
+          <p class="muted fs-9">Your NexCore Intelligence usage resets every day.</p>
 
           <div id="aiUsageContent">
             <div class="info-row" style="flex-direction:column;align-items:flex-start;gap:6px">
@@ -477,6 +504,35 @@
 
           </button>
         </div>
+
+      <!-- Logout Confirmation Modal -->
+
+      <div id="logoutModal" class="modal modal--session" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="logoutModalTitle">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 id="logoutModalTitle"><i class="fa-solid fa-right-from-bracket"></i> Log Out?</h2>
+
+            <span class="close" id="closeLogoutModal">&times;</span>
+          </div>
+
+          <p style="margin-bottom:16px;">Are you sure you want to log out of your NexCore Labs account?</p>
+
+          <div class="modal-actions">
+            <button class="btn logout" id="confirmLogoutBtn">
+
+              <i class="fa-solid fa-right-from-bracket"></i> Yes, Log Out
+
+            </button>
+
+            <button class="btn primary ghost" id="cancelLogoutBtn">
+
+              <i class="fa-solid fa-xmark"></i> Cancel
+
+            </button>
+          </div>
+
+        </div>
+      </div>
 
         <div class="box">
           <h3 class="section-title"><i class="fa-solid fa-folder-open" style="color:#6ee7f3"></i> Project Data</h3>
@@ -652,7 +708,7 @@
       <footer class="site-footer">
         <div class="container footer-inner">
           <div class="f-left">
-            <a class="paypal" href="https://www.paypal.me/nexcorelabs" target="_blank" rel="noopener" title="PayPal"><i class="fa-solid fa-heart" style="color: #6EE7F3;"></i> Support us on <i class="fa-brands fa-paypal"></i></a>
+            <a class="paypal" href="https://www.paypal.me/nexcorelabs" target="_blank" rel="noopener" title="Optional contribution via PayPal"><i class="fa-solid fa-heart" style="color: #6EE7F3;"></i> Optional contribution to support platform development</a>
 
             <br>
 
@@ -1015,15 +1071,48 @@
 
     }
 
+    function openLogoutModal() {
+
+      const modal = document.getElementById("logoutModal");
+
+      document.getElementById("confirmLogoutBtn").disabled = false;
+
+      document.getElementById("confirmLogoutBtn").innerHTML = '<i class="fa-solid fa-right-from-bracket"></i> Yes, Log Out';
+
+      modal.setAttribute("aria-hidden", "false");
+
+      document.body.style.overflow = "hidden";
+
+      requestAnimationFrame(() => modal.classList.add("open"));
+
+    }
+
+    function closeLogoutModal() {
+
+      const modal = document.getElementById("logoutModal");
+
+      modal.classList.remove("open");
+
+      modal.setAttribute("aria-hidden", "true");
+
+      document.body.style.overflow = "";
+
+    }
+
     async function logout() {
 
       try {
 
         const btn = document.getElementById("logoutBtn");
+        const confirmBtn = document.getElementById("confirmLogoutBtn");
 
         btn.disabled = true;
 
         btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Logging out...';
+
+        confirmBtn.disabled = true;
+
+        confirmBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Logging out...';
 
 
 
@@ -1046,6 +1135,12 @@
         document.getElementById("logoutBtn").disabled = false;
 
         document.getElementById("logoutBtn").innerHTML = '<i class="fa-solid fa-right-from-bracket"></i> Log Out';
+
+        const confirmBtn = document.getElementById("confirmLogoutBtn");
+
+        confirmBtn.disabled = false;
+
+        confirmBtn.innerHTML = '<i class="fa-solid fa-right-from-bracket"></i> Yes, Log Out';
 
       }
 
@@ -1912,7 +2007,7 @@ Total Projects: ${projectCount}`;
 
       await loadAccountInfo(session);
 
-      document.getElementById("logoutBtn").addEventListener("click", logout);
+      document.getElementById("logoutBtn").addEventListener("click", openLogoutModal);
 
       document.getElementById("deleteProjectBtn").addEventListener("click", openDeleteProjectModal);
 
@@ -1925,6 +2020,14 @@ Total Projects: ${projectCount}`;
       document.getElementById("exportProjectsBtn").addEventListener("click", exportProjects);
 
       document.getElementById("deleteAccountBtn").addEventListener("click", openDeleteAccountModal);
+
+      // Logout modal listeners
+
+      document.getElementById("closeLogoutModal").addEventListener("click", closeLogoutModal);
+
+      document.getElementById("cancelLogoutBtn").addEventListener("click", closeLogoutModal);
+
+      document.getElementById("confirmLogoutBtn").addEventListener("click", logout);
 
 
 
@@ -1956,6 +2059,8 @@ Total Projects: ${projectCount}`;
 
         if (event.target === document.getElementById("deleteProjectModal")) closeDeleteProjectModal();
 
+        if (event.target === document.getElementById("logoutModal")) closeLogoutModal();
+
       });
 
       window.addEventListener("keydown", (event) => {
@@ -1965,6 +2070,8 @@ Total Projects: ${projectCount}`;
         closeDeleteAccountModal();
 
         closeDeleteProjectModal();
+
+        closeLogoutModal();
 
       });
 

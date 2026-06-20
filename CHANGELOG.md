@@ -1,552 +1,605 @@
-# 🧾 Changelog
+# Changelog
+
+## v3.0.0 - 20 June 2026
+
+### The Multilingual Intelligence Breakthrough
+
+A major bilingual launch for NexCore Labs with full Arabic localization, NexCore Intelligence, stronger international SEO, new subscription touchpoints, and cleaner platform foundations.
+
+#### New Features
+
+- Launched a complete **Arabic experience** under `/ar/`, covering the homepage, hub, dashboard, project pages, account flows, legal pages, pricing pages, releases, and support content.
+- Rebranded AI Chat into **NexCore Intelligence (NCI)** with a dedicated `intelligence.html` experience and refreshed navigation across English and Arabic pages.
+- Added a new **newsletter subscription** flow powered by Supabase, including unsubscribe support and Arabic unsubscribe coverage.
+- Added one-click **Bookmark** support in the contact area with mobile-aware behavior for easier return visits.
+- Added **Generate Project Card** on project pages so visitors can preview a polished project card and download it as a PDF.
+
+#### Improvements
+
+- Improved international SEO with `hreflang` coverage, localized metadata, Arabic social previews, and clean English/Arabic route rewrites.
+- Refined Arabic UI direction, typography, logo alignment, line-height, and language switching for a smoother bilingual experience.
+- Updated Arabic hub project cards with localized category chips and links that keep visitors inside the Arabic project experience.
+- Updated the official contact surface with the NexCore Labs phone number and refreshed team information.
+- Updated the NexCore Labs team roster following Mohammed AlAsmi's retirement from the Data & Analytics role.
+- Refreshed the NexCore Labs brand design with an enhanced Core mark, updated wordmark assets, and a dedicated app icon for installable experiences.
+- Replaced separate authenticated menu rows with a compact `navUser` toolbar that keeps the avatar/name beside Dashboard, Admin, Account, and Logout icons.
+- Improved the dropdown menu by replacing the Hub icon with static Core dots and moving the premium-styled NexCore Intelligence link between Access the Core and search.
+
+#### Fixes
+
+- Expanded service-worker precaching and clean-route support so localized pages and release assets are available more reliably after deployment.
+- Fixed contact form submissions so successful messages redirect to NexCore's own **Thanks** pages instead of the hosted Web3Forms success URL.
+- Removed the experimental release automation layer so release content can be maintained manually while the workflow is redesigned later.
+
+### Developer Notes
+
+#### Technical Changes
+
+- Created the localized Arabic page set and aligned route handling, metadata, navigation, and shared runtime-generated UI across English and Arabic.
+- Updated NexCore Intelligence backend and frontend paths, including Gemini Flash configuration and the renamed intelligence route.
+- Bumped website version surfaces to `v3.0.0`, including package metadata, runtime version, release asset query strings, and the pre-publish service-worker cache version.
+- Updated the PWA manifest and service-worker precache list so the enhanced brand icon set is used by installed apps and cached clients.
+- Added a localized project-card export module that builds the preview card client-side and lazily loads PDF capture libraries only when users request a download.
+- Centralized authenticated navigation in the shared auth UI generator with stable action IDs and CSS coverage for both production and readable style bundles.
+
+#### Database Changes
+
+- Added newsletter subscription handling backed by Supabase while keeping unsubscribe flows available for localized users.
+
+#### API Updates
+
+- Updated AI API behavior around the Gemini Flash model path and retained model discovery support through the models endpoint.
+
+#### Internal Improvements
+
+- Enabled Dependabot and refreshed npm package versions for stronger maintenance and security hygiene.
+- Removed release automation workflows and scripts so the codebase stays simpler while a future release process is reconsidered.
+
+---
 
 ## v2.9.1 - 25 May 2026
 
-### Admin Control Panel Overhaul:
+### Control Panel and Payments
 
-- UI Refactor: Completely revamped the admin interface (`admin-users.html`), now titled  **"Control Panel"** , with modernized stat cards, improved responsiveness, and a new quick search input.
-- Modal System: Re-engineered the modal system with smoother transitions, `is-open/is-closing` states, and an enhanced confirmation flow that supports trigger-based animations.
-- Activity Management: Improved the subscription filtering logic to handle `pending_verification` states and updated the order approval process to return detailed success statuses.
+Admin panel refinements, payment workflow enhancements, and SQU community support.
 
-### Payment & Verification Workflow:
+#### New Features
 
-- Receipt Review Modal: Introduced a new **Proof of Payment** review modal with an iframe preview, allowing admins to verify, approve, or reject receipts directly within the platform.
-- Export & Automation: Added status messages for receipt exports and implemented **automatic PDF downloads** for verified receipts.
-- PayPal Updates: Updated all support links to the new NexCore Labs PayPal account and implemented a detailed **PayPal fee calculation** function to show users the exact expected USD amount.
-- Bill ID Enhancements: Improved the "Copy Bill ID" functionality with better user feedback and status messages.
+- New **Proof of Payment review modal** with iframe preview for admins to verify, approve, or reject receipts directly in the platform.
+- New **Free Access notification** for SQU email domain users during email validation to welcome the university community.
 
-### SQU Community & Accessibility:
+#### Improvements
 
-- Free Access for SQU: Added specialized support for the  **SQU email domain** , including a "Free Access" notification during email validation to welcome the university community.
-- Pricing Page Polish: Enhanced the pricing page with animated price updates, a detailed fee breakdown, and improved badge responsiveness.
-- Navigation: Updated global navigation to include the new Pricing page with a dedicated badge for better visibility.
+- **Admin Control Panel** completely revamped with modernized stat cards, improved responsiveness, and a new quick search input.
+- **Modal system** re-engineered with smoother transitions, enhanced confirmation flow, and trigger-based animations.
+- Subscription filtering now handles `pending_verification` states; order approval process returns detailed success statuses.
+- PayPal integration updated with detailed **fee calculation** function showing exact expected USD amounts.
+- **Pricing page** enhanced with animated price updates, detailed fee breakdown, and improved badge responsiveness.
+- Global navigation now includes the Pricing page with a dedicated badge for better visibility.
+- **Copy Bill ID** functionality improved with better user feedback and status messages.
 
-### Technical Maintenance & Bug Fixes:
+#### Fixes
 
-- Dependency Updates: Upgraded `nodemailer` to version `8.0.8` and updated `package.json` to reflect version `2.9.1`.
-- Modal Fix: Corrected a critical UI bug where the "Delete" and "Cancel" button actions were swapped in the project deletion modal.
-- Cleanup: Removed the WhatsApp payment integration in favor of more streamlined support contact information.
-- Styling Consistency: Standardized stylesheet links across `index.html` and `pricing.html` to ensure a unified visual experience.
+- Corrected critical UI bug where "Delete" and "Cancel" button actions were swapped in the project deletion modal.
+- Removed WhatsApp payment integration in favor of more streamlined support contact information.
+- Standardized stylesheet links across `index.html` and `pricing.html` to ensure unified visual experience.
+
+### Developer Notes
+
+#### Technical Changes
+
+- Control Panel UI completely refactored with modernized stat cards and responsive design improvements.
+- Modal system re-engineered with `is-open/is-closing` states and enhanced trigger-based animations.
+- Receipt exports now include status messages and automatic PDF downloads for verified receipts.
+- Stylesheet standardization applied across multiple pages for consistent visual experience.
+
+#### API Updates
+
+- Implemented detailed **PayPal fee calculation** function for accurate USD amount display.
+- Updated subscription filtering logic to handle `pending_verification` states.
+- Enhanced order approval process to return detailed success statuses.
+
+#### Internal Improvements
+
+- Updated `nodemailer` dependency to version 8.0.8.
+- Updated `package.json` to reflect version 2.9.1.
+- Updated PayPal support links to the new NexCore Labs PayPal account.
 
 ---
 
 ## v2.9.0 - 9 May 2026
 
-### Monetization & Subscription System(BETA):
+### Subscriptions and Monetization
 
-- Pricing Page: Launched a dedicated Pricing page (`pricing.html`) with tiered plans, and a new FAQ category for billing.
-- PayPal Integration: Implemented PayPal order capture with automated email confirmations sent on successful payment.
-- Bank Transfer API: Added a bank transfer API endpoint with reference instructions for manual payment processing.
-- Order Management: Introduced a full subscription management system for submitting and updating orders, including duplicate order detection and a new Order Confirmation page (`order-confirmation.html`).
-- Receipt Generation: Developed a server-side endpoint for generating signed receipt URLs with enhanced print styles for professional order confirmations.
+Monetization framework, AI upgrades, and UX enhancements.
 
-### AI & Feature Enhancements:
+#### New Features
 
-- AI Endpoint Upgrade: Enhanced the core AI endpoint to support both chat and assist functionalities more robustly.
-- Priority Review Locking: Implemented a locking mechanism for "Priority Review" that dynamically activates based on the user's selected payment method.
-- Menu Hint: Added an animated menu hint for first-time visitors to improve platform discoverability.
+- New **Pricing page** with tiered subscription plans, beta banners, and a billing FAQ category.
+- New **Order Confirmation page** with professional print styles and signed receipt URLs.
+- Animated **menu hint** for first-time visitors to improve platform discoverability.
 
-### User Experience & SEO:
+#### Improvements
 
-- SEO & Inclusivity: Updated metadata across multiple pages to improve search engine visibility and platform inclusivity.
-- Authentication Refactor: Simplified the sign-in flow by removing OTP verification and organization detection for email inputs.
-- Analytics: Integrated GA4 User-ID tracking to enable cross-device user behaviour analysis.
+- AI endpoint now supports both chat and assist modes more robustly.
+- Priority Review feature dynamically locks/unlocks based on your selected payment method.
+- Simplified sign-in flow — streamlined email validation without OTP or organisation detection.
+- Updated metadata across multiple pages for better SEO and platform inclusivity.
 
-### Technical Refinements:
+#### Fixes
 
-- Admin Panel Fixes: Improved the user removal process and permission error handling within the administrative interface.
-- Cleanup: Removed `scanner.html` (logic moved to main app) and removed the `admin_activity_log` schema from the database directory.
+- Improved user removal process and permission error handling in the admin panel.
+- GA4 User-ID tracking integrated for accurate cross-device analytics.
 
----
+### Developer Notes
 
-## v2.8.0 - 18 Apr 2026
+#### Technical Changes
 
-### Multilingual & RTL Support:
+- New `pricing.html` with tiered plan UI and billing FAQ category.
+- New `order-confirmation.html` with print-friendly receipt styles.
+- Project QR code removed.
 
-- Arabic Language Integration: Implemented full support for Arabic with the Tajawal font and a dedicated `arabic.css` for RTL (Right-to-Left) styling across all pages.
-- AI Chat Localization: Enhanced the AI assistant's multilingual capabilities for more natural and accurate responses in Arabic.
+#### Database Changes
 
-### Administrative & Security Infrastructure:
+- Removed `admin_activity_log` schema from the database directory.
 
-- Admin Panel: Introduced a new administrative interface (`admin-users.html`) for managing platform users and system settings.
-- User Whitelisting: Implemented a database-driven Approved Users system to control access to specific platform features.
-- Auditing: Added an `admin_activity_log` table to track and audit administrative actions for improved security.
-- Documentation: Added comprehensive guides for approved users, Arabic font implementation, and a new deployment checklist.
+#### API Updates
 
-### Project Sharing & Embedding:
+- New `api/paypal-capture.js` — PayPal order capture with automated email confirmation.
+- New `api/bank-transfer.js` — bank transfer endpoint with reference instructions.
+- New `api/submit-subscription.js` — subscription order submission with duplicate order checks.
+- New `api/receipt-url.js` — server-side signed receipt URL generation.
+- Enhanced `api/ai.js` to support both chat and assist functionalities.
 
-- Embed Functionality: Developed a new Embed System (`embed.html`) that allows users to generate code snippets for displaying NexCore projects on external websites.
-- Embed Panel: Added an interactive panel on project pages to customize and preview embeddable content.
+#### Internal Improvements
 
-### AI Assistant Refinements:
-
-- Response Optimization: Adjusted the `MAX_REPLY_WORDS` limit and improved markdown formatting to ensure AI responses are both detailed and concise.
-- User Onboarding: Added authentication call-to-actions and sign-in modals for AI features and insights to improve conversion.
-
-### Technical Maintenance & Cleanup:
-
-- Code Refactoring: Removed obsolete scripts (e.g., `ai_knowledge_cleanup.sql`) and outdated documentation files to streamline the repository.
-- Bug Fixes: Corrected service worker precache references, updated PayPal link titles, and improved error logging for email authorization checks.
+- GA4 User-ID tracking integrated for cross-device behaviour analysis.
+- Admin panel permission error handling improvements.
 
 ---
 
-## v2.7.0 - 11 Apr 2026
+## v2.8.0 - 18 April 2026
 
-### AI Chat & RAG Integration:
+### Arabic, Administration, and Embeds
 
-- RAG-Powered Assistant: Implemented a new AI chat system using Retrieval-Augmented Generation (RAG) to provide context-aware answers based on project data.
-- Backend API: Added a new api/ai-chat.js endpoint that authenticates via Supabase and integrates with Google Gemini 2.5.
-- Knowledge Base: Introduced a seed script (scripts/seed-knowledge.js) to manage embeddings for the AI knowledge base.
-- Chat Interface: Added a full-page AI chat interface (ai-chat.html) and a floating chat widget accessible across multiple pages.
-- Usage Tracking: Implemented daily chat limits (set to 3) with usage tracking and "usage pills" in the UI to show remaining quota.
+Arabic/RTL support, admin panel, project embed system, and AI assistant refinements.
 
-### User Interface & Feedback:
+#### New Features
 
-- Toast Notifications: Replaced the old moderation popups with a modern Toast Notification system for smoother user feedback.
-- Accessibility & Layout: Adjusted the Floating Action Button (FAB) position and navigation container margins for better consistency and accessibility.
-- Responsive Design: Refined media query breakpoints and menu dot sizes to improve mobile responsiveness.
-- Enhanced Modals: Improved the delete confirmation logic and updated confirmation input labels for better clarity.
+- Full **Arabic language support** with RTL layout, proper typography, and directional styling across all pages.
+- New **Embed System** — generate a code snippet directly from any project page to display it on an external website.
+- New **Admin Panel** for managing platform users, access control, and system settings.
 
-### Account & Dashboard Improvements:
+#### Improvements
 
-- AI Usage Visibility: Added AI usage tracking and display directly within the account section.
-- UI Polish: Updated section titles with icons and color enhancements in the account settings.
-- Session Management: Implemented chat history management using session storage to persist conversations during a session.
+- AI assistant now responds more naturally and accurately in Arabic.
+- AI responses are better formatted and more concise with an improved word-limit policy.
+- Sign-in call-to-actions and modals added for AI features to guide new users through onboarding.
 
-### Technical & Infrastructure:
+#### Fixes
 
-- URL Rewrites: Added vercel.json to handle clean URL rewrites (e.g., /account instead of /account.html).
-- Service Worker: Incremented the service worker cache version to v2.7.0 for better asset management.
-- Error Handling: Enhanced retry logic and error handling for Gemini API calls, including support bubbles for quota exhaustion.
+- Corrected service worker precache references that could cause stale asset loads.
+- Updated PayPal link titles for consistent accessibility labeling.
+- Improved error logging for email authorization checks to make debugging easier.
 
----
+### Developer Notes
 
-## v2.6.0 - 19 Mar 2026
+#### Technical Changes
 
-### Roadmap & Feature Requests:
+- Added `assets/css/arabic.css` with Tajawal font and RTL overrides applied site-wide.
+- New `embed.html` page with embed code generation, customization options, and live preview.
+- New `admin-users.html` interface for user and permission management.
+- Database-driven Approved Users whitelist controls access to specific platform features.
 
-- Introduced a new Feature Requests & Roadmap page (roadmap.html) allowing users to suggest ideas and track progress.
-- Implemented anonymous suggestion submission and guest voting capabilities.
-- Added admin review workflows for pending features and inline comment management.
+#### Database Changes
 
-### User Interface & Experience:
+- Added `admin_activity_log` table to audit all administrative actions.
+- Approved Users system persisted in the database for reliable access control.
 
-- Global Styling Refactor: Introduced a new style.css for consistent global styling and restructured navigation links across core pages.
-- Interactive Components: Added core interactive JavaScript for enhanced UI responsiveness.
-- Animations: Implemented smooth expand/collapse animations for the FAQ and release notes sections.
-- Modals: Introduced new modals for editing comments and confirmation actions, featuring backdrop filters and refined button interactions.
-- Navigation: Enhanced navigation menus with Font Awesome icons for better visual cues.
+#### Internal Improvements
 
-### Functionality & Refinement:
-
-- Comment Management: Added the ability to save comments using Ctrl/Cmd + Enter.
-- Authentication: Refactored authentication into a dedicated login-only page.
-- Accessibility: Improved accessibility by adding titles to PayPal links and standardizing Vercel analytics script placement.
-- Cleanup: Removed comment editing functionality (including associated modals and logic) and cleaned up extraneous blank lines in account settings.
-
-### Technical & DevOps:
-
-- Monitoring: Integrated Vercel Speed Insights and standardized analytics across all HTML pages.
-- Dependencies: Added the vercel package dependency to the project.
-- Data Management: Initialized release history data in assets/data/releases.json.
+- Removed obsolete `ai_knowledge_cleanup.sql` and outdated documentation files.
+- Added deployment checklist and approved-users implementation guide.
 
 ---
 
-## v2.5.0 - 14 Mar 2026
+## v2.7.0 - 11 April 2026
 
-### UI Overhaul:
+### RAG AI Assistant
 
-- Added styling for project categories, filters, and explorer components.
-- Implemented category chips for project filtering.
-- Added comprehensive styling for project detail pages, including sections for stats, social links, QR codes, and creator profiles.
+RAG-powered AI chat, floating assistant access, usage tracking, and broader interface polish.
 
-### New Components & Features:
+#### New Features
 
-- Implemented a custom-styled dropdown component for version selection, replacing the native select element.
-- Introduced a new granular cookie consent manager and authentication UI components.
-- Added a dedicated releases page to track project history.
-- Added Apple Touch Icon and social media meta tags for better platform integration.
+- Launched a new **AI chat assistant** with context-aware answers powered by project knowledge.
+- Added a dedicated **AI Chat** page and a floating chat widget for faster access across the site.
+- Conversations now persist during a session, so your chat context stays available while you browse.
 
-### Core & Performance:
+#### Improvements
 
-- Introduced core JavaScript functionalities and styling for the NexCore website.
-- Minified CSS and JS main files to improve loading performance.
-- Improved link security by adding rel="noopener" to external links.
+- Introduced daily AI usage indicators with remaining quota shown directly in the chat experience.
+- Added AI usage visibility inside the account section with clearer section styling and icons.
+- Refined floating action button placement, menu spacing, and responsive breakpoints for a cleaner mobile layout.
+- Replaced older moderation popups with smoother toast notifications for faster feedback.
 
-### Refactoring & Fixes:
+#### Fixes
 
-- Removed BOM (Byte Order Mark) characters and fixed string interpolation issues.
-- Updated icons (e.g., switched fa-sparkles to fa-wand-magic-sparkles) across the releases page.
-- General code formatting and layout improvements for consistency.
+- Improved delete confirmation behavior with clearer prompts and more reliable confirmation logic.
+- Strengthened AI error handling so retry flows and quota-exhausted states provide better guidance.
 
----
+### Developer Notes
 
-## v2.4.1 - 7 Mar 2026
+#### Technical Changes
 
-- Fixing known problems.
-- Update service worker.
+- Added `api/ai-chat.js` with Supabase authentication and Gemini 2.5 integration for the new assistant flow.
+- Introduced `scripts/seed-knowledge.js` to manage embeddings for the RAG knowledge base.
+- Incremented the `service-worker.js` cache version to `v2.7.0` for cleaner asset updates.
+- Added `vercel.json` URL rewrites to support cleaner route paths.
 
----
+#### Internal Improvements
 
-## v2.4.0 - 7 Mar 2026
-
-### Account Management
-
-- Added **Contact Information section** in account page with email & phone number fields
-- Contact info is public (shown on project pages) while Google sign-in email remains private
-- Implemented contact info validation (email pattern & phone format checks)
-- Added load/save functionality for contact details in Supabase
-- Updated data export to include contact email and phone number
-
-### Project Categories
-
-- Introduced **16 project categories** with color-coded badges:
-  - Technology, Business, Education, Finance, Healthcare, Environment, Agriculture, Food, Travel, Transportation, Real Estate, Media & Entertainment, Art & Design, Sports & Fitness, Community, Lifestyle
-- Created new `project-categories.js` module with category management & normalization
-- Added category field to project creation form (dashboard & hub)
-- Implemented category filtering in project hub with statistics display
-- Generated SVG icons for each category type
-
-### UI/UX Improvements
-
-- Enhanced tooltip styling (added backdrop-filter & box-shadow)
-- Refactored custom dropdowns to support multiple select types with icon support
-- Improved input field styling (color consistency for text & borders)
-- Cleaned up footer by removing privacy policy links from several pages
-- Updated team member roles and titles (index.html)
-- Increased task count from 120+ to 360+ on homepage
-
-### Developer Files
-
-- Added `.gitignore` entry for `sql` directory
-- Started changelog for next version (v marked in CHANGELOG.md)
-- Converted cookie icons from emoji to SVG for better rendering
-
-### Code Refactoring
-
-- Extracted dropdown functionality into reusable `initPortalSelect()` function
-- Removed unnecessary CSS (deleted `cookie-consent.css`)
-- Optimized hub.js project loading logic with filter/search integration
-- Updated version.js from `v2.0.0` to `v2.4.0`
+- Session storage now keeps chat history available through the active browser session.
+- Account settings labels and confirmation copy were refreshed for better clarity and consistency.
 
 ---
 
-## v2.3.0 - 7 Mar 2026
+## v2.6.0 - 19 March 2026
 
-### Account & User Profile Management
+### Roadmap and Feature Requests
 
-- Added user display name field to account settings page (showing full name, username, or email prefix)
-- Implemented user metadata extraction supporting multiple name formats (full_name, name, user_name, preferred_username)
-- Added user profile syncing to database on login with avatar URL support
-- Created helper functions getUserDisplayName() and getUserAvatar() across multiple pages
+Feature voting roadmap launch, guest suggestion flow, and global UX refinements across core pages.
 
-### AI Features Expansion
+#### New Features
 
-- New AI Action: Added project_insights action to the AI API endpoint
-- Generates project summaries with insights array based on project description
-- Implemented AI insights section on project pages with on-demand generation
-- Added "Generate insights" button with loading state and error handling
-- Added AI usage tracking feedback to users (remaining actions per day)
+- Launched the new **Feature Requests & Roadmap** board (`roadmap.html`) to suggest ideas and track implementation progress.
+- Added **anonymous suggestion submission** and **guest voting** flows.
+- Introduced admin review workflows for pending suggestions and inline comment moderation.
 
-### Project Display Enhancements
+#### Improvements
 
-- Redesigned project cards with new structure using .project-card-link wrapper
-- Added project metadata section showing creation date and view count
-- Implemented view count tracking from page_visits_daily table
-- Changed project listing order from ascending to descending (newest first)
-- Added external link icon with hover animation on project titles
-- Improved responsive design for project cards on mobile devices
+- Global styling refactor with new `assets/css/style.css` and cleaner nav links across core pages.
+- Smoother expand/collapse interactions in FAQ and Releases sections.
+- Modal interactions refreshed with blur effects and more polished transitions.
+- Navigation menus upgraded with Font Awesome visual cues.
 
-### Creator/Author Profile Display
+#### Fixes
 
-- Added creator section showing project creator information
-- Implemented avatar display with fallback to initials placeholder
-- Added contact creator functionality with email mailto links
-- Auto-backfill creator identity for legacy projects missing creator metadata
-- Stores creator name and avatar URL in project records
+- Fixed suggestion deletion so it is applied in Supabase (no more delete-only-in-UI behavior after refresh).
+- Fixed unstable delete flows that could get stuck, with confirmation modals now closing automatically after successful actions.
+- Resolved comment-edit save issues by removing the unstable edit-comment path and keeping the comment flow stable.
+- Authentication flow simplified to a dedicated login-only page.
 
-### Project Page Features
+### Developer Notes
 
-- Added creation date badge to project stats
-- Implemented QR code download functionality
-- Added social sharing buttons (X/Twitter, LinkedIn, WhatsApp) setup
-- Improved QR code section layout with wrapper styling
+#### Technical Changes
 
-### Navigation & Auth UI
+- Integrated Vercel Speed Insights and standardized analytics placement across HTML pages.
+- Initialized release history data in `assets/data/releases.json`.
+- Updated `service-worker.js` cache strategy and precache manifest to avoid stale or missing asset cache entries.
+- Added `vercel` package dependency and consolidated UI scripting in core pages.
 
-- Enhanced navbar user display with avatar image support
-- Switched from showing email to display name in navigation
-- Added user avatar to dropdown menu with icon fallback
+#### Internal Improvements
 
-### Database Improvements
-
-- Deleted legacy supabase_ai_migration.sql file (no longer needed)
-- Added support for creator_name and creator_avatar_url project fields
-- Project queries now support slug-based filtering in dashboard
-
-### Code Quality
-
-- Fixed dashboard slug-based project loading from URL parameters
-- Improved HTML closing tag formatting in multiple files
-- Enhanced CSS minification with new responsive media queries
+- Accessibility polish: added PayPal link titles and normalized analytics snippet placement.
+- Cleaned up blank-line noise in account settings files to keep diffs focused.
 
 ---
 
-## v2.2.0 - 6 Mar 2026
+## v2.5.0 - 14 March 2026
 
-### Cookie Consent Manager upgraded to v2 across the site
+### Interface and Performance Refresh
 
-- Replaced old assets/css/cookie-consent.css + assets/js/cookie-consent.js with new assets/css/cookies.css + assets/js/cookies.js in multiple pages (e.g., index.html, auth.html, dashboard.html, faq.html, hub.- html, privacy-policy.html, terms.html, etc.).
-- Removed the old inline cookie banner HTML from pages like index.html, hub.html, faq.html, how-to-use.html, privacy-policy.html.
+Major UI refresh, releases hub, and performance polish across the platform.
 
-### New cookie consent implementation
+#### New Features
 
-- Added assets/css/cookies.css (new file): full UI styling for the new consent modal + floating “Cookie Settings” button.
-- Added assets/js/cookies.js (new file): granular consent prefs, migration from old key, GA load/clear behavior, focus trap + a11y, floating settings button.
+- Brand-new dark theme applied to the Hub and homepage.
+- Project details upgraded with stats, social links, QR codes, and creator profiles.
+- Dedicated Releases page for tracking platform history.
 
-### Account page destructive actions UI/UX & accessibility improvements (account.html)
+#### Improvements
 
-- Reworked “Delete account” modal behavior to be accessible and animated (ARIA attributes, focus/escape/outside click handling, open class instead of display:none).
-- Added a new “Delete Project” confirmation modal (instead of browser confirm() dialogs).
-- Improved modal visuals (layout, buttons order, mobile responsiveness, better “DELETE” confirmation styling).
+- Category chips and filters with richer styling across the explorer experience.
+- Polished project category badges and detail layouts for better readability.
+- Faster page loads via minified core CSS and JS assets.
 
-### Dashboard improvements (dashboard.html)
+#### Fixes
 
-- Added moderation status UI (badge + popup with reason).
-- Added publish flow moderation checks (publish/edit now triggers moderation logic rather than just flipping a published flag).
-- Added delete-project confirmation modal (custom modal instead of native confirm).
+- Removed stray BOM characters and fixed string interpolation glitches.
+- Icon updates across the Releases page for consistent visual language.
 
-### Improved AI UI/UX:
+### Developer Notes
 
-- New “AI magic” button states (loading shimmer + sparkles).
-- Split remaining-quota UI into card/page elements and added shared helpers.
-- Added a custom “AI style” dropdown UI (portalled panel to body to avoid z-index issues).
+#### Technical Changes
 
-### New moderation API endpoint
+- Custom-styled version dropdown replacing the native select.
+- New cookie consent manager and authentication UI components.
+- Added `rel="noopener"` on external links for improved security.
 
-- Added api/moderate-project.js (new file): rule-based + Gemini-based moderation, updates project moderation fields, optional logging to moderation_logs, controls publish state depending on moderation decision.
+#### Internal Improvements
 
-### AI API improvement (api/ai.js)
-
-- Added support for GET /api/ai?usage=1 to fetch AI usage stats via Supabase RPC (get_ai_usage).
-- Kept generation as POST-only (now POST-only is enforced after the GET usage path).
-
-### Footer branding update
-
-- Updated the PayPal support link in footers to include the PayPal icon/logo (seen across many pages).
-
-### Small content/UI tweaks
-
-- Removed “BETA” badges from some headers (e.g., account.html, dashboard.html, hub.html Projects heading).
-- hub.html: changed projects ordering from newest-first to oldest-first (created_at ascending).
+- Added Apple Touch icon and social meta tags for richer sharing.
+- Core JS bootstrapping and layout styling refreshed across the site.
 
 ---
 
-## v2.1.0 - 1 Mar 2026
+## v2.4.1 - 7 March 2026
 
-### 1. New “AI Assist” feature (major user-facing addition)
+### Stability Update
 
-- Added AI-assisted writing inside dashboard.html:
-- Enhance Content with AI for the full Page Description with style modes:
-- Professional / Shorter / Technical / Inspiring
-- AI Card Brief generator to create a concise card_description derived from the page description
-- Includes UX actions: Generate, Replace, Copy, status messages, and remaining-uses counter UI.
-- Added a new serverless endpoint /api/ai.js (Vercel function):
-- Uses Google Gemini via @google/genai
-- Requires Bearer token auth (Supabase JWT validation server-side)
-- Enforces daily rate limiting (3 actions/day/user) via Supabase RPC (consume_ai_use)
-- Has defensive error handling and returns JSON consistently.
-- Added a helper endpoint /api/models.js:
-- Lists available Gemini models (intended as a temporary “model discovery” debugging endpoint).
+Fixing known problems and updating the service worker.
 
-### 2. Supabase DB changes for AI usage limits (new migration)
+#### Fixes
 
-- New SQL migration: supabase_ai_migration.sql
-- Creates ai_usage table
-- Adds RPC function consume_ai_use(max_uses) to atomically enforce daily limit
-- Adds optional helper get_ai_usage(max_uses)
-- Enables RLS + policies to ensure each user only accesses their own usage rows
-- Adds optional cleanup function for old records.
+- Fixed known issues reported in the latest release.
 
-### 3. Project data model / naming updates across pages (functional change)
+### Developer Notes
 
-- Introduced/standardized separate fields:
-- card_description (for hub cards)
-- page_description (for the full project page)
-- Updated hub.html:
-- Fetch now selects card_description instead of description
-- Card rendering uses card_description
-- Search filter logic appears commented out (behavior change: search may no longer filter cards).
-- Updated project.html:
-- “About” section now displays page_description
-- Meta tags use card_description (important for social previews)
-- Owner-check query tightened by adding .eq('owner_user_id', session.user.id) (security improvement).
+#### Technical Changes
 
-### 4. Dashboard & Account improvements (UI/UX + correctness)
-
-- Switched multiple pages from minified CSS to assets/css/unminified-css.css for styling consistency/debuggability:
-- dashboard.html, account.html, index.html, project.html
-- Dashboard UX improvements:
-- Adds slug label/preview changes (now indicates slug is tied to [username])
-- Adds “Copy Page Link” button
-- Adds extra icon fonts (Flaticon sets)
-- Account page safety/correctness:
-- Project queries now explicitly filter by owner_user_id = session.user.id in multiple places (prevents accidental cross-user operations even if RLS is misconfigured).
-
-### 5. Styling updates (visual polish)
-
-- assets/css/unminified-css.css:
-- New button styles: .btn.danger, .btn.logout, .btn.copy (+ copied state)
-- Textarea color behavior changed (default vs hover/focus) which will affect perceived readability.
-
-### 6. Marketing/home page additions
-
-- index.html “Core Tools & Systems” adds new tool cards/images:
-- Google Gemini, Google AI Studio, Google Cloud Console
-- Social link update: StackOverflow link replaced with LinkedIn.
-
-### 7. Dependencies & package metadata
-
-- package.json adds dependency: @google/genai
-- package-lock.json updated heavily (new dependency tree)
-- Notable: package-lock shows version set to 2.0.0-beta in places—worth double-checking your release/versioning consistency.
+- Updated `service-worker.js` for better caching stability.
 
 ---
 
-## v2.0.0 — 10 Feb 2026
+## v2.4.0 - 7 March 2026
 
-**Note:** This is a major release graduating from v2.0.0-beta with additional UI polish.
+### Categories and Contact Information
 
-### New Features (from beta)
+Project categories, contact information, and 16 color-coded category types with hub filtering.
 
-- Complete Supabase integration for auth and database
-- Account settings page with profile management
-- Project management system (hub, dashboard, project pages)
-- Dynamic navigation system
-- Backend visit tracking
-- Trustpilot review integration
-- Added unified header/navbar across all pages
-- Added site footer with support and license links
-- Applied backdrop-filter blur effects to cards
-- Updated auth UI messaging
-- Removed standalone signup.html and login.html (use auth.html)
-- New authentication flow using Supabase
-- Requires Supabase configuration for backend functionality
-- Refactored dashboard to Supabase project editor
-- Added admin utilities for Supabase
-- Improved auth client architecture
+#### New Features
 
----
+- **Contact Information section** in account settings — set a public email and phone number displayed on your project page.
+- **16 project categories** with color-coded badges: Technology, Business, Education, Finance, Healthcare, Environment, and more.
+- **Category filtering** on the Hub — browse all published projects by type in one tap.
+- **Category stats** section at the bottom of the Hub showing project counts per category.
 
-## v2.0.0-beta - 7 Feb 2026
+#### Improvements
 
-### 1. Complete Authentication System (Supabase-based)
+- Enhanced tooltip styling with blur effect and shadow for better readability.
+- Consistent input field colours and borders across the whole site.
+- Task counter on the homepage bumped from 120+ to 360+.
+- Data export now includes your contact email and phone number.
+- Cleaned up footer links across multiple pages.
 
-- New auth.html - Sign-in page with Google OAuth
-- New dashboard.html - User dashboard for managing projects
-- New account.html - Account settings and management
-- New project.html - Individual project display page
-- Authentication UI components (assets/js/auth-ui.js, assets/js/supabase-client.js)
+### Developer Notes
 
-### 2. Database Integration
+#### Technical Changes
 
-- Integrated Supabase for backend data storage
-- Projects now stored in database instead of data/projects.json
-- Dynamic project loading from Supabase in hub
-- User authentication with SQU email (@squ.edu.om, @student.squ.edu.om)
+- New `project-categories.js` module — normalisation, slug aliases, badge rendering, SVG icon map for all 16 categories.
+- New `assets/css/project-categories.css` with CSS variables per category and badge component styles.
+- Dropdown functionality extracted into reusable `initPortalSelect()` — panels portalled to `document.body` to eliminate z-index stacking issues.
+- Cookie icons converted from emoji to inline SVG for consistent cross-platform rendering.
 
-### 3. Analytics & Tracking
+#### Database Changes
 
-- New serverless function api/track-visit.js for page visit tracking
-- Daily page visit analytics stored in Supabase
+- Added `contact_email` and `phone_number` columns to the `users` table.
+- Projects now carry a `category` field with normalisation and legacy alias support.
 
-### 4. Project Management
+#### Internal Improvements
 
-- Users can create, edit, publish/unpublish their projects
-- Project slug-based URLs (/project.html?slug=project-name)
-- QR code generation for projects
-- Project image support with preview
-- Social media links (X/Twitter, GitHub, LinkedIn, etc.)
-
-### 🗑️ Major Removals
-
-- Removed signup.html - Replaced with new authentication system
-- Removed data/projects.json - Moved to Supabase database
-- Disabled pricing.html - Moved to pricing.html.disabled (currently free during beta)
-
-### 🔄 Major Updates
-
-_Navigation Changes_
-
-- "Access the Core" now links to auth.html instead of signup.html
-- Dynamic nav menu showing Dashboard/Account Settings when logged in
-- Pricing link commented out (service is free during beta)
-
-_Hub Improvements_
-
-- Projects now load dynamically from Supabase
-- Added "BETA" badge to projects section
-- Real-time project data instead of static JSON
-
-_Styling Updates_
-
-- New authentication UI styles (tabs, Google sign-in button)
-- Updated featured plan styling (gradient → subtle background)
-- Fixed FAQ heading alignment
-- Minor CSS refinements across pages
-
-### 🔧 Technical Infrastructure
-
-_Dependencies_
-
-- Added @supabase/supabase-js package
-- Added package.json and package-lock.json
-- Added .gitignore for node_modules and .env.local
-
-_Backend Functions_
-
-- New lib/supabaseAdmin.js for server-side Supabase operations
-- Vercel serverless function for analytics
-
-_Documentation_
-
-- Added repository structure document
-- Updated README with new Vercel deployment URL
+- Updated `version.js` to `v2.4.0`.
+- Added `sql/` to `.gitignore`.
+- Removed legacy `cookie-consent.css` — fully migrated to Cookie Manager v2.
 
 ---
 
-## v1.2.0 — 03 Feb 2026
+## v2.3.0 - 7 March 2026
 
-- Rewrote Service Worker for robust precaching, runtime caching, navigation preload and offline fallback (`offline.html`)
-- Added offline support and an `offline.html` fallback page
-- Introduced cookie consent (styles & script) and updated related pages for consent handling
-- Replaced the leader image with `ceopic.webp` and fixed image paths
-- Refactored and cleaned up CSS (unminified CSS available), reduced backdrop blur and improved UI polish
-- Updated meta tags site-wide and hardened the signup form
-- Refactored pricing and terms styles; revised pricing UI and signup plan options
-- Added Oman badge and Vercel asset; small UI tweaks across pages
-- Reorganized menu order and navigation for better UX
-- Added full documentation suite (implementation notes, quick reference, delivery summary, completion checklist and welcome docs)
-- Misc: stylesheet, script, and content updates across `faq.html`, `how-to-use.html`, `hub.html`, `index.html`, `pricing.html`, `terms.html`, `signup.html`, `thanks.html`
+### Creator Profiles and Project Insights
+
+User profiles, AI project insights, creator sections on project pages, QR downloads, and view counters.
+
+#### New Features
+
+- Your display name (full name, username, or email prefix) shown everywhere instead of the raw email address.
+- Project pages now feature a **Creator section** with your avatar, name, and public contact links.
+- **AI Project Insights** — generate a smart summary on any project page with one click.
+- QR codes can now be **downloaded as PNG** directly from project pages.
+- View count and creation date badges added to every project page.
+- Social sharing buttons for X, LinkedIn, and WhatsApp on all project pages.
+
+#### Improvements
+
+- Navbar now shows your avatar and display name when signed in.
+- Project cards on the Hub redesigned with creation date and view count metadata.
+- Hub now loads newest projects first (descending order).
+
+### Developer Notes
+
+#### Technical Changes
+
+- Added `getUserDisplayName()` and `getUserAvatar()` helpers across all pages.
+- New `project_insights` action in `/api/ai` — returns `{ summary, insights[] }`.
+- Owner-check in `project.html` tightened with `.eq('owner_user_id', session.user.id)`.
+
+#### Database Changes
+
+- Added `creator_name` and `creator_avatar_url` to the `projects` table.
+- Auto-backfill logic for legacy projects missing creator metadata on next dashboard load.
+- User profile sync on login now stores avatar URL in the `users` table.
 
 ---
 
-## v1.1.1 — 02 Nov 2025
+## v2.2.0 - 6 March 2026
 
-- Fixing broken pictures path in service-worker.js
-- Deleted mobile-preview.html
+### Consent and Moderation
+
+Cookie Consent v2 rollout, moderation UI in dashboard, improved modals, and AI loading animations.
+
+#### Improvements
+
+- Upgraded to **Cookie Consent Manager v2** — granular control over analytics, external media, and AI cookies with a polished modal.
+- Redesigned **Delete Account** modal — animated, accessible, with proper focus trapping and ARIA attributes.
+- New **Delete Project** confirmation modal — replaces browser `confirm()` dialogs site-wide.
+- Dashboard now displays your project's **moderation status** via a colour-coded badge with a reason popup on tap.
+- AI generate buttons animate with a shimmer sweep and burst sparkles while loading.
+- Footer updated with proper PayPal logo across all pages.
+
+#### Fixes
+
+- Fixed z-index issue with AI style dropdown — panel now portals to `document.body`.
+- Removed stale "BETA" badges from account, dashboard, and hub headings.
+
+### Developer Notes
+
+#### Technical Changes
+
+- New `api/moderate-project.js` — rule-based + Gemini-powered moderation, optional `moderation_logs` table, controls publish state.
+- `GET /api/ai?usage=1` added — fetch quota stats without consuming an action.
+- Cookie HTML removed from all page bodies; injected by `cookies.js` (v2) with granular categories, focus trap, and a11y.
+
+#### Database Changes
+
+- Added `moderation_status`, `moderation_reason`, `last_moderated_at` to `projects`.
+- Created `moderation_logs` table for full audit trail of all moderation decisions.
 
 ---
 
-## v1.1.0 — 01 Nov 2025
+## v2.1.0 - 1 March 2026
 
-- Enabled image compression (WebP)
-- Adding research.html
-- More UI improvement
-- Begin with Git VCS
+### AI Assist
+
+AI Assist launched — enhance descriptions, generate card briefs, with 3-action daily limits.
+
+#### New Features
+
+- **AI Assist** in the dashboard — rewrite your page description in Professional, Shorter, Technical, or Inspiring tone.
+- **AI Card Brief** generator — derive a concise hub card description from your full page description in one click.
+- AI actions are **limited to 3 per day** — your remaining count is always visible in the dashboard.
+- **Copy Page Link** button added to the dashboard for instant sharing.
+- Slug preview updates live as you type the project name.
+
+### Developer Notes
+
+#### Database Changes
+
+- New `ai_usage` table for per-user daily tracking with RLS.
+- RPC `consume_ai_use(max_uses)` — atomic daily limit enforcement.
+- RPC `get_ai_usage(max_uses)` — returns used/remaining counts.
+- Separate `card_description` and `page_description` fields added to `projects` table.
+
+#### API Updates
+
+- New `api/ai.js` — Google Gemini via `@google/genai`, Bearer JWT required, enforces 3-per-day limit via Supabase RPC.
+- Supported actions: `improve_page`, `card_summary`, `project_insights`.
+- Debug endpoint `api/models.js` for listing available Gemini models (temporary).
+
+#### Internal Improvements
+
+- Added `@google/genai ^1.43.0` to `package.json`.
+- Gemini model configurable via `GEMINI_MODEL` env var (default: `models/gemini-2.5-flash`).
 
 ---
 
-## v1.0.0 — 27 Oct 2025 (Initial Release)
+## v2.0.0 - 10 February 2026
 
-- NexCore Labs website launched
+### Platform Graduation
+
+Complete platform rebuild — Supabase auth, user dashboards, project management, dynamic hub.
+
+#### New Features
+
+- Sign in with your **SQU Google account** — no password, no friction.
+- New **Dashboard** — create, edit, and publish your project in minutes.
+- New **Account Settings** — view your profile, export data, delete your account.
+- Projects get **dedicated public pages** with QR codes and social sharing.
+- Hub now loads projects **live from the database** — always up-to-date.
+- Per-project page visit analytics tracking.
+- Trustpilot review widget integrated on the hub.
+
+### Developer Notes
+
+#### Technical Changes
+
+- Integrated `@supabase/supabase-js` for full backend, auth, and database.
+- New `assets/js/supabase-client.js` — shared client initialisation across all pages.
+- New `assets/js/auth-ui-db.js` — global auth state, navbar injection, avatar support.
+- Serverless functions: `api/track-visit.js`, `api/delete-account.js`.
+- New `lib/supabaseAdmin.js` for service-role server-side operations.
+
+#### Database Changes
+
+- Migrated from static `data/projects.json` to a live Supabase `projects` table.
+- Created `users`, `projects`, `page_visits_daily` tables.
+- Row Level Security (RLS) enabled on all user-facing tables.
+
+---
+
+## v1.2.0 - 3 February 2026
+
+### Offline and Privacy
+
+Service Worker rewrite, cookie consent, offline support, and UI polish across all pages.
+
+#### Improvements
+
+- Added **offline support** — previously visited pages remain accessible without internet.
+- Introduced the **cookie consent** banner — analytics only load with your explicit permission.
+- Leader image replaced with an optimised **WebP photo**.
+- Meta tags updated site-wide for better social sharing previews on all platforms.
+- Oman badge added and navigation order improved for a more natural flow.
+
+#### Fixes
+
+- Fixed broken image paths in the Service Worker precache list.
+- Hardened signup form validation against incomplete or malformed submissions.
+
+### Developer Notes
+
+#### Technical Changes
+
+- Full rewrite of `service-worker.js` — precaching, stale-while-revalidate runtime strategy, navigation preload, and `offline.html` fallback.
+- Image cache capped at 60 entries with LRU eviction via recursive `trimCache()`.
+- Backdrop blur values reduced for improved performance on low-end devices.
+- Full documentation suite added: implementation notes, quick reference, delivery summary, completion checklist.
+
+---
+
+## v1.1.0 - 1 November 2025
+
+### Performance Foundations
+
+Image compression to WebP, a new research page, UI polish, and Git version control introduced.
+
+#### Improvements
+
+- All images compressed and converted to **WebP** — pages load noticeably faster.
+- New **research page** added for academic content.
+- General UI improvements and visual polish throughout.
+
+### Developer Notes
+
+#### Internal Improvements
+
+- Began using **Git VCS** — all changes tracked from this release onward.
+- WebP image compression pipeline established.
+- Deleted broken legacy file `mobile-preview.html`.
+
+---
+
+## v1.0.0 - 27 October 2025
+
+### Initial Launch
+
+NexCore Labs went live — the very first version of the platform.
+
+#### New Features
+
+- NexCore Labs website live at **nexcorelabs.vercel.app**.
+- Homepage with hero, about, tools, team, and contact sections.
+- Project Hub with static project card listings.
+- PWA support — installable on mobile and desktop with offline caching.
+
+### Developer Notes
+
+#### Technical Changes
+
+- Pure HTML5 / CSS3 / vanilla JS — zero frameworks, zero dependencies.
+- Custom CSS design system with `--dark-base`, `--primary-accent`, glass card components.
+- Service Worker with basic precaching strategy.
+- Google Analytics 4 with IP anonymisation.
+- OpenGraph and Twitter Card meta tags site-wide for rich previews.
+- Deployed on Vercel with automatic GitHub CI/CD integration.
+
+---

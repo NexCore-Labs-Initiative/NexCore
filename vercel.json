@@ -1,4 +1,12 @@
 {
+  "redirects": [
+    { "source": "/ai-chat", "destination": "/intelligence", "permanent": true },
+    { "source": "/ai-chat.html", "destination": "/intelligence", "permanent": true },
+    { "source": "/intelligence.html", "destination": "/intelligence", "permanent": true },
+    { "source": "/ar/ai-chat", "destination": "/ar/intelligence", "permanent": true },
+    { "source": "/ar/ai-chat.html", "destination": "/ar/intelligence", "permanent": true },
+    { "source": "/ar/intelligence.html", "destination": "/ar/intelligence", "permanent": true }
+  ],
   "rewrites": [
     { "source": "/account", "destination": "/account.html" },
     { "source": "/auth", "destination": "/auth.html" },
@@ -10,13 +18,35 @@
     { "source": "/privacy-policy", "destination": "/privacy-policy.html" },
     { "source": "/project", "destination": "/project.html" },
     { "source": "/pricing", "destination": "/pricing.html" },
+    { "source": "/pricing-policy", "destination": "/pricing-policy.html" },
     { "source": "/releases", "destination": "/releases.html" },
     { "source": "/roadmap", "destination": "/roadmap.html" },
     { "source": "/terms", "destination": "/terms.html" },
+    { "source": "/unsubscribe", "destination": "/unsubscribe.html" },
     { "source": "/thanks", "destination": "/thanks.html" },
-    { "source": "/ai-chat", "destination": "/ai-chat.html" },
+    { "source": "/intelligence", "destination": "/intelligence.html" },
     { "source": "/admin-users", "destination": "/admin-users.html" },
     { "source": "/embed", "destination": "/embed.html" },
-    { "source": "/order-confirmation", "destination": "/order-confirmation.html" }
+    { "source": "/order-confirmation", "destination": "/order-confirmation.html" },
+    { "source": "/ar", "destination": "/ar/index.html" },
+    { "source": "/ar/account", "destination": "/ar/account.html" },
+    { "source": "/ar/admin-users", "destination": "/ar/admin-users.html" },
+    { "source": "/ar/intelligence", "destination": "/ar/intelligence.html" },
+    { "source": "/ar/auth", "destination": "/ar/auth.html" },
+    { "source": "/ar/dashboard", "destination": "/ar/dashboard.html" },
+    { "source": "/ar/faq", "destination": "/ar/faq.html" },
+    { "source": "/ar/how-to-use", "destination": "/ar/how-to-use.html" },
+    { "source": "/ar/hub", "destination": "/ar/hub.html" },
+    { "source": "/ar/offline", "destination": "/ar/offline.html" },
+    { "source": "/ar/order-confirmation", "destination": "/ar/order-confirmation.html" },
+    { "source": "/ar/pricing", "destination": "/ar/pricing.html" },
+    { "source": "/ar/pricing-policy", "destination": "/ar/pricing-policy.html" },
+    { "source": "/ar/privacy-policy", "destination": "/ar/privacy-policy.html" },
+    { "source": "/ar/project", "destination": "/ar/project.html" },
+    { "source": "/ar/releases", "destination": "/ar/releases.html" },
+    { "source": "/ar/roadmap", "destination": "/ar/roadmap.html" },
+    { "source": "/ar/terms", "destination": "/ar/terms.html" },
+    { "source": "/ar/unsubscribe", "destination": "/ar/unsubscribe.html" },
+    { "source": "/ar/thanks", "destination": "/ar/thanks.html" }
   ]
 }

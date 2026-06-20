@@ -1,48 +1,61 @@
 # NexCore Labs 🌐
 
-> **Bringing projects to life online — making every idea count.**
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) ![Founded](https://img.shields.io/badge/Founded-2025-blue) ![Community](https://img.shields.io/badge/Community-SQU-orange) ![Open Source](https://img.shields.io/badge/Open%20Source-Yes-brightgreen)
 
-NexCore Labs is a creative web development and innovation initiative founded in 2025 at Sultan Qaboos University.  
-We provide professional digital solutions and showcase platforms for student-led projects, empowering teams to highlight their core ideas and contributions effectively.
+> **Empowering our SQU Community to do more.**
+
+NexCore Labs is an independent, student-led initiative founded in 2025 by students of Sultan Qaboos University (SQU).
+
+We build tools, showcase projects, encourage collaboration, and create opportunities that help students and teams transform ideas into meaningful impact. Our goal is to make innovation more accessible and to strengthen the culture of building, sharing, and learning within the SQU community.
+
+NexCore Labs is not operated, sponsored, or endorsed by Sultan Qaboos University.
 
 ---
 
 ## 🚀 Mission
 
-To bring projects to life online, transforming every idea into an impactful digital experience.
+Empower our SQU Community to do more.
+
+---
 
 ## 🌍 Vision
 
-To become the go-to hub for showcasing innovation, connecting creators and audiences worldwide.
+To become a trusted student-led hub that enables students, teams, and initiatives to discover opportunities, showcase their work, collaborate effectively, and bring ideas to life.
 
 ---
 
-## 🔒 Progressive Web App (PWA)
+## ✨ What We Do
 
-NexCore Labs supports offline mode and caching using a custom **Service Worker**.  
-Install the app on your desktop or phone for quick access and seamless performance.
-
----
-
-## 📸 Preview
-
-Visit the live version here:  
-👉 [**NexCore Labs**](https://nexcorelabs.vercel.app/)
+* Develop useful tools and resources for the SQU community.
+* Showcase student projects and initiatives.
+* Support collaboration across disciplines and interests.
+* Promote innovation, learning, and knowledge sharing.
+* Create digital experiences that make participation easier and more accessible.
 
 ---
 
-## 📋 Changelog
+## 🔗 Live Platform
 
-See [CHANGELOG.md](CHANGELOG.md) for the full version history.  
-Current version: **v2.9.1**
+Visit NexCore Labs:
 
----
-
-## 🧭 Author
-
-**NexCore Labs Team**  
-_2025 Cohort — Sultan Qaboos University_  
+[https://nexcorelabs.vercel.app](https://nexcorelabs.vercel.app/)
 
 ---
 
-> _Progress makes **improvement**, not perfection._
+## 🏫 Community
+
+Built by students, for students.
+
+We believe that small improvements, shared knowledge, and collaborative effort can create lasting impact throughout our community.
+
+---
+
+## 👥 Team
+
+**NexCore Labs Team**
+Founded in 2025 by [*Al-Faris Mujahid AlZakwani*](https://x.com/AlFarisMujahid_)
+Sultan Qaboos University
+
+---
+
+> *Progress is built through continuous improvement, not perfection.*

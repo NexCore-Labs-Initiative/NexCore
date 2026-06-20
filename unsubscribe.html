@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Unsubscribe your email address from NexCore Labs newsletter updates.">
+        <meta name="author" content="NexCore Labs">
+        <meta name="theme-color" content="#0a0b1c">
+        <meta name="mobile-web-app-capable" content="yes">
+
+        <title>NexCore Labs | Unsubscribe</title>
+
+        <!-- Open Graph -->
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="https://nexcorelabs.vercel.app/unsubscribe.html">
+        <meta property="og:title" content="NexCore Labs | Unsubscribe">
+        <meta property="og:description" content="Unsubscribe your email address from NexCore Labs newsletter updates.">
+        <meta property="og:image" content="https://opengraph.b-cdn.net/production/images/af5a4481-2baa-47be-8838-5160bafa4f79.png?token=_5DjeK6KYgg8DW7Qsk5XfrtI2h_CW3YcCJlwxMJ3sEc&height=1080&width=1080&expires=33306259895">
+        <meta property="og:locale" content="en_US">
+        <meta property="og:locale:alternate" content="ar_OM">
+
+        <!-- Twitter -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta property="twitter:domain" content="nexcorelabs.vercel.app">
+        <meta property="twitter:url" content="https://nexcorelabs.vercel.app/unsubscribe.html">
+        <meta name="twitter:title" content="NexCore Labs | Unsubscribe">
+        <meta name="twitter:description" content="Unsubscribe your email address from NexCore Labs newsletter updates.">
+        <meta name="twitter:image" content="https://opengraph.b-cdn.net/production/images/af5a4481-2baa-47be-8838-5160bafa4f79.png?token=_5DjeK6KYgg8DW7Qsk5XfrtI2h_CW3YcCJlwxMJ3sEc&height=1080&width=1080&expires=33306259895">
+
+        <link rel="icon" href="assets/images/nexcore-icon.png" type="image/png">
+        <link rel="stylesheet" href="assets/css/style.css">
+        <link rel="canonical" href="https://nexcorelabs.vercel.app/unsubscribe.html">
+        <link rel="alternate" hreflang="en" href="https://nexcorelabs.vercel.app/unsubscribe.html">
+        <link rel="alternate" hreflang="ar" href="https://nexcorelabs.vercel.app/ar/unsubscribe.html">
+        <link rel="alternate" hreflang="x-default" href="https://nexcorelabs.vercel.app/unsubscribe.html">
+        <link rel="manifest" href="manifest.json">
+        <link rel="apple-touch-icon" href="assets/images/nexcore-logo.webp">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+        <style>
+            img{
+                filter: drop-shadow(0 0 25px rgba(110, 231, 243, 1)) opacity(0.3);
+            }
+
+            main{
+                opacity: 1;
+                user-select: none;
+                text-align: center;
+                display: block;
+                position: absolute;
+                width: 80%;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            main div{
+                box-shadow:0 8px 30px rgba(2,6,23,0.6);
+                padding:18px; border-radius:12px; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+                background: rgba(0, 0, 0, 0.05);
+                border: 2px solid rgba(255, 255, 255, 0.1);
+                max-width: 500px;
+                margin: auto;
+            }
+
+            .subscribe-box{
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                gap: 8px;
+                margin: 18px 0;
+            }
+
+            .subscribe-box input{
+              margin-bottom: 0;
+            }
+
+            hr{
+                border: none;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+                margin: 18px 0;
+            }
+
+            @media screen and (max-width: 700px) {
+                .subscribe-box {
+                    flex-direction: column;
+                    gap: 16px;
+                }
+            }
+
+        </style>
+</head>
+<body>
+
+
+    <div class="background">
+        <img class="logo-img" id="logoImg" src="assets/images/nexcore-logo.webp" alt="NexCore Labs Logo">
+    </div>
+
+    <main>
+        <div>
+            <h2 id="unsubscribe-title">Unsubscribe</h2>
+            <p id="status" role="status" aria-live="polite">Ready to unsubscribe.</p>
+
+            <form id="unsubscribe-form" class="subscribe-box">
+                <input type="email" id="unsubscribe-email" placeholder="Enter your email" autocomplete="email" required />
+                <button type="submit" id="confirm" class="btn primary">Unsubscribe</button>
+            </form>
+
+            <hr>
+
+            <a href="index.html" class="btn ghost"><i><i class="fa-solid fa-arrow-left"></i></i> Back to Home</a>
+        </div>
+    </main>
+    <script src="version.js"></script>
+    <script src="assets/js/unsubscribe.js"></script>
+</body>
+</html>

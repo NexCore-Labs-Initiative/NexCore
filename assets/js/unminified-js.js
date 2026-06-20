@@ -18,6 +18,63 @@ async function trackVisit() {
 window.addEventListener("load", trackVisit);
 
 document.addEventListener("DOMContentLoaded", () => {
+  const pageLang = (document.documentElement.getAttribute("lang") || "en").toLowerCase();
+  const isArabic = pageLang.startsWith("ar") || /(^|\/)ar(\/|$)/.test(window.location.pathname);
+  const locale = isArabic ? {
+    lang: "ar",
+    dir: "rtl",
+    formRequired: "يرجى تعبئة جميع الحقول.",
+    formSending: "جارٍ الإرسال...",
+    formError: "تعذر إرسال الرسالة. حاول مرة أخرى.",
+    menuHint: "&#x1F44B; أنا القائمة",
+    rotator: [
+      `<div class="flag-includes"><img src="../assets/images/oman.webp" alt="علم عمان"><span>صُنع بفخر في عمان</span></div>`,
+      `<div class="flag-includes"><img src="../assets/images/oman-data-protect.webp" alt="علم عمان"><span>نراعي قوانين حماية البيانات في عُمان</span></div>`,
+      "الفارق بين الجيد والممتاز هو الاهتمام.",
+      "حقيقي. مفيد. منجز.",
+      "اعرض · اكتشف · تعاون",
+      'محسّن لـ <i class="fa-brands fa-edge" aria-hidden="true"></i> و <i class="fa-brands fa-android" aria-hidden="true"></i>',
+    ],
+  } : {
+    lang: "en",
+    dir: "ltr",
+    formRequired: "Please fill all fields.",
+    formSending: "Sending...",
+    formError: "We couldn't send your message. Please try again.",
+    menuHint: "&#x1F44B; I'm the menu",
+    rotator: [
+      `<div class="flag-includes"><img src="assets/images/oman.webp" alt="Oman flag"><span>Proudly Built in Oman</span></div>`,
+      `<div class="flag-includes"><img src="assets/images/oman-data-protect.webp" alt="Oman flag"><span>Designed with Oman data protection in mind</span></div>`,
+      "The margin between good and great is care.",
+      "Real. Useful. Done.",
+      "Showcase • Discover • Collaborate",
+      'Enhanced for <i class="fa-brands fa-edge" aria-hidden="true"></i> & <i class="fa-brands fa-android" aria-hidden="true"></i>',
+    ],
+  };
+
+  function setNotice(message, isError) {
+    if (window.showToast) {
+      window.showToast(message, isError);
+    } else if (notice) {
+      notice.textContent = message;
+      notice.style.display = message ? "" : "none";
+      notice.setAttribute("dir", locale.dir);
+      notice.setAttribute("lang", locale.lang);
+    }
+  }
+
+  function applyLocalizedFormAndModalDirection() {
+    document.querySelectorAll("form, .modal, .modal-overlay, [role='dialog']").forEach((el) => {
+      el.setAttribute("lang", locale.lang);
+      el.setAttribute("dir", locale.dir);
+    });
+
+    document.querySelectorAll("input[type='text'], input[type='search'], input[type='email'], input[type='url'], textarea").forEach((el) => {
+      el.setAttribute("dir", "auto");
+      el.setAttribute("lang", locale.lang);
+    });
+  }
+
   const setupSign = () => {
     const sign = document.querySelector(".nexcore-sign") || document.getElementById("nexcoreSign");
     if (sign) {
@@ -59,6 +116,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const searchInput = document.getElementById("projectSearch");
   const projectsContainer = document.getElementById("projects-container");
 
+  applyLocalizedFormAndModalDirection();
+
   // Smooth scroll to the top when the logo is clicked
   const logoTrigger = document.getElementById("logo");
   if (logoTrigger) {
@@ -81,7 +140,20 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // set year
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
+if (yearEl) {
+    const currentYear = new Date().getFullYear().toString();
+    
+    // Check if the current page is set to Arabic or Right-To-Left
+    const isArabic = document.documentElement.lang === 'ar' || document.documentElement.dir === 'rtl';
+
+    if (isArabic) {
+        // Apply Eastern Arabic numerals for the Arabic page
+        yearEl.textContent = currentYear.replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[d]);
+    } else {
+        // Keep standard numbers for the English page
+        yearEl.textContent = currentYear;
+    }
+}
 
   // smooth scroll offset for anchored links on same page
   document.querySelectorAll('a[href^="#"]').forEach((a) => {
@@ -160,17 +232,46 @@ document.addEventListener("DOMContentLoaded", () => {
     document.addEventListener("mouseleave", () => { glass.style.transform = ""; });
   }
 
-  // simple form handling
+  // Contact form handling
   if (form) {
-    form.addEventListener("submit", (ev) => {
-      const name = form.name.value.trim();
-      const email = form.email.value.trim();
-      const message = form.message.value.trim();
+    form.addEventListener("submit", async (ev) => {
+      ev.preventDefault();
+
+      const name = form.elements.namedItem("name")?.value.trim();
+      const email = form.elements.namedItem("email")?.value.trim();
+      const message = form.elements.namedItem("message")?.value.trim();
+
       if (!name || !email || !message) {
-        ev.preventDefault();
-        if (window.showToast) { window.showToast("Please fill all fields.", true); } else if (notice) { notice.textContent = "Please fill all fields."; }
-      } else {
-        if (window.showToast) { window.showToast("Sending..."); } else if (notice) { notice.textContent = "Sending..."; }
+        setNotice(locale.formRequired, true);
+        return;
+      }
+
+      const submitButton = form.querySelector('button[type="submit"]');
+      const originalButtonText = submitButton?.textContent;
+
+      if (submitButton) submitButton.disabled = true;
+      setNotice(locale.formSending);
+
+      try {
+        const response = await fetch(form.action, {
+          method: "POST",
+          body: new FormData(form),
+          headers: { Accept: "application/json" }
+        });
+        const result = await response.json().catch(() => ({}));
+
+        if (!response.ok || result.success === false) {
+          throw new Error(result.message || "Web3Forms submission failed");
+        }
+
+        window.location.assign(form.dataset.successUrl || "/thanks.html");
+      } catch (error) {
+        console.error("Contact form submission failed:", error);
+        setNotice(locale.formError, true);
+        if (submitButton) {
+          submitButton.disabled = false;
+          submitButton.textContent = originalButtonText;
+        }
       }
     });
   }
@@ -192,14 +293,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Changing Text Rotator
   const textElement = document.getElementById("changing-text");
   if (textElement) {
-    const sentences = [
-      `<div class="flag-includes"><img src="assets/images/oman.webp" alt="Oman flag"><span>Proudly Built in Oman</span></div>`,
-      `<div class="flag-includes"><img src="assets/images/eu.webp" alt="EU flag"><span>EU GDPR-aligned</span></div>`,
-      "The margin between good and great is care.",
-      "Real. Useful. Done.",
-      "Showcase • Discover • Collaborate",
-      'Enhanced for <i class="fa-brands fa-edge" aria-hidden="true"></i> & <i class="fa-brands fa-android" aria-hidden="true"></i>',
-    ];
+    const sentences = locale.rotator;
 
     let index = 0;
     textElement.innerHTML = sentences[index];
@@ -220,7 +314,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const hint = document.createElement('span');
     hint.className = 'menu-hint';
     hint.setAttribute('aria-hidden', 'true');
-    hint.innerHTML = '&#x1F44B; I\'m the menu';
+    hint.setAttribute('lang', locale.lang);
+    hint.setAttribute('dir', locale.dir);
+    hint.innerHTML = locale.menuHint;
     coreMenu.parentElement.appendChild(hint);
 
     const removeHint = () => {
@@ -342,4 +438,26 @@ function showWebsiteLabel() {
     websiteLabel.style.display = "none";
     websiteLabel.removeAttribute("required");
   }
+}
+
+const bookmarkBtn = document.getElementById('bookmarkBtn');
+
+if (bookmarkBtn) {
+  bookmarkBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+
+    const userAgent = navigator.userAgent || '';
+    const isMobilePhone = navigator.userAgentData?.mobile
+      ?? /Android|iPhone|iPod|IEMobile|Opera Mini/i.test(userAgent);
+
+    if (isMobilePhone) {
+      alert('To bookmark this page on your phone, open the browser menu or Share menu, then choose Add bookmark.');
+      return;
+    }
+
+    const isMac = /Mac/i.test(userAgent);
+    const shortcut = isMac ? 'Cmd + D' : 'Ctrl + D';
+
+    alert(`To bookmark this page, press ${shortcut} on your keyboard.`);
+  });
 }

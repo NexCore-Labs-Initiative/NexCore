@@ -29,6 +29,8 @@
   const CHAT_DISABLED = true; // Set to false to re-enable AI Chat
   const API_ENDPOINT = '/api/ai?chat=1';
   const MAX_MSG_LEN  = 500;
+  const IS_ARABIC = document.documentElement.lang?.toLowerCase().startsWith('ar');
+  const PRODUCT_NAME = IS_ARABIC ? 'ذكاء NexCore' : 'NexCore Intelligence';
 
   // Quick suggestion buttons shown on first open
   const SUGGESTIONS = [
@@ -54,8 +56,8 @@
   function buildWidget() {
     const trigger = document.createElement('button');
     trigger.id = 'nexai-trigger';
-    trigger.setAttribute('aria-label', 'Open NexCore AI Assistant');
-    trigger.setAttribute('title', 'NexCore AI Assistant');
+    trigger.setAttribute('aria-label', IS_ARABIC ? `فتح ${PRODUCT_NAME}` : `Open ${PRODUCT_NAME}`);
+    trigger.setAttribute('title', PRODUCT_NAME);
     trigger.innerHTML = `
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/>
@@ -78,12 +80,12 @@
     const panel = document.createElement('div');
     panel.id = 'nexai-panel';
     panel.setAttribute('role', 'dialog');
-    panel.setAttribute('aria-label', 'NexCore AI Assistant');
+    panel.setAttribute('aria-label', PRODUCT_NAME);
     panel.innerHTML = `
       <div id="nexai-header">
         <div class="nexai-avatar" aria-hidden="true">✦</div>
         <div class="nexai-title">
-          <h3>NexCore AI</h3>
+          <h3>${PRODUCT_NAME}</h3>
           <span id="nexai-status">Ready to help</span>
         </div>
         <span id="nexai-usage-pill" class="nexai-usage-pill" title="Messages left today"></span>
@@ -93,8 +95,9 @@
         <div id="nexai-messages" role="log" aria-live="polite" aria-label="Chat messages">
           <div class="nexai-welcome">
             <span class="nexai-welcome-icon" aria-hidden="true">✦</span>
-            Hi! I'm the NexCore AI assistant.<br>
-          Ask me about NexCore Labs and student projects.
+            ${IS_ARABIC
+              ? `مرحبًا! أنا ${PRODUCT_NAME}.<br>اسألني عن NexCore Labs ومشاريع الطلبة.`
+              : `Hi! I'm ${PRODUCT_NAME}.<br>Ask me about NexCore Labs and student projects.`}
           </div>
         </div>
 
@@ -106,7 +109,7 @@
         <textarea
           id="nexai-input"
           rows="1"
-          placeholder="Ask NexCore AI…"
+          placeholder="${IS_ARABIC ? `اسأل ${PRODUCT_NAME}...` : `Ask ${PRODUCT_NAME}…`}"
           maxlength="${MAX_MSG_LEN}"
           aria-label="Message input"
           autocomplete="off"
@@ -339,7 +342,7 @@
         <div class="nexai-typing-dots">
           <span></span><span></span><span></span>
         </div>
-        <span class="nexai-typing-label">NexCore AI is thinking…</span>
+        <span class="nexai-typing-label">${IS_ARABIC ? `${PRODUCT_NAME} يفكر...` : `${PRODUCT_NAME} is thinking…`}</span>
       </div>`;
     elMessages.appendChild(el);
     typingEl = el;
@@ -406,7 +409,7 @@
   function unlockInput() {
     if (!elInput || !elSend) return;
     elInput.disabled = false;
-    elInput.placeholder = 'Ask NexCore AI…';
+    elInput.placeholder = IS_ARABIC ? `اسأل ${PRODUCT_NAME}...` : `Ask ${PRODUCT_NAME}…`;
     elSend.disabled = false;
     elInput.removeEventListener('click', onLockedInputClick);
     if (elAuthCta) elAuthCta.style.display = 'none';
@@ -548,16 +551,13 @@
     const bubble = document.createElement('div');
     bubble.className = 'nexai-bubble nexai-support-bubble';
     bubble.innerHTML = renderMarkdown(
-      'Our AI credits have run out \u2014 we need a little help to keep the service running. \u2665\n\n' +
-      'If NexCore has been useful to you, consider supporting us so the AI stays available for everyone.'
+      'NexCore Intelligence is being prepared for its next release.'
     );
 
     const btn = document.createElement('a');
     btn.className = 'nexai-support-btn';
-    btn.href = 'https://www.paypal.me/nexcorelabs';
-    btn.target = '_blank';
-    btn.rel = 'noopener noreferrer';
-    btn.innerHTML = '&#9829;&nbsp; Support via PayPal';
+    btn.href = 'pricing.html';
+    btn.innerHTML = 'View payment status';
 
     const time = document.createElement('span');
     time.className = 'nexai-msg-time';
@@ -609,15 +609,15 @@
         const notice = document.createElement('div');
         notice.className = 'nexai-msg ai';
         notice.innerHTML = `<div class="nexai-bubble" style="background:rgba(255,180,0,0.07);border-color:rgba(255,180,0,0.2);color:#f0d8a0;">
-          <strong>AI Chat is temporarily disabled</strong><br>
-          The NexCore AI assistant is currently paused to preserve API limits. Please check back later.
+          <strong>NexCore Intelligence is under development</strong><br>
+          We are building a smarter, more accurate, and more capable experience. It will be available soon on NexCore Labs.
         </div>`;
         elMessages.appendChild(notice);
         messageCount++;
       }
       elInput.disabled = true;
       elSend.disabled  = true;
-      elStatus.textContent = 'Temporarily unavailable';
+      elStatus.textContent = 'Under development';
       return;
     }
 

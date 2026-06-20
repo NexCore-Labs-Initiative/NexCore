@@ -1,394 +1,2779 @@
-[
-  {
-    "id": "v2-9-0",
-    "version": "v2.9.0",
-    "date": "2026-05-09",
-    "summary": "Monetization framework, Constellation Code visual IDs, AI upgrades, and UX enhancements.",
-    "user_updates": {
-      "new": [
-        "Dedicated Pricing page with tiered plans and beta banners",
-        "Order Confirmation page with professional print styles and signed receipt URLs",
-        "Constellation Code — unique visual identification pattern for every project (replaces Wave Code)",
-        "QR code generation integrated into the project modal",
-        "Animated menu hint for first-time visitors"
+{
+  "schema_version": 1,
+  "releases": [
+    {
+      "version": "v3.0.0",
+      "date": "2026-06-20",
+      "title": {
+        "en": "The Multilingual Intelligence Breakthrough",
+        "ar": "اختراق الذكاء متعدد اللغات"
+      },
+      "summary": {
+        "en": "A major bilingual launch for NexCore Labs with full Arabic localization, NexCore Intelligence, stronger international SEO, new subscription touchpoints, and cleaner platform foundations.",
+        "ar": "إطلاق ثنائي اللغة كبير لـ NexCore Labs مع تعريب كامل، وهوية NexCore Intelligence، وتحسينات SEO دولية، ونقاط اشتراك جديدة، وأساس تقني أنظف للمنصة."
+      },
+      "tags": [
+        "feature",
+        "improvement",
+        "fix"
       ],
-      "improvements": [
-        "AI endpoint now supports both chat and assist modes more robustly",
-        "Priority Review feature dynamically locks based on selected payment method",
-        "Improved project scanner layout with status indicators and better error handling",
-        "Simplified sign-in flow — streamlined email validation without OTP or org detection",
-        "Updated metadata across multiple pages for better SEO and inclusivity"
-      ],
-      "fixes": [
-        "Improved user removal process and permission error handling in the admin panel",
-        "GA4 User-ID tracking integrated for accurate cross-device analytics"
-      ]
+      "user_updates": {
+        "features": [
+          {
+            "text": {
+              "en": "Launched a complete **Arabic experience** under `/ar/`, covering the homepage, hub, dashboard, project pages, account flows, legal pages, pricing pages, releases, and support content.",
+              "ar": "إطلاق تجربة **عربية كاملة** ضمن `/ar/` تشمل الصفحة الرئيسية، المركز، لوحة التحكم، صفحات المشاريع، الحساب، الصفحات القانونية، الأسعار، الإصدارات، ومحتوى الدعم."
+            },
+            "evidence": [
+              "file:ar/index.html",
+              "file:ar/hub.html",
+              "file:vercel.json"
+            ]
+          },
+          {
+            "text": {
+              "en": "Rebranded AI Chat into **NexCore Intelligence (NCI)** with a dedicated `intelligence.html` experience and refreshed navigation across English and Arabic pages.",
+              "ar": "إعادة تقديم AI Chat باسم **NexCore Intelligence (NCI)** مع تجربة مخصصة في `intelligence.html` وتحديث التنقل في الصفحات الإنجليزية والعربية."
+            },
+            "evidence": [
+              "file:intelligence.html",
+              "file:ar/intelligence.html",
+              "file:api/ai.js"
+            ]
+          },
+          {
+            "text": {
+              "en": "Added a new **newsletter subscription** flow powered by Supabase, including unsubscribe support and Arabic unsubscribe coverage.",
+              "ar": "إضافة تدفق **اشتراك النشرة البريدية** المدعوم بـ Supabase مع دعم إلغاء الاشتراك وتغطية عربية لصفحة الإلغاء."
+            },
+            "evidence": [
+              "file:api/newsletter.js",
+              "file:assets/js/newsletter.js",
+              "file:ar/unsubscribe.html"
+            ]
+          },
+          {
+            "text": {
+              "en": "Added one-click **Bookmark** support in the contact area with mobile-aware behavior for easier return visits.",
+              "ar": "إضافة زر **حفظ الصفحة** في قسم التواصل مع سلوك مناسب للهواتف لتسهيل العودة إلى الموقع."
+            },
+            "evidence": [
+              "file:index.html",
+              "file:assets/js/unminified-js.js",
+              "file:assets/js/script.js"
+            ]
+          },
+          {
+            "text": {
+              "en": "Added **Generate Project Card** on project pages so visitors can preview a polished project card and download it as a PDF.",
+              "ar": "إضافة زر **إنشاء بطاقة المشروع** في صفحات المشاريع ليتمكن الزوار من معاينة بطاقة مشروع مصممة وتنزيلها كملف PDF."
+            },
+            "evidence": [
+              "file:project.html",
+              "file:ar/project.html",
+              "file:assets/js/project-card-export.js",
+              "file:assets/css/project-card-export.css"
+            ]
+          }
+        ],
+        "improvements": [
+          {
+            "text": {
+              "en": "Improved international SEO with `hreflang` coverage, localized metadata, Arabic social previews, and clean English/Arabic route rewrites.",
+              "ar": "تحسين SEO الدولي عبر `hreflang`، وبيانات وصفية محلية، ومعاينات اجتماعية عربية، وروابط نظيفة للصفحات الإنجليزية والعربية."
+            },
+            "evidence": [
+              "file:scripts/seo-assets.js",
+              "file:scripts/seo-test.js",
+              "file:vercel.json"
+            ]
+          },
+          {
+            "text": {
+              "en": "Refined Arabic UI direction, typography, logo alignment, line-height, and language switching for a smoother bilingual experience.",
+              "ar": "تحسين اتجاه الواجهة العربية، والخطوط، ومحاذاة الشعار، وارتفاع الأسطر، ومبدل اللغة لتجربة ثنائية اللغة أكثر سلاسة."
+            },
+            "evidence": [
+              "file:assets/css/arabic.css",
+              "file:ar/index.html",
+              "file:ar/hub.html"
+            ]
+          },
+          {
+            "text": {
+              "en": "Updated Arabic hub project cards with localized category chips and links that keep visitors inside the Arabic project experience.",
+              "ar": "تحديث بطاقات المشاريع في المركز العربي بتصنيفات محلية وروابط تُبقي الزوار داخل تجربة المشروع العربية."
+            },
+            "evidence": [
+              "file:ar/hub.html",
+              "file:ar/project.html"
+            ]
+          },
+          {
+            "text": {
+              "en": "Updated the official contact surface with the NexCore Labs phone number and refreshed team information.",
+              "ar": "تحديث واجهة التواصل بالرقم الرسمي لـ NexCore Labs وتحديث معلومات الفريق."
+            },
+            "evidence": [
+              "file:index.html",
+              "file:ar/index.html"
+            ]
+          },
+          {
+            "text": {
+              "en": "Updated the NexCore Labs team roster following Mohammed AlAsmi's retirement from the Data & Analytics role.",
+              "ar": "تحديث قائمة فريق NexCore Labs بعد تقاعد محمد العاصمي من دور البيانات والتحليلات."
+            },
+            "evidence": [
+              "file:index.html",
+              "file:ar/index.html"
+            ]
+          },
+          {
+            "text": {
+              "en": "Refreshed the NexCore Labs brand design with an enhanced Core mark, updated wordmark assets, and a dedicated app icon for installable experiences.",
+              "ar": "تحديث هوية NexCore Labs البصرية بعلامة Core محسّنة، وأصول شعار نصي محدثة، وأيقونة تطبيق مخصصة لتجارب التثبيت."
+            },
+            "evidence": [
+              "file:assets/images/nexcore-logo.webp",
+              "file:assets/images/nexcore-icon.png",
+              "file:assets/images/nexcore-appicon.webp",
+              "file:manifest.json"
+            ]
+          },
+          {
+            "text": {
+              "en": "Replaced separate authenticated menu rows with a compact `navUser` toolbar that keeps the avatar/name beside Dashboard, Admin, Account, and Logout icons.",
+              "ar": "استبدال صفوف قائمة المستخدم المنفصلة بشريط `navUser` مدمج يضع الصورة والاسم بجانب أيقونات لوحة التحكم، والإدارة، والحساب، وتسجيل الخروج."
+            },
+            "evidence": [
+              "file:assets/js/auth-ui-db.js",
+              "file:assets/css/style.css",
+              "file:assets/css/unminified-css.css"
+            ]
+          },
+          {
+            "text": {
+              "en": "Improved the dropdown menu by replacing the Hub icon with static Core dots and moving the premium-styled NexCore Intelligence link between Access the Core and search.",
+              "ar": "تحسين القائمة المنسدلة باستبدال أيقونة المركز بنقاط Core ثابتة، ونقل رابط NexCore Intelligence بتصميم مميز بين زر الوصول إلى النواة وحقل البحث."
+            },
+            "evidence": [
+              "file:index.html",
+              "file:ar/index.html",
+              "file:assets/css/style.css",
+              "file:assets/css/unminified-css.css"
+            ]
+          }
+        ],
+        "fixes": [
+          {
+            "text": {
+              "en": "Expanded service-worker precaching and clean-route support so localized pages and release assets are available more reliably after deployment.",
+              "ar": "توسيع التخزين المسبق في Service Worker ودعم الروابط النظيفة لتصبح الصفحات المحلية وأصول الإصدارات أكثر موثوقية بعد النشر."
+            },
+            "evidence": [
+              "file:service-worker.js",
+              "file:vercel.json"
+            ]
+          },
+          {
+            "text": {
+              "en": "Fixed contact form submissions so successful messages redirect to NexCore's own **Thanks** pages instead of the hosted Web3Forms success URL.",
+              "ar": "إصلاح إرسال نموذج التواصل بحيث تنتقل الرسائل الناجحة إلى صفحات **الشكر** الخاصة بـ NexCore بدلاً من رابط النجاح المستضاف لدى Web3Forms."
+            },
+            "evidence": [
+              "file:index.html",
+              "file:ar/index.html",
+              "file:assets/js/unminified-js.js"
+            ]
+          },
+          {
+            "text": {
+              "en": "Removed the experimental release automation layer so release content can be maintained manually while the workflow is redesigned later.",
+              "ar": "إزالة طبقة أتمتة الإصدارات التجريبية حتى يمكن إدارة محتوى الإصدارات يدوياً إلى حين إعادة تصميم التدفق لاحقاً."
+            },
+            "evidence": [
+              "file:package.json"
+            ]
+          }
+        ]
+      },
+      "developer_notes": {
+        "technical_changes": [
+          {
+            "text": {
+              "en": "Created the localized Arabic page set and aligned route handling, metadata, navigation, and shared runtime-generated UI across English and Arabic.",
+              "ar": "إنشاء مجموعة الصفحات العربية ومواءمة التوجيه، والبيانات الوصفية، والتنقل، والواجهات المُولدة وقت التشغيل بين الإنجليزية والعربية."
+            },
+            "evidence": [
+              "file:ar",
+              "file:assets/js/auth-ui-db.js",
+              "file:vercel.json"
+            ]
+          },
+          {
+            "text": {
+              "en": "Updated NexCore Intelligence backend and frontend paths, including Gemini Flash configuration and the renamed intelligence route.",
+              "ar": "تحديث مسارات الواجهة والخلفية لـ NexCore Intelligence، بما في ذلك إعداد Gemini Flash ومسار intelligence الجديد."
+            },
+            "evidence": [
+              "file:api/ai.js",
+              "file:api/models.js",
+              "file:intelligence.html"
+            ]
+          },
+          {
+            "text": {
+              "en": "Bumped website version surfaces to `v3.0.0`, including package metadata, runtime version, release asset query strings, and the pre-publish service-worker cache version.",
+              "ar": "تحديث أسطح إصدار الموقع إلى `v3.0.0` بما يشمل بيانات الحزمة، وإصدار التشغيل، وروابط أصول الإصدارات، وإصدار ذاكرة Service Worker قبل النشر."
+            },
+            "evidence": [
+              "file:package.json",
+              "file:version.js",
+              "file:service-worker.js"
+            ]
+          },
+          {
+            "text": {
+              "en": "Updated the PWA manifest and service-worker precache list so the enhanced brand icon set is used by installed apps and cached clients.",
+              "ar": "تحديث ملف PWA manifest وقائمة التخزين المسبق في Service Worker لاستخدام مجموعة الأيقونات المحسّنة في التطبيقات المثبتة والعملاء المخزنين."
+            },
+            "evidence": [
+              "file:manifest.json",
+              "file:service-worker.js",
+              "file:assets/images/nexcore-appicon.webp"
+            ]
+          },
+          {
+            "text": {
+              "en": "Added a localized project-card export module that builds the preview card client-side and lazily loads PDF capture libraries only when users request a download.",
+              "ar": "إضافة وحدة محلية لتصدير بطاقة المشروع تبني المعاينة في المتصفح وتحمل مكتبات التقاط PDF عند طلب التنزيل فقط."
+            },
+            "evidence": [
+              "file:assets/js/project-card-export.js",
+              "file:assets/css/project-card-export.css",
+              "file:project.html",
+              "file:ar/project.html"
+            ]
+          },
+          {
+            "text": {
+              "en": "Centralized authenticated navigation in the shared auth UI generator with stable action IDs and CSS coverage for both production and readable style bundles.",
+              "ar": "تجميع تنقل المستخدم الموثق داخل مولّد واجهة المصادقة المشترك مع معرّفات إجراءات ثابتة وتغطية CSS في ملفي الأنماط الإنتاجي والمقروء."
+            },
+            "evidence": [
+              "file:assets/js/auth-ui-db.js",
+              "file:scripts/auth-nav-test.js",
+              "file:assets/css/style.css"
+            ]
+          }
+        ],
+        "database_changes": [
+          {
+            "text": {
+              "en": "Added newsletter subscription handling backed by Supabase while keeping unsubscribe flows available for localized users.",
+              "ar": "إضافة معالجة اشتراكات النشرة البريدية عبر Supabase مع إبقاء تدفقات إلغاء الاشتراك متاحة للمستخدمين المحليين."
+            },
+            "evidence": [
+              "file:api/newsletter.js",
+              "file:assets/js/unsubscribe.js"
+            ]
+          }
+        ],
+        "api_updates": [
+          {
+            "text": {
+              "en": "Updated AI API behavior around the Gemini Flash model path and retained model discovery support through the models endpoint.",
+              "ar": "تحديث سلوك API الذكاء الاصطناعي حول مسار Gemini Flash مع إبقاء دعم استكشاف النماذج عبر مسار models."
+            },
+            "evidence": [
+              "file:api/ai.js",
+              "file:api/models.js"
+            ]
+          }
+        ],
+        "internal_improvements": [
+          {
+            "text": {
+              "en": "Enabled Dependabot and refreshed npm package versions for stronger maintenance and security hygiene.",
+              "ar": "تفعيل Dependabot وتحديث إصدارات حزم npm لتعزيز الصيانة والأمان."
+            },
+            "evidence": [
+              "file:.github/dependabot.yml",
+              "file:package.json",
+              "file:package-lock.json"
+            ]
+          },
+          {
+            "text": {
+              "en": "Removed release automation workflows and scripts so the codebase stays simpler while a future release process is reconsidered.",
+              "ar": "إزالة تدفقات وسكربتات أتمتة الإصدارات لإبقاء قاعدة الكود أبسط إلى حين إعادة التفكير في عملية إصدار مستقبلية."
+            },
+            "evidence": [
+              "file:.github/workflows",
+              "file:scripts/releases",
+              "file:package.json"
+            ]
+          }
+        ]
+      },
+      "is_major_release": true,
+      "major_details": {
+        "en": {
+          "why_it_matters": "NexCore Labs now serves both English and Arabic audiences while giving its AI experience a stronger product identity.",
+          "description": "Version 3.0.0 expands NexCore Labs from an English-first student platform into a bilingual public experience with Arabic routes, localized content, cleaner international SEO, and the new NexCore Intelligence identity.",
+          "highlights": [
+            "Complete Arabic page set under `/ar/`",
+            "NexCore Intelligence rebrand and AI model updates",
+            "Localized SEO, clean routes, and service-worker coverage",
+            "Newsletter, bookmark, pricing policy, and contact updates"
+          ]
+        },
+        "ar": {
+          "why_it_matters": "أصبحت NexCore Labs تخدم الجمهورين العربي والإنجليزي مع هوية أقوى لتجربة الذكاء الاصطناعي.",
+          "description": "ينقل الإصدار 3.0.0 منصة NexCore Labs من تجربة إنجليزية أولاً إلى تجربة عامة ثنائية اللغة مع مسارات عربية، ومحتوى محلي، وتحسينات SEO دولية، وهوية NexCore Intelligence الجديدة.",
+          "highlights": [
+            "مجموعة صفحات عربية كاملة ضمن `/ar/`",
+            "إعادة تقديم تجربة الذكاء الاصطناعي باسم NexCore Intelligence",
+            "SEO محلي وروابط نظيفة وتغطية أفضل في Service Worker",
+            "تحديثات النشرة البريدية والحفظ وسياسة الأسعار والتواصل"
+          ]
+        }
+      },
+      "source": {
+        "base_tag": "v2.9.1",
+        "target": "dev + arabic-version",
+        "commit_range": "v2.9.1..dev, v2.9.1..arabic-version"
+      }
     },
-    "developer_notes": {
-      "technical_changes": [
-        "New pricing.html with tiered plan UI and billing FAQ category",
-        "New order-confirmation.html with print-friendly receipt styles",
-        "Constellation Code system replacing Wave Code for project visual IDs",
-        "Scanner UI refactored and scanner.html removed (logic moved to main app)"
+    {
+      "version": "v2.9.1",
+      "date": "2026-05-25",
+      "title": {
+        "en": "Control Panel and Payments",
+        "ar": "لوحة التحكم والمدفوعات"
+      },
+      "summary": {
+        "en": "Admin panel refinements, payment workflow enhancements, and SQU community support.",
+        "ar": "تحسينات لوحة الإدارة وتدفقات الدفع ودعم مجتمع جامعة السلطان قابوس."
+      },
+      "tags": [
+        "improvement",
+        "fix"
       ],
-      "database_changes": [
-        "Removed admin_activity_log schema from the database directory"
-      ],
-      "api_updates": [
-        "api/paypal-capture.js — PayPal order capture with automated email confirmation",
-        "api/bank-transfer.js — Bank transfer endpoint with reference instructions",
-        "api/submit-subscription.js — Subscription order submission with duplicate order checks",
-        "api/receipt-url.js — Server-side signed receipt URL generation",
-        "api/ai.js — Enhanced to support both chat and assist functionalities"
-      ],
-      "internal_improvements": [
-        "GA4 User-ID tracking for cross-device behaviour analysis",
-        "Admin panel permission error handling improvements"
-      ]
+      "user_updates": {
+        "features": [
+          {
+            "text": {
+              "en": "New **Proof of Payment review modal** with iframe preview for admins to verify, approve, or reject receipts directly in the platform.",
+              "ar": "نافذة جديدة لمراجعة **إثبات الدفع** مع معاينة داخلية تمكّن المشرفين من التحقق من الإيصالات وقبولها أو رفضها."
+            },
+            "evidence": [
+              "tag:v2.9.1"
+            ]
+          },
+          {
+            "text": {
+              "en": "New **Free Access notification** for SQU email domain users during email validation to welcome the university community.",
+              "ar": "إشعار **وصول مجاني** جديد لمستخدمي نطاق جامعة السلطان قابوس أثناء التحقق من البريد."
+            },
+            "evidence": [
+              "tag:v2.9.1"
+            ]
+          }
+        ],
+        "improvements": [
+          {
+            "text": {
+              "en": "**Admin Control Panel** completely revamped with modernized stat cards, improved responsiveness, and a new quick search input.",
+              "ar": "إعادة تصميم **لوحة تحكم الإدارة** بالكامل مع بطاقات إحصاءات حديثة واستجابة أفضل وبحث سريع."
+            },
+            "evidence": [
+              "tag:v2.9.1"
+            ]
+          },
+          {
+            "text": {
+              "en": "**Modal system** re-engineered with smoother transitions, enhanced confirmation flow, and trigger-based animations.",
+              "ar": "إعادة هندسة **نظام النوافذ** بانتقالات أنعم وتأكيدات أوضح وحركات مرتبطة بمصدر الفتح."
+            },
+            "evidence": [
+              "tag:v2.9.1"
+            ]
+          },
+          {
+            "text": {
+              "en": "Subscription filtering now handles `pending_verification` states; order approval process returns detailed success statuses.",
+              "ar": "أصبحت تصفية الاشتراكات تدعم حالة `pending_verification` وتعيد عملية اعتماد الطلب نتائج أكثر تفصيلاً."
+            },
+            "evidence": [
+              "tag:v2.9.1"
+            ]
+          },
+          {
+            "text": {
+              "en": "PayPal integration updated with detailed **fee calculation** function showing exact expected USD amounts.",
+              "ar": "تحديث تكامل PayPal بحساب دقيق للرسوم يوضح المبلغ المتوقع بالدولار الأمريكي."
+            },
+            "evidence": [
+              "tag:v2.9.1"
+            ]
+          },
+          {
+            "text": {
+              "en": "**Pricing page** enhanced with animated price updates, detailed fee breakdown, and improved badge responsiveness.",
+              "ar": "تحسين **صفحة الأسعار** بحركات تحديث السعر وتفصيل الرسوم واستجابة أفضل للشارات."
+            },
+            "evidence": [
+              "tag:v2.9.1"
+            ]
+          },
+          {
+            "text": {
+              "en": "Global navigation now includes the Pricing page with a dedicated badge for better visibility.",
+              "ar": "إضافة صفحة الأسعار إلى التنقل العام مع شارة مخصصة."
+            },
+            "evidence": [
+              "tag:v2.9.1"
+            ]
+          },
+          {
+            "text": {
+              "en": "**Copy Bill ID** functionality improved with better user feedback and status messages.",
+              "ar": "تحسين نسخ **رقم الفاتورة** برسائل حالة أوضح."
+            },
+            "evidence": [
+              "tag:v2.9.1"
+            ]
+          }
+        ],
+        "fixes": [
+          {
+            "text": {
+              "en": "Corrected critical UI bug where \"Delete\" and \"Cancel\" button actions were swapped in the project deletion modal.",
+              "ar": "إصلاح خلل حرج كان يعكس عمل زري الحذف والإلغاء في نافذة حذف المشروع."
+            },
+            "evidence": [
+              "tag:v2.9.1"
+            ]
+          },
+          {
+            "text": {
+              "en": "Removed WhatsApp payment integration in favor of more streamlined support contact information.",
+              "ar": "إزالة دفع WhatsApp لصالح وسائل دعم أكثر وضوحاً."
+            },
+            "evidence": [
+              "tag:v2.9.1"
+            ]
+          },
+          {
+            "text": {
+              "en": "Standardized stylesheet links across `index.html` and `pricing.html` to ensure unified visual experience.",
+              "ar": "توحيد روابط ملفات الأنماط في `index.html` و`pricing.html`."
+            },
+            "evidence": [
+              "tag:v2.9.1"
+            ]
+          }
+        ]
+      },
+      "developer_notes": {
+        "technical_changes": [
+          {
+            "text": {
+              "en": "Control Panel UI completely refactored with modernized stat cards and responsive design improvements.",
+              "ar": "إعادة بناء واجهة لوحة التحكم ببطاقات إحصاءات حديثة وتحسينات للاستجابة."
+            },
+            "evidence": [
+              "tag:v2.9.1"
+            ]
+          },
+          {
+            "text": {
+              "en": "Modal system re-engineered with `is-open/is-closing` states and enhanced trigger-based animations.",
+              "ar": "إعادة هندسة النوافذ بحالتي `is-open/is-closing` وحركات مرتبطة بالمشغل."
+            },
+            "evidence": [
+              "tag:v2.9.1"
+            ]
+          },
+          {
+            "text": {
+              "en": "Receipt exports now include status messages and automatic PDF downloads for verified receipts.",
+              "ar": "إضافة رسائل حالة وتنزيل PDF تلقائي لتصدير الإيصالات المعتمدة."
+            },
+            "evidence": [
+              "tag:v2.9.1"
+            ]
+          },
+          {
+            "text": {
+              "en": "Stylesheet standardization applied across multiple pages for consistent visual experience.",
+              "ar": "توحيد ملفات الأنماط عبر عدة صفحات."
+            },
+            "evidence": [
+              "tag:v2.9.1"
+            ]
+          }
+        ],
+        "api_updates": [
+          {
+            "text": {
+              "en": "Implemented detailed **PayPal fee calculation** function for accurate USD amount display.",
+              "ar": "تنفيذ حساب تفصيلي لرسوم **PayPal** لعرض مبالغ الدولار بدقة."
+            },
+            "evidence": [
+              "tag:v2.9.1"
+            ]
+          },
+          {
+            "text": {
+              "en": "Updated subscription filtering logic to handle `pending_verification` states.",
+              "ar": "تحديث تصفية الاشتراكات لدعم `pending_verification`."
+            },
+            "evidence": [
+              "tag:v2.9.1"
+            ]
+          },
+          {
+            "text": {
+              "en": "Enhanced order approval process to return detailed success statuses.",
+              "ar": "تحسين اعتماد الطلبات لإرجاع حالات نجاح تفصيلية."
+            },
+            "evidence": [
+              "tag:v2.9.1"
+            ]
+          }
+        ],
+        "internal_improvements": [
+          {
+            "text": {
+              "en": "Updated `nodemailer` dependency to version 8.0.8.",
+              "ar": "تحديث اعتماد `nodemailer` إلى الإصدار 8.0.8."
+            },
+            "evidence": [
+              "tag:v2.9.1"
+            ]
+          },
+          {
+            "text": {
+              "en": "Updated `package.json` to reflect version 2.9.1.",
+              "ar": "تحديث `package.json` إلى الإصدار 2.9.1."
+            },
+            "evidence": [
+              "tag:v2.9.1"
+            ]
+          },
+          {
+            "text": {
+              "en": "Updated PayPal support links to the new NexCore Labs PayPal account.",
+              "ar": "تحديث روابط دعم PayPal إلى حساب NexCore Labs الجديد."
+            },
+            "evidence": [
+              "tag:v2.9.1"
+            ]
+          }
+        ]
+      },
+      "is_major_release": false,
+      "source": {
+        "base_tag": "v2.9.0",
+        "target": "tag:v2.9.1",
+        "commit_range": "v2.9.0..v2.9.1"
+      }
     },
-    "is_major_release": true,
-    "major_details": {
-      "title": "v2.9.0 — Monetization & Visual Identity Update",
-      "why_it_matters": "This release introduces a complete monetization infrastructure alongside a new visual identity system for projects, making NexCore ready for real-world subscriptions while giving every project a unique, scannable identity.",
-      "description": "Users can now subscribe to plans via PayPal or bank transfer, receive order confirmations and receipts, and discover projects through a new Constellation Code visual ID. Developers benefit from a cleaner AI backend and a more robust admin panel.",
-      "highlights": [
-        "Full subscription and payment system (PayPal + bank transfer)",
-        "Constellation Code visual identification for projects",
-        "Enhanced AI endpoint with chat and assist support"
+    {
+      "version": "v2.9.0",
+      "date": "2026-05-09",
+      "title": {
+        "en": "Subscriptions and Monetization",
+        "ar": "الاشتراكات وتحقيق الدخل"
+      },
+      "summary": {
+        "en": "Monetization framework, AI upgrades, and UX enhancements.",
+        "ar": "بنية الاشتراكات وتحسينات الذكاء الاصطناعي وتجربة المستخدم."
+      },
+      "tags": [
+        "feature",
+        "improvement",
+        "fix"
       ],
-      "screenshots": []
+      "user_updates": {
+        "features": [
+          {
+            "text": {
+              "en": "New **Pricing page** with tiered subscription plans, beta banners, and a billing FAQ category.",
+              "ar": "صفحة **أسعار** جديدة بخطط اشتراك ولافتات تجريبية وأسئلة شائعة للفوترة."
+            },
+            "evidence": [
+              "tag:v2.9.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "New **Order Confirmation page** with professional print styles and signed receipt URLs.",
+              "ar": "صفحة **تأكيد الطلب** مع تنسيق احترافي للطباعة وروابط إيصالات موقعة."
+            },
+            "evidence": [
+              "tag:v2.9.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Animated **menu hint** for first-time visitors to improve platform discoverability.",
+              "ar": "تلميح قائمة متحرك للزوار الجدد."
+            },
+            "evidence": [
+              "tag:v2.9.0"
+            ]
+          }
+        ],
+        "improvements": [
+          {
+            "text": {
+              "en": "AI endpoint now supports both chat and assist modes more robustly.",
+              "ar": "أصبح مسار الذكاء الاصطناعي يدعم وضعي المحادثة والمساعدة بموثوقية أكبر."
+            },
+            "evidence": [
+              "tag:v2.9.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Priority Review feature dynamically locks/unlocks based on your selected payment method.",
+              "ar": "تُقفل ميزة المراجعة ذات الأولوية أو تُفتح وفق طريقة الدفع المختارة."
+            },
+            "evidence": [
+              "tag:v2.9.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Simplified sign-in flow — streamlined email validation without OTP or organisation detection.",
+              "ar": "تبسيط تسجيل الدخول وإزالة OTP واكتشاف المؤسسة."
+            },
+            "evidence": [
+              "tag:v2.9.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Updated metadata across multiple pages for better SEO and platform inclusivity.",
+              "ar": "تحديث بيانات الصفحات لتحسين SEO وشمول المنصة."
+            },
+            "evidence": [
+              "tag:v2.9.0"
+            ]
+          }
+        ],
+        "fixes": [
+          {
+            "text": {
+              "en": "Improved user removal process and permission error handling in the admin panel.",
+              "ar": "تحسين إزالة المستخدم ومعالجة أخطاء الصلاحيات في لوحة الإدارة."
+            },
+            "evidence": [
+              "tag:v2.9.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "GA4 User-ID tracking integrated for accurate cross-device analytics.",
+              "ar": "دمج معرّف مستخدم GA4 لتحليلات أدق عبر الأجهزة."
+            },
+            "evidence": [
+              "tag:v2.9.0"
+            ]
+          }
+        ]
+      },
+      "developer_notes": {
+        "technical_changes": [
+          {
+            "text": {
+              "en": "New `pricing.html` with tiered plan UI and billing FAQ category.",
+              "ar": "إضافة `pricing.html` بواجهة الخطط وأسئلة الفوترة."
+            },
+            "evidence": [
+              "tag:v2.9.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "New `order-confirmation.html` with print-friendly receipt styles.",
+              "ar": "إضافة `order-confirmation.html` بتنسيق إيصال مناسب للطباعة."
+            },
+            "evidence": [
+              "tag:v2.9.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Project QR code removed.",
+              "ar": "إزالة رمز QR الخاص بالمشروع."
+            },
+            "evidence": [
+              "tag:v2.9.0"
+            ]
+          }
+        ],
+        "database_changes": [
+          {
+            "text": {
+              "en": "Removed `admin_activity_log` schema from the database directory.",
+              "ar": "إزالة مخطط `admin_activity_log` من مجلد قاعدة البيانات."
+            },
+            "evidence": [
+              "tag:v2.9.0"
+            ]
+          }
+        ],
+        "api_updates": [
+          {
+            "text": {
+              "en": "New `api/paypal-capture.js` — PayPal order capture with automated email confirmation.",
+              "ar": "إضافة `api/paypal-capture.js` لالتقاط دفعات PayPal وإرسال التأكيد."
+            },
+            "evidence": [
+              "tag:v2.9.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "New `api/bank-transfer.js` — bank transfer endpoint with reference instructions.",
+              "ar": "إضافة `api/bank-transfer.js` للتحويل البنكي وتعليمات المرجع."
+            },
+            "evidence": [
+              "tag:v2.9.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "New `api/submit-subscription.js` — subscription order submission with duplicate order checks.",
+              "ar": "إضافة `api/submit-subscription.js` لإرسال الاشتراكات ومنع التكرار."
+            },
+            "evidence": [
+              "tag:v2.9.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "New `api/receipt-url.js` — server-side signed receipt URL generation.",
+              "ar": "إضافة `api/receipt-url.js` لإنشاء روابط إيصال موقعة."
+            },
+            "evidence": [
+              "tag:v2.9.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Enhanced `api/ai.js` to support both chat and assist functionalities.",
+              "ar": "تحسين `api/ai.js` لدعم المحادثة والمساعدة."
+            },
+            "evidence": [
+              "tag:v2.9.0"
+            ]
+          }
+        ],
+        "internal_improvements": [
+          {
+            "text": {
+              "en": "GA4 User-ID tracking integrated for cross-device behaviour analysis.",
+              "ar": "دمج معرّف مستخدم GA4 للتحليل عبر الأجهزة."
+            },
+            "evidence": [
+              "tag:v2.9.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Admin panel permission error handling improvements.",
+              "ar": "تحسين معالجة أخطاء صلاحيات لوحة الإدارة."
+            },
+            "evidence": [
+              "tag:v2.9.0"
+            ]
+          }
+        ]
+      },
+      "is_major_release": false,
+      "source": {
+        "base_tag": "v2.8.0",
+        "target": "tag:v2.9.0",
+        "commit_range": "v2.8.0..v2.9.0"
+      }
+    },
+    {
+      "version": "v2.8.0",
+      "date": "2026-04-18",
+      "title": {
+        "en": "Arabic, Administration, and Embeds",
+        "ar": "العربية والإدارة والتضمين"
+      },
+      "summary": {
+        "en": "Arabic/RTL support, admin panel, project embed system, and AI assistant refinements.",
+        "ar": "دعم العربية واتجاه RTL ولوحة الإدارة ونظام تضمين المشاريع وتحسينات المساعد."
+      },
+      "tags": [
+        "feature",
+        "improvement",
+        "fix"
+      ],
+      "user_updates": {
+        "features": [
+          {
+            "text": {
+              "en": "Full **Arabic language support** with RTL layout, proper typography, and directional styling across all pages.",
+              "ar": "دعم كامل **للغة العربية** واتجاه RTL والخطوط والتنسيق المناسب."
+            },
+            "evidence": [
+              "tag:v2.8.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "New **Embed System** — generate a code snippet directly from any project page to display it on an external website.",
+              "ar": "نظام **تضمين** جديد لإنشاء مقطع يعرض المشروع في المواقع الخارجية."
+            },
+            "evidence": [
+              "tag:v2.8.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "New **Admin Panel** for managing platform users, access control, and system settings.",
+              "ar": "لوحة **إدارة** جديدة للمستخدمين والصلاحيات وإعدادات النظام."
+            },
+            "evidence": [
+              "tag:v2.8.0"
+            ]
+          }
+        ],
+        "improvements": [
+          {
+            "text": {
+              "en": "AI assistant now responds more naturally and accurately in Arabic.",
+              "ar": "أصبح المساعد أكثر طبيعية ودقة في العربية."
+            },
+            "evidence": [
+              "tag:v2.8.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "AI responses are better formatted and more concise with an improved word-limit policy.",
+              "ar": "تحسين تنسيق إجابات الذكاء الاصطناعي واختصارها."
+            },
+            "evidence": [
+              "tag:v2.8.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Sign-in call-to-actions and modals added for AI features to guide new users through onboarding.",
+              "ar": "إضافة دعوات تسجيل الدخول لميزات الذكاء الاصطناعي."
+            },
+            "evidence": [
+              "tag:v2.8.0"
+            ]
+          }
+        ],
+        "fixes": [
+          {
+            "text": {
+              "en": "Corrected service worker precache references that could cause stale asset loads.",
+              "ar": "تصحيح مراجع التخزين المسبق في عامل الخدمة."
+            },
+            "evidence": [
+              "tag:v2.8.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Updated PayPal link titles for consistent accessibility labeling.",
+              "ar": "تحديث عناوين روابط PayPal لتحسين الوصول."
+            },
+            "evidence": [
+              "tag:v2.8.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Improved error logging for email authorization checks to make debugging easier.",
+              "ar": "تحسين تسجيل أخطاء التحقق من البريد."
+            },
+            "evidence": [
+              "tag:v2.8.0"
+            ]
+          }
+        ]
+      },
+      "developer_notes": {
+        "technical_changes": [
+          {
+            "text": {
+              "en": "Added `assets/css/arabic.css` with Tajawal font and RTL overrides applied site-wide.",
+              "ar": "إضافة `assets/css/arabic.css` وخط Tajawal وتجاوزات RTL."
+            },
+            "evidence": [
+              "tag:v2.8.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "New `embed.html` page with embed code generation, customization options, and live preview.",
+              "ar": "إضافة `embed.html` مع إنشاء الكود والتخصيص والمعاينة."
+            },
+            "evidence": [
+              "tag:v2.8.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "New `admin-users.html` interface for user and permission management.",
+              "ar": "إضافة `admin-users.html` لإدارة المستخدمين والصلاحيات."
+            },
+            "evidence": [
+              "tag:v2.8.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Database-driven Approved Users whitelist controls access to specific platform features.",
+              "ar": "اعتماد قائمة المستخدمين الموافق عليهم من قاعدة البيانات."
+            },
+            "evidence": [
+              "tag:v2.8.0"
+            ]
+          }
+        ],
+        "database_changes": [
+          {
+            "text": {
+              "en": "Added `admin_activity_log` table to audit all administrative actions.",
+              "ar": "إضافة جدول `admin_activity_log` لتدقيق إجراءات الإدارة."
+            },
+            "evidence": [
+              "tag:v2.8.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Approved Users system persisted in the database for reliable access control.",
+              "ar": "حفظ نظام المستخدمين المعتمدين في قاعدة البيانات."
+            },
+            "evidence": [
+              "tag:v2.8.0"
+            ]
+          }
+        ],
+        "internal_improvements": [
+          {
+            "text": {
+              "en": "Removed obsolete `ai_knowledge_cleanup.sql` and outdated documentation files.",
+              "ar": "إزالة `ai_knowledge_cleanup.sql` والوثائق القديمة."
+            },
+            "evidence": [
+              "tag:v2.8.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Added deployment checklist and approved-users implementation guide.",
+              "ar": "إضافة قائمة تحقق للنشر ودليل المستخدمين المعتمدين."
+            },
+            "evidence": [
+              "tag:v2.8.0"
+            ]
+          }
+        ]
+      },
+      "is_major_release": false,
+      "source": {
+        "base_tag": "v2.7.0",
+        "target": "tag:v2.8.0",
+        "commit_range": "v2.7.0..v2.8.0"
+      }
+    },
+    {
+      "version": "v2.7.0",
+      "date": "2026-04-11",
+      "title": {
+        "en": "RAG AI Assistant",
+        "ar": "مساعد الذكاء الاصطناعي المعزز بالاسترجاع"
+      },
+      "summary": {
+        "en": "RAG-powered AI chat, floating assistant access, usage tracking, and broader interface polish.",
+        "ar": "محادثة ذكية معززة بالاسترجاع ووصول عائم وتتبع الاستخدام وتحسينات أوسع للواجهة."
+      },
+      "tags": [
+        "feature",
+        "improvement",
+        "fix"
+      ],
+      "user_updates": {
+        "features": [
+          {
+            "text": {
+              "en": "Launched a new **AI chat assistant** with context-aware answers powered by project knowledge.",
+              "ar": "إطلاق **مساعد محادثة ذكي** بإجابات تعتمد على معرفة المشاريع."
+            },
+            "evidence": [
+              "tag:v2.7.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Added a dedicated **AI Chat** page and a floating chat widget for faster access across the site.",
+              "ar": "إضافة صفحة **محادثة AI** وودجت عائم للوصول السريع."
+            },
+            "evidence": [
+              "tag:v2.7.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Conversations now persist during a session, so your chat context stays available while you browse.",
+              "ar": "حفظ المحادثة خلال جلسة التصفح."
+            },
+            "evidence": [
+              "tag:v2.7.0"
+            ]
+          }
+        ],
+        "improvements": [
+          {
+            "text": {
+              "en": "Introduced daily AI usage indicators with remaining quota shown directly in the chat experience.",
+              "ar": "إظهار الحصة اليومية المتبقية داخل تجربة المحادثة."
+            },
+            "evidence": [
+              "tag:v2.7.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Added AI usage visibility inside the account section with clearer section styling and icons.",
+              "ar": "عرض استخدام الذكاء الاصطناعي في صفحة الحساب."
+            },
+            "evidence": [
+              "tag:v2.7.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Refined floating action button placement, menu spacing, and responsive breakpoints for a cleaner mobile layout.",
+              "ar": "تحسين موضع الزر العائم والمسافات ونقاط الاستجابة."
+            },
+            "evidence": [
+              "tag:v2.7.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Replaced older moderation popups with smoother toast notifications for faster feedback.",
+              "ar": "استبدال نوافذ الإشراف القديمة بإشعارات toast."
+            },
+            "evidence": [
+              "tag:v2.7.0"
+            ]
+          }
+        ],
+        "fixes": [
+          {
+            "text": {
+              "en": "Improved delete confirmation behavior with clearer prompts and more reliable confirmation logic.",
+              "ar": "تحسين تأكيد الحذف بمنطق أوضح وأكثر موثوقية."
+            },
+            "evidence": [
+              "tag:v2.7.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Strengthened AI error handling so retry flows and quota-exhausted states provide better guidance.",
+              "ar": "تقوية معالجة أخطاء الذكاء الاصطناعي وحالات نفاد الحصة."
+            },
+            "evidence": [
+              "tag:v2.7.0"
+            ]
+          }
+        ]
+      },
+      "developer_notes": {
+        "technical_changes": [
+          {
+            "text": {
+              "en": "Added `api/ai-chat.js` with Supabase authentication and Gemini 2.5 integration for the new assistant flow.",
+              "ar": "إضافة `api/ai-chat.js` مع مصادقة Supabase وتكامل Gemini 2.5."
+            },
+            "evidence": [
+              "tag:v2.7.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Introduced `scripts/seed-knowledge.js` to manage embeddings for the RAG knowledge base.",
+              "ar": "إضافة `scripts/seed-knowledge.js` لإدارة تضمينات قاعدة المعرفة."
+            },
+            "evidence": [
+              "tag:v2.7.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Incremented the `service-worker.js` cache version to `v2.7.0` for cleaner asset updates.",
+              "ar": "رفع نسخة تخزين `service-worker.js` إلى `v2.7.0`."
+            },
+            "evidence": [
+              "tag:v2.7.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Added `vercel.json` URL rewrites to support cleaner route paths.",
+              "ar": "إضافة إعادة كتابة المسارات النظيفة في `vercel.json`."
+            },
+            "evidence": [
+              "tag:v2.7.0"
+            ]
+          }
+        ],
+        "internal_improvements": [
+          {
+            "text": {
+              "en": "Session storage now keeps chat history available through the active browser session.",
+              "ar": "حفظ سجل المحادثة في session storage طوال الجلسة."
+            },
+            "evidence": [
+              "tag:v2.7.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Account settings labels and confirmation copy were refreshed for better clarity and consistency.",
+              "ar": "تحديث عناوين الحساب ونصوص التأكيد."
+            },
+            "evidence": [
+              "tag:v2.7.0"
+            ]
+          }
+        ]
+      },
+      "is_major_release": false,
+      "source": {
+        "base_tag": "v2.6.0",
+        "target": "tag:v2.7.0",
+        "commit_range": "v2.6.0..v2.7.0"
+      }
+    },
+    {
+      "version": "v2.6.0",
+      "date": "2026-03-19",
+      "title": {
+        "en": "Roadmap and Feature Requests",
+        "ar": "خارطة الطريق وطلبات الميزات"
+      },
+      "summary": {
+        "en": "Feature voting roadmap launch, guest suggestion flow, and global UX refinements across core pages.",
+        "ar": "إطلاق خارطة الطريق والتصويت واقتراحات الضيوف وتحسينات عامة للتجربة."
+      },
+      "tags": [
+        "feature",
+        "improvement",
+        "fix"
+      ],
+      "user_updates": {
+        "features": [
+          {
+            "text": {
+              "en": "Launched the new **Feature Requests & Roadmap** board (`roadmap.html`) to suggest ideas and track implementation progress.",
+              "ar": "إطلاق لوحة **طلبات الميزات وخارطة الطريق** لاقتراح الأفكار ومتابعتها."
+            },
+            "evidence": [
+              "tag:v2.6.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Added **anonymous suggestion submission** and **guest voting** flows.",
+              "ar": "إضافة إرسال الاقتراحات والتصويت للضيوف."
+            },
+            "evidence": [
+              "tag:v2.6.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Introduced admin review workflows for pending suggestions and inline comment moderation.",
+              "ar": "إضافة مراجعة المشرفين للاقتراحات وإدارة التعليقات."
+            },
+            "evidence": [
+              "tag:v2.6.0"
+            ]
+          }
+        ],
+        "improvements": [
+          {
+            "text": {
+              "en": "Global styling refactor with new `assets/css/style.css` and cleaner nav links across core pages.",
+              "ar": "إعادة تنظيم التنسيق العام والروابط في الصفحات الأساسية."
+            },
+            "evidence": [
+              "tag:v2.6.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Smoother expand/collapse interactions in FAQ and Releases sections.",
+              "ar": "تحسين فتح وإغلاق أقسام الأسئلة والإصدارات."
+            },
+            "evidence": [
+              "tag:v2.6.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Modal interactions refreshed with blur effects and more polished transitions.",
+              "ar": "تحديث النوافذ بتأثير ضبابي وانتقالات أفضل."
+            },
+            "evidence": [
+              "tag:v2.6.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Navigation menus upgraded with Font Awesome visual cues.",
+              "ar": "إضافة أيقونات أوضح إلى قوائم التنقل."
+            },
+            "evidence": [
+              "tag:v2.6.0"
+            ]
+          }
+        ],
+        "fixes": [
+          {
+            "text": {
+              "en": "Fixed suggestion deletion so it is applied in Supabase (no more delete-only-in-UI behavior after refresh).",
+              "ar": "إصلاح حذف الاقتراحات ليُحفظ فعلياً في Supabase."
+            },
+            "evidence": [
+              "tag:v2.6.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Fixed unstable delete flows that could get stuck, with confirmation modals now closing automatically after successful actions.",
+              "ar": "إصلاح تدفقات الحذف المتوقفة وإغلاق نافذة التأكيد بعد النجاح."
+            },
+            "evidence": [
+              "tag:v2.6.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Resolved comment-edit save issues by removing the unstable edit-comment path and keeping the comment flow stable.",
+              "ar": "إزالة مسار تعديل التعليقات غير المستقر."
+            },
+            "evidence": [
+              "tag:v2.6.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Authentication flow simplified to a dedicated login-only page.",
+              "ar": "تبسيط المصادقة إلى صفحة تسجيل دخول مخصصة."
+            },
+            "evidence": [
+              "tag:v2.6.0"
+            ]
+          }
+        ]
+      },
+      "developer_notes": {
+        "technical_changes": [
+          {
+            "text": {
+              "en": "Integrated Vercel Speed Insights and standardized analytics placement across HTML pages.",
+              "ar": "دمج Vercel Speed Insights وتوحيد التحليلات."
+            },
+            "evidence": [
+              "tag:v2.6.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Initialized release history data in `assets/data/releases.json`.",
+              "ar": "تهيئة بيانات الإصدارات في `assets/data/releases.json`."
+            },
+            "evidence": [
+              "tag:v2.6.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Updated `service-worker.js` cache strategy and precache manifest to avoid stale or missing asset cache entries.",
+              "ar": "تحديث استراتيجية التخزين المسبق في `service-worker.js`."
+            },
+            "evidence": [
+              "tag:v2.6.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Added `vercel` package dependency and consolidated UI scripting in core pages.",
+              "ar": "إضافة اعتماد `vercel` وتجميع سكربتات الواجهة."
+            },
+            "evidence": [
+              "tag:v2.6.0"
+            ]
+          }
+        ],
+        "internal_improvements": [
+          {
+            "text": {
+              "en": "Accessibility polish: added PayPal link titles and normalized analytics snippet placement.",
+              "ar": "تحسين الوصول وتوحيد موضع أكواد التحليلات."
+            },
+            "evidence": [
+              "tag:v2.6.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Cleaned up blank-line noise in account settings files to keep diffs focused.",
+              "ar": "تنظيف الأسطر الزائدة في إعدادات الحساب."
+            },
+            "evidence": [
+              "tag:v2.6.0"
+            ]
+          }
+        ]
+      },
+      "is_major_release": false,
+      "source": {
+        "base_tag": "v2.5.0",
+        "target": "tag:v2.6.0",
+        "commit_range": "v2.5.0..v2.6.0"
+      }
+    },
+    {
+      "version": "v2.5.0",
+      "date": "2026-03-14",
+      "title": {
+        "en": "Interface and Performance Refresh",
+        "ar": "تحديث الواجهة والأداء"
+      },
+      "summary": {
+        "en": "Major UI refresh, releases hub, and performance polish across the platform.",
+        "ar": "تحديث كبير للواجهة وصفحة الإصدارات وتحسينات أداء المنصة."
+      },
+      "tags": [
+        "feature",
+        "improvement",
+        "fix"
+      ],
+      "user_updates": {
+        "features": [
+          {
+            "text": {
+              "en": "Brand-new dark theme applied to the Hub and homepage.",
+              "ar": "تطبيق مظهر داكن جديد على صفحة الاستكشاف والرئيسية."
+            },
+            "evidence": [
+              "tag:v2.5.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Project details upgraded with stats, social links, QR codes, and creator profiles.",
+              "ar": "تطوير تفاصيل المشاريع بالإحصاءات والروابط ورموز QR وملفات المنشئين."
+            },
+            "evidence": [
+              "tag:v2.5.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Dedicated Releases page for tracking platform history.",
+              "ar": "إضافة صفحة إصدارات مخصصة لتاريخ المنصة."
+            },
+            "evidence": [
+              "tag:v2.5.0"
+            ]
+          }
+        ],
+        "improvements": [
+          {
+            "text": {
+              "en": "Category chips and filters with richer styling across the explorer experience.",
+              "ar": "إضافة شرائح وفلاتر تصنيف بتنسيق أغنى."
+            },
+            "evidence": [
+              "tag:v2.5.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Polished project category badges and detail layouts for better readability.",
+              "ar": "تحسين شارات التصنيفات وتخطيط التفاصيل."
+            },
+            "evidence": [
+              "tag:v2.5.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Faster page loads via minified core CSS and JS assets.",
+              "ar": "تسريع التحميل عبر ملفات CSS وJS مصغرة."
+            },
+            "evidence": [
+              "tag:v2.5.0"
+            ]
+          }
+        ],
+        "fixes": [
+          {
+            "text": {
+              "en": "Removed stray BOM characters and fixed string interpolation glitches.",
+              "ar": "إزالة محارف BOM وإصلاح مشكلات تركيب النصوص."
+            },
+            "evidence": [
+              "tag:v2.5.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Icon updates across the Releases page for consistent visual language.",
+              "ar": "توحيد أيقونات صفحة الإصدارات."
+            },
+            "evidence": [
+              "tag:v2.5.0"
+            ]
+          }
+        ]
+      },
+      "developer_notes": {
+        "technical_changes": [
+          {
+            "text": {
+              "en": "Custom-styled version dropdown replacing the native select.",
+              "ar": "استبدال قائمة الإصدارات الأصلية بقائمة مخصصة."
+            },
+            "evidence": [
+              "tag:v2.5.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "New cookie consent manager and authentication UI components.",
+              "ar": "إضافة مدير الموافقة على ملفات الارتباط ومكونات المصادقة."
+            },
+            "evidence": [
+              "tag:v2.5.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Added `rel=\"noopener\"` on external links for improved security.",
+              "ar": "إضافة `rel=\"noopener\"` للروابط الخارجية."
+            },
+            "evidence": [
+              "tag:v2.5.0"
+            ]
+          }
+        ],
+        "internal_improvements": [
+          {
+            "text": {
+              "en": "Added Apple Touch icon and social meta tags for richer sharing.",
+              "ar": "إضافة Apple Touch Icon وبيانات المشاركة الاجتماعية."
+            },
+            "evidence": [
+              "tag:v2.5.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Core JS bootstrapping and layout styling refreshed across the site.",
+              "ar": "تحديث تهيئة JavaScript وتنسيق الصفحات."
+            },
+            "evidence": [
+              "tag:v2.5.0"
+            ]
+          }
+        ]
+      },
+      "is_major_release": false,
+      "source": {
+        "base_tag": "v2.4.1",
+        "target": "tag:v2.5.0",
+        "commit_range": "v2.4.1..v2.5.0"
+      }
+    },
+    {
+      "version": "v2.4.1",
+      "date": "2026-03-07",
+      "title": {
+        "en": "Stability Update",
+        "ar": "تحديث الاستقرار"
+      },
+      "summary": {
+        "en": "Fixing known problems and updating the service worker.",
+        "ar": "إصلاح مشكلات معروفة وتحسين استقرار عامل الخدمة."
+      },
+      "tags": [
+        "fix"
+      ],
+      "user_updates": {
+        "fixes": [
+          {
+            "text": {
+              "en": "Fixed known issues reported in the latest release.",
+              "ar": "إصلاح المشكلات المعروفة التي أُبلغ عنها في الإصدار الأخير."
+            },
+            "evidence": [
+              "tag:v2.4.1"
+            ]
+          }
+        ]
+      },
+      "developer_notes": {
+        "technical_changes": [
+          {
+            "text": {
+              "en": "Updated `service-worker.js` for better caching stability.",
+              "ar": "تحديث `service-worker.js` لتحسين استقرار التخزين المؤقت."
+            },
+            "evidence": [
+              "tag:v2.4.1"
+            ]
+          }
+        ]
+      },
+      "is_major_release": false,
+      "source": {
+        "base_tag": "v2.4.0",
+        "target": "tag:v2.4.1",
+        "commit_range": "v2.4.0..v2.4.1"
+      }
+    },
+    {
+      "version": "v2.4.0",
+      "date": "2026-03-07",
+      "title": {
+        "en": "Categories and Contact Information",
+        "ar": "التصنيفات ومعلومات التواصل"
+      },
+      "summary": {
+        "en": "Project categories, contact information, and 16 color-coded category types with hub filtering.",
+        "ar": "تصنيفات المشاريع ومعلومات التواصل وستة عشر تصنيفاً ملوناً مع التصفية."
+      },
+      "tags": [
+        "feature",
+        "improvement"
+      ],
+      "user_updates": {
+        "features": [
+          {
+            "text": {
+              "en": "**Contact Information section** in account settings — set a public email and phone number displayed on your project page.",
+              "ar": "قسم **معلومات التواصل** في الحساب لعرض بريد ورقم عامين في المشروع."
+            },
+            "evidence": [
+              "tag:v2.4.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "**16 project categories** with color-coded badges: Technology, Business, Education, Finance, Healthcare, Environment, and more.",
+              "ar": "إضافة **16 تصنيفاً للمشاريع** مع شارات ملونة."
+            },
+            "evidence": [
+              "tag:v2.4.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "**Category filtering** on the Hub — browse all published projects by type in one tap.",
+              "ar": "إضافة **تصفية حسب التصنيف** في صفحة الاستكشاف."
+            },
+            "evidence": [
+              "tag:v2.4.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "**Category stats** section at the bottom of the Hub showing project counts per category.",
+              "ar": "إضافة إحصاءات عدد المشاريع لكل تصنيف."
+            },
+            "evidence": [
+              "tag:v2.4.0"
+            ]
+          }
+        ],
+        "improvements": [
+          {
+            "text": {
+              "en": "Enhanced tooltip styling with blur effect and shadow for better readability.",
+              "ar": "تحسين شكل التلميحات بالضبابية والظل."
+            },
+            "evidence": [
+              "tag:v2.4.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Consistent input field colours and borders across the whole site.",
+              "ar": "توحيد ألوان وحدود حقول الإدخال."
+            },
+            "evidence": [
+              "tag:v2.4.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Task counter on the homepage bumped from 120+ to 360+.",
+              "ar": "رفع عداد المهام في الرئيسية من 120+ إلى 360+."
+            },
+            "evidence": [
+              "tag:v2.4.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Data export now includes your contact email and phone number.",
+              "ar": "إضافة معلومات التواصل إلى تصدير البيانات."
+            },
+            "evidence": [
+              "tag:v2.4.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Cleaned up footer links across multiple pages.",
+              "ar": "تنظيف روابط التذييل عبر عدة صفحات."
+            },
+            "evidence": [
+              "tag:v2.4.0"
+            ]
+          }
+        ]
+      },
+      "developer_notes": {
+        "technical_changes": [
+          {
+            "text": {
+              "en": "New `project-categories.js` module — normalisation, slug aliases, badge rendering, SVG icon map for all 16 categories.",
+              "ar": "إضافة `project-categories.js` للتطبيع والأسماء البديلة والشارات والأيقونات."
+            },
+            "evidence": [
+              "tag:v2.4.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "New `assets/css/project-categories.css` with CSS variables per category and badge component styles.",
+              "ar": "إضافة `assets/css/project-categories.css` لألوان ومكونات التصنيفات."
+            },
+            "evidence": [
+              "tag:v2.4.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Dropdown functionality extracted into reusable `initPortalSelect()` — panels portalled to `document.body` to eliminate z-index stacking issues.",
+              "ar": "استخراج القوائم إلى `initPortalSelect()` لتجاوز مشكلات z-index."
+            },
+            "evidence": [
+              "tag:v2.4.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Cookie icons converted from emoji to inline SVG for consistent cross-platform rendering.",
+              "ar": "تحويل أيقونات ملفات الارتباط من emoji إلى SVG."
+            },
+            "evidence": [
+              "tag:v2.4.0"
+            ]
+          }
+        ],
+        "database_changes": [
+          {
+            "text": {
+              "en": "Added `contact_email` and `phone_number` columns to the `users` table.",
+              "ar": "إضافة `contact_email` و`phone_number` إلى جدول `users`."
+            },
+            "evidence": [
+              "tag:v2.4.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Projects now carry a `category` field with normalisation and legacy alias support.",
+              "ar": "إضافة حقل `category` للمشاريع مع التطبيع ودعم الأسماء القديمة."
+            },
+            "evidence": [
+              "tag:v2.4.0"
+            ]
+          }
+        ],
+        "internal_improvements": [
+          {
+            "text": {
+              "en": "Updated `version.js` to `v2.4.0`.",
+              "ar": "تحديث `version.js` إلى `v2.4.0`."
+            },
+            "evidence": [
+              "tag:v2.4.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Added `sql/` to `.gitignore`.",
+              "ar": "إضافة `sql/` إلى `.gitignore`."
+            },
+            "evidence": [
+              "tag:v2.4.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Removed legacy `cookie-consent.css` — fully migrated to Cookie Manager v2.",
+              "ar": "إزالة `cookie-consent.css` القديم."
+            },
+            "evidence": [
+              "tag:v2.4.0"
+            ]
+          }
+        ]
+      },
+      "is_major_release": false,
+      "source": {
+        "base_tag": "v2.3.0",
+        "target": "tag:v2.4.0",
+        "commit_range": "v2.3.0..v2.4.0"
+      }
+    },
+    {
+      "version": "v2.3.0",
+      "date": "2026-03-07",
+      "title": {
+        "en": "Creator Profiles and Project Insights",
+        "ar": "ملفات المنشئين ورؤى المشاريع"
+      },
+      "summary": {
+        "en": "User profiles, AI project insights, creator sections on project pages, QR downloads, and view counters.",
+        "ar": "ملفات المستخدمين ورؤى المشاريع بالذكاء الاصطناعي وأقسام المنشئين وإحصاءات المشاهدة."
+      },
+      "tags": [
+        "feature",
+        "improvement"
+      ],
+      "user_updates": {
+        "features": [
+          {
+            "text": {
+              "en": "Your display name (full name, username, or email prefix) shown everywhere instead of the raw email address.",
+              "ar": "عرض الاسم بدلاً من البريد الخام في الواجهات."
+            },
+            "evidence": [
+              "tag:v2.3.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Project pages now feature a **Creator section** with your avatar, name, and public contact links.",
+              "ar": "إضافة قسم **المنشئ** بالصورة والاسم وروابط التواصل."
+            },
+            "evidence": [
+              "tag:v2.3.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "**AI Project Insights** — generate a smart summary on any project page with one click.",
+              "ar": "إضافة **رؤى المشروع بالذكاء الاصطناعي**."
+            },
+            "evidence": [
+              "tag:v2.3.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "QR codes can now be **downloaded as PNG** directly from project pages.",
+              "ar": "إتاحة تنزيل رموز QR بصيغة PNG."
+            },
+            "evidence": [
+              "tag:v2.3.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "View count and creation date badges added to every project page.",
+              "ar": "إضافة المشاهدات وتاريخ الإنشاء إلى صفحات المشاريع."
+            },
+            "evidence": [
+              "tag:v2.3.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Social sharing buttons for X, LinkedIn, and WhatsApp on all project pages.",
+              "ar": "إضافة مشاركة X وLinkedIn وWhatsApp."
+            },
+            "evidence": [
+              "tag:v2.3.0"
+            ]
+          }
+        ],
+        "improvements": [
+          {
+            "text": {
+              "en": "Navbar now shows your avatar and display name when signed in.",
+              "ar": "عرض الصورة والاسم في شريط التنقل."
+            },
+            "evidence": [
+              "tag:v2.3.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Project cards on the Hub redesigned with creation date and view count metadata.",
+              "ar": "إعادة تصميم بطاقات المشاريع ببيانات التاريخ والمشاهدات."
+            },
+            "evidence": [
+              "tag:v2.3.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Hub now loads newest projects first (descending order).",
+              "ar": "ترتيب أحدث المشاريع أولاً."
+            },
+            "evidence": [
+              "tag:v2.3.0"
+            ]
+          }
+        ]
+      },
+      "developer_notes": {
+        "technical_changes": [
+          {
+            "text": {
+              "en": "Added `getUserDisplayName()` and `getUserAvatar()` helpers across all pages.",
+              "ar": "إضافة مساعدات `getUserDisplayName()` و`getUserAvatar()`."
+            },
+            "evidence": [
+              "tag:v2.3.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "New `project_insights` action in `/api/ai` — returns `{ summary, insights[] }`.",
+              "ar": "إضافة إجراء `project_insights` في `/api/ai`."
+            },
+            "evidence": [
+              "tag:v2.3.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Owner-check in `project.html` tightened with `.eq('owner_user_id', session.user.id)`.",
+              "ar": "تشديد التحقق من المالك باستخدام `owner_user_id`."
+            },
+            "evidence": [
+              "tag:v2.3.0"
+            ]
+          }
+        ],
+        "database_changes": [
+          {
+            "text": {
+              "en": "Added `creator_name` and `creator_avatar_url` to the `projects` table.",
+              "ar": "إضافة `creator_name` و`creator_avatar_url` للمشاريع."
+            },
+            "evidence": [
+              "tag:v2.3.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Auto-backfill logic for legacy projects missing creator metadata on next dashboard load.",
+              "ar": "إضافة تعبئة تلقائية لبيانات المنشئ القديمة."
+            },
+            "evidence": [
+              "tag:v2.3.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "User profile sync on login now stores avatar URL in the `users` table.",
+              "ar": "حفظ رابط الصورة في جدول المستخدمين عند الدخول."
+            },
+            "evidence": [
+              "tag:v2.3.0"
+            ]
+          }
+        ]
+      },
+      "is_major_release": false,
+      "source": {
+        "base_tag": "v2.2.0",
+        "target": "tag:v2.3.0",
+        "commit_range": "v2.2.0..v2.3.0"
+      }
+    },
+    {
+      "version": "v2.2.0",
+      "date": "2026-03-06",
+      "title": {
+        "en": "Consent and Moderation",
+        "ar": "الموافقة والإشراف"
+      },
+      "summary": {
+        "en": "Cookie Consent v2 rollout, moderation UI in dashboard, improved modals, and AI loading animations.",
+        "ar": "إدارة ملفات تعريف الارتباط والإشراف في لوحة التحكم وتحسين النوافذ والتحميل."
+      },
+      "tags": [
+        "improvement",
+        "fix"
+      ],
+      "user_updates": {
+        "improvements": [
+          {
+            "text": {
+              "en": "Upgraded to **Cookie Consent Manager v2** — granular control over analytics, external media, and AI cookies with a polished modal.",
+              "ar": "الترقية إلى **مدير ملفات الارتباط v2** بخيارات تفصيلية."
+            },
+            "evidence": [
+              "tag:v2.2.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Redesigned **Delete Account** modal — animated, accessible, with proper focus trapping and ARIA attributes.",
+              "ar": "إعادة تصميم نافذة **حذف الحساب** مع الوصول وإدارة التركيز."
+            },
+            "evidence": [
+              "tag:v2.2.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "New **Delete Project** confirmation modal — replaces browser `confirm()` dialogs site-wide.",
+              "ar": "إضافة نافذة **حذف المشروع** بدلاً من `confirm()`."
+            },
+            "evidence": [
+              "tag:v2.2.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Dashboard now displays your project's **moderation status** via a colour-coded badge with a reason popup on tap.",
+              "ar": "عرض حالة الإشراف على المشروع بشارة ملونة."
+            },
+            "evidence": [
+              "tag:v2.2.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "AI generate buttons animate with a shimmer sweep and burst sparkles while loading.",
+              "ar": "إضافة حركات تحميل لأزرار الذكاء الاصطناعي."
+            },
+            "evidence": [
+              "tag:v2.2.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Footer updated with proper PayPal logo across all pages.",
+              "ar": "تحديث التذييل بشعار PayPal الصحيح."
+            },
+            "evidence": [
+              "tag:v2.2.0"
+            ]
+          }
+        ],
+        "fixes": [
+          {
+            "text": {
+              "en": "Fixed z-index issue with AI style dropdown — panel now portals to `document.body`.",
+              "ar": "إصلاح z-index لقائمة نمط الذكاء الاصطناعي."
+            },
+            "evidence": [
+              "tag:v2.2.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Removed stale \"BETA\" badges from account, dashboard, and hub headings.",
+              "ar": "إزالة شارات BETA القديمة من الصفحات."
+            },
+            "evidence": [
+              "tag:v2.2.0"
+            ]
+          }
+        ]
+      },
+      "developer_notes": {
+        "technical_changes": [
+          {
+            "text": {
+              "en": "New `api/moderate-project.js` — rule-based + Gemini-powered moderation, optional `moderation_logs` table, controls publish state.",
+              "ar": "إضافة `api/moderate-project.js` للإشراف بالقواعد وGemini."
+            },
+            "evidence": [
+              "tag:v2.2.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "`GET /api/ai?usage=1` added — fetch quota stats without consuming an action.",
+              "ar": "إضافة `GET /api/ai?usage=1` لجلب الحصة."
+            },
+            "evidence": [
+              "tag:v2.2.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Cookie HTML removed from all page bodies; injected by `cookies.js` (v2) with granular categories, focus trap, and a11y.",
+              "ar": "نقل HTML ملفات الارتباط إلى حقن `cookies.js`."
+            },
+            "evidence": [
+              "tag:v2.2.0"
+            ]
+          }
+        ],
+        "database_changes": [
+          {
+            "text": {
+              "en": "Added `moderation_status`, `moderation_reason`, `last_moderated_at` to `projects`.",
+              "ar": "إضافة حقول حالة وسبب وتاريخ الإشراف للمشاريع."
+            },
+            "evidence": [
+              "tag:v2.2.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Created `moderation_logs` table for full audit trail of all moderation decisions.",
+              "ar": "إضافة جدول `moderation_logs` للتدقيق."
+            },
+            "evidence": [
+              "tag:v2.2.0"
+            ]
+          }
+        ]
+      },
+      "is_major_release": false,
+      "source": {
+        "base_tag": "v2.1.0",
+        "target": "tag:v2.2.0",
+        "commit_range": "v2.1.0..v2.2.0"
+      }
+    },
+    {
+      "version": "v2.1.0",
+      "date": "2026-03-01",
+      "title": {
+        "en": "AI Assist",
+        "ar": "المساعدة بالذكاء الاصطناعي"
+      },
+      "summary": {
+        "en": "AI Assist launched — enhance descriptions, generate card briefs, with 3-action daily limits.",
+        "ar": "إطلاق المساعدة بالذكاء الاصطناعي لتحسين الأوصاف وإنشاء ملخصات البطاقات."
+      },
+      "tags": [
+        "feature"
+      ],
+      "user_updates": {
+        "features": [
+          {
+            "text": {
+              "en": "**AI Assist** in the dashboard — rewrite your page description in Professional, Shorter, Technical, or Inspiring tone.",
+              "ar": "إضافة **AI Assist** لتحسين وصف الصفحة بعدة نبرات."
+            },
+            "evidence": [
+              "tag:v2.1.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "**AI Card Brief** generator — derive a concise hub card description from your full page description in one click.",
+              "ar": "إضافة مولد **ملخص البطاقة** من وصف الصفحة."
+            },
+            "evidence": [
+              "tag:v2.1.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "AI actions are **limited to 3 per day** — your remaining count is always visible in the dashboard.",
+              "ar": "تحديد الاستخدام بثلاث عمليات يومياً مع عرض المتبقي."
+            },
+            "evidence": [
+              "tag:v2.1.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "**Copy Page Link** button added to the dashboard for instant sharing.",
+              "ar": "إضافة زر **نسخ رابط الصفحة**."
+            },
+            "evidence": [
+              "tag:v2.1.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Slug preview updates live as you type the project name.",
+              "ar": "تحديث معاينة slug أثناء الكتابة."
+            },
+            "evidence": [
+              "tag:v2.1.0"
+            ]
+          }
+        ]
+      },
+      "developer_notes": {
+        "database_changes": [
+          {
+            "text": {
+              "en": "New `ai_usage` table for per-user daily tracking with RLS.",
+              "ar": "إضافة جدول `ai_usage` لتتبع الاستخدام اليومي."
+            },
+            "evidence": [
+              "tag:v2.1.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "RPC `consume_ai_use(max_uses)` — atomic daily limit enforcement.",
+              "ar": "إضافة RPC باسم `consume_ai_use(max_uses)`."
+            },
+            "evidence": [
+              "tag:v2.1.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "RPC `get_ai_usage(max_uses)` — returns used/remaining counts.",
+              "ar": "إضافة RPC باسم `get_ai_usage(max_uses)`."
+            },
+            "evidence": [
+              "tag:v2.1.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Separate `card_description` and `page_description` fields added to `projects` table.",
+              "ar": "فصل `card_description` عن `page_description`."
+            },
+            "evidence": [
+              "tag:v2.1.0"
+            ]
+          }
+        ],
+        "api_updates": [
+          {
+            "text": {
+              "en": "New `api/ai.js` — Google Gemini via `@google/genai`, Bearer JWT required, enforces 3-per-day limit via Supabase RPC.",
+              "ar": "إضافة `api/ai.js` مع Gemini ومصادقة JWT وحد يومي."
+            },
+            "evidence": [
+              "tag:v2.1.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Supported actions: `improve_page`, `card_summary`, `project_insights`.",
+              "ar": "دعم إجراءات `improve_page` و`card_summary` و`project_insights`."
+            },
+            "evidence": [
+              "tag:v2.1.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Debug endpoint `api/models.js` for listing available Gemini models (temporary).",
+              "ar": "إضافة `api/models.js` لعرض النماذج المتاحة."
+            },
+            "evidence": [
+              "tag:v2.1.0"
+            ]
+          }
+        ],
+        "internal_improvements": [
+          {
+            "text": {
+              "en": "Added `@google/genai ^1.43.0` to `package.json`.",
+              "ar": "إضافة `@google/genai ^1.43.0`."
+            },
+            "evidence": [
+              "tag:v2.1.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Gemini model configurable via `GEMINI_MODEL` env var (default: `models/gemini-2.5-flash`).",
+              "ar": "إتاحة ضبط نموذج Gemini عبر `GEMINI_MODEL`."
+            },
+            "evidence": [
+              "tag:v2.1.0"
+            ]
+          }
+        ]
+      },
+      "is_major_release": false,
+      "source": {
+        "base_tag": "v2.0.0",
+        "target": "tag:v2.1.0",
+        "commit_range": "v2.0.0..v2.1.0"
+      }
+    },
+    {
+      "version": "v2.0.0",
+      "date": "2026-02-10",
+      "title": {
+        "en": "Platform Graduation",
+        "ar": "الانتقال إلى منصة متكاملة"
+      },
+      "summary": {
+        "en": "Complete platform rebuild — Supabase auth, user dashboards, project management, dynamic hub.",
+        "ar": "إعادة بناء كاملة للمنصة مع Supabase والمصادقة ولوحات المستخدمين وإدارة المشاريع."
+      },
+      "tags": [
+        "feature",
+        "improvement"
+      ],
+      "user_updates": {
+        "features": [
+          {
+            "text": {
+              "en": "Sign in with your **SQU Google account** — no password, no friction.",
+              "ar": "تسجيل الدخول بحساب Google الجامعي دون كلمة مرور."
+            },
+            "evidence": [
+              "tag:v2.0.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "New **Dashboard** — create, edit, and publish your project in minutes.",
+              "ar": "لوحة تحكم لإنشاء المشاريع وتعديلها ونشرها."
+            },
+            "evidence": [
+              "tag:v2.0.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "New **Account Settings** — view your profile, export data, delete your account.",
+              "ar": "إعدادات حساب لعرض الملف وتصدير البيانات وحذف الحساب."
+            },
+            "evidence": [
+              "tag:v2.0.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Projects get **dedicated public pages** with QR codes and social sharing.",
+              "ar": "صفحات عامة مستقلة للمشاريع مع QR والمشاركة."
+            },
+            "evidence": [
+              "tag:v2.0.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Hub now loads projects **live from the database** — always up-to-date.",
+              "ar": "تحميل المشاريع مباشرة من قاعدة البيانات."
+            },
+            "evidence": [
+              "tag:v2.0.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Per-project page visit analytics tracking.",
+              "ar": "إضافة تحليلات الزيارات لكل مشروع."
+            },
+            "evidence": [
+              "tag:v2.0.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Trustpilot review widget integrated on the hub.",
+              "ar": "دمج ودجت تقييم Trustpilot."
+            },
+            "evidence": [
+              "tag:v2.0.0"
+            ]
+          }
+        ]
+      },
+      "developer_notes": {
+        "technical_changes": [
+          {
+            "text": {
+              "en": "Integrated `@supabase/supabase-js` for full backend, auth, and database.",
+              "ar": "دمج `@supabase/supabase-js` للمصادقة وقاعدة البيانات."
+            },
+            "evidence": [
+              "tag:v2.0.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "New `assets/js/supabase-client.js` — shared client initialisation across all pages.",
+              "ar": "إضافة `assets/js/supabase-client.js` كعميل مشترك."
+            },
+            "evidence": [
+              "tag:v2.0.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "New `assets/js/auth-ui-db.js` — global auth state, navbar injection, avatar support.",
+              "ar": "إضافة `assets/js/auth-ui-db.js` لحالة المصادقة والتنقل."
+            },
+            "evidence": [
+              "tag:v2.0.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Serverless functions: `api/track-visit.js`, `api/delete-account.js`.",
+              "ar": "إضافة `api/track-visit.js` و`api/delete-account.js`."
+            },
+            "evidence": [
+              "tag:v2.0.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "New `lib/supabaseAdmin.js` for service-role server-side operations.",
+              "ar": "إضافة `lib/supabaseAdmin.js` لعمليات الخادم."
+            },
+            "evidence": [
+              "tag:v2.0.0"
+            ]
+          }
+        ],
+        "database_changes": [
+          {
+            "text": {
+              "en": "Migrated from static `data/projects.json` to a live Supabase `projects` table.",
+              "ar": "الانتقال من `data/projects.json` إلى جدول `projects` في Supabase."
+            },
+            "evidence": [
+              "tag:v2.0.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Created `users`, `projects`, `page_visits_daily` tables.",
+              "ar": "إنشاء جداول `users` و`projects` و`page_visits_daily`."
+            },
+            "evidence": [
+              "tag:v2.0.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Row Level Security (RLS) enabled on all user-facing tables.",
+              "ar": "تفعيل RLS على الجداول الموجهة للمستخدم."
+            },
+            "evidence": [
+              "tag:v2.0.0"
+            ]
+          }
+        ]
+      },
+      "is_major_release": true,
+      "major_details": {
+        "en": {
+          "why_it_matters": "v2.0.0 is the graduation from a static showcase to a fully dynamic platform. Any SQU student can now sign in, create a project, and publish it to the hub — zero technical setup required. This release is the foundation everything else was built on.",
+          "description": "NexCore Labs moved from a static showcase into a live platform with authentication, project management, public pages, and database-backed discovery.",
+          "highlights": [
+            "Supabase authentication and data",
+            "User dashboard and project management",
+            "Live public project hub"
+          ]
+        },
+        "ar": {
+          "why_it_matters": "يمثل هذا الإصدار انتقال NexCore Labs من معرض ثابت إلى منصة ديناميكية يستطيع الطالب الدخول إليها وإنشاء مشروعه ونشره دون إعداد تقني.",
+          "description": "انتقلت المنصة إلى المصادقة وإدارة المشاريع والصفحات العامة والاستكشاف المدعوم بقاعدة البيانات.",
+          "highlights": [
+            "مصادقة وبيانات Supabase",
+            "لوحة المستخدم وإدارة المشاريع",
+            "استكشاف عام مباشر للمشاريع"
+          ]
+        }
+      },
+      "source": {
+        "base_tag": "v1.2.0",
+        "target": "tag:v2.0.0",
+        "commit_range": "v1.2.0..v2.0.0"
+      }
+    },
+    {
+      "version": "v1.2.0",
+      "date": "2026-02-03",
+      "title": {
+        "en": "Offline and Privacy",
+        "ar": "العمل دون اتصال والخصوصية"
+      },
+      "summary": {
+        "en": "Service Worker rewrite, cookie consent, offline support, and UI polish across all pages.",
+        "ar": "إعادة بناء عامل الخدمة ودعم العمل دون اتصال والموافقة على ملفات الارتباط وتحسينات الواجهة."
+      },
+      "tags": [
+        "improvement",
+        "fix"
+      ],
+      "user_updates": {
+        "improvements": [
+          {
+            "text": {
+              "en": "Added **offline support** — previously visited pages remain accessible without internet.",
+              "ar": "إضافة **العمل دون اتصال** للصفحات التي زارها المستخدم."
+            },
+            "evidence": [
+              "tag:v1.2.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Introduced the **cookie consent** banner — analytics only load with your explicit permission.",
+              "ar": "إضافة شريط **الموافقة على ملفات الارتباط**."
+            },
+            "evidence": [
+              "tag:v1.2.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Leader image replaced with an optimised **WebP photo**.",
+              "ar": "استبدال صورة القائد بصورة WebP محسنة."
+            },
+            "evidence": [
+              "tag:v1.2.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Meta tags updated site-wide for better social sharing previews on all platforms.",
+              "ar": "تحديث بيانات المشاركة الاجتماعية."
+            },
+            "evidence": [
+              "tag:v1.2.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Oman badge added and navigation order improved for a more natural flow.",
+              "ar": "إضافة شارة عُمان وتحسين ترتيب التنقل."
+            },
+            "evidence": [
+              "tag:v1.2.0"
+            ]
+          }
+        ],
+        "fixes": [
+          {
+            "text": {
+              "en": "Fixed broken image paths in the Service Worker precache list.",
+              "ar": "إصلاح مسارات الصور في قائمة التخزين المسبق."
+            },
+            "evidence": [
+              "tag:v1.2.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Hardened signup form validation against incomplete or malformed submissions.",
+              "ar": "تقوية التحقق من نموذج التسجيل."
+            },
+            "evidence": [
+              "tag:v1.2.0"
+            ]
+          }
+        ]
+      },
+      "developer_notes": {
+        "technical_changes": [
+          {
+            "text": {
+              "en": "Full rewrite of `service-worker.js` — precaching, stale-while-revalidate runtime strategy, navigation preload, and `offline.html` fallback.",
+              "ar": "إعادة بناء `service-worker.js` بالتخزين المسبق وstale-while-revalidate."
+            },
+            "evidence": [
+              "tag:v1.2.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Image cache capped at 60 entries with LRU eviction via recursive `trimCache()`.",
+              "ar": "تحديد مخزن الصور بـ60 عنصراً مع LRU."
+            },
+            "evidence": [
+              "tag:v1.2.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Backdrop blur values reduced for improved performance on low-end devices.",
+              "ar": "تقليل قيم backdrop blur لتحسين الأداء."
+            },
+            "evidence": [
+              "tag:v1.2.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Full documentation suite added: implementation notes, quick reference, delivery summary, completion checklist.",
+              "ar": "إضافة مجموعة وثائق للتنفيذ والتسليم."
+            },
+            "evidence": [
+              "tag:v1.2.0"
+            ]
+          }
+        ]
+      },
+      "is_major_release": false,
+      "source": {
+        "base_tag": "v1.1.0",
+        "target": "tag:v1.2.0",
+        "commit_range": "v1.1.0..v1.2.0"
+      }
+    },
+    {
+      "version": "v1.1.0",
+      "date": "2025-11-01",
+      "title": {
+        "en": "Performance Foundations",
+        "ar": "أسس الأداء"
+      },
+      "summary": {
+        "en": "Image compression to WebP, a new research page, UI polish, and Git version control introduced.",
+        "ar": "ضغط الصور إلى WebP وإضافة صفحة بحث وتحسين الواجهة واعتماد Git."
+      },
+      "tags": [
+        "improvement"
+      ],
+      "user_updates": {
+        "improvements": [
+          {
+            "text": {
+              "en": "All images compressed and converted to **WebP** — pages load noticeably faster.",
+              "ar": "ضغط جميع الصور وتحويلها إلى **WebP**."
+            },
+            "evidence": [
+              "tag:v1.1.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "New **research page** added for academic content.",
+              "ar": "إضافة صفحة **بحث** للمحتوى الأكاديمي."
+            },
+            "evidence": [
+              "tag:v1.1.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "General UI improvements and visual polish throughout.",
+              "ar": "تحسينات عامة للواجهة."
+            },
+            "evidence": [
+              "tag:v1.1.0"
+            ]
+          }
+        ]
+      },
+      "developer_notes": {
+        "internal_improvements": [
+          {
+            "text": {
+              "en": "Began using **Git VCS** — all changes tracked from this release onward.",
+              "ar": "بدء استخدام **Git** لتتبع التغييرات."
+            },
+            "evidence": [
+              "tag:v1.1.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "WebP image compression pipeline established.",
+              "ar": "إنشاء مسار ضغط صور WebP."
+            },
+            "evidence": [
+              "tag:v1.1.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Deleted broken legacy file `mobile-preview.html`.",
+              "ar": "حذف `mobile-preview.html` القديم والمعطل."
+            },
+            "evidence": [
+              "tag:v1.1.0"
+            ]
+          }
+        ]
+      },
+      "is_major_release": false,
+      "source": {
+        "base_tag": "v1.0.0",
+        "target": "tag:v1.1.0",
+        "commit_range": "v1.0.0..v1.1.0"
+      }
+    },
+    {
+      "version": "v1.0.0",
+      "date": "2025-10-27",
+      "title": {
+        "en": "Initial Launch",
+        "ar": "الإطلاق الأول"
+      },
+      "summary": {
+        "en": "NexCore Labs went live — the very first version of the platform.",
+        "ar": "إطلاق النسخة الأولى من منصة NexCore Labs."
+      },
+      "tags": [
+        "feature"
+      ],
+      "user_updates": {
+        "features": [
+          {
+            "text": {
+              "en": "NexCore Labs website live at **nexcorelabs.vercel.app**.",
+              "ar": "إطلاق موقع NexCore Labs على **nexcorelabs.vercel.app**."
+            },
+            "evidence": [
+              "tag:v1.0.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Homepage with hero, about, tools, team, and contact sections.",
+              "ar": "صفحة رئيسية تشمل المقدمة والتعريف والأدوات والفريق والتواصل."
+            },
+            "evidence": [
+              "tag:v1.0.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Project Hub with static project card listings.",
+              "ar": "صفحة استكشاف ببطاقات مشاريع ثابتة."
+            },
+            "evidence": [
+              "tag:v1.0.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "PWA support — installable on mobile and desktop with offline caching.",
+              "ar": "دعم PWA والتثبيت والعمل دون اتصال."
+            },
+            "evidence": [
+              "tag:v1.0.0"
+            ]
+          }
+        ]
+      },
+      "developer_notes": {
+        "technical_changes": [
+          {
+            "text": {
+              "en": "Pure HTML5 / CSS3 / vanilla JS — zero frameworks, zero dependencies.",
+              "ar": "استخدام HTML5 وCSS3 وJavaScript دون أطر."
+            },
+            "evidence": [
+              "tag:v1.0.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Custom CSS design system with `--dark-base`, `--primary-accent`, glass card components.",
+              "ar": "نظام تصميم CSS مخصص وبطاقات زجاجية."
+            },
+            "evidence": [
+              "tag:v1.0.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Service Worker with basic precaching strategy.",
+              "ar": "عامل خدمة بتخزين مسبق أساسي."
+            },
+            "evidence": [
+              "tag:v1.0.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Google Analytics 4 with IP anonymisation.",
+              "ar": "Google Analytics 4 مع إخفاء عنوان IP."
+            },
+            "evidence": [
+              "tag:v1.0.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "OpenGraph and Twitter Card meta tags site-wide for rich previews.",
+              "ar": "بيانات OpenGraph وTwitter Card."
+            },
+            "evidence": [
+              "tag:v1.0.0"
+            ]
+          },
+          {
+            "text": {
+              "en": "Deployed on Vercel with automatic GitHub CI/CD integration.",
+              "ar": "النشر على Vercel مع تكامل GitHub."
+            },
+            "evidence": [
+              "tag:v1.0.0"
+            ]
+          }
+        ]
+      },
+      "is_major_release": true,
+      "major_details": {
+        "en": {
+          "why_it_matters": "NexCore Labs launched as a static showcase for Sultan Qaboos University student projects. This version established the brand identity, design system, and core pages that every future release built upon.",
+          "description": "The first public version established the brand, design system, project showcase, and deployment foundation.",
+          "highlights": [
+            "First public launch",
+            "Project showcase foundation",
+            "Installable PWA"
+          ]
+        },
+        "ar": {
+          "why_it_matters": "كان هذا الإصدار بداية NexCore Labs كمنصة لعرض مشاريع طلاب جامعة السلطان قابوس، ووضع الهوية ونظام التصميم والأساس الذي بُنيت عليه الإصدارات اللاحقة.",
+          "description": "أسست النسخة العامة الأولى العلامة ونظام التصميم وعرض المشاريع وبنية النشر.",
+          "highlights": [
+            "الإطلاق العام الأول",
+            "أساس عرض المشاريع",
+            "تطبيق PWA قابل للتثبيت"
+          ]
+        }
+      },
+      "source": {
+        "base_tag": "initial",
+        "target": "tag:v1.0.0",
+        "commit_range": "initial..v1.0.0"
+      }
     }
-  },
-  {
-    "id": "v2-8-0",
-    "version": "v2.8.0",
-    "date": "2026-04-18",
-    "summary": "Arabic/RTL support, admin panel, embed system, and AI assistant refinements.",
-    "user_updates": {
-      "new": [
-        "Full Arabic language support with RTL layout across all pages",
-        "Project embed system — generate code to display projects on external sites",
-        "Admin panel for platform user management and system settings"
-      ],
-      "improvements": [
-        "AI assistant now responds more naturally in Arabic",
-        "AI responses are better formatted and more concise",
-        "Sign-in prompts added for AI features to guide new users"
-      ],
-      "fixes": [
-        "Corrected service worker precache references",
-        "Updated PayPal link titles for consistency",
-        "Improved error logging for email authorization checks"
-      ]
-    },
-    "developer_notes": {
-      "technical_changes": [
-        "Added arabic.css with Tajawal font for RTL support site-wide",
-        "New embed.html with embed code generation and preview panel",
-        "New admin-users.html administrative interface",
-        "Approved Users whitelist system backed by database"
-      ],
-      "database_changes": [
-        "Added admin_activity_log table for auditing admin actions",
-        "Database-driven Approved Users system for feature access control"
-      ],
-      "api_updates": [],
-      "internal_improvements": [
-        "Removed obsolete ai_knowledge_cleanup.sql and outdated docs",
-        "Added deployment checklist and approved users guide"
-      ]
-    },
-    "is_major_release": true,
-    "major_details": {
-      "title": "v2.8.0 — Internationalization & Admin Update",
-      "why_it_matters": "This release opens NexCore to Arabic-speaking users with full RTL support while giving administrators better control over who can access platform features.",
-      "description": "Users get a native Arabic experience and the ability to embed their projects anywhere, while admins gain a dedicated panel and audit logging for tighter governance.",
-      "highlights": [
-        "Full Arabic/RTL interface",
-        "Project embed system",
-        "Admin panel with activity auditing"
-      ],
-      "screenshots": []
-    }
-  },
-  {
-    "id": "v2-5-0",
-    "version": "v2.5.0",
-    "date": "2026-03-14",
-    "summary": "Major UI overhaul, new components, and core performance improvements.",
-    "user_updates": {
-      "new": [
-        "Dedicated releases page to track project history",
-        "New granular cookie consent manager",
-        "Category chips for easier project filtering"
-      ],
-      "improvements": [
-        "Completely redesigned project detail pages",
-        "Custom version selection dropdown",
-        "Improved loading speed with minified assets"
-      ],
-      "fixes": [
-        "Enhanced link security across the platform",
-        "Refined icon sets and layout consistency"
-      ]
-    },
-    "developer_notes": {
-      "technical_changes": [
-        "Implemented core JS functionality for site interactions",
-        "Added social media meta tags and Apple Touch Icon support"
-      ],
-      "database_changes": [],
-      "api_updates": [],
-      "internal_improvements": [
-        "Removed BOM characters and fixed string interpolation",
-        "Standardized code formatting and layout"
-      ]
-    },
-    "is_major_release": true,
-    "major_details": {
-      "title": "v2.5.0 — UI & Performance Update",
-      "why_it_matters": "This release significantly improves the visual experience and performance of NexCore while adding essential transparency features like the releases page.",
-      "description": "Users can now explore projects with much better clarity and filter them by category, while developers benefit from a cleaner and more secure codebase.",
-      "highlights": [
-        "Full UI redesign for project explorers",
-        "Enhanced cookie and privacy management",
-        "Optimized asset delivery for faster loads"
-      ],
-      "screenshots": []
-    }
-  },
-  {
-    "id": "v2-4-1",
-    "version": "v2.4.1",
-    "date": "2026-03-07",
-    "summary": "Service worker update and bug fixes.",
-    "user_updates": {
-      "new": [],
-      "improvements": [
-        "Updated service worker for better reliability"
-      ],
-      "fixes": [
-        "Addressed known bugs and performance issues"
-      ]
-    },
-    "developer_notes": {
-      "technical_changes": [
-        "Service worker logic refined"
-      ],
-      "database_changes": [],
-      "api_updates": [],
-      "internal_improvements": [
-        "General bug fixes"
-      ]
-    },
-    "is_major_release": false
-  },
-  {
-    "id": "v2-4-0",
-    "version": "v2.4.0",
-    "date": "2026-03-07",
-    "summary": "Account enhancements, expanded project categories, and UI polish.",
-    "user_updates": {
-      "new": [
-        "Contact information is now available on project pages",
-        "New project categories with color-coded badges"
-      ],
-      "improvements": [
-        "Tooltips and dropdowns feel smoother",
-        "Team roles updated for clarity",
-        "Homepage task counter refreshed"
-      ],
-      "fixes": [
-        "Cleaner footer layout across pages",
-        "Cookie visuals updated for consistent display"
-      ]
-    },
-    "developer_notes": {
-      "technical_changes": [
-        "New project-categories module for normalization",
-        "Dropdown logic refactored into reusable helpers"
-      ],
-      "database_changes": [
-        "Contact info fields now saved with projects"
-      ],
-      "api_updates": [],
-      "internal_improvements": [
-        "Removed unused cookie-consent CSS",
-        "Expanded changelog structure"
-      ]
-    },
-    "is_major_release": false
-  },
-  {
-    "id": "v2-3-0",
-    "version": "v2.3.0",
-    "date": "2026-03-07",
-    "summary": "AI enhancements, creator profiles, and project discovery upgrades.",
-    "user_updates": {
-      "new": [
-        "AI insights section on project pages",
-        "Project cards now show creation date and views",
-        "Creator profiles added to each project page"
-      ],
-      "improvements": [
-        "Projects show newest releases first",
-        "Social sharing buttons added"
-      ],
-      "fixes": [
-        "Cleaner mobile layout for project cards"
-      ]
-    },
-    "developer_notes": {
-      "technical_changes": [
-        "New project_insights AI action",
-        "Slug-based filtering supported across dashboard"
-      ],
-      "database_changes": [
-        "Creator metadata stored with project records"
-      ],
-      "api_updates": [
-        "AI endpoint reports usage stats via GET"
-      ],
-      "internal_improvements": [
-        "Improved HTML closing tag structure"
-      ]
-    },
-    "is_major_release": false
-  },
-  {
-    "id": "v2-2-0",
-    "version": "v2.2.0",
-    "date": "2026-03-06",
-    "summary": "Cookie consent upgrades, moderation workflows, and dashboard safety improvements.",
-    "user_updates": {
-      "new": [
-        "Cookie consent manager redesigned",
-        "Moderation status now visible on dashboard"
-      ],
-      "improvements": [
-        "Deletion confirmations are clearer and safer",
-        "AI button states feel more responsive"
-      ],
-      "fixes": [
-        "Footer branding now consistent everywhere"
-      ]
-    },
-    "developer_notes": {
-      "technical_changes": [
-        "New moderation API endpoint with rule checks",
-        "AI usage GET endpoint added"
-      ],
-      "database_changes": [
-        "Moderation fields now update publish state"
-      ],
-      "api_updates": [
-        "Moderation endpoint enforces publish rules"
-      ],
-      "internal_improvements": [
-        "Cookie assets migrated to new CSS/JS"
-      ]
-    },
-    "is_major_release": false
-  },
-  {
-    "id": "v2-1-0",
-    "version": "v2.1.0",
-    "date": "2026-03-01",
-    "summary": "AI Assist for writing, stronger permissions, and styling upgrades.",
-    "user_updates": {
-      "new": [
-        "AI Assist added to help write project descriptions",
-        "Copy Page Link button in dashboard"
-      ],
-      "improvements": [
-        "Account safety checks tightened",
-        "Project cards show cleaner text hierarchy"
-      ],
-      "fixes": [
-        "Slug preview now matches usernames"
-      ]
-    },
-    "developer_notes": {
-      "technical_changes": [
-        "AI Assist uses Gemini via serverless API",
-        "Project queries now use owner_user_id checks"
-      ],
-      "database_changes": [
-        "AI usage tables and RPC functions added"
-      ],
-      "api_updates": [
-        "New /api/ai endpoint with rate limiting"
-      ],
-      "internal_improvements": [
-        "Switched more pages to unminified CSS for debugging"
-      ]
-    },
-    "is_major_release": false
-  },
-  {
-    "id": "v2-0-0",
-    "version": "v2.0.0",
-    "date": "2026-02-10",
-    "summary": "Major platform graduation with full Supabase integration and UI polish.",
-    "user_updates": {
-      "new": [
-        "Full account and project management experience",
-        "Live project hub with public browsing"
-      ],
-      "improvements": [
-        "Core UI polished for consistent navigation"
-      ],
-      "fixes": [
-        "Reliability improvements for sign-in flows"
-      ]
-    },
-    "developer_notes": {
-      "technical_changes": [
-        "Supabase auth and database integration across pages"
-      ],
-      "database_changes": [
-        "Projects and account profiles persisted in Supabase"
-      ],
-      "api_updates": [],
-      "internal_improvements": [
-        "Deployment flow stabilized"
-      ]
-    },
-    "is_major_release": true,
-    "major_details": {
-      "title": "v2.0.0 — Graduation Release",
-      "why_it_matters": "This release moved NexCore from beta to a full platform with live projects, accounts, and management tools.",
-      "description": "Teams now get complete visibility over their project pages, while the hub makes discovery fast.",
-      "highlights": [
-        "Supabase-backed auth and data",
-        "New hub and dashboard experiences",
-        "Improved deployment readiness"
-      ],
-      "screenshots": []
-    }
-  },
-  {
-    "id": "v1-0-0",
-    "version": "v1.0.0",
-    "date": "2025-10-27",
-    "summary": "Initial release of the NexCore Labs platform.",
-    "user_updates": {
-      "new": [
-        "Foundational project showcase experience"
-      ],
-      "improvements": [
-        "Basic navigation and documentation"
-      ],
-      "fixes": []
-    },
-    "developer_notes": {
-      "technical_changes": [
-        "Static HTML/CSS release baseline"
-      ],
-      "database_changes": [],
-      "api_updates": [],
-      "internal_improvements": []
-    },
-    "is_major_release": false
-  }
-]
+  ]
+}

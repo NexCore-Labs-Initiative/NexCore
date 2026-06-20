@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 
 <html lang="en">
 
@@ -14,26 +14,31 @@
         <meta name="theme-color" content="#0a0b1c">
         <meta name="mobile-web-app-capable" content="yes">
 
-        <title>NexCore Labs | Hub for Student Projects</title>
+        <title>NexCore Labs | Project Hub</title>
 
-        <meta name="description" content="Where projects converge — the central hub.">
+        <meta name="description" content="Explore published student work, shared resources, and community projects from the NexCore Labs project hub.">
+        <link rel="canonical" href="https://nexcorelabs.vercel.app/hub">
+        <link rel="alternate" hreflang="en" href="https://nexcorelabs.vercel.app/hub">
+        <link rel="alternate" hreflang="ar" href="https://nexcorelabs.vercel.app/ar/hub">
+        <link rel="alternate" hreflang="x-default" href="https://nexcorelabs.vercel.app/hub">
 
-        <!-- Facebook Meta Tags -->
 
-        <meta property="og:url" content="https://nexcorelabs.vercel.app/hub.html">
+<!-- Facebook Meta Tags -->
+
+        <meta property="og:url" content="https://nexcorelabs.vercel.app/hub">
         <meta property="og:type" content="website">
-        <meta property="og:title" content="NexCore Labs | Hub for Student Projects">
-        <meta property="og:description" content="Where projects converge — the central hub.">
-        <meta property="og:image" content="https://opengraph.b-cdn.net/production/images/af5a4481-2baa-47be-8838-5160bafa4f79.png?token=_5DjeK6KYgg8DW7Qsk5XfrtI2h_CW3YcCJlwxMJ3sEc&height=1080&width=1080&expires=33306259895">
+        <meta property="og:title" content="NexCore Labs | Project Hub">
+        <meta property="og:description" content="Explore published student work, shared resources, and community projects from the NexCore Labs project hub.">
+        <meta property="og:image" content="https://opengraph.b-cdn.net/production/images/af5a4481-2baa-47be-8838-5160bafa4f79.png?token=_5DjeK6KYgg8DW7Qsk5XfrtI2h_CW3YcCJlwxMJ3sEc&amp;height=1080&amp;width=1080&amp;expires=33306259895">
 
         <!-- Twitter Meta Tags -->
 
         <meta name="twitter:card" content="summary_large_image">
         <meta property="twitter:domain" content="nexcorelabs.vercel.app">
-        <meta property="twitter:url" content="https://nexcorelabs.vercel.app/hub.html">
-        <meta name="twitter:title" content="NexCore Labs | Hub for Student Projects">
-        <meta name="twitter:description" content="Where projects converge — the central hub.">
-        <meta name="twitter:image" content="https://opengraph.b-cdn.net/production/images/af5a4481-2baa-47be-8838-5160bafa4f79.png?token=_5DjeK6KYgg8DW7Qsk5XfrtI2h_CW3YcCJlwxMJ3sEc&height=1080&width=1080&expires=33306259895">
+        <meta property="twitter:url" content="https://nexcorelabs.vercel.app/hub">
+        <meta name="twitter:title" content="NexCore Labs | Project Hub">
+        <meta name="twitter:description" content="Explore published student work, shared resources, and community projects from the NexCore Labs project hub.">
+        <meta name="twitter:image" content="https://opengraph.b-cdn.net/production/images/af5a4481-2baa-47be-8838-5160bafa4f79.png?token=_5DjeK6KYgg8DW7Qsk5XfrtI2h_CW3YcCJlwxMJ3sEc&amp;height=1080&amp;width=1080&amp;expires=33306259895">
 
         <!-- Meta Tags Generated via https://www.opengraph.xyz -->
 
@@ -56,7 +61,7 @@
         <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.2/uicons-solid-rounded/css/uicons-solid-rounded.css'>
         <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-        <!-- Vercel Web Analytics -->
+<!-- Vercel Web Analytics -->
         <script>
             window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
         </script>
@@ -74,10 +79,75 @@
             .sort-btn:hover{border-color:rgba(115,189,215,.4);color:var(--primary-accent);}
             .sort-btn.active{background:rgba(115,189,215,.12);border-color:rgba(115,189,215,.4);color:var(--primary-accent);font-weight:600;}
             #projects{scroll-margin-top:100px;}
-
-
         </style>
-    </head>
+
+        <!-- NexCore SEO structured data -->
+        <script type="application/ld+json" data-nexcore-seo="true">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://nexcorelabs.vercel.app/#organization",
+      "name": "NexCore Labs",
+      "url": "https://nexcorelabs.vercel.app",
+      "logo": "https://nexcorelabs.vercel.app/assets/images/nexcore-logo.webp",
+      "foundingDate": "2025-09-23",
+      "description": "NexCore Labs is an independent, student-led platform for useful tools, project visibility, collaboration, and practical digital support.",
+      "sameAs": [
+        "https://github.com/NexCoreLabs/NexCore"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://nexcorelabs.vercel.app/#website",
+      "url": "https://nexcorelabs.vercel.app",
+      "name": "NexCore Labs",
+      "description": "NexCore Labs brings useful tools, project visibility, collaboration, and practical digital support into one independent student-led platform.",
+      "publisher": {
+        "@id": "https://nexcorelabs.vercel.app/#organization"
+      },
+      "inLanguage": [
+        "en",
+        "ar"
+      ]
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://nexcorelabs.vercel.app/hub#webpage",
+      "url": "https://nexcorelabs.vercel.app/hub",
+      "name": "NexCore Labs | Project Hub",
+      "description": "Explore published student work, shared resources, and community projects from the NexCore Labs project hub.",
+      "isPartOf": {
+        "@id": "https://nexcorelabs.vercel.app/#website"
+      },
+      "publisher": {
+        "@id": "https://nexcorelabs.vercel.app/#organization"
+      },
+      "inLanguage": "en"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://nexcorelabs.vercel.app/hub#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://nexcorelabs.vercel.app/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Hub",
+          "item": "https://nexcorelabs.vercel.app/hub"
+        }
+      ]
+    }
+  ]
+}
+        </script>
+</head>
 
     <body>
 
@@ -103,15 +173,30 @@
           <span class="dot" aria-hidden="true"></span>
         </div>
 
-
-
         <div id="myDropdown" class="dropdown-content">
+          <a href="ar/hub.html" class="lang-switch-pill mixed-content" title="View Arabic site">
+              <div class="pill-slider"></div>
+              <span class="pill-text en-text"><img src="assets/images/uk.webp" alt="United Kingdom flag"> EN</span>
+              <span class="pill-text ar-text"><img src="assets/images/oman.webp" alt="Oman flag"> ع</span>
+          </a>
+
           <a href="auth.html" class="magic-signup fade" title="Sign in to your account"><i class="fa-solid fa-key"></i> Access the Core</a>
+          <a href="/intelligence" class="fade ai-link" title="NexCore Intelligence"><svg class="ai-link-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <circle cx="12" cy="12" r="3.2" fill="currentColor"/>
+              <circle cx="5.5" cy="7" r="1.8" fill="currentColor" opacity="0.85"/>
+              <circle cx="18.5" cy="7" r="1.8" fill="currentColor" opacity="0.85"/>
+              <circle cx="12" cy="19" r="1.8" fill="currentColor" opacity="0.85"/>
+              <path d="M7.1 8.2L9.6 10.1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" opacity="0.75"/>
+              <path d="M16.9 8.2L14.4 10.1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" opacity="0.75"/>
+              <path d="M12 15.2V17.1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" opacity="0.75"/>
+              <path d="M12 3.2V4.7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+              <path d="M20.8 12H19.3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+              <path d="M4.7 12H3.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            </svg> NexCore Intelligence</a>
           <input type="search" placeholder="What?..." id="myInput" onkeyup="filterFunction()" title="Search...">
 
-          <a href="hub.html" class="fade" title="NexCore Labs Hub"><i class="fa-solid fa-house"></i> Hub</a>
+          <a href="hub.html" class="fade" title="NexCore Labs Hub"><span class="menu-dots-icon" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></span> Hub</a>
           <a href="hub.html#projects" class="fade" title="Projects"><i class="fa-solid fa-diagram-project"></i> Projects</a>
-          <a href="ai-chat.html" class="fade" title="NexCore AI — Ask Anything" style="color:#6ee7f3;"><i class="fa-solid fa-wand-magic-sparkles"></i> NexCore AI</a>
 
           <div class="div-menu-line"></div>
 
@@ -128,6 +213,7 @@
           <div class="div-menu-line"></div>
 
           <a href="pricing.html" class="fade mt-0" title="Pricing Plans"><i class="fa-solid fa-tag"></i> Pricing <span class="new-badge">New</span></a>
+          <a href="pricing-policy.html" class="fade" title="Pricing and Billing Policy"><i class="fa-solid fa-receipt"></i> Pricing Policy <span class="new-badge">New</span></a>
           <a href="faq.html" class="fade" title="FAQ & Support"><i class="fa-solid fa-circle-question"></i> FAQ</a>
           <a href="how-to-use.html" class="fade" title="How to Use NexCore Labs"><i class="fa-solid fa-book-open"></i> How to Use</a>
           <a href="terms.html" class="fade" title="Terms of Service"><i class="fa-solid fa-file-contract"></i> Terms</a>
@@ -223,7 +309,7 @@
       <footer class="site-footer">
         <div class="container footer-inner">
           <div class="f-left">
-            <a class="paypal" href="https://www.paypal.me/nexcorelabs" target="_blank" rel="noopener" title="PayPal"><i class="fa-solid fa-heart" style="color: #6EE7F3;"></i> Support us on <i class="fa-brands fa-paypal"></i></a>
+            <a class="paypal" href="https://www.paypal.me/nexcorelabs" target="_blank" rel="noopener" title="Optional contribution via PayPal"><i class="fa-solid fa-heart" style="color: #6EE7F3;"></i> Optional contribution to support platform development</a>
 
             <br>
 
