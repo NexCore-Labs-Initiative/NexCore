@@ -25,7 +25,7 @@
   },
   "homepage": "https://github.com/NexCoreLabs/NexCore#readme",
   "dependencies": {
-    "@google/genai": "^2.8.0",
+    "@google/genai": "^2.9.0",
     "@supabase/supabase-js": "^2.108.1",
     "@vercel/speed-insights": "^2.0.0",
     "dotenv": "^17.4.2",
