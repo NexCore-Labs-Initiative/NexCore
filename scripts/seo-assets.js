@@ -125,6 +125,26 @@ const PAGE_PAIRS = [
     },
   },
   {
+    key: "initiatives",
+    priority: "0.85",
+    en: {
+      file: "initiatives.html",
+      path: "/initiatives",
+      title: "NexCore Labs | SQU Community Initiatives",
+      description:
+        "Explore NexCore Labs initiatives: student-led platforms, programs, campaigns, and events built to strengthen the SQU community.",
+      breadcrumb: "Initiatives",
+    },
+    ar: {
+      file: "ar/initiatives.html",
+      path: "/ar/initiatives",
+      title: "NexCore Labs | مبادرات مجتمع جامعة السلطان قابوس",
+      description:
+        "استكشف مبادرات NexCore Labs: منصات وبرامج وحملات وفعاليات طلابية صُممت لتعزيز مجتمع جامعة السلطان قابوس.",
+      breadcrumb: "المبادرات",
+    },
+  },
+  {
     key: "how-to-use",
     priority: "0.80",
     en: {
