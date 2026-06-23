@@ -76,6 +76,7 @@ for (const page of flattenPages()) {
   assertIncludes(html, `<meta property="og:url" content="${canonical}">`, `${page.file} must align OG URL to canonical`);
   assertIncludes(html, `<meta property="twitter:url" content="${canonical}">`, `${page.file} must align Twitter URL to canonical`);
   assertIncludes(html, `data-nexcore-seo="true"`, `${page.file} must include managed JSON-LD`);
+  assertIncludes(html, `"@type": "BreadcrumbList"`, `${page.file} must include BreadcrumbList structured data`);
   assertNotIncludes(html, `rel=""`, `${page.file} must not contain broken rel attributes`);
   assertNotIncludes(html, "nexcorelabs.github.io", `${page.file} must not reference GitHub Pages`);
 
@@ -83,10 +84,8 @@ for (const page of flattenPages()) {
   const graph = schema["@graph"] || [];
   const organizationNode = graph.find((node) => node["@type"] === "Organization");
   const pageNode = graph.find((node) => node["@id"] === `${canonical}#webpage`);
-  const breadcrumbNode = graph.find((node) => node["@type"] === "BreadcrumbList");
   assert(organizationNode, `${page.file} must include Organization structured data`);
   assert(pageNode, `${page.file} must include a page-specific WebPage/FAQPage node`);
-  assert(breadcrumbNode, `${page.file} must include BreadcrumbList structured data`);
   assert(!organizationNode.mainEntity, `${page.file} must not attach FAQ questions to Organization`);
 
   if (page.key === "home") {

@@ -110,29 +110,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const logoImg = document.getElementById("logoImg");
   const mainContent = document.querySelector("main");
   const myDropdown = document.getElementById("myDropdown");
-
-  function ensureInitiativesNavLink() {
-    if (!myDropdown || myDropdown.querySelector("[data-initiatives-nav]")) return;
-
-    const initiativeLink = document.createElement("a");
-    initiativeLink.className = "fade";
-    initiativeLink.dataset.initiativesNav = "true";
-    initiativeLink.href = isArabic ? "/ar/initiatives" : "/initiatives";
-    initiativeLink.title = isArabic ? "مبادرات مجتمع جامعة السلطان قابوس" : "SQU Community Initiatives";
-    initiativeLink.innerHTML = isArabic
-      ? '<i class="fa-solid fa-seedling" aria-hidden="true"></i> المبادرات'
-      : '<i class="fa-solid fa-seedling" aria-hidden="true"></i> Initiatives';
-
-    const hubLink = Array.from(myDropdown.querySelectorAll("a")).find((link) => /hub(?:\.html)?(?:[?#]|$)/i.test(link.getAttribute("href") || ""));
-    if (hubLink) {
-      hubLink.insertAdjacentElement("beforebegin", initiativeLink);
-    } else {
-      myDropdown.appendChild(initiativeLink);
-    }
-  }
-
-  ensureInitiativesNavLink();
-
   const coreMenu = document.getElementById("coreMenu");
   const phone = document.getElementById("phoneMockup");
   const links = document.querySelectorAll("a.fade");
