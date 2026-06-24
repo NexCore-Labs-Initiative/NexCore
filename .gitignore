@@ -4,6 +4,7 @@ node_modules
 .env*.local
 .env
 sql
+supabase
 pricing.html.disabled
 unsubscribe.html.disabled
 assets/js/release.js.disabled
