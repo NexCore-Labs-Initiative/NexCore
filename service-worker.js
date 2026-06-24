@@ -1,5 +1,5 @@
 /* Improved Service Worker — robust caching, offline fallback, and runtime strategies */
-const CACHE_VERSION = 'v3.0.0';
+const CACHE_VERSION = 'v3.0.2';
 const CACHE_PREFIX = 'nexcore-cache-';
 const CACHE_NAME = `${CACHE_PREFIX}${CACHE_VERSION}`;
 const IMAGE_CACHE_PREFIX = 'nexcore-images-';
@@ -97,6 +97,7 @@ const PRECACHE_URLS = [
   '/arabic-demo.html',
 
   '/assets/css/style.css',
+  '/assets/css/team-id-cards.css',
   '/assets/css/ai-chat.css',
   '/assets/css/arabic.css',
   '/assets/css/admin-button.css',
@@ -105,6 +106,7 @@ const PRECACHE_URLS = [
   '/assets/css/project-categories.css',
   '/assets/css/initiatives.css',
   '/assets/js/script.js',
+  '/assets/js/team-id-cards.js',
   '/assets/js/ai-chat.js',
   '/assets/js/auth-ui-db.js',
   '/assets/js/unminified-js.js',
@@ -122,6 +124,8 @@ const PRECACHE_URLS = [
   '/assets/images/nexcore-logo.webp',
   '/assets/images/nexcore-icon.png',
   '/assets/images/ceopic.webp',
+  '/assets/images/team-id-ncl-0001.png',
+  '/assets/images/team-id-ncl-0002.png',
   '/assets/images/oman.webp',
 
   '/manifest.json',

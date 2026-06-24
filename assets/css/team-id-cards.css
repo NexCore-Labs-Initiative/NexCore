@@ -1,0 +1,307 @@
+.team-id-card-avatar {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  border-radius: 8px;
+  color: inherit;
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  min-height: 64px;
+  padding: 0;
+  width: 64px;
+}
+
+.team-id-card-avatar img {
+  border-radius: 8px;
+  filter: drop-shadow(0 8px 30px rgba(77, 77, 77, 0.6));
+  max-height: 60px;
+  max-width: 60px;
+  transition: transform 0.3s ease, border-radius 0.3s ease;
+}
+
+.team-id-card-avatar i {
+  font-size: 32px;
+  transition: transform 0.3s ease;
+}
+
+.team-id-card-avatar:hover img,
+.team-id-card-avatar:hover i {
+  transform: scale(1.12);
+}
+
+.team-id-card-avatar:focus-visible {
+  box-shadow: 0 0 0 3px rgba(110, 231, 243, 0.58);
+  outline: none;
+}
+
+.team-id-card-modal[hidden] {
+  display: none;
+}
+
+.team-id-card-modal {
+  align-items: center;
+  background: rgba(1, 4, 12, 0.8);
+  backdrop-filter: blur(12px);
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  opacity: 0;
+  padding: 18px;
+  position: fixed;
+  transition: opacity 0.2s ease;
+  z-index: 10020;
+}
+
+.team-id-card-modal.is-open {
+  opacity: 1;
+}
+
+.team-id-card-modal__panel {
+  background: #0b111b;
+  border: 1px solid rgba(172, 217, 229, 0.18);
+  border-radius: 24px;
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.65);
+  max-height: min(860px, calc(100vh - 36px));
+  max-width: 770px;
+  overflow: auto;
+  padding: 22px;
+  position: relative;
+  width: min(100%, 770px);
+}
+
+.team-id-card-modal__header {
+  align-items: flex-start;
+  display: flex;
+  gap: 18px;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.team-id-card-modal__eyebrow {
+  color: var(--primary-accent, #73bdd7);
+  display: block;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+}
+
+.team-id-card-modal__title {
+  color: #f3f8fa;
+  font-size: clamp(20px, 3vw, 28px);
+  line-height: 1.15;
+  margin: 0;
+}
+
+.team-id-card-modal__close {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 50%;
+  color: #eaf6fb;
+  cursor: pointer;
+  display: inline-flex;
+  flex: 0 0 auto;
+  font-size: 18px;
+  height: 40px;
+  justify-content: center;
+  width: 40px;
+}
+
+.team-id-card-modal__close:hover,
+.team-id-card-modal__close:focus-visible {
+  background: rgba(110, 231, 243, 0.15);
+  border-color: rgba(110, 231, 243, 0.6);
+  outline: none;
+}
+
+.team-id-card-modal__cards {
+  display: grid;
+  gap: 22px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  justify-items: center;
+}
+
+.team-id-card {
+  background: #101720;
+  border: 1px solid rgba(200, 224, 234, 0.2);
+  border-radius: 22px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 18px 30px rgba(0, 0, 0, 0.46);
+  box-sizing: border-box;
+  color: #f1f6f8;
+  display: flex;
+  flex-direction: column;
+  min-height: 382px;
+  overflow: hidden;
+  padding: 24px 22px;
+  position: relative;
+  text-align: center;
+  width: min(100%, 280px);
+}
+
+.team-id-card__side-label {
+  color: rgba(234, 246, 251, 0.62);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  margin-bottom: 18px;
+  text-transform: uppercase;
+}
+
+.team-id-card__brand {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.team-id-card__brand-icon {
+  height: 48px;
+  object-fit: contain;
+  width: 48px;
+}
+
+.team-id-card__brand-word {
+  height: 20px;
+  max-width: 185px;
+  object-fit: contain;
+  width: 100%;
+}
+
+.team-id-card__rule {
+  background: var(--primary-accent, #73bdd7);
+  height: 2px;
+  margin: 19px auto;
+  opacity: 0.78;
+  width: 34px;
+}
+
+.team-id-card__name {
+  color: #fff;
+  font-size: 21px;
+  font-weight: 600;
+  line-height: 1.24;
+  margin: 0;
+}
+
+.team-id-card__title {
+  color: var(--primary-accent, #73bdd7);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  line-height: 1.4;
+  margin: 8px 0 0;
+  text-transform: uppercase;
+}
+
+.team-id-card__facts {
+  display: grid;
+  gap: 7px;
+  margin: auto 0 0;
+  text-align: left;
+}
+
+.team-id-card__fact {
+  color: rgba(234, 246, 251, 0.78);
+  font-size: 13px;
+}
+
+.team-id-card__fact strong {
+  color: var(--primary-accent, #73bdd7);
+  font-weight: 700;
+  margin-inline-end: 6px;
+}
+
+.team-id-card--back {
+  justify-content: flex-start;
+}
+
+.team-id-card--back .team-id-card__brand {
+  margin-top: 17px;
+}
+
+.team-id-card__qr {
+  background: #fff;
+  border: 8px solid #fff;
+  border-radius: 8px;
+  height: 132px;
+  image-rendering: pixelated;
+  margin: 18px auto 16px;
+  width: 132px;
+}
+
+.team-id-card__contact-copy {
+  color: rgba(234, 246, 251, 0.74);
+  font-size: 12px;
+  line-height: 1.5;
+  margin: 0 auto 8px;
+  max-width: 205px;
+}
+
+.team-id-card__contact-link {
+  color: var(--primary-accent, #73bdd7);
+  font-size: 12px;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+  text-decoration: none;
+}
+
+.team-id-card__contact-link:hover,
+.team-id-card__contact-link:focus-visible {
+  color: #eaf6fb;
+  outline: none;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+body.team-id-card-modal-open {
+  overflow: hidden;
+}
+
+:lang(ar) .team-id-card-modal__header,
+:lang(ar) .team-id-card__facts {
+  text-align: right;
+}
+
+:lang(ar) .team-id-card__facts {
+  direction: rtl;
+}
+
+:lang(ar) .team-id-card__title,
+:lang(ar) .team-id-card__side-label,
+:lang(ar) .team-id-card-modal__eyebrow {
+  letter-spacing: 0;
+}
+
+@media (max-width: 620px) {
+  .team-id-card-modal {
+    align-items: flex-start;
+    overflow: auto;
+    padding: 12px;
+  }
+
+  .team-id-card-modal__panel {
+    border-radius: 18px;
+    margin: auto 0;
+    padding: 18px 14px;
+  }
+
+  .team-id-card-modal__cards {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .team-id-card {
+    min-height: 365px;
+    width: min(100%, 290px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .team-id-card-modal,
+  .team-id-card-avatar img,
+  .team-id-card-avatar i {
+    transition: none;
+  }
+}
