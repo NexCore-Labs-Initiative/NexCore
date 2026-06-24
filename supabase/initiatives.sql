@@ -17,9 +17,15 @@ create table if not exists public.initiatives (
   image jsonb,
   primary_link jsonb,
   launched_at timestamptz,
+  created_by uuid references auth.users(id) on delete set null,
+  updated_by uuid references auth.users(id) on delete set null,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
+
+-- Safe when the table was created by an earlier version of this migration.
+alter table public.initiatives add column if not exists created_by uuid references auth.users(id) on delete set null;
+alter table public.initiatives add column if not exists updated_by uuid references auth.users(id) on delete set null;
 
 create index if not exists initiatives_public_sort_idx
   on public.initiatives (visibility, featured desc, sort_order asc, updated_at desc);
