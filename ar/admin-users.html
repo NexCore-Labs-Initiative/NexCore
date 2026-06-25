@@ -1841,6 +1841,7 @@
             </svg> ذكاء NexCore</a>
           <input type="search" placeholder="ابحث..." id="myInput" onkeyup="filterFunction()" title="بحث...">
           <a href="hub.html" class="fade" title="مركز NexCore Labs"><span class="menu-dots-icon" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></span> المركز</a>
+          <a href="initiatives.html" class="fade" data-initiatives-nav title="مبادرات NexCore Labs"><i class="fa-solid fa-wand-magic-sparkles"></i> المبادرات</a>
           <a href="hub.html#projects" class="fade" title="المشاريع"><i class="fa-solid fa-diagram-project"></i> المشاريع</a>
           <div class="div-menu-line"></div>
           <a href="index.html#tools" class="mt-0" title="الأدوات والأنظمة"><i class="fa-solid fa-screwdriver-wrench"></i> الأدوات والأنظمة</a>
@@ -1915,7 +1916,7 @@
                 سجل النشاط
             </button>
             <button class="admin-tab" data-tab="initiatives">
-                <i class="fa-solid fa-sparkles"></i>
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
                 المبادرات
             </button>
         </div>
@@ -2359,7 +2360,7 @@
         <div id="tab-initiatives" class="tab-content">
             <div class="initiative-admin-grid">
                 <section class="admin-section">
-                    <h2 id="initiativeFormTitle"><i class="fa-solid fa-sparkles"></i> إنشاء مبادرة</h2>
+                    <h2 id="initiativeFormTitle"><i class="fa-solid fa-wand-magic-sparkles"></i> إنشاء مبادرة</h2>
                     <p class="initiative-admin-note">احفظ سجلًا ثنائي اللغة كاملًا كمسودة، ثم انشره عندما يصبح جاهزًا للدليل العام.</p>
                     <form id="initiativeForm" novalidate>
                         <div class="initiative-admin-form-grid">
@@ -2381,7 +2382,7 @@
                 <h2><i class="fa-solid fa-list"></i> المبادرات</h2>
                 <div class="quick-actions"><button type="button" class="export-btn" id="initiativesRefreshBtn"><i class="fa-solid fa-rotate"></i> تحديث</button></div>
                 <div id="initiativesLoading" class="loading hidden"><i class="fa-solid fa-spinner"></i><p>جارٍ تحميل المبادرات...</p></div>
-                <div id="initiativesEmpty" class="empty-state hidden"><i class="fa-solid fa-sparkles"></i><p>لا توجد مبادرات حتى الآن</p><p class="empty-hint">أنشئ الأولى أعلاه، واحفظها كمسودة ثم انشرها عندما تصبح جاهزة.</p></div>
+                <div id="initiativesEmpty" class="empty-state hidden"><i class="fa-solid fa-wand-magic-sparkles"></i><p>لا توجد مبادرات حتى الآن</p><p class="empty-hint">أنشئ الأولى أعلاه، واحفظها كمسودة ثم انشرها عندما تصبح جاهزة.</p></div>
                 <div id="initiativesTableWrapper" class="table-wrapper hidden"><table class="data-table"><thead><tr><th>المبادرة</th><th>الفئات</th><th>الحالة</th><th>الظهور</th><th>آخر تحديث</th><th class="actions-col">الإجراءات</th></tr></thead><tbody id="initiativesTableBody"></tbody></table></div>
             </section>
         </div>

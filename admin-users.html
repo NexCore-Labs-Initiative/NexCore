@@ -1841,6 +1841,8 @@
                     <input type="search" placeholder="What?..." id="myInput" onkeyup="filterFunction()" title="Search...">
 
                     <a href="hub.html" class="fade" title="NexCore Labs Hub"><span class="menu-dots-icon" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></span> Hub</a>
+
+                    <a href="initiatives.html" class="fade" data-initiatives-nav title="NexCore Labs Initiatives"><i class="fa-solid fa-wand-magic-sparkles"></i> Initiatives</a>
                     <a href="hub.html#projects" class="fade" title="Projects"><i class="fa-solid fa-diagram-project"></i> Projects</a>
 
                     <div class="div-menu-line"></div>
@@ -1921,7 +1923,7 @@
                 Activity Log
             </button>
             <button class="admin-tab" data-tab="initiatives">
-                <i class="fa-solid fa-sparkles"></i>
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
                 Initiatives
             </button>
         </div>
@@ -2365,7 +2367,7 @@
         <div id="tab-initiatives" class="tab-content">
             <div class="initiative-admin-grid">
                 <section class="admin-section">
-                    <h2 id="initiativeFormTitle"><i class="fa-solid fa-sparkles"></i> Create initiative</h2>
+                    <h2 id="initiativeFormTitle"><i class="fa-solid fa-wand-magic-sparkles"></i> Create initiative</h2>
                     <p class="initiative-admin-note">Save a complete bilingual record as a draft, then publish it when it is ready for the public catalogue.</p>
                     <form id="initiativeForm" novalidate>
                         <div class="initiative-admin-form-grid">
@@ -2387,7 +2389,7 @@
                 <h2><i class="fa-solid fa-list"></i> Initiatives</h2>
                 <div class="quick-actions"><button type="button" class="export-btn" id="initiativesRefreshBtn"><i class="fa-solid fa-rotate"></i> Refresh</button></div>
                 <div id="initiativesLoading" class="loading hidden"><i class="fa-solid fa-spinner"></i><p>Loading initiatives...</p></div>
-                <div id="initiativesEmpty" class="empty-state hidden"><i class="fa-solid fa-sparkles"></i><p>No initiatives yet</p><p class="empty-hint">Create the first one above, save it as a draft, then publish when ready.</p></div>
+                <div id="initiativesEmpty" class="empty-state hidden"><i class="fa-solid fa-wand-magic-sparkles"></i><p>No initiatives yet</p><p class="empty-hint">Create the first one above, save it as a draft, then publish when ready.</p></div>
                 <div id="initiativesTableWrapper" class="table-wrapper hidden"><table class="data-table"><thead><tr><th>Initiative</th><th>Categories</th><th>Status</th><th>Visibility</th><th>Updated</th><th class="actions-col">Actions</th></tr></thead><tbody id="initiativesTableBody"></tbody></table></div>
             </section>
         </div>

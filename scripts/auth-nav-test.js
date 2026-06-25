@@ -41,6 +41,10 @@ assert(
   authUi.includes("window.location.href = `${routePrefix}/auth.html`"),
   "Logout must redirect to the locale-aware auth page"
 );
+assert(
+  authUi.includes("fa-wand-magic-sparkles") && !authUi.includes("fa-sparkles"),
+  "Injected Initiatives navigation must use a Font Awesome Free icon"
+);
 
 for (const file of ["assets/css/unminified-css.css", "assets/css/style.css"]) {
   const css = read(file);
