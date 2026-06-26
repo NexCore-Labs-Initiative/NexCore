@@ -7,6 +7,8 @@
 
     <link rel="icon" href="assets/images/nexcore-icon.png" type="image/png">
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/initiatives.css">
+    <link rel="stylesheet" href="assets/css/initiatives-admin.css">
     <!-- <link rel="stylesheet" href="assets/css/unminified-css.css"> -->
     <link rel="stylesheet" href="assets/css/arabic.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
@@ -1837,6 +1839,8 @@
               <path d="M4.7 12H3.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
             </svg> NexCore Intelligence</a>
                     <input type="search" placeholder="What?..." id="myInput" onkeyup="filterFunction()" title="Search...">
+                    <a href="initiatives.html" class="fade" data-initiatives-nav title="NexCore Labs Initiatives"><i class="fa-solid fa-wand-magic-sparkles"></i> Initiatives <span class="new-badge">New</span></a>
+
 
                     <a href="hub.html" class="fade" title="NexCore Labs Hub"><span class="menu-dots-icon" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></span> Hub</a>
                     <a href="hub.html#projects" class="fade" title="Projects"><i class="fa-solid fa-diagram-project"></i> Projects</a>
@@ -1917,6 +1921,10 @@
             <button class="admin-tab" data-tab="activity">
                 <i class="fa-solid fa-clock-rotate-left"></i>
                 Activity Log
+            </button>
+            <button class="admin-tab" data-tab="initiatives">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                Initiatives
             </button>
         </div>
 
@@ -2353,6 +2361,37 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <!-- Tab: Initiatives -->
+        <div id="tab-initiatives" class="tab-content">
+            <div class="initiative-admin-grid">
+                <section class="admin-section">
+                    <h2 id="initiativeFormTitle"><i class="fa-solid fa-wand-magic-sparkles"></i> Create initiative</h2>
+                    <p class="initiative-admin-note">Save a complete bilingual record as a draft, then publish it when it is ready for the public catalogue.</p>
+                    <form id="initiativeForm" novalidate>
+                        <div class="initiative-admin-form-grid">
+                            <div class="form-group"><label for="initiativeSlug">Slug *</label><input id="initiativeSlug" type="text" placeholder="nexcore-study-hub" required></div>
+                            <div class="form-group"><label for="initiativeStatus">Status *</label><select id="initiativeStatus"><option value="concept">Concept</option><option value="incubation">Incubation</option><option value="in-development">In development</option><option value="active">Active</option><option value="launched">Launched</option></select></div>
+                            <div class="form-group"><label for="initiativeSortOrder">Sort order *</label><input id="initiativeSortOrder" type="number" value="0" step="1" required></div>
+                            <div class="form-group"><label for="initiativeLaunchedAt">Launch date</label><input id="initiativeLaunchedAt" type="date"></div>
+                            <fieldset class="initiative-admin-fieldset"><legend>Categories *</legend><div class="initiative-admin-checks"><label class="initiative-admin-check"><input type="checkbox" name="initiativeCategory" value="ai-dev-tools"> AI &amp; Dev Tools</label><label class="initiative-admin-check"><input type="checkbox" name="initiativeCategory" value="community-events"> Community Events</label><label class="initiative-admin-check"><input type="checkbox" name="initiativeCategory" value="hardware-exploration"> Hardware &amp; Exploration</label><label class="initiative-admin-check"><input id="initiativeFeatured" type="checkbox"> Featured</label></div><label for="initiativeCategoriesExtra" class="initiative-admin-note">Additional categories, comma-separated</label><input id="initiativeCategoriesExtra" type="text" placeholder="education, research"></fieldset>
+                            <fieldset class="initiative-admin-fieldset"><legend>Core content *</legend><div class="initiative-admin-form-grid"><div class="form-group"><label for="initiativeTitleEn">Title — English</label><input id="initiativeTitleEn" type="text" required></div><div class="form-group"><label for="initiativeTitleAr">Title — Arabic</label><input id="initiativeTitleAr" type="text" dir="rtl" lang="ar" required></div><div class="form-group"><label for="initiativeMissionEn">Mission — English</label><textarea id="initiativeMissionEn" required></textarea></div><div class="form-group"><label for="initiativeMissionAr">Mission — Arabic</label><textarea id="initiativeMissionAr" dir="rtl" lang="ar" required></textarea></div><div class="form-group"><label for="initiativeSummaryEn">Card summary — English</label><textarea id="initiativeSummaryEn" required></textarea></div><div class="form-group"><label for="initiativeSummaryAr">Card summary — Arabic</label><textarea id="initiativeSummaryAr" dir="rtl" lang="ar" required></textarea></div><div class="form-group"><label for="initiativeOverviewEn">Overview — English</label><textarea id="initiativeOverviewEn" required></textarea></div><div class="form-group"><label for="initiativeOverviewAr">Overview — Arabic</label><textarea id="initiativeOverviewAr" dir="rtl" lang="ar" required></textarea></div></div></fieldset>
+                            <fieldset class="initiative-admin-fieldset"><legend>Highlights</legend><div class="initiative-admin-form-grid"><div class="form-group"><label for="initiativeHighlightsEn">English — one highlight per line</label><textarea id="initiativeHighlightsEn"></textarea></div><div class="form-group"><label for="initiativeHighlightsAr">Arabic — matching line order</label><textarea id="initiativeHighlightsAr" dir="rtl" lang="ar"></textarea></div></div></fieldset>
+                            <fieldset class="initiative-admin-fieldset"><legend>Image and primary link</legend><div class="initiative-admin-form-grid"><div class="form-group form-group--full"><label for="initiativeImageUrl">Image URL</label><input id="initiativeImageUrl" type="url" placeholder="https://… or /assets/images/…"></div><div class="form-group"><label for="initiativeImageAltEn">Image alt — English</label><input id="initiativeImageAltEn" type="text"></div><div class="form-group"><label for="initiativeImageAltAr">Image alt — Arabic</label><input id="initiativeImageAltAr" type="text" dir="rtl" lang="ar"></div><div class="form-group form-group--full"><label for="initiativeLinkUrl">Primary link URL</label><input id="initiativeLinkUrl" type="url" placeholder="https://… or /path"></div><div class="form-group"><label for="initiativeLinkLabelEn">Link label — English</label><input id="initiativeLinkLabelEn" type="text"></div><div class="form-group"><label for="initiativeLinkLabelAr">Link label — Arabic</label><input id="initiativeLinkLabelAr" type="text" dir="rtl" lang="ar"></div></div></fieldset>
+                        </div>
+                        <div class="form-actions"><button type="button" class="btn primary" data-initiative-save="draft"><i class="fa-solid fa-floppy-disk"></i> Save Draft / Unpublish</button><button type="button" class="btn ghost" data-initiative-save="public"><i class="fa-solid fa-rocket"></i> Publish</button><button type="button" id="initiativePreviewBtn" class="btn ghost"><i class="fa-solid fa-eye"></i> Refresh Preview</button><button type="button" id="initiativeResetBtn" class="btn ghost"><i class="fa-solid fa-plus"></i> New Initiative</button></div>
+                    </form>
+                </section>
+                <aside class="admin-section initiative-admin-preview"><h2><i class="fa-solid fa-eye"></i> Card Preview</h2><div id="initiativePreview"></div></aside>
+            </div>
+            <section class="admin-section">
+                <h2><i class="fa-solid fa-list"></i> Initiatives</h2>
+                <div class="quick-actions"><button type="button" class="export-btn" id="initiativesRefreshBtn"><i class="fa-solid fa-rotate"></i> Refresh</button></div>
+                <div id="initiativesLoading" class="loading hidden"><i class="fa-solid fa-spinner"></i><p>Loading initiatives...</p></div>
+                <div id="initiativesEmpty" class="empty-state hidden"><i class="fa-solid fa-wand-magic-sparkles"></i><p>No initiatives yet</p><p class="empty-hint">Create the first one above, save it as a draft, then publish when ready.</p></div>
+                <div id="initiativesTableWrapper" class="table-wrapper hidden"><table class="data-table"><thead><tr><th>Initiative</th><th>Categories</th><th>Status</th><th>Visibility</th><th>Updated</th><th class="actions-col">Actions</th></tr></thead><tbody id="initiativesTableBody"></tbody></table></div>
+            </section>
         </div>
 
         <!-- Tab: Activity Log -->
@@ -4630,5 +4669,6 @@
             }
         })();
     </script>
+    <script src="assets/js/initiatives-admin.js"></script>
 </body>
 </html>

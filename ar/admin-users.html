@@ -7,6 +7,8 @@
 
     <link rel="icon" href="../assets/images/nexcore-icon.png" type="image/png">
     <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/initiatives.css">
+    <link rel="stylesheet" href="../assets/css/initiatives-admin.css">
     <!-- <link rel="stylesheet" href="../assets/css/unminified-css.css"> -->
     <link rel="stylesheet" href="../assets/css/arabic.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
@@ -1838,6 +1840,7 @@
               <path d="M4.7 12H3.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
             </svg> ذكاء NexCore</a>
           <input type="search" placeholder="ابحث..." id="myInput" onkeyup="filterFunction()" title="بحث...">
+          <a href="initiatives.html" class="fade" data-initiatives-nav title="مبادرات NexCore Labs"><i class="fa-solid fa-wand-magic-sparkles"></i> المبادرات <span class="new-badge">جديد</span></a>
           <a href="hub.html" class="fade" title="مركز NexCore Labs"><span class="menu-dots-icon" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></span> المركز</a>
           <a href="hub.html#projects" class="fade" title="المشاريع"><i class="fa-solid fa-diagram-project"></i> المشاريع</a>
           <div class="div-menu-line"></div>
@@ -1911,6 +1914,10 @@
             <button class="admin-tab" data-tab="activity">
                 <i class="fa-solid fa-clock-rotate-left"></i>
                 سجل النشاط
+            </button>
+            <button class="admin-tab" data-tab="initiatives">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                المبادرات
             </button>
         </div>
 
@@ -2347,6 +2354,37 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <!-- Tab: Initiatives -->
+        <div id="tab-initiatives" class="tab-content">
+            <div class="initiative-admin-grid">
+                <section class="admin-section">
+                    <h2 id="initiativeFormTitle"><i class="fa-solid fa-wand-magic-sparkles"></i> إنشاء مبادرة</h2>
+                    <p class="initiative-admin-note">احفظ سجلًا ثنائي اللغة كاملًا كمسودة، ثم انشره عندما يصبح جاهزًا للدليل العام.</p>
+                    <form id="initiativeForm" novalidate>
+                        <div class="initiative-admin-form-grid">
+                            <div class="form-group"><label for="initiativeSlug">المعرف المختصر *</label><input id="initiativeSlug" type="text" placeholder="nexcore-study-hub" required dir="ltr"></div>
+                            <div class="form-group"><label for="initiativeStatus">الحالة *</label><select id="initiativeStatus"><option value="concept">فكرة</option><option value="incubation">قيد الاحتضان</option><option value="in-development">قيد التطوير</option><option value="active">نشطة</option><option value="launched">تم الإطلاق</option></select></div>
+                            <div class="form-group"><label for="initiativeSortOrder">ترتيب العرض *</label><input id="initiativeSortOrder" type="number" value="0" step="1" required></div>
+                            <div class="form-group"><label for="initiativeLaunchedAt">تاريخ الإطلاق</label><input id="initiativeLaunchedAt" type="date"></div>
+                            <fieldset class="initiative-admin-fieldset"><legend>الفئات *</legend><div class="initiative-admin-checks"><label class="initiative-admin-check"><input type="checkbox" name="initiativeCategory" value="ai-dev-tools"> الذكاء الاصطناعي وأدوات التطوير</label><label class="initiative-admin-check"><input type="checkbox" name="initiativeCategory" value="community-events"> فعاليات المجتمع</label><label class="initiative-admin-check"><input type="checkbox" name="initiativeCategory" value="hardware-exploration"> الأجهزة والاستكشاف</label><label class="initiative-admin-check"><input id="initiativeFeatured" type="checkbox"> مميزة</label></div><label for="initiativeCategoriesExtra" class="initiative-admin-note">فئات إضافية مفصولة بفواصل</label><input id="initiativeCategoriesExtra" type="text" placeholder="education, research" dir="ltr"></fieldset>
+                            <fieldset class="initiative-admin-fieldset"><legend>المحتوى الأساسي *</legend><div class="initiative-admin-form-grid"><div class="form-group"><label for="initiativeTitleEn">العنوان — الإنجليزية</label><input id="initiativeTitleEn" type="text" required dir="ltr"></div><div class="form-group"><label for="initiativeTitleAr">العنوان — العربية</label><input id="initiativeTitleAr" type="text" dir="rtl" lang="ar" required></div><div class="form-group"><label for="initiativeMissionEn">المهمة — الإنجليزية</label><textarea id="initiativeMissionEn" required dir="ltr"></textarea></div><div class="form-group"><label for="initiativeMissionAr">المهمة — العربية</label><textarea id="initiativeMissionAr" dir="rtl" lang="ar" required></textarea></div><div class="form-group"><label for="initiativeSummaryEn">ملخص البطاقة — الإنجليزية</label><textarea id="initiativeSummaryEn" required dir="ltr"></textarea></div><div class="form-group"><label for="initiativeSummaryAr">ملخص البطاقة — العربية</label><textarea id="initiativeSummaryAr" dir="rtl" lang="ar" required></textarea></div><div class="form-group"><label for="initiativeOverviewEn">النظرة العامة — الإنجليزية</label><textarea id="initiativeOverviewEn" required dir="ltr"></textarea></div><div class="form-group"><label for="initiativeOverviewAr">النظرة العامة — العربية</label><textarea id="initiativeOverviewAr" dir="rtl" lang="ar" required></textarea></div></div></fieldset>
+                            <fieldset class="initiative-admin-fieldset"><legend>أبرز الملامح</legend><div class="initiative-admin-form-grid"><div class="form-group"><label for="initiativeHighlightsEn">الإنجليزية — سطر لكل ملمح</label><textarea id="initiativeHighlightsEn" dir="ltr"></textarea></div><div class="form-group"><label for="initiativeHighlightsAr">العربية — بنفس ترتيب الأسطر</label><textarea id="initiativeHighlightsAr" dir="rtl" lang="ar"></textarea></div></div></fieldset>
+                            <fieldset class="initiative-admin-fieldset"><legend>الصورة والرابط الرئيسي</legend><div class="initiative-admin-form-grid"><div class="form-group form-group--full"><label for="initiativeImageUrl">رابط الصورة</label><input id="initiativeImageUrl" type="url" placeholder="https://… or /assets/images/…" dir="ltr"></div><div class="form-group"><label for="initiativeImageAltEn">النص البديل للصورة — الإنجليزية</label><input id="initiativeImageAltEn" type="text" dir="ltr"></div><div class="form-group"><label for="initiativeImageAltAr">النص البديل للصورة — العربية</label><input id="initiativeImageAltAr" type="text" dir="rtl" lang="ar"></div><div class="form-group form-group--full"><label for="initiativeLinkUrl">رابط الوجهة الرئيسية</label><input id="initiativeLinkUrl" type="url" placeholder="https://… or /path" dir="ltr"></div><div class="form-group"><label for="initiativeLinkLabelEn">نص الرابط — الإنجليزية</label><input id="initiativeLinkLabelEn" type="text" dir="ltr"></div><div class="form-group"><label for="initiativeLinkLabelAr">نص الرابط — العربية</label><input id="initiativeLinkLabelAr" type="text" dir="rtl" lang="ar"></div></div></fieldset>
+                        </div>
+                        <div class="form-actions"><button type="button" class="btn primary" data-initiative-save="draft"><i class="fa-solid fa-floppy-disk"></i> حفظ مسودة / إلغاء النشر</button><button type="button" class="btn ghost" data-initiative-save="public"><i class="fa-solid fa-rocket"></i> نشر</button><button type="button" id="initiativePreviewBtn" class="btn ghost"><i class="fa-solid fa-eye"></i> تحديث المعاينة</button><button type="button" id="initiativeResetBtn" class="btn ghost"><i class="fa-solid fa-plus"></i> مبادرة جديدة</button></div>
+                    </form>
+                </section>
+                <aside class="admin-section initiative-admin-preview"><h2><i class="fa-solid fa-eye"></i> معاينة البطاقة</h2><div id="initiativePreview"></div></aside>
+            </div>
+            <section class="admin-section">
+                <h2><i class="fa-solid fa-list"></i> المبادرات</h2>
+                <div class="quick-actions"><button type="button" class="export-btn" id="initiativesRefreshBtn"><i class="fa-solid fa-rotate"></i> تحديث</button></div>
+                <div id="initiativesLoading" class="loading hidden"><i class="fa-solid fa-spinner"></i><p>جارٍ تحميل المبادرات...</p></div>
+                <div id="initiativesEmpty" class="empty-state hidden"><i class="fa-solid fa-wand-magic-sparkles"></i><p>لا توجد مبادرات حتى الآن</p><p class="empty-hint">أنشئ الأولى أعلاه، واحفظها كمسودة ثم انشرها عندما تصبح جاهزة.</p></div>
+                <div id="initiativesTableWrapper" class="table-wrapper hidden"><table class="data-table"><thead><tr><th>المبادرة</th><th>الفئات</th><th>الحالة</th><th>الظهور</th><th>آخر تحديث</th><th class="actions-col">الإجراءات</th></tr></thead><tbody id="initiativesTableBody"></tbody></table></div>
+            </section>
         </div>
 
         <!-- Tab: سجل النشاط -->
@@ -4624,5 +4662,6 @@
             }
         })();
     </script>
+    <script src="../assets/js/initiatives-admin.js"></script>
 </body>
 </html>

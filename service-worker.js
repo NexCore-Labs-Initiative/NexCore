@@ -1,5 +1,5 @@
 /* Improved Service Worker — robust caching, offline fallback, and runtime strategies */
-const CACHE_VERSION = 'v3.0.0';
+const CACHE_VERSION = 'v3.1.0';
 const CACHE_PREFIX = 'nexcore-cache-';
 const CACHE_NAME = `${CACHE_PREFIX}${CACHE_VERSION}`;
 const IMAGE_CACHE_PREFIX = 'nexcore-images-';
@@ -14,6 +14,10 @@ const PRECACHE_URLS = [
   '/hub.html',
   '/ar/hub',
   '/ar/hub.html',
+  '/initiatives',
+  '/initiatives.html',
+  '/ar/initiatives',
+  '/ar/initiatives.html',
   '/how-to-use',
   '/how-to-use.html',
   '/ar/how-to-use',
@@ -93,13 +97,17 @@ const PRECACHE_URLS = [
   '/arabic-demo.html',
 
   '/assets/css/style.css',
+  '/assets/css/team-id-cards.css',
   '/assets/css/ai-chat.css',
   '/assets/css/arabic.css',
   '/assets/css/admin-button.css',
   '/assets/css/unminified-css.css',
   '/assets/css/cookies.css',
   '/assets/css/project-categories.css',
+  '/assets/css/initiatives.css',
+  '/assets/css/initiatives-admin.css',
   '/assets/js/script.js',
+  '/assets/js/team-id-cards.js',
   '/assets/js/ai-chat.js',
   '/assets/js/auth-ui-db.js',
   '/assets/js/unminified-js.js',
@@ -108,6 +116,8 @@ const PRECACHE_URLS = [
   '/assets/js/cookie-consent.js',
   '/assets/js/cookies.js',
   '/assets/js/project-categories.js',
+  '/assets/js/initiatives.js',
+  '/assets/js/initiatives-admin.js',
   '/assets/js/supabase-client.js',
   '/assets/data/releases.json',
   '/version.js',
@@ -116,6 +126,8 @@ const PRECACHE_URLS = [
   '/assets/images/nexcore-logo.webp',
   '/assets/images/nexcore-icon.png',
   '/assets/images/ceopic.webp',
+  '/assets/images/team-id-ncl-0001.png',
+  '/assets/images/team-id-ncl-0002.png',
   '/assets/images/oman.webp',
 
   '/manifest.json',

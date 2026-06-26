@@ -2,6 +2,154 @@
   "schema_version": 1,
   "releases": [
     {
+      "version": "v3.1.0",
+      "date": "2026-06-26",
+      "title": {
+        "en": "The Initiatives & Identity Update",
+        "ar": "تحديث المبادرات والهوية"
+      },
+      "summary": {
+        "en": "A focused release that makes NexCore Labs initiatives discoverable through a new bilingual catalogue and gives team members polished ID-card previews.",
+        "ar": "إصدار مركّز يجعل مبادرات NexCore Labs قابلة للاستكشاف عبر كتالوج ثنائي اللغة، ويضيف معاينات بطاقات هوية مصقولة لأعضاء الفريق."
+      },
+      "tags": [
+        "feature",
+        "improvement"
+      ],
+      "user_updates": {
+        "features": [
+          {
+            "text": {
+              "en": "Added a new **Initiatives** page where visitors can explore launched, active, and emerging NexCore Labs work through a bilingual public catalogue.",
+              "ar": "إضافة صفحة **المبادرات** ليتمكن الزوار من استكشاف أعمال NexCore Labs المنشورة والنشطة والناشئة عبر كتالوج عام ثنائي اللغة."
+            },
+            "evidence": [
+              "file:initiatives.html",
+              "file:ar/initiatives.html",
+              "file:assets/js/initiatives.js"
+            ]
+          },
+          {
+            "text": {
+              "en": "Added initiative quick-view cards with status labels, category filters, highlights, visuals, and primary action links.",
+              "ar": "إضافة بطاقات عرض سريع للمبادرات مع حالات، وفلاتر تصنيف، ونقاط بارزة، وصور، وروابط إجراء رئيسية."
+            },
+            "evidence": [
+              "file:initiatives.html",
+              "file:assets/css/initiatives.css",
+              "file:assets/js/initiatives.js"
+            ]
+          },
+          {
+            "text": {
+              "en": "Added **team ID card previews** from member avatars so visitors can view polished NexCore Labs identity cards with QR contact access.",
+              "ar": "إضافة **معاينات بطاقات هوية الفريق** من صور الأعضاء ليتمكن الزوار من عرض بطاقات هوية NexCore Labs مصقولة مع وصول تواصل عبر QR."
+            },
+            "evidence": [
+              "file:index.html",
+              "file:ar/index.html",
+              "file:assets/js/team-id-cards.js",
+              "file:assets/css/team-id-cards.css"
+            ]
+          }
+        ],
+        "improvements": [
+          {
+            "text": {
+              "en": "Added the Initiatives link across the main navigation so the new catalogue is reachable from core English and Arabic pages.",
+              "ar": "إضافة رابط المبادرات عبر التنقل الرئيسي لتصبح الصفحة الجديدة متاحة من الصفحات الأساسية الإنجليزية والعربية."
+            },
+            "evidence": [
+              "file:index.html",
+              "file:ar/index.html",
+              "file:assets/js/auth-ui-db.js"
+            ]
+          },
+          {
+            "text": {
+              "en": "Extended clean routes, sitemap entries, SEO metadata, and service-worker caching for the new Initiatives experience.",
+              "ar": "توسيع الروابط النظيفة، وإدخالات خريطة الموقع، وبيانات SEO، وتخزين Service Worker لتجربة المبادرات الجديدة."
+            },
+            "evidence": [
+              "file:vercel.json",
+              "file:sitemap.xml",
+              "file:scripts/seo-assets.js",
+              "file:service-worker.js"
+            ]
+          }
+        ]
+      },
+      "developer_notes": {
+        "technical_changes": [
+          {
+            "text": {
+              "en": "Created the shared initiatives renderer with localized content handling, category filtering, summary counts, and accessible modal behavior.",
+              "ar": "إنشاء عارض المبادرات المشترك مع معالجة المحتوى المحلي، وفلاتر التصنيف، وعدّادات الملخص، وسلوك نافذة منبثقة قابل للوصول."
+            },
+            "evidence": [
+              "file:assets/js/initiatives.js",
+              "file:lib/initiatives.js",
+              "file:scripts/initiatives-test.js"
+            ]
+          },
+          {
+            "text": {
+              "en": "Added admin-side initiative authoring, previewing, publishing, and deletion support inside the existing Control Panel.",
+              "ar": "إضافة دعم إنشاء المبادرات ومعاينتها ونشرها وحذفها من جهة الإدارة داخل لوحة التحكم الحالية."
+            },
+            "evidence": [
+              "file:admin-users.html",
+              "file:assets/js/initiatives-admin.js",
+              "file:api/admin/initiatives.js",
+              "file:scripts/initiatives-admin-test.js"
+            ]
+          },
+          {
+            "text": {
+              "en": "Added a dedicated team ID-card module with accessible dialog controls, focus trapping, QR assets, and localized avatar triggers.",
+              "ar": "إضافة وحدة مخصصة لبطاقات هوية الفريق مع تحكم نافذة قابل للوصول، وحصر للتركيز، وأصول QR، ومشغلات صور محلية."
+            },
+            "evidence": [
+              "file:assets/js/team-id-cards.js",
+              "file:assets/css/team-id-cards.css",
+              "file:scripts/team-id-cards-test.js"
+            ]
+          }
+        ],
+        "database_changes": [
+          {
+            "text": {
+              "en": "Added the initiatives data model for bilingual records, visibility states, categories, media, highlights, and admin-managed lifecycle fields.",
+              "ar": "إضافة نموذج بيانات المبادرات للسجلات ثنائية اللغة، وحالات الظهور، والتصنيفات، والوسائط، والنقاط البارزة، وحقول دورة الحياة المدارة من الإدارة."
+            },
+            "evidence": [
+              "file:supabase/initiatives.sql",
+              "file:lib/initiatives.js"
+            ]
+          }
+        ],
+        "internal_improvements": [
+          {
+            "text": {
+              "en": "Added focused tests for the public initiatives page, initiative admin workflow, and team ID-card previews.",
+              "ar": "إضافة اختبارات مركزة لصفحة المبادرات العامة، وتدفق إدارة المبادرات، ومعاينات بطاقات هوية الفريق."
+            },
+            "evidence": [
+              "file:scripts/initiatives-test.js",
+              "file:scripts/initiatives-admin-test.js",
+              "file:scripts/team-id-cards-test.js"
+            ]
+          }
+        ]
+      },
+      "is_major_release": false,
+      "source": {
+        "base_tag": "v3.0.0",
+        "target": "v3.1.0",
+        "commit_range": "v3.0.0..v3.1.0"
+      }
+    },
+    {
       "version": "v3.0.0",
       "date": "2026-06-20",
       "title": {

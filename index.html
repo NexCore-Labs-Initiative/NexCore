@@ -45,6 +45,7 @@
         <link rel="icon" href="assets/images/nexcore-icon.png" type="image/png">
 
         <link rel="stylesheet" href="assets/css/style.css">
+        <link rel="stylesheet" href="assets/css/team-id-cards.css">
          <link rel="stylesheet" href="assets/css/arabic.css">
         <link rel="stylesheet" href="assets/css/admin-button.css">
         <link rel="stylesheet" href="assets/css/ai-chat.css">
@@ -183,6 +184,8 @@
               <path d="M4.7 12H3.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
             </svg> NexCore Intelligence</a>
           <input type="search" placeholder="What?..." id="myInput" onkeyup="filterFunction()" title="Search...">
+          <a href="initiatives.html" class="fade" data-initiatives-nav title="NexCore Labs Initiatives"><i class="fa-solid fa-wand-magic-sparkles"></i> Initiatives <span class="new-badge">New</span></a>
+
 
           <a href="hub.html" class="fade" title="NexCore Labs Hub"><span class="menu-dots-icon" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></span> Hub</a>
           <a href="hub.html#projects" class="fade" title="Projects"><i class="fa-solid fa-diagram-project"></i> Projects</a>
@@ -423,9 +426,9 @@
           <p class="team-tier-label">Chairman</p>
           <div class="team-row team-row--chairman">
             <div class="member">
-              <div class="avatar"><a href="https://blinq.me/cmgiwe8wn01zhs60mfmiu60fj" target="_blank" rel="noopener"
-                  title="Al-Faris Mujahid AlZakwani Contact Profile"><img src="assets/images/ceopic.webp"
-                    alt="Leader Picture - Al-Faris Mujahid AlZakwani" width="60"></a></div>
+              <div class="avatar"><button class="team-id-card-avatar" type="button" data-team-id-card="al-faris"
+                  aria-label="View ID card for Al-Faris Mujahid AlZakwani" aria-haspopup="dialog"><img src="assets/images/ceopic.webp"
+                    alt="Leader Picture - Al-Faris Mujahid AlZakwani" width="60"></button></div>
 
               <h4>Al-Faris Mujahid AlZakwani<br><sup>Founder</sup></h4>
 
@@ -448,12 +451,13 @@
           <p class="team-tier-label">Team</p>
           <div class="team-row team-row--members">
             <div class="member">
-              <div class="avatar"><a href="https://blinq.me/cmgj7rwqz0hies60mmtf2i2f6" target="_blank" rel="noopener"
-                  title="Talal AlKalbani Contact Profile"><i class="fa-solid fa-lightbulb"></i></a></div>
+              <div class="avatar"><button class="team-id-card-avatar" type="button" data-team-id-card="talal"
+                  aria-label="View ID card for Talal AlKalbani" aria-haspopup="dialog"><i class="fa-solid fa-lightbulb" aria-hidden="true"></i></button></div>
 
               <h4>Talal AlKalbani <br><sup>Technical Operations</sup></h4>
 
               <p class="muted">Technical Architect</p>
+
             </div>
 
           </div>
@@ -599,7 +603,6 @@
 
     <div class="nexcore-sign">
       <img id="nexcoreSign" src="assets/images/nexcore-word.webp" alt="NexCore Labs">
-
     </div>
   </main>
 
@@ -627,6 +630,8 @@
   </footer>
 
   <script src="assets/js/script.js"></script>
+
+  <script src="assets/js/team-id-cards.js"></script>
 
   <!-- <script src="assets/js/unminified-js.js"></script> -->
 
