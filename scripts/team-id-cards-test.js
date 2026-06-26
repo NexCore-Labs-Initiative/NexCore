@@ -50,6 +50,9 @@ for (const value of [
   'aria-modal',
   'event.key === "Escape"',
   'event.key !== "Tab"',
+  "trapFocus",
+  'document.addEventListener("keydown", trapFocus)',
+  'document.removeEventListener("keydown", trapFocus)',
   "team-id-card__qr-link",
   "team-id-card__back-mark",
   "nexcore-icon.png",
@@ -65,6 +68,12 @@ assert(!styles.includes("team-id-card__brand-icon"), "ID-card stylesheet must no
 assert(styles.includes(".team-id-card__back-mark"), "ID-card stylesheet must style the back NexCore icon mark");
 assert(!styles.includes("team-id-card__contact-link"), "ID-card stylesheet must not keep the removed contact-link styling");
 assert(styles.includes(".team-id-card__qr-link"), "ID-card stylesheet must style the clickable QR target");
+assert(styles.includes("pointer-events: none"), "ID-card modal overlay must ignore interaction until opened like the cookie modal");
+assert(styles.includes("pointer-events: all"), "ID-card modal overlay must accept interaction when opened like the cookie modal");
+assert(
+  styles.includes(".team-id-card-modal.is-open .team-id-card-modal__panel"),
+  "ID-card panel must animate from the open state like the cookie modal"
+);
 
 for (const image of ["assets/images/team-id-ncl-0001.png", "assets/images/team-id-ncl-0002.png"]) {
   assert(fs.existsSync(path.join(root, image)), `${image} must exist`);
@@ -72,7 +81,7 @@ for (const image of ["assets/images/team-id-ncl-0001.png", "assets/images/team-i
 }
 
 const serviceWorker = read("service-worker.js");
-assert(/const CACHE_VERSION = 'v3\.0\.4';/.test(serviceWorker), "Service worker cache must advance to v3.0.4");
+assert(/const CACHE_VERSION = 'v3\.0\.5';/.test(serviceWorker), "Service worker cache must advance to v3.0.5");
 for (const asset of [
   "/assets/css/team-id-cards.css",
   "/assets/js/team-id-cards.js",

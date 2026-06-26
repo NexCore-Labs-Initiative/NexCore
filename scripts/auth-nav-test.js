@@ -53,8 +53,8 @@ for (const file of ["assets/css/unminified-css.css", "assets/css/style.css"]) {
 }
 
 assert(
-  /const CACHE_VERSION = 'v3\.0\.4';/.test(read("service-worker.js")),
-  "Service worker cache must stay on v3.0.4 after the ID-card back-icon correction"
+  /const CACHE_VERSION = 'v3\.0\.5';/.test(read("service-worker.js")),
+  "Service worker cache must stay on v3.0.5 after the ID-card cookie-modal logic alignment"
 );
 
 console.log("Compact auth navigation tests passed.");

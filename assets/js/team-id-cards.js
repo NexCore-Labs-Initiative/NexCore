@@ -161,47 +161,21 @@
     modal.querySelector(".team-id-card-modal__cards").replaceChildren(createFront(member, copy), createBack(member, copy));
   }
 
-  function focusable(modal) {
+  function getFocusableEls(modal) {
     return [...modal.querySelectorAll("a[href], button:not([disabled]), [tabindex]:not([tabindex='-1'])")]
       .filter((node) => node.offsetParent !== null);
   }
 
-  function openModal(memberKey, trigger) {
-    const member = MEMBERS[memberKey];
-    if (!member) return;
-    const modal = ensureModal();
-    lastFocusedElement = trigger || document.activeElement;
-    render(member);
-    modal.hidden = false;
-    modal.setAttribute("aria-hidden", "false");
-    document.body.classList.add("team-id-card-modal-open");
-    requestAnimationFrame(() => modal.classList.add("is-open"));
-    byId("teamIdCardModalClose")?.focus();
-  }
-
-  function closeModal() {
+  function trapFocus(event) {
     const modal = byId("teamIdCardModal");
-    if (!modal || modal.hidden) return;
-    modal.classList.remove("is-open");
-    modal.setAttribute("aria-hidden", "true");
-    document.body.classList.remove("team-id-card-modal-open");
-    window.setTimeout(() => {
-      if (modal.getAttribute("aria-hidden") === "true") modal.hidden = true;
-    }, 200);
-    if (lastFocusedElement instanceof HTMLElement) lastFocusedElement.focus();
-    lastFocusedElement = null;
-  }
-
-  function handleKeydown(event) {
-    const modal = byId("teamIdCardModal");
-    if (!modal || modal.hidden) return;
+    if (!modal || !modal.classList.contains("is-open")) return;
     if (event.key === "Escape") {
       event.preventDefault();
       closeModal();
       return;
     }
     if (event.key !== "Tab") return;
-    const targets = focusable(modal);
+    const targets = getFocusableEls(modal);
     if (!targets.length) return;
     const first = targets[0];
     const last = targets[targets.length - 1];
@@ -214,11 +188,41 @@
     }
   }
 
+  function openModal(memberKey, trigger) {
+    const member = MEMBERS[memberKey];
+    if (!member) return;
+    const modal = ensureModal();
+    lastFocusedElement = trigger || document.activeElement;
+    render(member);
+    modal.hidden = false;
+    modal.setAttribute("aria-hidden", "false");
+    document.body.classList.add("team-id-card-modal-open");
+    document.addEventListener("keydown", trapFocus);
+    requestAnimationFrame(() => {
+      modal.classList.add("is-open");
+      const targets = getFocusableEls(modal);
+      if (targets.length) targets[0].focus();
+    });
+  }
+
+  function closeModal() {
+    const modal = byId("teamIdCardModal");
+    if (!modal || (!modal.classList.contains("is-open") && modal.hidden)) return;
+    modal.classList.remove("is-open");
+    modal.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("team-id-card-modal-open");
+    document.removeEventListener("keydown", trapFocus);
+    window.setTimeout(() => {
+      if (modal.getAttribute("aria-hidden") === "true") modal.hidden = true;
+    }, 200);
+    if (lastFocusedElement instanceof HTMLElement) lastFocusedElement.focus();
+    lastFocusedElement = null;
+  }
+
   function init() {
     document.querySelectorAll("[data-team-id-card]").forEach((trigger) => {
       trigger.addEventListener("click", () => openModal(trigger.dataset.teamIdCard, trigger));
     });
-    document.addEventListener("keydown", handleKeydown);
   }
 
   window.NexCoreTeamIdCards = Object.freeze({ MEMBERS, openModal, closeModal });
