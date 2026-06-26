@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="NexCore Labs">
+    <meta name="keywords" content="NexCore Labs initiatives, AI tools, community events, hardware exploration, student innovation, Oman, SQU">
+    <meta name="theme-color" content="#0a0b1c">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>NexCore Labs | Initiatives</title>
+    <meta name="description" content="Explore launched and emerging NexCore Labs initiatives across AI tools, community experiences, and practical exploration.">
+    <link rel="canonical" href="https://nexcorelabs.vercel.app/initiatives">
+    <link rel="alternate" hreflang="en" href="https://nexcorelabs.vercel.app/initiatives">
+    <link rel="alternate" hreflang="ar" href="https://nexcorelabs.vercel.app/ar/initiatives">
+    <link rel="alternate" hreflang="x-default" href="https://nexcorelabs.vercel.app/initiatives">
+    <meta property="og:url" content="https://nexcorelabs.vercel.app/initiatives">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="NexCore Labs | Initiatives">
+    <meta property="og:description" content="Explore launched and emerging NexCore Labs initiatives across AI tools, community experiences, and practical exploration.">
+    <meta property="og:image" content="https://nexcorelabs.vercel.app/assets/images/nexcorelabs-og.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:domain" content="nexcorelabs.vercel.app">
+    <meta property="twitter:url" content="https://nexcorelabs.vercel.app/initiatives">
+    <meta name="twitter:title" content="NexCore Labs | Initiatives">
+    <meta name="twitter:description" content="Explore launched and emerging NexCore Labs initiatives across AI tools, community experiences, and practical exploration.">
+    <meta name="twitter:image" content="https://nexcorelabs.vercel.app/assets/images/nexcorelabs-og.png">
+    <link rel="icon" href="assets/images/nexcore-icon.png" type="image/png">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="assets/images/nexcore-logo.webp">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/admin-button.css">
+    <link rel="stylesheet" href="assets/css/cookies.css">
+    <link rel="stylesheet" href="assets/css/initiatives.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script type="application/ld+json" data-nexcore-seo="true">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://nexcorelabs.vercel.app/#organization",
+      "name": "NexCore Labs",
+      "url": "https://nexcorelabs.vercel.app",
+      "logo": "https://nexcorelabs.vercel.app/assets/images/nexcore-logo.webp",
+      "foundingDate": "2025-09-23",
+      "description": "NexCore Labs is an independent, student-led platform helping the SQU community access useful tools, collaborate, share work, and move ideas forward.",
+      "sameAs": ["https://github.com/NexCoreLabs/NexCore"]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://nexcorelabs.vercel.app/#website",
+      "url": "https://nexcorelabs.vercel.app",
+      "name": "NexCore Labs",
+      "description": "Empower our SQU Community to do more through independent, student-led tools, collaboration, project visibility, and practical digital support.",
+      "publisher": { "@id": "https://nexcorelabs.vercel.app/#organization" },
+      "inLanguage": ["en", "ar"]
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://nexcorelabs.vercel.app/initiatives#webpage",
+      "url": "https://nexcorelabs.vercel.app/initiatives",
+      "name": "NexCore Labs | Initiatives",
+      "description": "Explore launched and emerging NexCore Labs initiatives across AI tools, community experiences, and practical exploration.",
+      "isPartOf": { "@id": "https://nexcorelabs.vercel.app/#website" },
+      "publisher": { "@id": "https://nexcorelabs.vercel.app/#organization" },
+      "inLanguage": "en"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://nexcorelabs.vercel.app/initiatives#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://nexcorelabs.vercel.app/" },
+        { "@type": "ListItem", "position": 2, "name": "Initiatives", "item": "https://nexcorelabs.vercel.app/initiatives" }
+      ]
+    }
+  ]
+}
+    </script>
+  </head>
+  <body>
+    <div class="background" aria-hidden="true">
+      <img class="logo-img" id="logoImg" src="assets/images/nexcore-logo.webp" alt="">
+      <div id="spotLight" class="spot-light"></div>
+    </div>
+
+    <header class="navbar">
+      <div class="nav-container">
+        <div class="logo"><h1 id="logo">NexCore <span>Labs</span></h1></div>
+        <div class="dropdown">
+          <button class="core-menu" id="coreMenu" type="button" aria-label="Open menu" title="Menu">
+            <span class="dot" aria-hidden="true"></span><span class="dot" aria-hidden="true"></span><span class="dot" aria-hidden="true"></span><span class="dot" aria-hidden="true"></span><span class="dot" aria-hidden="true"></span><span class="dot" aria-hidden="true"></span>
+          </button>
+          <div id="myDropdown" class="dropdown-content" aria-label="Site navigation">
+            <a href="ar/initiatives.html" class="lang-switch-pill mixed-content" title="View Arabic site">
+              <div class="pill-slider"></div>
+              <span class="pill-text en-text"><img src="assets/images/uk.webp" alt="United Kingdom flag"> EN</span>
+              <span class="pill-text ar-text"><img src="assets/images/oman.webp" alt="Oman flag"> ع</span>
+            </a>
+            <a href="auth.html" class="magic-signup fade" title="Sign in to your account"><i class="fa-solid fa-key"></i> Access the Core</a>
+            <a href="/intelligence" class="fade ai-link" title="NexCore Intelligence"><svg class="ai-link-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="3.2" fill="currentColor"/><circle cx="5.5" cy="7" r="1.8" fill="currentColor" opacity="0.85"/><circle cx="18.5" cy="7" r="1.8" fill="currentColor" opacity="0.85"/><circle cx="12" cy="19" r="1.8" fill="currentColor" opacity="0.85"/><path d="M7.1 8.2L9.6 10.1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" opacity="0.75"/><path d="M16.9 8.2L14.4 10.1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" opacity="0.75"/><path d="M12 15.2V17.1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" opacity="0.75"/><path d="M12 3.2V4.7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M20.8 12H19.3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M4.7 12H3.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> NexCore Intelligence</a>
+            <input type="search" placeholder="What?..." id="myInput" onkeyup="filterFunction()" title="Search...">
+            <a href="hub.html" class="fade" title="NexCore Labs Hub"><span class="menu-dots-icon" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></span> Hub</a>
+            <a href="initiatives.html" class="fade" data-initiatives-nav aria-current="page" title="NexCore Labs Initiatives"><i class="fa-solid fa-wand-magic-sparkles"></i> Initiatives</a>
+            <a href="hub.html#projects" class="fade" title="Projects"><i class="fa-solid fa-diagram-project"></i> Projects</a>
+            <div class="div-menu-line"></div>
+            <a href="index.html#tools" class="mt-0" title="Tools &amp; Systems"><i class="fa-solid fa-screwdriver-wrench"></i> Tools &amp; Systems</a>
+            <a href="index.html#about" title="About NexCore Labs"><i class="fa-solid fa-circle-info"></i> About Us</a>
+            <a href="index.html#team" title="NexCore Labs Team"><i class="fa-solid fa-users"></i> Our Team</a>
+            <a href="index.html#contact" title="Contact NexCore Labs"><i class="fa-solid fa-paper-plane"></i> Contact Us</a>
+            <div class="div-menu-line"></div>
+            <a href="roadmap.html" class="fade mt-0" title="Feature requests and roadmap board"><i class="fa-solid fa-route"></i> Feature Board</a>
+            <a href="releases.html" class="fade" title="Releases &amp; Updates"><i class="fa-solid fa-clock-rotate-left"></i> Releases / Updates</a>
+            <div class="div-menu-line"></div>
+            <a href="pricing.html" class="fade mt-0" title="Pricing Plans"><i class="fa-solid fa-tag"></i> Pricing <span class="new-badge">New</span></a>
+            <a href="pricing-policy.html" class="fade" title="Pricing and Billing Policy"><i class="fa-solid fa-receipt"></i> Pricing Policy <span class="new-badge">New</span></a>
+            <a href="faq.html" class="fade" title="FAQ &amp; Support"><i class="fa-solid fa-circle-question"></i> FAQ</a>
+            <a href="how-to-use.html" class="fade" title="How to Use NexCore Labs"><i class="fa-solid fa-book-open"></i> How to Use</a>
+            <a href="terms.html" class="fade" title="Terms of Service"><i class="fa-solid fa-file-contract"></i> Terms</a>
+            <a href="privacy-policy.html" class="fade" title="Privacy Policy"><i class="fa-solid fa-shield-halved"></i> Privacy Policy</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="initiatives-hero">
+        <div class="container">
+          <div>
+            <h1 class="title initiatives-title">Useful ideas, <em>made visible.</em></h1>
+            <p class="initiatives-lead">Explore the products, experiments, and community work moving NexCore Labs forward—from what is already in people’s hands to what is taking shape next.</p>
+            <div class="hero-actions initiatives-hero-actions"><a class="btn primary" href="#initiativeCatalogue"><i class="fa-solid fa-compass"></i> Explore initiatives</a></div>
+          </div>
+          <div class="initiatives-summary" aria-label="Initiative summary">
+            <div class="initiative-summary-item"><strong id="initiativeCountLaunched" class="initiative-summary-count">—</strong><span class="initiative-summary-label">Launched</span></div>
+            <div class="initiative-summary-item"><strong id="initiativeCountBuilding" class="initiative-summary-count">—</strong><span class="initiative-summary-label">Building</span></div>
+            <div class="initiative-summary-item"><strong id="initiativeCountExploring" class="initiative-summary-count">—</strong><span class="initiative-summary-label">Exploring</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="initiativeCatalogue" class="panel initiatives-panel" aria-labelledby="initiativesHeading">
+        <div class="container">
+          <div class="initiatives-toolbar">
+            <div><h2 id="initiativesHeading" class="section-title">What NexCore Labs is building</h2></div>
+            <div class="initiatives-toolbar-controls">
+              <p id="initiativesResultCount" class="initiatives-result-count" aria-live="polite"></p>
+              <div class="initiative-filter-rail" aria-label="Filter initiatives by category"><div id="initiativeFilters" class="initiative-filter-list"></div></div>
+            </div>
+          </div>
+          <div id="initiativesGrid" class="initiatives-grid" aria-live="polite" aria-busy="true"></div>
+        </div>
+      </section>
+    </main>
+
+    <div id="initiativeModal" class="initiative-modal" hidden aria-hidden="true">
+      <section class="initiative-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="initiativeModalTitle" aria-describedby="initiativeModalOverview">
+        <button id="initiativeModalClose" class="initiative-modal-close" type="button" data-modal-close aria-label="Close initiative details"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+        <div id="initiativeModalVisual" class="initiative-modal-visual" aria-hidden="true"></div>
+        <div class="initiative-modal-body">
+          <span id="initiativeModalStatus" class="initiative-status"></span>
+          <div id="initiativeModalCategories" class="initiative-categories" aria-label="Initiative categories"></div>
+          <h2 id="initiativeModalTitle" class="initiative-modal-title"></h2>
+          <p id="initiativeModalOverview" class="initiative-modal-overview"></p>
+          <h3 class="sr-only">Highlights</h3>
+          <ul id="initiativeModalHighlights" class="initiative-highlights"></ul>
+          <a id="initiativeModalLink" class="btn primary" hidden></a>
+        </div>
+      </section>
+    </div>
+
+    <div class="nexcore-sign">
+      <img id="nexcoreSign" src="assets/images/nexcore-word.webp" alt="NexCore Labs">
+    </div>
+
+    <footer class="site-footer"><div class="container footer-inner"><div class="f-left"><a class="paypal" href="https://www.paypal.me/nexcorelabs" target="_blank" rel="noopener" title="Optional contribution via PayPal"><i class="fa-solid fa-heart" style="color: #6EE7F3;"></i> Optional contribution to support platform development</a><br><small title="All Rights Reserved">NexCore Labs © <span id="year"></span> <span id="splitter">|</span> <a href="https://github.com/NexCoreLabs/NexCore/blob/main/LICENSE" target="_blank" rel="noopener" class="license-link"><i class="fa-solid fa-scale-balanced"></i> MIT License</a></small></div><div class="f-right footer-line"></div></div></footer>
+
+    <script src="assets/js/script.js"></script>
+    <script src="assets/js/supabase-client.js"></script>
+    <script src="assets/js/auth-ui-db.js"></script>
+    <script src="assets/js/initiatives.js"></script>
+    <script src="version.js"></script>
+    <script src="assets/js/cookies.js" defer></script>
+  </body>
+</html>

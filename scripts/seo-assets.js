@@ -125,6 +125,26 @@ const PAGE_PAIRS = [
     },
   },
   {
+    key: "initiatives",
+    priority: "0.82",
+    en: {
+      file: "initiatives.html",
+      path: "/initiatives",
+      title: "NexCore Labs | Initiatives",
+      description:
+        "Explore launched and emerging NexCore Labs initiatives across AI tools, community experiences, and practical exploration.",
+      breadcrumb: "Initiatives",
+    },
+    ar: {
+      file: "ar/initiatives.html",
+      path: "/ar/initiatives",
+      title: "NexCore Labs | مبادرات NexCore Labs",
+      description:
+        "استكشف مبادرات NexCore Labs المُطلقة والناشئة عبر أدوات الذكاء الاصطناعي وتجارب المجتمع والاستكشاف العملي.",
+      breadcrumb: "المبادرات",
+    },
+  },
+  {
     key: "how-to-use",
     priority: "0.80",
     en: {

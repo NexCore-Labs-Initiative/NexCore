@@ -60,6 +60,26 @@
         return;
     }
 
+    function ensureInitiativesNavigation() {
+        const menu = document.getElementById('myDropdown');
+        if (!menu || menu.querySelector('[data-initiatives-nav]')) return;
+
+        const hubLink = [...menu.querySelectorAll('a')].find((link) =>
+            /(^|\/)hub(?:\.html)?(?:#|$)/.test(link.getAttribute('href') || '')
+        );
+        if (!hubLink) return;
+
+        const link = document.createElement('a');
+        link.href = isArabicPage ? '/ar/initiatives' : '/initiatives';
+        link.dataset.initiativesNav = 'true';
+        link.title = isArabicPage ? 'مبادرات NexCore Labs' : 'NexCore Labs Initiatives';
+        link.innerHTML = `<i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i> ${isArabicPage ? 'المبادرات' : 'Initiatives'}`;
+        if (window.location.pathname.replace(/\/$/, '') === link.getAttribute('href')) {
+            link.setAttribute('aria-current', 'page');
+        }
+        hubLink.insertAdjacentElement('afterend', link);
+    }
+
     /**
      * Fetch approved emails from database
      */
@@ -376,6 +396,7 @@
 
     // Initialize
     function init() {
+        ensureInitiativesNavigation();
         // Ensure nav elements exist
         ensureNavElements();
 

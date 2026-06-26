@@ -461,3 +461,21 @@ if (bookmarkBtn) {
     alert(`To bookmark this page, press ${shortcut} on your keyboard.`);
   });
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+  const menu = document.getElementById('myDropdown');
+  if (!menu || menu.querySelector('[data-initiatives-nav]')) return;
+
+  const isArabic = (document.documentElement.lang || '').toLowerCase().startsWith('ar')
+    || /(^|\/)ar(\/|$)/.test(window.location.pathname);
+  const hubLink = [...menu.querySelectorAll('a')].find((link) => /(^|\/)hub(?:\.html)?(?:#|$)/.test(link.getAttribute('href') || ''));
+  if (!hubLink) return;
+
+  const link = document.createElement('a');
+  link.href = isArabic ? '/ar/initiatives' : '/initiatives';
+  link.dataset.initiativesNav = 'true';
+  link.title = isArabic ? 'مبادرات NexCore Labs' : 'NexCore Labs Initiatives';
+  link.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i> ' + (isArabic ? 'المبادرات' : 'Initiatives');
+  if (window.location.pathname.replace(/\/$/, '') === link.getAttribute('href')) link.setAttribute('aria-current', 'page');
+  hubLink.insertAdjacentElement('afterend', link);
+});
