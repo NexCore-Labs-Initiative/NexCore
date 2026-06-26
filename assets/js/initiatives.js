@@ -61,6 +61,33 @@
   const byId = (id) => document.getElementById(id);
   const asText = (value) => String(value || "").trim();
 
+  function normalizeImageUrl(value) {
+    let url = asText(value);
+    if (!url) return "";
+    if (url.startsWith("/") || /^https?:\/\//i.test(url)) {
+      // Already absolute or site-relative.
+    } else if (/^(?:www\.)?github\.com\//i.test(url) || /^raw\.githubusercontent\.com\//i.test(url)) {
+      url = `https://${url}`;
+    }
+
+    try {
+      const parsed = new URL(url);
+      const host = parsed.hostname.toLowerCase();
+      if (host === "github.com" || host === "www.github.com") {
+        const parts = parsed.pathname.split("/").filter(Boolean);
+        const blobIndex = parts.indexOf("blob");
+        if (parts.length >= 5 && blobIndex === 2) {
+          const [owner, repo, , branch, ...filePath] = parts;
+          return `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${filePath.join("/")}`;
+        }
+      }
+    } catch {
+      // Leave invalid values unchanged; the normal initiative guard will handle omissions.
+    }
+
+    return url;
+  }
+
   function getLocalized(value, currentLocale = locale()) {
     if (typeof value === "string") return asText(value);
     if (!value || typeof value !== "object") return "";
@@ -96,8 +123,9 @@
     const highlights = Array.isArray(raw.highlights)
       ? raw.highlights.filter(hasRequiredLocales).map((highlight) => Object.freeze({ en: asText(highlight.en), ar: asText(highlight.ar) }))
       : [];
-    const image = raw.image && typeof raw.image === "object" && asText(raw.image.src) && hasRequiredLocales(raw.image.alt)
-      ? Object.freeze({ src: asText(raw.image.src), alt: raw.image.alt || {} })
+    const imageSrc = raw.image && typeof raw.image === "object" ? normalizeImageUrl(raw.image.src) : "";
+    const image = imageSrc && hasRequiredLocales(raw.image.alt)
+      ? Object.freeze({ src: imageSrc, alt: raw.image.alt || {} })
       : null;
     const primaryLink = raw.primary_link && typeof raw.primary_link === "object" && asText(raw.primary_link.url)
       ? Object.freeze({ url: asText(raw.primary_link.url), label: raw.primary_link.label || {} })
@@ -260,15 +288,9 @@
 
   function renderGrid() {
     const grid = byId("initiativesGrid");
-    const resultCount = byId("initiativesResultCount");
     if (!grid) return;
 
     const initiatives = filterInitiatives(state.initiatives, state.activeCategory);
-    if (resultCount) {
-      resultCount.textContent = initiatives.length === 1
-        ? copy().resultOne
-        : copy().resultMany.replace("{count}", String(initiatives.length));
-    }
 
     if (!initiatives.length) {
       setGridState("fa-solid fa-compass", copy().empty);

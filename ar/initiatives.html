@@ -101,7 +101,7 @@
             <a href="/ar/intelligence" class="fade ai-link" title="ذكاء NexCore"><svg class="ai-link-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="3.2" fill="currentColor"/><circle cx="5.5" cy="7" r="1.8" fill="currentColor" opacity="0.85"/><circle cx="18.5" cy="7" r="1.8" fill="currentColor" opacity="0.85"/><circle cx="12" cy="19" r="1.8" fill="currentColor" opacity="0.85"/><path d="M7.1 8.2L9.6 10.1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" opacity="0.75"/><path d="M16.9 8.2L14.4 10.1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" opacity="0.75"/><path d="M12 15.2V17.1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" opacity="0.75"/><path d="M12 3.2V4.7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M20.8 12H19.3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M4.7 12H3.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> ذكاء NexCore</a>
             <input type="search" placeholder="ابحث..." id="myInput" onkeyup="filterFunction()" title="بحث...">
             <a href="hub.html" class="fade" title="مركز NexCore Labs"><span class="menu-dots-icon" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></span> المركز</a>
-            <a href="initiatives.html" class="fade" data-initiatives-nav aria-current="page" title="مبادرات NexCore Labs"><i class="fa-solid fa-sparkles"></i> المبادرات</a>
+            <a href="initiatives.html" class="fade" data-initiatives-nav aria-current="page" title="مبادرات NexCore Labs"><i class="fa-solid fa-wand-magic-sparkles"></i> المبادرات</a>
             <a href="hub.html#projects" class="fade" title="المشاريع"><i class="fa-solid fa-diagram-project"></i> المشاريع</a>
             <div class="div-menu-line"></div>
             <a href="index.html#tools" class="mt-0" title="الأدوات والأنظمة"><i class="fa-solid fa-screwdriver-wrench"></i> الأدوات والأنظمة</a>
@@ -127,7 +127,6 @@
       <section class="initiatives-hero">
         <div class="container">
           <div>
-            <span class="initiatives-eyebrow">مبادرات NexCore Labs</span>
             <h1 class="title initiatives-title">أفكار مفيدة، <em>تُرى وتتحرك.</em></h1>
             <p class="initiatives-lead">استكشف المنتجات والتجارب والعمل المجتمعي الذي يدفع NexCore Labs إلى الأمام؛ من المبادرات الموجودة بين أيدي الناس اليوم إلى ما يتشكل للغد.</p>
             <div class="hero-actions initiatives-hero-actions"><a class="btn primary" href="#initiativeCatalogue"><i class="fa-solid fa-compass"></i> استكشف المبادرات</a></div>
@@ -143,9 +142,8 @@
       <section id="initiativeCatalogue" class="panel initiatives-panel" aria-labelledby="initiativesHeading">
         <div class="container">
           <div class="initiatives-toolbar">
-            <div><span class="initiative-section-kicker">الدليل</span><h2 id="initiativesHeading" class="section-title">ما الذي تبنيه NexCore Labs</h2></div>
+            <div><h2 id="initiativesHeading" class="section-title">ما الذي تبنيه NexCore Labs</h2></div>
             <div class="initiatives-toolbar-controls">
-              <p id="initiativesResultCount" class="initiatives-result-count" aria-live="polite"></p>
               <div class="initiative-filter-rail" aria-label="تصفية المبادرات حسب الفئة"><div id="initiativeFilters" class="initiative-filter-list"></div></div>
             </div>
           </div>
@@ -170,7 +168,11 @@
       </section>
     </div>
 
-    <footer class="site-footer"><div class="container footer-inner"><div class="f-left"><a class="paypal" href="https://www.paypal.me/nexcorelabs" target="_blank" rel="noopener" title="مساهمة اختيارية عبر PayPal"><i class="fa-solid fa-heart" style="color: #6EE7F3;"></i> مساهمة اختيارية لدعم تطوير المنصة</a><br><small>NexCore Labs © <span id="year"></span> <span id="splitter">|</span> <a href="https://github.com/NexCoreLabs/NexCore/blob/main/LICENSE" target="_blank" rel="noopener" class="license-link"><i class="fa-solid fa-scale-balanced"></i> رخصة MIT</a></small></div><div class="f-right footer-line"></div></div></footer>
+    <div class="nexcore-sign">
+      <img id="nexcoreSign" src="../assets/images/nexcore-word.webp" alt="NexCore Labs">
+    </div>
+
+    <footer class="site-footer"><div class="container footer-inner"><div class="f-left"><a class="paypal" href="https://www.paypal.me/nexcorelabs" target="_blank" rel="noopener" title="مساهمة اختيارية عبر PayPal"><i class="fa-solid fa-heart" style="color: #6EE7F3;"></i> مساهمة اختيارية لدعم تطوير المنصة</a><br><small title="جميع الحقوق محفوظة">NexCore Labs © <span id="year"></span> <span id="splitter">|</span> <a href="https://github.com/NexCoreLabs/NexCore/blob/main/LICENSE" target="_blank" rel="noopener" class="license-link"><i class="fa-solid fa-scale-balanced"></i> رخصة MIT</a></small></div><div class="f-right footer-line"></div></div></footer>
 
     <script src="../assets/js/script.js"></script>
     <script src="../assets/js/supabase-client.js"></script>

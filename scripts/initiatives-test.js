@@ -38,7 +38,45 @@ for (const [file, page] of Object.entries(expected)) {
     assert(menu.includes(destination), `${file} must retain the complete NexCore navigation menu (${destination})`);
   }
   assert(menu.includes('ai-link-icon'), `${file} must retain the NexCore Intelligence menu icon`);
+  assert(menu.includes('fa-wand-magic-sparkles'), `${file} must use a Font Awesome Free icon for Initiatives`);
+  assert(!menu.includes('fa-sparkles'), `${file} must not use the unsupported fa-sparkles icon`);
   assert(menu.includes('onkeyup="filterFunction()"'), `${file} must retain menu search behavior`);
+}
+
+const menuFiles = [
+  ...fs.readdirSync(root)
+    .filter((file) => file.endsWith(".html"))
+    .map((file) => file),
+  ...fs.readdirSync(path.join(root, "ar"))
+    .filter((file) => file.endsWith(".html"))
+    .map((file) => `ar/${file}`),
+].filter((file) => read(file).includes('id="myDropdown"'));
+
+for (const file of menuFiles) {
+  const html = read(file);
+  const menuStart = html.indexOf('id="myDropdown"');
+  const menuEnd = html.indexOf('</header>', menuStart);
+  const menu = html.slice(menuStart, menuEnd);
+  const isArabic = file.startsWith("ar/");
+  const hubIndex = menu.indexOf('menu-dots-icon');
+  const initiativesIndex = menu.indexOf('data-initiatives-nav');
+  const projectsIndex = menu.indexOf('fa-diagram-project');
+
+  assert(initiativesIndex >= 0, `${file} navigation must include the Initiatives link`);
+  assert(
+    hubIndex >= 0 && hubIndex < initiativesIndex && initiativesIndex < projectsIndex,
+    `${file} navigation must place Initiatives between Hub and Projects`
+  );
+  assert(menu.includes('fa-wand-magic-sparkles'), `${file} must use the supported Initiatives icon`);
+  assert(!menu.includes('fa-sparkles'), `${file} must not use the unsupported Initiatives icon`);
+  if (isArabic) {
+    const href = menu.includes('href="/ar/hub.html"') ? '/ar/initiatives.html' : 'initiatives.html';
+    assert(menu.includes(`href="${href}"`), `${file} must link to the Arabic Initiatives page`);
+    assert(menu.includes('> المبادرات</a>'), `${file} must label Initiatives in Arabic`);
+  } else {
+    assert(menu.includes('href="initiatives.html"'), `${file} must link to the English Initiatives page`);
+    assert(menu.includes('> Initiatives</a>'), `${file} must label Initiatives in English`);
+  }
 }
 
 const sql = read("supabase/initiatives.sql");
@@ -67,7 +105,7 @@ const documentStub = {
   documentElement: { lang: "en" },
   addEventListener() {}
 };
-vm.runInNewContext(read("assets/js/initiatives.js"), { window: windowStub, document: documentStub, URLSearchParams, console });
+vm.runInNewContext(read("assets/js/initiatives.js"), { window: windowStub, document: documentStub, URL, URLSearchParams, console });
 const { normalizeInitiative, filterInitiatives } = windowStub.InitiativesPage;
 const sourceRecord = {
   slug: "nexcore-study-hub",
@@ -84,6 +122,18 @@ const sourceRecord = {
 };
 const valid = normalizeInitiative(sourceRecord);
 assert(valid && Object.isFrozen(valid), "A complete public initiative must normalize into an immutable record");
+const githubImageRecord = normalizeInitiative({
+  ...sourceRecord,
+  image: {
+    src: "https://github.com/NexCore-Labs-Initiative/nexcore-study-hub/blob/main/assets/imgs/nexcorelabs-studyhub.webp",
+    alt: { en: "Study Hub preview", ar: "معاينة مركز الدراسة" }
+  }
+});
+assert.strictEqual(
+  githubImageRecord.image.src,
+  "https://raw.githubusercontent.com/NexCore-Labs-Initiative/nexcore-study-hub/main/assets/imgs/nexcorelabs-studyhub.webp",
+  "Public initiative rendering should convert GitHub blob images to raw URLs"
+);
 assert.strictEqual(normalizeInitiative({ ...sourceRecord, visibility: "draft" }), null, "Draft initiatives must not render publicly");
 assert.strictEqual(normalizeInitiative({ ...sourceRecord, title: { en: "English only" } }), null, "Initiatives require both locale titles");
 assert.strictEqual(filterInitiatives([valid], "community-events").length, 1, "Category filtering must retain matching records");
