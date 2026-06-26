@@ -154,20 +154,15 @@
   align-items: center;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-}
-
-.team-id-card__brand-icon {
-  height: 48px;
-  object-fit: contain;
-  width: 48px;
+  min-height: 36px;
 }
 
 .team-id-card__brand-word {
-  height: 20px;
-  max-width: 185px;
+  height: auto;
+  max-height: 50px;
+  max-width: 300px;
   object-fit: contain;
-  width: 100%;
+  width: min(100%, 300px);
 }
 
 .team-id-card__rule {
@@ -218,42 +213,44 @@
   justify-content: flex-start;
 }
 
-.team-id-card--back .team-id-card__brand {
-  margin-top: 17px;
+.team-id-card__back-mark {
+  height: 64px;
+  width: 64px;
+  margin: 0 auto 8px;
+  object-fit: contain;
+}
+
+.team-id-card__qr-link {
+  align-items: center;
+  background: #fff;
+  border-radius: 10px;
+  display: inline-flex;
+  justify-content: center;
+  margin: 16px auto 18px;
+  padding: 2px;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.team-id-card__qr-link:hover,
+.team-id-card__qr-link:focus-visible {
+  box-shadow: 0 0 0 3px rgba(124, 244, 255, 0.55), 0 14px 34px rgba(0, 0, 0, 0.35);
+  outline: none;
+  transform: scale(1.02);
 }
 
 .team-id-card__qr {
-  background: #fff;
-  border: 8px solid #fff;
-  border-radius: 8px;
-  height: 132px;
+  display: block;
+  height: 148px;
   image-rendering: pixelated;
-  margin: 18px auto 16px;
-  width: 132px;
+  width: 148px;
 }
 
 .team-id-card__contact-copy {
   color: rgba(234, 246, 251, 0.74);
   font-size: 12px;
   line-height: 1.5;
-  margin: 0 auto 8px;
+  margin: 0 auto;
   max-width: 205px;
-}
-
-.team-id-card__contact-link {
-  color: var(--primary-accent, #73bdd7);
-  font-size: 12px;
-  font-weight: 700;
-  overflow-wrap: anywhere;
-  text-decoration: none;
-}
-
-.team-id-card__contact-link:hover,
-.team-id-card__contact-link:focus-visible {
-  color: #eaf6fb;
-  outline: none;
-  text-decoration: underline;
-  text-underline-offset: 3px;
 }
 
 body.team-id-card-modal-open {
@@ -301,7 +298,8 @@ body.team-id-card-modal-open {
 @media (prefers-reduced-motion: reduce) {
   .team-id-card-modal,
   .team-id-card-avatar img,
-  .team-id-card-avatar i {
+  .team-id-card-avatar i,
+  .team-id-card__qr-link {
     transition: none;
   }
 }

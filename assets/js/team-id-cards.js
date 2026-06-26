@@ -31,8 +31,7 @@
       back: "Back",
       id: "ID:",
       joined: "Joined:",
-      contact: "Scan to open this member’s contact profile.",
-      contactLink: "Open contact profile"
+      contact: "Scan or click the QR code to open this member’s contact profile."
     }),
     ar: Object.freeze({
       modalEyebrow: "بطاقة عضوية فريق NexCore Labs",
@@ -42,8 +41,7 @@
       back: "الخلفية",
       id: "الرقم:",
       joined: "انضم:",
-      contact: "امسح الرمز لفتح ملف التواصل الخاص بالعضو.",
-      contactLink: "فتح ملف التواصل"
+      contact: "امسح رمز QR أو اضغط عليه لفتح ملف التواصل الخاص بالعضو."
     })
   });
 
@@ -61,18 +59,22 @@
     return node;
   }
 
-  function createBrand() {
+  function createFrontBrand() {
     const brand = element("div", "team-id-card__brand");
-    const icon = document.createElement("img");
-    icon.className = "team-id-card__brand-icon";
-    icon.src = `${assetsPath()}nexcore-icon.png`;
-    icon.alt = "NexCore Labs";
     const wordmark = document.createElement("img");
     wordmark.className = "team-id-card__brand-word";
     wordmark.src = `${assetsPath()}nexcore-word.webp`;
     wordmark.alt = "NexCore Labs";
-    brand.append(icon, wordmark);
+    brand.append(wordmark);
     return brand;
+  }
+
+  function createBackMark() {
+    const icon = document.createElement("img");
+    icon.className = "team-id-card__back-mark";
+    icon.src = `${assetsPath()}nexcore-icon.png`;
+    icon.alt = "NexCore Labs";
+    return icon;
   }
 
   function fact(label, value) {
@@ -91,7 +93,7 @@
     const title = element("p", "team-id-card__title", localized(member.title));
     const facts = element("div", "team-id-card__facts");
     facts.append(fact(copy.id, member.credentialId), fact(copy.joined, localized(member.joined)));
-    card.append(side, createBrand(), rule, name, title, facts);
+    card.append(side, createFrontBrand(), rule, name, title, facts);
     return card;
   }
 
@@ -99,16 +101,19 @@
     const card = element("section", "team-id-card team-id-card--back");
     card.setAttribute("aria-label", `${copy.back}: ${localized(member.name)}`);
     const side = element("p", "team-id-card__side-label", copy.back);
+    const qrLink = element("a", "team-id-card__qr-link");
+    qrLink.href = member.contactUrl;
+    qrLink.target = "_blank";
+    qrLink.rel = "noopener noreferrer";
+    qrLink.setAttribute("aria-label", `${copy.contact} ${localized(member.name)}`);
     const qr = document.createElement("img");
     qr.className = "team-id-card__qr";
     qr.src = `${assetsPath()}${member.qrImage}`;
-    qr.alt = `${copy.contact} ${localized(member.name)}`;
+    qr.alt = "";
+    qr.setAttribute("aria-hidden", "true");
+    qrLink.append(qr);
     const contactCopy = element("p", "team-id-card__contact-copy", copy.contact);
-    const contactLink = element("a", "team-id-card__contact-link", copy.contactLink);
-    contactLink.href = member.contactUrl;
-    contactLink.target = "_blank";
-    contactLink.rel = "noopener noreferrer";
-    card.append(side, createBrand(), qr, contactCopy, contactLink);
+    card.append(side, createBackMark(), qrLink, contactCopy);
     return card;
   }
 

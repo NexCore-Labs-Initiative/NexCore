@@ -37,6 +37,7 @@ for (const [file, page] of Object.entries(expected)) {
 }
 
 const behavior = read("assets/js/team-id-cards.js");
+const styles = read("assets/css/team-id-cards.css");
 for (const value of [
   "NCL-0001",
   "NCL-0002",
@@ -49,18 +50,29 @@ for (const value of [
   'aria-modal',
   'event.key === "Escape"',
   'event.key !== "Tab"',
+  "team-id-card__qr-link",
+  "team-id-card__back-mark",
+  "nexcore-icon.png",
   "NexCoreTeamIdCards"
 ]) {
   assert(behavior.includes(value), `Team ID-card behavior must include ${value}`);
 }
 
+assert(!behavior.includes("contactLink"), "ID-card back must not render a separate contact profile text link");
+assert(!behavior.includes("team-id-card__contact-link"), "ID-card back must not render the removed contact link class");
+assert(behavior.includes("qrLink.href = member.contactUrl"), "ID-card QR must link to the member contact profile");
+assert(!styles.includes("team-id-card__brand-icon"), "ID-card stylesheet must not keep front brand icon styling");
+assert(styles.includes(".team-id-card__back-mark"), "ID-card stylesheet must style the back NexCore icon mark");
+assert(!styles.includes("team-id-card__contact-link"), "ID-card stylesheet must not keep the removed contact-link styling");
+assert(styles.includes(".team-id-card__qr-link"), "ID-card stylesheet must style the clickable QR target");
+
 for (const image of ["assets/images/team-id-ncl-0001.png", "assets/images/team-id-ncl-0002.png"]) {
   assert(fs.existsSync(path.join(root, image)), `${image} must exist`);
-  assert(fs.statSync(path.join(root, image)).size > 100, `${image} must be a usable QR asset`);
+  assert(fs.statSync(path.join(root, image)).size > 1000, `${image} must be a usable QR asset`);
 }
 
 const serviceWorker = read("service-worker.js");
-assert(/const CACHE_VERSION = 'v3\.0\.2';/.test(serviceWorker), "Service worker cache must advance to v3.0.2");
+assert(/const CACHE_VERSION = 'v3\.0\.4';/.test(serviceWorker), "Service worker cache must advance to v3.0.4");
 for (const asset of [
   "/assets/css/team-id-cards.css",
   "/assets/js/team-id-cards.js",
