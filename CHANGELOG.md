@@ -1,5 +1,40 @@
 # Changelog
 
+## v3.1.0 - 26 June 2026
+
+### The Initiatives & Identity Update
+
+A focused release that makes NexCore Labs initiatives discoverable through a new bilingual catalogue and gives team members polished ID-card previews.
+
+#### New Features
+
+- Added a new **Initiatives** page where visitors can explore launched, active, and emerging NexCore Labs work through a bilingual public catalogue.
+- Added initiative quick-view cards with status labels, category filters, highlights, visuals, and primary action links.
+- Added **team ID card previews** from member avatars so visitors can view polished NexCore Labs identity cards with QR contact access.
+
+#### Improvements
+
+- Added the Initiatives link across the main navigation so the new catalogue is reachable from core English and Arabic pages.
+- Extended clean routes, sitemap entries, SEO metadata, and service-worker caching for the new Initiatives experience.
+
+### Developer Notes
+
+#### Technical Changes
+
+- Created the shared initiatives renderer with localized content handling, category filtering, summary counts, and accessible modal behavior.
+- Added admin-side initiative authoring, previewing, publishing, and deletion support inside the existing Control Panel.
+- Added a dedicated team ID-card module with accessible dialog controls, focus trapping, QR assets, and localized avatar triggers.
+
+#### Database Changes
+
+- Added the initiatives data model for bilingual records, visibility states, categories, media, highlights, and admin-managed lifecycle fields.
+
+#### Internal Improvements
+
+- Added focused tests for the public initiatives page, initiative admin workflow, and team ID-card previews.
+
+---
+
 ## v3.0.0 - 20 June 2026
 
 ### The Multilingual Intelligence Breakthrough

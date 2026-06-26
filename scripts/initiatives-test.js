@@ -64,18 +64,18 @@ for (const file of menuFiles) {
 
   assert(initiativesIndex >= 0, `${file} navigation must include the Initiatives link`);
   assert(
-    hubIndex >= 0 && hubIndex < initiativesIndex && initiativesIndex < projectsIndex,
-    `${file} navigation must place Initiatives between Hub and Projects`
+    hubIndex >= 0 && initiativesIndex < hubIndex && hubIndex < projectsIndex,
+    `${file} navigation must place Initiatives above Hub and Projects`
   );
   assert(menu.includes('fa-wand-magic-sparkles'), `${file} must use the supported Initiatives icon`);
   assert(!menu.includes('fa-sparkles'), `${file} must not use the unsupported Initiatives icon`);
   if (isArabic) {
     const href = menu.includes('href="/ar/hub.html"') ? '/ar/initiatives.html' : 'initiatives.html';
     assert(menu.includes(`href="${href}"`), `${file} must link to the Arabic Initiatives page`);
-    assert(menu.includes('> المبادرات</a>'), `${file} must label Initiatives in Arabic`);
+    assert(menu.includes('> المبادرات <span class="new-badge">جديد</span></a>'), `${file} must label Initiatives with the Arabic new badge`);
   } else {
     assert(menu.includes('href="initiatives.html"'), `${file} must link to the English Initiatives page`);
-    assert(menu.includes('> Initiatives</a>'), `${file} must label Initiatives in English`);
+    assert(menu.includes('> Initiatives <span class="new-badge">New</span></a>'), `${file} must label Initiatives with the English new badge`);
   }
 }
 

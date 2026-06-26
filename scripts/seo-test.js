@@ -98,6 +98,13 @@ for (const page of flattenPages()) {
     assertIncludes(html, `"@type": "Question"`, `${page.file} must include FAQ questions`);
     assert.strictEqual(pageNode["@type"], "FAQPage", `${page.file} page node must be FAQPage`);
     assert(Array.isArray(pageNode.mainEntity), `${page.file} FAQPage must own FAQ questions`);
+    const initiativesQuestion = page.file.startsWith("ar/")
+      ? "ما هي مبادرات NexCore Labs؟"
+      : "What are NexCore Labs Initiatives?";
+    assert(
+      pageNode.mainEntity.some((item) => item.name === initiativesQuestion),
+      `${page.file} FAQPage must include the Initiatives question`
+    );
   } else {
     assert(!pageNode.mainEntity, `${page.file} non-FAQ page must not carry FAQ questions`);
   }

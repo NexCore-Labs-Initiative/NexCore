@@ -53,6 +53,11 @@ const FAQ_EN = [
     answer:
       "NexCore Labs is more than a website development service; it is an independent student-led platform that helps the SQU community discover tools, showcase work, collaborate, and turn ideas into practical outcomes.",
   },
+  {
+    question: "What are NexCore Labs Initiatives?",
+    answer:
+      "Initiatives are the products, experiments, and community efforts NexCore Labs is building or supporting beyond individual project pages. The Initiatives page shows launched work, active builds, and ideas still taking shape, with categories, status labels, highlights, and quick-view details.",
+  },
 ];
 
 const FAQ_AR = [
@@ -80,6 +85,11 @@ const FAQ_AR = [
     question: "ما الذي يميز NexCore Labs؟",
     answer:
       "NexCore Labs أوسع من خدمة تطوير مواقع؛ فهي منصة طلابية مستقلة تساعد مجتمع جامعة السلطان قابوس على اكتشاف الأدوات وعرض الأعمال والتعاون وتحويل الأفكار إلى نتائج عملية.",
+  },
+  {
+    question: "ما هي مبادرات NexCore Labs؟",
+    answer:
+      "المبادرات هي المنتجات والتجارب والجهود المجتمعية التي تبنيها NexCore Labs أو تدعمها خارج صفحات المشاريع الفردية. تعرض صفحة المبادرات الأعمال المنشورة، وما يتم بناؤه حالياً، والأفكار التي ما زالت تتشكل، مع تصنيفات وحالات ونقاط بارزة وتفاصيل عرض سريع.",
   },
 ];
 
