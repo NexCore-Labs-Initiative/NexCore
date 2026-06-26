@@ -3,7 +3,7 @@
 const assert = require("assert");
 const fs = require("fs");
 const path = require("path");
-const { validateInitiative } = require("../lib/initiatives");
+const { normalizeImageUrl, validateInitiative } = require("../lib/initiatives");
 const { createHandler } = require("../api/admin/initiatives");
 
 const root = path.resolve(__dirname, "..");
@@ -25,6 +25,22 @@ const validPayload = {
 };
 
 assert.deepStrictEqual(validateInitiative(validPayload).errors, [], "A complete bilingual initiative should validate");
+assert.strictEqual(
+  normalizeImageUrl("github.com/NexCore-Labs-Initiative/nexcore-study-hub/blob/main/assets/imgs/nexcorelabs-studyhub.webp"),
+  "https://raw.githubusercontent.com/NexCore-Labs-Initiative/nexcore-study-hub/main/assets/imgs/nexcorelabs-studyhub.webp",
+  "GitHub blob image URLs should normalize to raw image URLs"
+);
+assert.strictEqual(
+  validateInitiative({
+    ...validPayload,
+    image: {
+      ...validPayload.image,
+      src: "github.com/NexCore-Labs-Initiative/nexcore-study-hub/blob/main/assets/imgs/nexcorelabs-studyhub.webp"
+    }
+  }).data.image.src,
+  "https://raw.githubusercontent.com/NexCore-Labs-Initiative/nexcore-study-hub/main/assets/imgs/nexcorelabs-studyhub.webp",
+  "Initiative validation should store normalized GitHub image URLs"
+);
 assert(validateInitiative({ ...validPayload, title: { en: "English only" } }).errors.length > 0, "Both title locales are required");
 assert(validateInitiative({ ...validPayload, categories: [] }).errors.length > 0, "A category is required");
 assert(validateInitiative({ ...validPayload, primary_link: { url: "javascript:alert(1)", label: { en: "Open", ar: "فتح" } } }).errors.length > 0, "Unsafe URLs are rejected");

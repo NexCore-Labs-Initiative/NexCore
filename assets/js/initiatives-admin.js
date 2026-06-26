@@ -9,6 +9,33 @@
   const text = (en, ar) => (arabic() ? ar : en);
   const value = (id) => String($(id)?.value || "").trim();
 
+  function normalizeImageUrl(value) {
+    let url = String(value || "").trim();
+    if (!url) return "";
+    if (url.startsWith("/") || /^https?:\/\//i.test(url)) {
+      // Already absolute or site-relative.
+    } else if (/^(?:www\.)?github\.com\//i.test(url) || /^raw\.githubusercontent\.com\//i.test(url)) {
+      url = `https://${url}`;
+    }
+
+    try {
+      const parsed = new URL(url);
+      const host = parsed.hostname.toLowerCase();
+      if (host === "github.com" || host === "www.github.com") {
+        const parts = parsed.pathname.split("/").filter(Boolean);
+        const blobIndex = parts.indexOf("blob");
+        if (parts.length >= 5 && blobIndex === 2) {
+          const [owner, repo, , branch, ...filePath] = parts;
+          return `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${filePath.join("/")}`;
+        }
+      }
+    } catch {
+      // Server-side validation still owns final acceptance.
+    }
+
+    return url;
+  }
+
   function notify(message, type = "info") {
     if (typeof window.showToast === "function") window.showToast(message, type);
     else window.alert(message);
@@ -44,7 +71,7 @@
   }
 
   function buildPayload(visibility) {
-    const imageUrl = value("initiativeImageUrl");
+    const imageUrl = normalizeImageUrl(value("initiativeImageUrl"));
     const linkUrl = value("initiativeLinkUrl");
     return {
       id: state.editingId,

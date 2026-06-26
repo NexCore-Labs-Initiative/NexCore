@@ -105,7 +105,7 @@ const documentStub = {
   documentElement: { lang: "en" },
   addEventListener() {}
 };
-vm.runInNewContext(read("assets/js/initiatives.js"), { window: windowStub, document: documentStub, URLSearchParams, console });
+vm.runInNewContext(read("assets/js/initiatives.js"), { window: windowStub, document: documentStub, URL, URLSearchParams, console });
 const { normalizeInitiative, filterInitiatives } = windowStub.InitiativesPage;
 const sourceRecord = {
   slug: "nexcore-study-hub",
@@ -122,6 +122,18 @@ const sourceRecord = {
 };
 const valid = normalizeInitiative(sourceRecord);
 assert(valid && Object.isFrozen(valid), "A complete public initiative must normalize into an immutable record");
+const githubImageRecord = normalizeInitiative({
+  ...sourceRecord,
+  image: {
+    src: "https://github.com/NexCore-Labs-Initiative/nexcore-study-hub/blob/main/assets/imgs/nexcorelabs-studyhub.webp",
+    alt: { en: "Study Hub preview", ar: "معاينة مركز الدراسة" }
+  }
+});
+assert.strictEqual(
+  githubImageRecord.image.src,
+  "https://raw.githubusercontent.com/NexCore-Labs-Initiative/nexcore-study-hub/main/assets/imgs/nexcorelabs-studyhub.webp",
+  "Public initiative rendering should convert GitHub blob images to raw URLs"
+);
 assert.strictEqual(normalizeInitiative({ ...sourceRecord, visibility: "draft" }), null, "Draft initiatives must not render publicly");
 assert.strictEqual(normalizeInitiative({ ...sourceRecord, title: { en: "English only" } }), null, "Initiatives require both locale titles");
 assert.strictEqual(filterInitiatives([valid], "community-events").length, 1, "Category filtering must retain matching records");
