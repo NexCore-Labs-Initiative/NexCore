@@ -1,5 +1,27 @@
 # Changelog
 
+## v3.1.1 - 27 June 2026
+
+### The Anchor Navigation Fix
+
+A focused patch that restores reliable same-page anchor navigation across NexCore Labs.
+
+#### Fixes
+
+- Fixed same-page anchor links so navigation reliably scrolls to the intended section while keeping the URL hash in sync.
+
+### Developer Notes
+
+#### Technical Changes
+
+- Updated shared anchor handling to resolve fragments by HTML ID, detect the active scroll container, preserve the fixed-header offset, and update browser history after navigation.
+
+#### Internal Improvements
+
+- Added regression coverage for anchor targets, scrolling behavior, URL hashes, and the `v3.1.1` service-worker cache.
+
+---
+
 ## v3.1.0 - 26 June 2026
 
 ### The Initiatives & Identity Update

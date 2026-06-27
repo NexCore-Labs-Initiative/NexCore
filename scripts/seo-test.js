@@ -112,8 +112,8 @@ for (const page of flattenPages()) {
 
 assertIncludes(
   read("service-worker.js"),
-  "v3.0.5",
-  "service worker cache must match the ID-card cookie-modal logic v3.0.5 version"
+  "v3.1.1",
+  "service worker cache must match the current shared-asset release"
 );
 
 const serviceWorker = read("service-worker.js");

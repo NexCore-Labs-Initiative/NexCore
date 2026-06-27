@@ -81,7 +81,7 @@ for (const image of ["assets/images/team-id-ncl-0001.png", "assets/images/team-i
 }
 
 const serviceWorker = read("service-worker.js");
-assert(/const CACHE_VERSION = 'v3\.0\.5';/.test(serviceWorker), "Service worker cache must advance to v3.0.5");
+assert(/const CACHE_VERSION = 'v3\.1\.1';/.test(serviceWorker), "Service worker cache must match the current shared-asset release");
 for (const asset of [
   "/assets/css/team-id-cards.css",
   "/assets/js/team-id-cards.js",

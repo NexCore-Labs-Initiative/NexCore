@@ -160,13 +160,20 @@ if (yearEl) {
     a.addEventListener("click", (ev) => {
       const href = a.getAttribute("href");
       if (href === "#") return;
-      const target = document.querySelector(href);
+      const target = document.getElementById(href.slice(1));
       if (!target) return;
       ev.preventDefault();
       const headerOffset = 82;
-      const elementPosition = target.getBoundingClientRect().top + window.pageYOffset;
+      const documentScroller = document.scrollingElement;
+      const scrollContainer = documentScroller && documentScroller.scrollHeight > documentScroller.clientHeight
+        ? documentScroller
+        : document.body;
+      const elementPosition = target.getBoundingClientRect().top + scrollContainer.scrollTop;
       const offsetPosition = elementPosition - headerOffset;
-      window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+      scrollContainer.scrollTo({ top: offsetPosition, behavior: "smooth" });
+      if (window.location.hash !== href) {
+        window.history.pushState(null, "", href);
+      }
 
       if (window.innerWidth <= 980 && navList && navList.style.display === "flex") {
         navList.style.display = "";
