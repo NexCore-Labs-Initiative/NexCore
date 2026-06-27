@@ -159,7 +159,7 @@
       color: var(--muted);
     }
 
-    #page-usage-pill {
+    /* #page-usage-pill {
       font-size: 11px;
       padding: 3px 9px;
       border-radius: 20px;
@@ -186,7 +186,7 @@
       background: rgba(255, 60, 60, 0.10);
       border-color: rgba(255, 60, 60, 0.25);
       color: #ff5555;
-    }
+    } */
 
     /* ── Messages ─────────────────────────────────────────────── */
     #page-messages {
@@ -754,8 +754,9 @@
           <input type="search" placeholder="What?..." id="myInput" onkeyup="filterFunction()" title="Search...">
           <a href="initiatives.html" class="fade" data-initiatives-nav title="NexCore Labs Initiatives"><i class="fa-solid fa-wand-magic-sparkles"></i> Initiatives <span class="new-badge">New</span></a>
 
+          <div class="div-menu-line"></div>
 
-          <a href="hub.html" class="fade" title="NexCore Labs Hub"><span class="menu-dots-icon" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></span> Hub</a>
+          <a href="hub.html" class="fade mt-0" title="NexCore Labs Hub"><span class="menu-dots-icon" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></span> Hub</a>
           <a href="hub.html#projects" class="fade" title="Projects"><i class="fa-solid fa-diagram-project"></i> Projects</a>
 
           <div class="div-menu-line"></div>
@@ -774,7 +775,10 @@
 
           <a href="pricing.html" class="fade mt-0" title="Pricing Plans"><i class="fa-solid fa-tag"></i> Pricing <span class="new-badge">New</span></a>
           <a href="pricing-policy.html" class="fade" title="Pricing and Billing Policy"><i class="fa-solid fa-receipt"></i> Pricing Policy <span class="new-badge">New</span></a>
-          <a href="faq.html" class="fade" title="FAQ & Support"><i class="fa-solid fa-circle-question"></i> FAQ</a>
+
+          <div class="div-menu-line"></div>
+
+          <a href="faq.html" class="fade mt-0" title="FAQ & Support"><i class="fa-solid fa-circle-question"></i> FAQ</a>
           <a href="how-to-use.html" class="fade" title="How to Use NexCore Labs"><i class="fa-solid fa-book-open"></i> How to Use</a>
           <a href="terms.html" class="fade" title="Terms of Service"><i class="fa-solid fa-file-contract"></i> Terms</a>
           <a href="privacy-policy.html" class="fade" title="Privacy Policy"><i class="fa-solid fa-shield-halved"></i> Privacy Policy</a>
@@ -802,7 +806,7 @@
             NexCore Intelligence
             <div class="cc-subtitle" id="page-status">RAG · Gemini · Knowledge Base</div>
           </div>
-          <span id="page-usage-pill" title="Messages remaining today"></span>
+          <!-- <span id="page-usage-pill" title="Messages remaining today"></span> -->
         </div>
 
         <!-- Messages -->
@@ -817,27 +821,6 @@
 
         <!-- Quick suggestions -->
         <div id="page-suggestions" aria-label="Quick suggestions"></div>
-
-        <!-- Input row (replaced by sign-in prompt if not authenticated) -->
-        <div id="page-input-wrap">
-          <div class="chat-input-row">
-            <textarea
-              id="page-input"
-              rows="1"
-              placeholder="Ask NexCore Intelligence anything…"
-              maxlength="500"
-              aria-label="Message input"
-              autocomplete="off"
-              spellcheck="true"
-            ></textarea>
-            <button id="page-send" class="btn primary" aria-label="Send message" title="Send (Enter)">
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <line x1="22" y1="2" x2="11" y2="13"/>
-                <polygon points="22 2 15 22 11 13 2 9 22 2"/>
-              </svg>
-            </button>
-          </div>
-        </div>
 
       </div>
 
@@ -937,7 +920,7 @@
       const elInput       = document.getElementById('page-input');
       const elSend        = document.getElementById('page-send');
       const elStatus      = document.getElementById('page-status');
-      const elUsagePill   = document.getElementById('page-usage-pill');
+      // const elUsagePill   = document.getElementById('page-usage-pill');
       const elSuggestions = document.getElementById('page-suggestions');
       const elInputWrap   = document.getElementById('page-input-wrap');
 
@@ -1128,15 +1111,15 @@
       }
 
       // ── Usage ─────────────────────────────────────────────────
-      function updatePill() {
-        elUsagePill.textContent = `${chatRemaining} / ${chatMax} left`;
-        const ratio = chatMax > 0 ? chatRemaining / chatMax : 0;
-        let cls = '';
-        if (chatRemaining === 0)     cls = 'depleted';
-        else if (chatRemaining === 1) cls = 'critical';
-        else if (ratio <= 0.67)       cls = 'warning';
-        elUsagePill.className = cls;
-      }
+      // function updatePill() {
+      //   elUsagePill.textContent = `${chatRemaining} / ${chatMax} left`;
+      //   const ratio = chatMax > 0 ? chatRemaining / chatMax : 0;
+      //   let cls = '';
+      //   if (chatRemaining === 0)     cls = 'depleted';
+      //   else if (chatRemaining === 1) cls = 'critical';
+      //   else if (ratio <= 0.67)       cls = 'warning';
+      //   elUsagePill.className = cls;
+      // }
 
       async function fetchUsage() {
         const token = await getToken();

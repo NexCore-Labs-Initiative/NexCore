@@ -174,7 +174,10 @@
             </svg> ذكاء NexCore</a>
           <input type="search" placeholder="ابحث..." id="myInput" onkeyup="filterFunction()" title="بحث...">
           <a href="initiatives.html" class="fade" data-initiatives-nav title="مبادرات NexCore Labs"><i class="fa-solid fa-wand-magic-sparkles"></i> المبادرات <span class="new-badge">جديد</span></a>
-          <a href="hub.html" class="fade" title="مركز NexCore Labs"><span class="menu-dots-icon" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></span> المركز</a>
+
+          <div class="div-menu-line"></div>
+
+          <a href="hub.html" class="fade mt-0" title="مركز NexCore Labs"><span class="menu-dots-icon" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></span> المركز</a>
           <a href="hub.html#projects" class="fade" title="المشاريع"><i class="fa-solid fa-diagram-project"></i> المشاريع</a>
 
           <div class="div-menu-line"></div>
@@ -190,7 +193,10 @@
           <a href="releases.html" class="fade" title="الإصدارات والتحديثات"><i class="fa-solid fa-clock-rotate-left"></i> الإصدارات والتحديثات</a>
           <a href="pricing.html" class="fade" title="خطط التسعير"><i class="fa-solid fa-tag"></i> التسعير <span class="new-badge">جديد</span></a>
           <a href="pricing-policy.html" class="fade" title="سياسة التسعير والفوترة"><i class="fa-solid fa-receipt"></i> سياسة التسعير <span class="new-badge">جديد</span></a>
-          <a href="faq.html" class="fade" title="الأسئلة الشائعة"><i class="fa-solid fa-circle-question"></i> الأسئلة الشائعة</a>
+
+          <div class="div-menu-line"></div>
+
+          <a href="faq.html" class="fade mt-0" title="الأسئلة الشائعة"><i class="fa-solid fa-circle-question"></i> الأسئلة الشائعة</a>
           <a href="how-to-use.html" class="fade" title="كيفية الاستخدام"><i class="fa-solid fa-book-open"></i> كيفية الاستخدام</a>
           <a href="terms.html" class="fade" title="شروط الخدمة"><i class="fa-solid fa-file-contract"></i> الشروط</a>
           <a href="privacy-policy.html" class="fade" title="سياسة الخصوصية"><i class="fa-solid fa-shield-halved"></i> الخصوصية</a>
@@ -346,18 +352,24 @@
         <h3>الأسئلة الشائعة</h3>
 
         <div class="faq-item active">
-          <h4><i class="fa-solid fa-circle-question"></i> هل أستطيع تحديث صفحتي بعد النشر؟</h4>
-          <p>نعم، يمكنك إدارة تفاصيل مشروعك من لوحة التحكم.</p>
+          <h3 class="faq-question">
+            <span>هل أستطيع تحديث صفحتي بعد النشر؟</span>
+            <i class="faq-toggle-icon fa-solid fa-chevron-down" aria-hidden="true"></i>
+          </h3>
+          <div class="faq-answer">نعم، يمكنك إدارة تفاصيل مشروعك من لوحة التحكم.</div>
         </div>
         <div class="faq-item">
-          <h4><i class="fa-solid fa-circle-question"></i> هل بيانات المشروع آمنة؟</h4>
-          <p>نستخدم Supabase و HTTPS وممارسات أمان مناسبة لحماية البيانات.</p>
+          <h3 class="faq-question">
+            <span>هل بيانات المشروع آمنة؟</span>
+            <i class="faq-toggle-icon fa-solid fa-chevron-down" aria-hidden="true"></i>
+          </h3>
+          <div class="faq-answer">نستخدم Supabase و HTTPS وممارسات أمان مناسبة لحماية البيانات.</div>
         </div>
       </section>
 
       <div class="cta-section">
         <h2>جاهز لإطلاق مشروعك؟</h2>
-        <a href="/ar/auth.html" class="btn ghost fade">استكشف الجوهر</a>
+        <a href="auth.html" class="btn primary fade" title="قم بتسجيل الدخول إلى حسابك"><i class="fa-solid fa-key"></i> استكشف الجوهر</a>
       </div>
     </div>
 
@@ -403,13 +415,18 @@
     const faqItems = document.querySelectorAll('.faq-item');
 
     function setHowToFaqExpanded(item, expanded) {
-      const answer = item.querySelector('p');
+      const answer = item.querySelector('.faq-answer');
       if (!answer) return;
       item.classList.toggle('active', expanded);
+      item.setAttribute('aria-expanded', expanded ? 'true' : 'false');
       answer.style.maxHeight = expanded ? `${answer.scrollHeight}px` : '0px';
     }
 
-    faqItems.forEach(item => setHowToFaqExpanded(item, item.classList.contains('active')));
+    faqItems.forEach(item => {
+      item.setAttribute('role', 'button');
+      item.setAttribute('tabindex', '0');
+      setHowToFaqExpanded(item, item.classList.contains('active'));
+    });
     window.addEventListener('resize', () => {
       faqItems.forEach(item => {
         if (item.classList.contains('active')) setHowToFaqExpanded(item, true);
@@ -417,6 +434,11 @@
     });
     faqItems.forEach(item => {
       item.addEventListener('click', function () {
+        setHowToFaqExpanded(this, !this.classList.contains('active'));
+      });
+      item.addEventListener('keydown', function (event) {
+        if (event.key !== 'Enter' && event.key !== ' ') return;
+        event.preventDefault();
         setHowToFaqExpanded(this, !this.classList.contains('active'));
       });
     });

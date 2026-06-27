@@ -1260,7 +1260,7 @@ a.project-card:hover .id {
     font-size: 2rem
 }
 
-.faq-items {
+/* .faq-items {
     max-width: 700px;
     margin: 0 auto
 }
@@ -1276,7 +1276,7 @@ a.project-card:hover .id {
 .faq-item p {
     margin-top: 15px;
     line-height: 1.7
-}
+} */
 
 .breadcrumb a:hover {
     text-decoration: underline
@@ -2655,14 +2655,15 @@ html[dir="rtl"] .dropdown-content a.nav-user-action:hover {
 }
 
 .cta-section {
-    background: linear-gradient(135deg, rgba(110, 231, 243, .1), rgba(159, 122, 234, .1));
-    border: 1px solid rgba(110, 231, 243, .2);
-    padding: 40px;
-    border-radius: 12px;
+    padding: 34px;
+    border: 1px solid rgba(110, 231, 243, 0.14);
+    border-radius: 18px;
+    background: linear-gradient(135deg, rgba(110, 231, 243, 0.07), rgba(10, 11, 28, 0.48) 48%, rgba(172, 217, 229, 0.04));
+    box-shadow: 0 18px 50px rgba(2, 6, 23, 0.45);
     text-align: center;
     margin-top: 80px;
-    backdrop-filter: blur(3px);
-    -webkit-backdrop-filter: blur(3px)
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px)
 }
 
 .cta-section h2 {
@@ -2897,17 +2898,18 @@ strong {
 
 .faq-answer {
     color: #cbd5e0;
-    margin-top: 15px;
+    margin-top: 0;
     line-height: 1.8;
     max-height: 0;
     opacity: 0;
     overflow: hidden;
     transform: translateY(-4px);
-    transition: max-height .34s ease, opacity .24s ease, transform .24s ease
+    transition: max-height .34s ease, opacity .24s ease, transform .24s ease, margin-top .24s ease
 }
 
 .faq-item.active .faq-answer {
     opacity: 1;
+    margin-top: 15px;
     transform: translateY(0)
 }
 
