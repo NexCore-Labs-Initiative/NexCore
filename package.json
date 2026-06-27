@@ -7,11 +7,12 @@
     "lib": "lib"
   },
   "scripts": {
-    "test": "npm run pricing:test && npm run branding:test && npm run seo:test && npm run auth-nav:test && npm run initiatives:test && npm run initiatives-admin:test",
+    "test": "npm run pricing:test && npm run branding:test && npm run seo:test && npm run auth-nav:test && npm run anchor-nav:test && npm run initiatives:test && npm run initiatives-admin:test",
     "pricing:test": "node scripts/pricing-policy-test.js",
     "branding:test": "node scripts/branding-test.js",
     "seo:test": "node scripts/seo-test.js",
     "auth-nav:test": "node scripts/auth-nav-test.js",
+    "anchor-nav:test": "node scripts/anchor-navigation-test.js",
     "initiatives:test": "node scripts/initiatives-test.js",
     "initiatives-admin:test": "node scripts/initiatives-admin-test.js"
   },

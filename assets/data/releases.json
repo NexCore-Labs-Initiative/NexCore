@@ -2,6 +2,69 @@
   "schema_version": 1,
   "releases": [
     {
+      "version": "v3.1.1",
+      "date": "2026-06-27",
+      "title": {
+        "en": "The Anchor Navigation Fix",
+        "ar": "إصلاح روابط الأقسام"
+      },
+      "summary": {
+        "en": "A focused patch that restores reliable same-page anchor navigation across NexCore Labs.",
+        "ar": "تحديث إصلاحي مركّز يعيد التنقل الموثوق عبر روابط الأقسام داخل صفحات NexCore Labs."
+      },
+      "tags": [
+        "fix"
+      ],
+      "user_updates": {
+        "fixes": [
+          {
+            "text": {
+              "en": "Fixed same-page anchor links so navigation reliably scrolls to the intended section while keeping the URL hash in sync.",
+              "ar": "إصلاح روابط الأقسام داخل الصفحة لتنتقل بسلاسة وموثوقية إلى القسم المقصود مع مزامنة رابط القسم في عنوان الصفحة."
+            },
+            "evidence": [
+              "file:index.html",
+              "file:assets/js/script.js",
+              "file:assets/js/unminified-js.js"
+            ]
+          }
+        ]
+      },
+      "developer_notes": {
+        "technical_changes": [
+          {
+            "text": {
+              "en": "Updated shared anchor handling to resolve fragments by HTML ID, detect the active scroll container, preserve the fixed-header offset, and update browser history after navigation.",
+              "ar": "تحديث معالجة روابط الأقسام المشتركة للعثور على الأقسام عبر معرّف HTML، وتحديد حاوية التمرير الفعلية، ومراعاة إزاحة الرأس الثابت، وتحديث سجل المتصفح بعد التنقل."
+            },
+            "evidence": [
+              "file:assets/js/script.js",
+              "file:assets/js/unminified-js.js"
+            ]
+          }
+        ],
+        "internal_improvements": [
+          {
+            "text": {
+              "en": "Added regression coverage for anchor targets, scrolling behavior, URL hashes, and the v3.1.1 service-worker cache.",
+              "ar": "إضافة تغطية اختبارية لمنع تكرار أخطاء أهداف الروابط، وسلوك التمرير، وروابط الأقسام، وذاكرة Service Worker للإصدار v3.1.1."
+            },
+            "evidence": [
+              "file:scripts/anchor-navigation-test.js",
+              "file:service-worker.js",
+              "file:package.json"
+            ]
+          }
+        ]
+      },
+      "is_major_release": false,
+      "source": {
+        "base_tag": "v3.1.0",
+        "target": "v3.1.1",
+        "commit_range": "v3.1.0..v3.1.1"
+      }
+    },
+    {
       "version": "v3.1.0",
       "date": "2026-06-26",
       "title": {
