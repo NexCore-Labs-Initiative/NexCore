@@ -243,7 +243,7 @@
             <div class="card-wave"></div>
 
             <div class="card-content">
-              <h4>Current Initiatives</h4>
+              <h4>Current workflow</h4>
 
               <p class="muted">Planning · Development · Monitoring</p>
 
@@ -255,15 +255,19 @@
                   </div>
                 </a>
 
-                <div class="stat"><strong id="tasks">580+</strong><span><i class="fa-solid fa-bars-progress"></i>
-                    tasks</span>
-                  <div class="tooltip">We’ve completed 580+ small actionable items</div>
-                </div>
+                <a href="https://github.com/NexCore-Labs-Initiative/NexCore/commits/" target="_blank" rel="noopener noreferrer">
+                  <div class="stat"><strong id="githubCommitCount">--</strong><span><i class="fa-brands fa-github"></i>
+                      commits</span>
+                    <div class="tooltip">Total commits attributed to this repository’s contributors on GitHub</div>
+                  </div>
+                </a>
 
-                <div class="stat"><strong id="support">48h</strong><span><i class="fa-solid fa-headset"></i>
-                    support</span>
-                  <div class="tooltip">Our support responds within 48-hours</div>
-                </div>
+                <a href="initiatives.html">
+                  <div class="stat"><strong id="initiativeCount">00+</strong><span><i
+                        class="fa-solid fa-wand-magic-sparkles"></i> initiatives</span>
+                    <div class="tooltip">All public initiatives currently available</div>
+                  </div>
+                </a>
               </div>
             </div>
           </div>
@@ -642,6 +646,8 @@
 
   <script src="assets/js/supabase-client.js"></script>
 
+  <script src="assets/js/github-contributions.js"></script>
+
   <script src="assets/js/newsletter.js"></script>
 
   <script src="assets/js/auth-ui-db.js"></script>
@@ -711,6 +717,52 @@
 
     }
 
+    async function updateInitiativeCount() {
+
+      const sb = window.supabaseClient;
+
+      const countElement = document.getElementById('initiativeCount');
+
+      if (!countElement) {
+
+        console.error('initiativeCount element not found');
+
+        return;
+
+      }
+
+      try {
+
+        const { count, error } = await sb
+
+          .from('initiatives')
+
+          .select('*', { count: 'exact', head: true })
+
+          .eq('visibility', 'public');
+
+        if (error) {
+
+          console.error('Error fetching initiatives count:', error);
+
+          countElement.textContent = '--';
+
+          return;
+
+        }
+
+        animateCount(countElement, 0, count || 0, 1000);
+
+      } catch (err) {
+
+        console.error('Unexpected error fetching initiatives count:', err);
+
+        countElement.textContent = '--';
+
+      }
+
+    }
+
     /**
 
      * Animate the count with a smooth counting effect
@@ -771,11 +823,19 @@
 
     if (document.readyState === 'loading') {
 
-      document.addEventListener('DOMContentLoaded', updateProjectCount);
+      document.addEventListener('DOMContentLoaded', () => {
+
+        updateProjectCount();
+
+        updateInitiativeCount();
+
+      });
 
     } else {
 
       updateProjectCount();
+
+      updateInitiativeCount();
 
     }
 

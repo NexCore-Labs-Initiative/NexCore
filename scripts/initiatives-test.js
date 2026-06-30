@@ -43,6 +43,19 @@ for (const [file, page] of Object.entries(expected)) {
   assert(menu.includes('onkeyup="filterFunction()"'), `${file} must retain menu search behavior`);
 }
 
+for (const [file, expectedHref, expectedLabel] of [
+  ["index.html", "initiatives.html", "initiatives"],
+  ["ar/index.html", "/ar/initiatives.html", "مبادرات"]
+]) {
+  const html = read(file);
+  assert(html.includes('id="initiativeCount"'), `${file} must show the public initiatives count in the workflow card`);
+  assert(html.includes(`href="${expectedHref}"`), `${file} workflow card must link to the initiatives catalogue`);
+  assert(html.includes(`fa-wand-magic-sparkles"></i> ${expectedLabel}`), `${file} must label the initiatives KPI`);
+  assert(html.includes(".from('initiatives')"), `${file} must count initiatives from Supabase`);
+  assert(html.includes(".eq('visibility', 'public')"), `${file} must count only initiatives shown on the public catalogue`);
+  assert(!html.includes('id="support"'), `${file} must remove the old support KPI`);
+}
+
 const menuFiles = [
   ...fs.readdirSync(root)
     .filter((file) => file.endsWith(".html"))

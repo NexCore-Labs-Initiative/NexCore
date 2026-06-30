@@ -227,7 +227,7 @@
             <div class="card-wave"></div>
 
             <div class="card-content">
-              <h4>المبادرات الحالية</h4>
+              <h4>سير العمل الحالي</h4>
 
               <p class="muted">التخطيط · التطوير · المراقبة</p>
 
@@ -239,15 +239,19 @@
                   </div>
                 </a>
 
-                <div class="stat"><strong id="tasks">٥٨٠+</strong><span><i class="fa-solid fa-bars-progress"></i>
-                    مهام</span>
-                  <div class="tooltip">لقد أكملنا ٥٨٠+ عنصر قابل للتنفيذ</div>
-                </div>
+                <a href="https://github.com/NexCore-Labs-Initiative/NexCore/commits/" target="_blank" rel="noopener noreferrer">
+                  <div class="stat"><strong id="githubCommitCount">--</strong><span><i class="fa-brands fa-github"></i>
+                      التحديثات</span>
+                    <div class="tooltip">إجمالي تحديثات مساهمي هذا المشروع على GitHub</div>
+                  </div>
+                </a>
 
-                <div class="stat"><strong id="support">٤٨ ساعة</strong><span><i class="fa-solid fa-headset"></i>
-                    الدعم</span>
-                  <div class="tooltip">يرد فريق الدعم خلال ٤٨ ساعة</div>
-                </div>
+                <a href="/ar/initiatives.html">
+                  <div class="stat"><strong id="initiativeCount">٠٠+</strong><span><i
+                        class="fa-solid fa-wand-magic-sparkles"></i> مبادرات</span>
+                    <div class="tooltip">جميع المبادرات العامة المتاحة حالياً</div>
+                  </div>
+                </a>
               </div>
             </div>
           </div>
@@ -611,6 +615,7 @@
   <script src="../assets/js/script.js"></script>
   <script src="../assets/js/team-id-cards.js"></script>
   <script src="../assets/js/supabase-client.js"></script>
+  <script src="../assets/js/github-contributions.js"></script>
   <script src="../assets/js/newsletter.js"></script>
   <script src="../assets/js/auth-ui-db.js"></script>
   <script src="../assets/js/ai-chat.js"></script>
@@ -640,6 +645,32 @@
         animateCount(countElement, 0, finalCount, 1000);
       } catch (err) {
         console.error('Unexpected error fetching projects count:', err);
+        countElement.textContent = '--';
+      }
+    }
+
+    async function updateInitiativeCount() {
+      const sb = window.supabaseClient;
+      const countElement = document.getElementById('initiativeCount');
+      if (!countElement) {
+        console.error('initiativeCount element not found');
+        return;
+      }
+      try {
+        const { count, error } = await sb
+          .from('initiatives')
+          .select('*', { count: 'exact', head: true })
+          .eq('visibility', 'public');
+
+        if (error) {
+          console.error('Error fetching initiatives count:', error);
+          countElement.textContent = '--';
+          return;
+        }
+
+        animateCount(countElement, 0, count || 0, 1000);
+      } catch (err) {
+        console.error('Unexpected error fetching initiatives count:', err);
         countElement.textContent = '--';
       }
     }
@@ -686,9 +717,13 @@
     }
 
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', updateProjectCount);
+      document.addEventListener('DOMContentLoaded', () => {
+        updateProjectCount();
+        updateInitiativeCount();
+      });
     } else {
       updateProjectCount();
+      updateInitiativeCount();
     }
 
     if ('serviceWorker' in navigator) {
