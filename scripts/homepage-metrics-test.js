@@ -10,14 +10,36 @@ const read = (file) => fs.readFileSync(path.join(root, file), "utf8");
 
 for (const [file, scriptPath, label] of [
   ["index.html", "assets/js/github-contributions.js", "commits"],
-  ["ar/index.html", "../assets/js/github-contributions.js", "التزامات"]
+  ["ar/index.html", "../assets/js/github-contributions.js", "التحديثات"]
 ]) {
   const html = read(file);
   assert(html.includes(`src="${scriptPath}"`), `${file} must load the GitHub contributions counter`);
+  const countUpPath = file.startsWith("ar/") ? "../assets/js/count-up.js" : "assets/js/count-up.js";
+  assert(html.includes(`src="${countUpPath}"`), `${file} must load the shared count-up animation`);
   assert(html.includes('id="githubCommitCount"'), `${file} must include the GitHub commits KPI`);
-  assert(html.includes(`fa-github"></i>\n                    ${label}`), `${file} must label the GitHub commits KPI`);
+  assert(new RegExp(`fa-github"></i>\\s+${label}`).test(html), `${file} must label the GitHub commits KPI`);
   assert(!html.includes('id="tasks"'), `${file} must remove the static tasks KPI`);
 }
+
+const animationValues = [];
+const animatedElement = {};
+Object.defineProperty(animatedElement, "textContent", {
+  set(value) { animationValues.push(Number(value)); }
+});
+const countUpWindow = { CountUp: null, matchMedia: () => ({ matches: false }) };
+let frameTime = 0;
+vm.runInNewContext(read("assets/js/count-up.js"), {
+  window: countUpWindow,
+  performance: { now: () => 0 },
+  requestAnimationFrame(callback) {
+    frameTime += 250;
+    callback(frameTime);
+  }
+});
+countUpWindow.CountUp.animate(animatedElement, { end: 100, duration: 1000 });
+assert(animationValues.length > 2, "Count-up animation must render intermediate values");
+assert(animationValues[0] > 0 && animationValues[0] < 100, "Count-up animation must begin between its endpoints");
+assert.strictEqual(animationValues.at(-1), 100, "Count-up animation must finish on the exact total");
 
 const windowStub = { addEventListener() {}, HomepageGitHubContributions: null };
 const documentStub = {
@@ -54,6 +76,7 @@ assert.strictEqual(sumContributions([{ contributions: 7 }, { contributions: 5 },
   assert(requests[1].url.endsWith("?per_page=100&page=2"));
   assert(!("Authorization" in requests[0].options.headers), "Frontend requests must not expose a GitHub token");
   assert(read("service-worker.js").includes("'/assets/js/github-contributions.js'"), "The counter script must be available offline after precaching");
+  assert(read("service-worker.js").includes("'/assets/js/count-up.js'"), "The shared count-up animation must be available offline after precaching");
   console.log("Homepage metrics tests passed.");
 })().catch((error) => {
   console.error(error);

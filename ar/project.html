@@ -1114,6 +1114,7 @@
     <script src="../assets/js/script.js"></script>
 
     <script src="../assets/js/supabase-client.js"></script>
+    <script src="../assets/js/count-up.js"></script>
 
     <script src="../assets/js/auth-ui-db.js"></script>
     <script src="../assets/js/ai-chat.js"></script>
@@ -1708,7 +1709,10 @@
 
             const totalViews = await getTotalViews(slug);
 
-            document.getElementById('viewCount').textContent = totalViews.toLocaleString('ar-OM');
+            window.CountUp.animate(document.getElementById('viewCount'), {
+                end: totalViews,
+                format: (value) => window.CountUp.formatInteger(value, 'ar-OM')
+            });
 
 
 

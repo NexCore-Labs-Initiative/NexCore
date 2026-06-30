@@ -2540,6 +2540,7 @@
     </div>
 
     <script src="assets/js/supabase-client.js"></script>
+    <script src="assets/js/count-up.js"></script>
     <script src="assets/js/script.js"></script>
     <script src="assets/js/auth-ui-db.js"></script>
 
@@ -3725,12 +3726,21 @@
                 const usersCount = usersRes.count || 0;
                 const adminsCount = adminsRes.count || 0;
 
-                document.getElementById('statApprovedUsers').textContent = usersCount;
-                document.getElementById('statAdmins').textContent = adminsCount;
-                document.getElementById('statTotal').textContent = usersCount + adminsCount;
+                animateAdminStat('statApprovedUsers', usersCount);
+                animateAdminStat('statAdmins', adminsCount);
+                animateAdminStat('statTotal', usersCount + adminsCount);
             } catch (error) {
                 console.error('Error loading stats:', error);
             }
+        }
+
+        function animateAdminStat(id, value) {
+            const element = document.getElementById(id);
+            if (!element) return;
+            window.CountUp.animate(element, {
+                end: value,
+                format: (current) => window.CountUp.formatInteger(current, 'en')
+            });
         }
 
         // Load approved users
@@ -4323,7 +4333,7 @@
             // Update pending orders stat (pending + pending_verification both need action)
             const pending = allSubscriptions.filter(o => o.status === 'pending' || o.status === 'pending_verification').length;
             const el = document.getElementById('statPendingOrders');
-            if (el) el.textContent = pending;
+            if (el) animateAdminStat('statPendingOrders', pending);
         }
 
         function updateSubFilterCounts() {

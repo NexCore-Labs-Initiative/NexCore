@@ -251,13 +251,13 @@
                     </span>
                     <span class="nav-user-actions" role="group" aria-label="${copy.accountActionsTitle}">
                         <a href="${routePrefix}/dashboard.html" id="navDashboard" class="nav-user-action" title="${copy.dashboardTitle}" aria-label="${copy.dashboardTitle}" lang="${copy.lang}" style="display: none;">
-                            <i class="fa-solid fa-gauge" aria-hidden="true"></i>
-                        </a>
-                        <a href="${routePrefix}/admin-users.html" id="navAdmin" class="nav-user-action" title="${copy.adminTitle}" aria-label="${copy.adminTitle}" lang="${copy.lang}" style="display: none;">
-                            <i class="fa-solid fa-user-shield" aria-hidden="true"></i>
+                        <i class="fa-solid fa-gauge" aria-hidden="true"></i>
                         </a>
                         <a href="${routePrefix}/account.html" id="navAccount" class="nav-user-action" title="${copy.accountTitle}" aria-label="${copy.accountTitle}" lang="${copy.lang}" style="display: none;">
-                            <i class="fa-solid fa-user-gear" aria-hidden="true"></i>
+                        <i class="fa-solid fa-gear" aria-hidden="true"></i>
+                        </a>
+                        <a href="${routePrefix}/admin-users.html" id="navAdmin" class="nav-user-action" title="${copy.adminTitle}" aria-label="${copy.adminTitle}" lang="${copy.lang}" style="display: none;">
+                            <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
                         </a>
                         <button type="button" id="navLogout" class="nav-user-action nav-user-action--logout" title="${copy.logoutTitle}" aria-label="${copy.logoutTitle}" lang="${copy.lang}" style="display: none;">
                             <i class="fa-solid fa-arrow-right-from-bracket" aria-hidden="true"></i>

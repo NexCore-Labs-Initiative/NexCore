@@ -49,21 +49,6 @@
     }
   }
 
-  function animateCompactCount(element, end, locale, duration = 1000) {
-    const startTime = performance.now();
-
-    function update(currentTime) {
-      const progress = Math.min((currentTime - startTime) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      element.textContent = formatCompactNumber(Math.floor(end * eased), locale);
-
-      if (progress < 1) requestAnimationFrame(update);
-      else element.textContent = formatCompactNumber(end, locale);
-    }
-
-    requestAnimationFrame(update);
-  }
-
   async function updateGitHubCommitCount() {
     const element = document.getElementById("githubCommitCount");
     if (!element) return;
@@ -72,7 +57,11 @@
 
     try {
       const total = await fetchContributorTotal();
-      animateCompactCount(element, total, locale);
+      window.CountUp.animate(element, {
+        end: total,
+        duration: 1000,
+        format: (value) => formatCompactNumber(value, locale)
+      });
     } catch (error) {
       console.error("Unable to load GitHub contribution count", error);
       element.textContent = "--";

@@ -200,7 +200,15 @@
 
     ["launched", "building", "exploring"].forEach((key) => {
       const count = byId(`initiativeCount${key.charAt(0).toUpperCase()}${key.slice(1)}`);
-      if (count) count.textContent = String(counts[key]);
+      if (!count) return;
+      if (window.CountUp) {
+        window.CountUp.animate(count, {
+          end: counts[key],
+          format: (value) => window.CountUp.formatInteger(value, locale())
+        });
+      } else {
+        count.textContent = String(counts[key]);
+      }
     });
   }
 
