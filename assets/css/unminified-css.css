@@ -1638,11 +1638,23 @@ textarea:focus {
 
 .paypal {
     font-size: 12px;
-    letter-spacing: 1px
+    letter-spacing: 1px;
+}
+
+.paypal i {
+    font-size: 14px;
+    opacity: .6;
+    scale: 0.85;
+}
+
+.paypal:hover i {
+    opacity: 1;
+    scale: 1;
 }
 
 .paypal:hover {
-    color: #6ee7f3
+    color: #6ee7f3;
+    text-decoration: underline;
 }
 
 @keyframes flow {
@@ -2078,11 +2090,7 @@ html[dir="rtl"] .dropdown-content a:not(.lang-switch-pill, .magic-signup, .ai-li
     transform: translateX(-4px)
 }
 
-html[dir="rtl"] .dropdown-content a.nav-user-action:hover {
-    transform: translateY(-1px)
-}
-
-.dropdown-content a:not(.lang-switch-pill, .magic-signup, .ai-link):active {
+.dropdown-content a:not(.lang-switch-pill, .magic-signup, .ai-link, .nav-user-action):active {
     color: #6ee7f3;
     transform: scale(.95)
 }
@@ -3665,7 +3673,7 @@ strong {
 }
 
 .lang-switch-pill:hover .pill-slider {
-    background: rgba(110, 231, 243, 0.3);
+    background:hsla(0, 0%, 100%, .02);
     transform: translateX(57px);
 }
 
@@ -3696,8 +3704,9 @@ strong {
     height: 36px;
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
-    background: rgba(110, 231, 243, 0.2);
+    background: hsla(0, 0%, 100%, .02);
     border-radius: 20px;
+    border: 2px solid hsla(0, 0%, 100%, .03);
     transition: transform 0.4s ease-in, background 0.3s ease;
     z-index: 1;
 }

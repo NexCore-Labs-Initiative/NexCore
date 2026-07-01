@@ -135,22 +135,30 @@ const arabicFooterFiles = [
 
 for (const file of englishFooterFiles) {
   const html = read(file);
+  const contributionStart = html.indexOf('<a class="paypal" href="https://www.paypal.me/nexcorelabs"');
+  const contribution = html.slice(contributionStart, html.indexOf("</a>", contributionStart));
   assert(
-    html.includes("Optional contribution to support platform development"),
+    html.includes("> Optional contribution"),
     `${file} must show the approved optional-contribution wording`
   );
+  assert(!html.includes("Optional contribution to support platform development"), `${file} must remove the old long footer label`);
   assert(html.includes('href="https://www.paypal.me/nexcorelabs"'), `${file} contribution must link to PayPal`);
+  assert(contribution.indexOf("fa-heart") < contribution.indexOf("fa-paypal"), `${file} must place the PayPal icon beside the heart`);
   assert(!html.includes("(Currently paused)"), `${file} must not tie contributions to the paid-order pause`);
   assert(!html.includes("Support us via"), `${file} must not describe the contribution as support via PayPal`);
 }
 
 for (const file of arabicFooterFiles) {
   const html = read(file);
+  const contributionStart = html.indexOf('<a class="paypal" href="https://www.paypal.me/nexcorelabs"');
+  const contribution = html.slice(contributionStart, html.indexOf("</a>", contributionStart));
   assert(
-    html.includes("مساهمة اختيارية لدعم تطوير المنصة"),
+    html.includes("> مساهمة اختيارية"),
     `${file} must show the approved Arabic optional-contribution wording`
   );
+  assert(!html.includes("مساهمة اختيارية لدعم تطوير المنصة</a>"), `${file} must remove the old long Arabic footer label`);
   assert(html.includes('href="https://www.paypal.me/nexcorelabs"'), `${file} contribution must link to PayPal`);
+  assert(contribution.indexOf("fa-heart") < contribution.indexOf("fa-paypal"), `${file} must place the PayPal icon beside the heart`);
   assert(!html.includes("(متوقفة حالياً)"), `${file} must not tie contributions to the paid-order pause`);
   assert(!html.includes("ادعمنا عبر"), `${file} must not use donation-style wording`);
 }

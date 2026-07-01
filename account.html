@@ -56,6 +56,11 @@
 
     .info-value-name{font-family:inherit;word-break:normal}
 
+    .info-value-copy{flex:1;cursor:copy;padding:5px 7px;margin:-5px -7px;border-radius:7px;transition:background-color .2s,color .2s,box-shadow .2s}
+    .info-value-copy:hover{background:rgba(110,231,243,.08)}
+    .info-value-copy:focus-visible{outline:2px solid rgba(110,231,243,.7);outline-offset:2px}
+    .info-value-copy.copied{background:rgba(110,231,243,.14);color:#fff;box-shadow:0 0 0 1px rgba(110,231,243,.28)}
+
     .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 
     .btn:disabled{opacity:.5;cursor:not-allowed}
@@ -404,11 +409,7 @@
           <div class="info-row">
             <span class="info-label">User ID:</span>
 
-            <span class="info-value" id="userId">Loading...</span>
-
-            <button class="btn copy" id="copyUserIdBtn" title="Copy User ID">
-              <i class="fa-solid fa-copy"></i>
-            </button>
+            <span class="info-value info-value-copy" id="userId" role="button" tabindex="0" title="Click to copy User ID" aria-label="Copy User ID">Loading...</span>
           </div>
 
           <div class="info-row">
@@ -714,7 +715,7 @@
       <footer class="site-footer">
         <div class="container footer-inner">
           <div class="f-left">
-            <a class="paypal" href="https://www.paypal.me/nexcorelabs" target="_blank" rel="noopener" title="Optional contribution via PayPal"><i class="fa-solid fa-heart" style="color: #6EE7F3;"></i> Optional contribution to support platform development</a>
+            <a class="paypal" href="https://www.paypal.me/nexcorelabs" target="_blank" rel="noopener" title="Optional contribution via PayPal"><i class="fa-solid fa-heart" style="color: #6EE7F3;"></i><i class="fa-brands fa-paypal"></i> Optional contribution</a>
 
             <br>
 
@@ -1941,9 +1942,8 @@ Total Projects: ${projectCount}`;
 
     async function copyUserId() {
 
-      const userIdText = document.getElementById("userId").textContent;
-
-      const btn = document.getElementById("copyUserIdBtn");
+      const userIdElement = document.getElementById("userId");
+      const userIdText = userIdElement.textContent;
 
 
 
@@ -1955,40 +1955,32 @@ Total Projects: ${projectCount}`;
 
         await navigator.clipboard.writeText(userIdText);
 
-
-
-        // Visual feedback
-
-        const originalHTML = btn.innerHTML;
-
-        btn.classList.add("copied");
-
-        btn.innerHTML = '<i class="fa-solid fa-check"></i>';
+        userIdElement.classList.add("copied");
+        userIdElement.setAttribute("aria-label", "User ID copied");
+        setMsg("", "User ID copied.");
 
 
 
         setTimeout(() => {
 
-          btn.classList.remove("copied");
-
-          btn.innerHTML = originalHTML;
+          userIdElement.classList.remove("copied");
+          userIdElement.setAttribute("aria-label", "Copy User ID");
 
         }, 2000);
 
       } catch (error) {
 
         console.error("Failed to copy:", error);
-
-        btn.innerHTML = '<i class="fa-solid fa-xmark"></i> Failed';
-
-        setTimeout(() => {
-
-          btn.innerHTML = '<i class="fa-solid fa-copy"></i> Copy';
-
-        }, 2000);
+        setMsg("", "Could not copy the User ID.", true);
 
       }
 
+    }
+
+    function handleUserIdCopyKeydown(event) {
+      if (event.key !== "Enter" && event.key !== " ") return;
+      event.preventDefault();
+      copyUserId();
     }
 
     document.addEventListener("DOMContentLoaded", async () => {
@@ -2017,7 +2009,9 @@ Total Projects: ${projectCount}`;
 
       document.getElementById("deleteProjectBtn").addEventListener("click", openDeleteProjectModal);
 
-      document.getElementById("copyUserIdBtn").addEventListener("click", copyUserId);
+      const userIdElement = document.getElementById("userId");
+      userIdElement.addEventListener("click", copyUserId);
+      userIdElement.addEventListener("keydown", handleUserIdCopyKeydown);
 
       document.getElementById("contactInfoForm").addEventListener("submit", saveContactInfo);
 
