@@ -390,6 +390,9 @@ transition: transform 0.32s cubic-bezier(0.2, 0.9, 0.3, 1), opacity 0.28s ease;
 
 .initiative-modal-visual {
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   min-height: 100%;
   overflow: hidden;
   background:
@@ -398,10 +401,12 @@ transition: transform 0.32s cubic-bezier(0.2, 0.9, 0.3, 1), opacity 0.28s ease;
 }
 
 .initiative-modal-visual img {
+  display: block;
   width: 100%;
-  height: 100%;
-  min-height: 260px;
-  object-fit: cover;
+  max-width: 100%;
+  height: auto;
+  min-height: 0;
+  object-fit: contain;
 }
 
 .initiative-modal-body {
@@ -562,8 +567,18 @@ body.initiative-modal-open { overflow: hidden; }
   .initiative-card--featured .initiative-card-visual { min-height: 144px; }
   .initiative-modal { padding: 12px; }
   .initiative-modal-dialog { grid-template-columns: 1fr; max-height: calc(100vh - 24px); }
-  .initiative-modal-visual { min-height: 150px; max-height: 210px; }
-  .initiative-modal-visual img { min-height: 150px; }
+  .initiative-modal-visual {
+    width: 100%;
+    height: clamp(260px, 76vw, 340px);
+    min-height: 0;
+    max-height: none;
+  }
+  .initiative-modal-visual img {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    object-fit: contain;
+  }
   .initiative-modal-body { padding: 26px 20px 22px; }
 }
 

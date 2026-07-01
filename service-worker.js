@@ -119,6 +119,8 @@ const PRECACHE_URLS = [
   '/assets/js/initiatives.js',
   '/assets/js/initiatives-admin.js',
   '/assets/js/supabase-client.js',
+  '/assets/js/count-up.js',
+  '/assets/js/github-contributions.js',
   '/assets/data/releases.json',
   '/version.js',
 

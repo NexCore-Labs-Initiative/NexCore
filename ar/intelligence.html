@@ -160,7 +160,7 @@
       color: var(--muted);
     }
 
-    #page-usage-pill {
+    /* #page-usage-pill {
       font-size: 11px;
       padding: 3px 9px;
       border-radius: 20px;
@@ -187,7 +187,7 @@
       background: rgba(255, 60, 60, 0.10);
       border-color: rgba(255, 60, 60, 0.25);
       color: #ff5555;
-    }
+    } */
 
     /* ── Messages ─────────────────────────────────────────────── */
     #page-messages {
@@ -754,8 +754,9 @@
           <input type="search" placeholder="ماذا؟..." id="myInput" onkeyup="filterFunction()" title="بحث...">
           <a href="/ar/initiatives.html" class="fade" data-initiatives-nav title="مبادرات NexCore Labs"><i class="fa-solid fa-wand-magic-sparkles"></i> المبادرات <span class="new-badge">جديد</span></a>
 
+          <div class="div-menu-line"></div>
 
-          <a href="/ar/hub.html" class="fade" title="مركز NexCore Labs"><span class="menu-dots-icon" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></span> المركز</a>
+          <a href="/ar/hub.html" class="fade mt-0" title="مركز NexCore Labs"><span class="menu-dots-icon" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></span> المركز</a>
           <a href="/ar/hub.html#projects" class="fade" title="المشاريع"><i class="fa-solid fa-diagram-project"></i> المشاريع</a>
 
           <div class="div-menu-line"></div>
@@ -774,7 +775,10 @@
 
           <a href="/ar/pricing.html" class="fade mt-0" title="خطط الأسعار"><i class="fa-solid fa-tag"></i> الأسعار <span class="new-badge">جديد</span></a>
           <a href="/ar/pricing-policy.html" class="fade" title="سياسة التسعير والفوترة"><i class="fa-solid fa-receipt"></i> سياسة التسعير <span class="new-badge">جديد</span></a>
-          <a href="/ar/faq.html" class="fade" title="الأسئلة الشائعة والدعم"><i class="fa-solid fa-circle-question"></i> الأسئلة الشائعة</a>
+
+          <div class="div-menu-line"></div>
+
+          <a href="/ar/faq.html" class="fade mt-0" title="الأسئلة الشائعة والدعم"><i class="fa-solid fa-circle-question"></i> الأسئلة الشائعة</a>
           <a href="/ar/how-to-use.html" class="fade" title="كيفية استخدام NexCore Labs"><i class="fa-solid fa-book-open"></i> كيفية الاستخدام</a>
           <a href="/ar/terms.html" class="fade" title="شروط الخدمة"><i class="fa-solid fa-file-contract"></i> الشروط</a>
           <a href="/ar/privacy-policy.html" class="fade" title="سياسة الخصوصية"><i class="fa-solid fa-shield-halved"></i> سياسة الخصوصية</a>
@@ -802,7 +806,7 @@
             ذكاء NexCore
             <div class="cc-subtitle" id="page-status">قيد التطوير</div>
           </div>
-          <span id="page-usage-pill" title="الرسائل المتبقية اليوم"></span>
+          <!-- <span id="page-usage-pill" title="الرسائل المتبقية اليوم"></span> -->
         </div>
 
         <!-- Messages -->
@@ -817,28 +821,6 @@
 
         <!-- Quick suggestions -->
         <div id="page-suggestions" aria-label="اقتراحات سريعة"></div>
-
-        <!-- Input row (replaced by sign-in prompt if not authenticated) -->
-        <div id="page-input-wrap">
-          <div class="chat-input-row">
-            <textarea
-              id="page-input"
-              rows="1"
-              placeholder="ذكاء NexCore قيد التطوير"
-              maxlength="500"
-              aria-label="حقل الرسالة"
-              autocomplete="off"
-              spellcheck="true"
-              disabled
-            ></textarea>
-            <button id="page-send" class="btn primary" aria-label="إرسال الرسالة" title="إرسال (Enter)" disabled>
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <line x1="22" y1="2" x2="11" y2="13"/>
-                <polygon points="22 2 15 22 11 13 2 9 22 2"/>
-              </svg>
-            </button>
-          </div>
-        </div>
 
       </div>
 
@@ -879,7 +861,7 @@
   <footer class="site-footer">
     <div class="container footer-inner">
       <div class="f-left">
-          <a class="paypal" href="https://www.paypal.me/nexcorelabs" target="_blank" rel="noopener" title="مساهمة اختيارية عبر PayPal"><i class="fa-solid fa-heart" style="color: #6EE7F3;"></i> مساهمة اختيارية لدعم تطوير المنصة</a>
+          <a class="paypal" href="https://www.paypal.me/nexcorelabs" target="_blank" rel="noopener" title="مساهمة اختيارية عبر PayPal"><i class="fa-solid fa-heart" style="color: #6EE7F3;"></i><i class="fa-brands fa-paypal"></i> مساهمة اختيارية</a>
 
           <br>
 
@@ -940,7 +922,7 @@
       const elInput       = document.getElementById('page-input');
       const elSend        = document.getElementById('page-send');
       const elStatus      = document.getElementById('page-status');
-      const elUsagePill   = document.getElementById('page-usage-pill');
+      // const elUsagePill   = document.getElementById('page-usage-pill');
       const elSuggestions = document.getElementById('page-suggestions');
       const elInputWrap   = document.getElementById('page-input-wrap');
 
@@ -1131,15 +1113,15 @@
       }
 
       // ── Usage ─────────────────────────────────────────────────
-      function updatePill() {
-        elUsagePill.textContent = `${chatRemaining} / ${chatMax} متبقية`;
-        const ratio = chatMax > 0 ? chatRemaining / chatMax : 0;
-        let cls = '';
-        if (chatRemaining === 0)     cls = 'depleted';
-        else if (chatRemaining === 1) cls = 'critical';
-        else if (ratio <= 0.67)       cls = 'warning';
-        elUsagePill.className = cls;
-      }
+      // function updatePill() {
+      //   elUsagePill.textContent = `${chatRemaining} / ${chatMax} متبقية`;
+      //   const ratio = chatMax > 0 ? chatRemaining / chatMax : 0;
+      //   let cls = '';
+      //   if (chatRemaining === 0)     cls = 'depleted';
+      //   else if (chatRemaining === 1) cls = 'critical';
+      //   else if (ratio <= 0.67)       cls = 'warning';
+      //   elUsagePill.className = cls;
+      // }
 
       async function fetchUsage() {
         const token = await getToken();

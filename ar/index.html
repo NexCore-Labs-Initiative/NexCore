@@ -171,7 +171,10 @@
 
           <input type="search" placeholder="ابحث..." id="myInput" onkeyup="filterFunction()" title="بحث...">
           <a href="/ar/initiatives.html" class="fade" data-initiatives-nav title="مبادرات NexCore Labs"><i class="fa-solid fa-wand-magic-sparkles"></i> المبادرات <span class="new-badge">جديد</span></a>
-          <a href="/ar/hub.html" class="fade" title="مركز NexCore Labs"><span class="menu-dots-icon" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></span> المركز</a>
+
+          <div class="div-menu-line"></div>
+
+          <a href="/ar/hub.html" class="fade mt-0" title="مركز NexCore Labs"><span class="menu-dots-icon" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></span> المركز</a>
           <a href="/ar/hub.html#projects" class="fade" title="المشاريع"><i class="fa-solid fa-diagram-project"></i> المشاريع</a>
 
           <div class="div-menu-line"></div>
@@ -190,7 +193,10 @@
 
           <a href="/ar/pricing.html" class="fade mt-0" title="خطط التسعير"><i class="fa-solid fa-tag"></i> التسعير <span class="new-badge">جديد</span></a>
           <a href="/ar/pricing-policy.html" class="fade" title="سياسة التسعير والفوترة"><i class="fa-solid fa-receipt"></i> سياسة التسعير <span class="new-badge">جديد</span></a>
-          <a href="/ar/faq.html" class="fade" title="الأسئلة الشائعة والدعم"><i class="fa-solid fa-circle-question"></i> الأسئلة الشائعة</a>
+
+          <div class="div-menu-line"></div>
+
+          <a href="/ar/faq.html" class="fade mt-0" title="الأسئلة الشائعة والدعم"><i class="fa-solid fa-circle-question"></i> الأسئلة الشائعة</a>
           <a href="/ar/how-to-use.html" class="fade" title="كيفية استخدام NexCore Labs"><i class="fa-solid fa-book-open"></i> كيفية الاستخدام</a>
           <a href="/ar/terms.html" class="fade" title="شروط الخدمة"><i class="fa-solid fa-file-contract"></i> الشروط</a>
           <a href="/ar/privacy-policy.html" class="fade" title="سياسة الخصوصية"><i class="fa-solid fa-shield-halved"></i> الخصوصية</a>
@@ -221,7 +227,7 @@
             <div class="card-wave"></div>
 
             <div class="card-content">
-              <h4>المبادرات الحالية</h4>
+              <h4>سير العمل الحالي</h4>
 
               <p class="muted">التخطيط · التطوير · المراقبة</p>
 
@@ -233,15 +239,19 @@
                   </div>
                 </a>
 
-                <div class="stat"><strong id="tasks">٥٨٠+</strong><span><i class="fa-solid fa-bars-progress"></i>
-                    مهام</span>
-                  <div class="tooltip">لقد أكملنا ٥٨٠+ عنصر قابل للتنفيذ</div>
-                </div>
+                <a href="https://github.com/NexCore-Labs-Initiative/NexCore/commits/" target="_blank" rel="noopener noreferrer">
+                  <div class="stat"><strong id="githubCommitCount">--</strong><span><i class="fa-brands fa-github"></i>
+                      التحديثات</span>
+                    <div class="tooltip">إجمالي تحديثات مساهمي هذا المشروع على GitHub</div>
+                  </div>
+                </a>
 
-                <div class="stat"><strong id="support">٤٨ ساعة</strong><span><i class="fa-solid fa-headset"></i>
-                    الدعم</span>
-                  <div class="tooltip">يرد فريق الدعم خلال ٤٨ ساعة</div>
-                </div>
+                <a href="/ar/initiatives.html">
+                  <div class="stat"><strong id="initiativeCount">٠٠+</strong><span><i
+                        class="fa-solid fa-wand-magic-sparkles"></i> مبادرات</span>
+                    <div class="tooltip">جميع المبادرات العامة المتاحة حالياً</div>
+                  </div>
+                </a>
               </div>
             </div>
           </div>
@@ -585,7 +595,7 @@
   <footer class="site-footer">
     <div class="container footer-inner">
       <div class="f-left">
-          <a class="paypal" href="https://www.paypal.me/nexcorelabs" target="_blank" rel="noopener" title="مساهمة اختيارية عبر PayPal"><i class="fa-solid fa-heart" style="color: #6EE7F3;"></i> مساهمة اختيارية لدعم تطوير المنصة</a>
+          <a class="paypal" href="https://www.paypal.me/nexcorelabs" target="_blank" rel="noopener" title="مساهمة اختيارية عبر PayPal"><i class="fa-solid fa-heart" style="color: #6EE7F3;"></i><i class="fa-brands fa-paypal"></i> مساهمة اختيارية</a>
 
           <br>
 
@@ -601,10 +611,12 @@
     </div>
   </footer>
 
-  <!-- <script src="../assets/js/unminified-js.js"></script> -->
-  <script src="../assets/js/script.js"></script>
+  <script src="../assets/js/unminified-js.js"></script>
+  <!-- <script src="../assets/js/script.js"></script> -->
   <script src="../assets/js/team-id-cards.js"></script>
   <script src="../assets/js/supabase-client.js"></script>
+  <script src="../assets/js/count-up.js"></script>
+  <script src="../assets/js/github-contributions.js"></script>
   <script src="../assets/js/newsletter.js"></script>
   <script src="../assets/js/auth-ui-db.js"></script>
   <script src="../assets/js/ai-chat.js"></script>
@@ -638,51 +650,54 @@
       }
     }
 
-    function animateCount(element, start, end, duration) {
-      const startTime = performance.now();
-      const range = end - start;
-      
-      // Check if the current page is Arabic (Run this once per animation to save performance)
-      const isArabic = document.documentElement.lang === 'ar' || document.documentElement.dir === 'rtl';
-
-      function updateCount(currentTime) {
-        const elapsed = currentTime - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        
-        // Easing function for smooth slowdown at the end
-        const easeOut = 1 - Math.pow(1 - progress, 3);
-        const current = Math.floor(start + range * easeOut);
-        
-        // 1. Get the current number as a padded string
-        let formattedStr = current.toString().padStart(2, '0');
-        
-        // 2. Convert to Arabic numerals if on the Arabic page
-        if (isArabic) {
-            formattedStr = formattedStr.replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[d]);
-        }
-        
-        // 3. Output to the element
-        element.textContent = formattedStr + '+';
-
-        if (progress < 1) {
-          requestAnimationFrame(updateCount);
-        } else {
-          // Ensure the final number is perfectly exact and translated
-          let finalStr = end.toString().padStart(2, '0');
-          if (isArabic) {
-              finalStr = finalStr.replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[d]);
-          }
-          element.textContent = finalStr + '+';
-        }
+    async function updateInitiativeCount() {
+      const sb = window.supabaseClient;
+      const countElement = document.getElementById('initiativeCount');
+      if (!countElement) {
+        console.error('initiativeCount element not found');
+        return;
       }
-      
-      requestAnimationFrame(updateCount);
+      try {
+        const { count, error } = await sb
+          .from('initiatives')
+          .select('*', { count: 'exact', head: true })
+          .eq('visibility', 'public');
+
+        if (error) {
+          console.error('Error fetching initiatives count:', error);
+          countElement.textContent = '--';
+          return;
+        }
+
+        animateCount(countElement, 0, count || 0, 1000);
+      } catch (err) {
+        console.error('Unexpected error fetching initiatives count:', err);
+        countElement.textContent = '--';
+      }
+    }
+
+    function animateCount(element, start, end, duration) {
+      const isArabic = document.documentElement.lang === 'ar' || document.documentElement.dir === 'rtl';
+      window.CountUp.animate(element, {
+        start,
+        end,
+        duration,
+        format: (value) => {
+          let formatted = value.toString().padStart(2, '0');
+          if (isArabic) formatted = formatted.replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[d]);
+          return formatted + '+';
+        }
+      });
     }
 
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', updateProjectCount);
+      document.addEventListener('DOMContentLoaded', () => {
+        updateProjectCount();
+        updateInitiativeCount();
+      });
     } else {
       updateProjectCount();
+      updateInitiativeCount();
     }
 
     if ('serviceWorker' in navigator) {

@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
     menuHint: "&#x1F44B; أنا القائمة",
     rotator: [
       `<div class="flag-includes"><img src="../assets/images/oman.webp" alt="علم عمان"><span>صُنع بفخر في عمان</span></div>`,
-      `<div class="flag-includes"><img src="../assets/images/oman-data-protect.webp" alt="علم عمان"><span>نراعي قوانين حماية البيانات في عُمان</span></div>`,
+      `<i class="fa-solid fa-user-shield"></i> نراعي قوانين حماية البيانات في عُمان`,
       "الفارق بين الجيد والممتاز هو الاهتمام.",
       "حقيقي. مفيد. منجز.",
       "اعرض · اكتشف · تعاون",
@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
     menuHint: "&#x1F44B; I'm the menu",
     rotator: [
       `<div class="flag-includes"><img src="assets/images/oman.webp" alt="Oman flag"><span>Proudly Built in Oman</span></div>`,
-      `<div class="flag-includes"><img src="assets/images/oman-data-protect.webp" alt="Oman flag"><span>Designed with Oman data protection in mind</span></div>`,
+      `<i class="fa-solid fa-user-shield"></i> Designed with Oman data protection in mind`,
       "The margin between good and great is care.",
       "Real. Useful. Done.",
       "Showcase • Discover • Collaborate",

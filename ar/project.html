@@ -905,8 +905,9 @@
           <input type="search" placeholder="ابحث..." id="myInput" onkeyup="filterFunction()" title="بحث...">
           <a href="initiatives.html" class="fade" data-initiatives-nav title="مبادرات NexCore Labs"><i class="fa-solid fa-wand-magic-sparkles"></i> المبادرات <span class="new-badge">جديد</span></a>
 
+          <div class="div-menu-line"></div>
 
-          <a href="hub.html" class="fade" title="مركز NexCore Labs"><span class="menu-dots-icon" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></span> المركز</a>
+          <a href="hub.html" class="fade mt-0" title="مركز NexCore Labs"><span class="menu-dots-icon" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></span> المركز</a>
           <a href="hub.html#projects" class="fade" title="المشاريع"><i class="fa-solid fa-diagram-project"></i> المشاريع</a>
 
           <div class="div-menu-line"></div>
@@ -925,7 +926,10 @@
 
           <a href="pricing.html" class="fade mt-0" title="خطط التسعير"><i class="fa-solid fa-tag"></i> التسعير <span class="new-badge">جديد</span></a>
           <a href="pricing-policy.html" class="fade" title="سياسة التسعير والفوترة"><i class="fa-solid fa-receipt"></i> سياسة التسعير <span class="new-badge">جديد</span></a>
-          <a href="faq.html" class="fade" title="الأسئلة الشائعة والدعم"><i class="fa-solid fa-circle-question"></i> الأسئلة الشائعة</a>
+
+          <div class="div-menu-line"></div>
+
+          <a href="faq.html" class="fade mt-0" title="الأسئلة الشائعة والدعم"><i class="fa-solid fa-circle-question"></i> الأسئلة الشائعة</a>
           <a href="how-to-use.html" class="fade" title="كيفية استخدام NexCore Labs"><i class="fa-solid fa-book-open"></i> كيفية الاستخدام</a>
           <a href="terms.html" class="fade" title="شروط الخدمة"><i class="fa-solid fa-file-contract"></i> الشروط</a>
           <a href="privacy-policy.html" class="fade" title="سياسة الخصوصية"><i class="fa-solid fa-shield-halved"></i> الخصوصية</a>
@@ -1110,6 +1114,7 @@
     <script src="../assets/js/script.js"></script>
 
     <script src="../assets/js/supabase-client.js"></script>
+    <script src="../assets/js/count-up.js"></script>
 
     <script src="../assets/js/auth-ui-db.js"></script>
     <script src="../assets/js/ai-chat.js"></script>
@@ -1704,7 +1709,10 @@
 
             const totalViews = await getTotalViews(slug);
 
-            document.getElementById('viewCount').textContent = totalViews.toLocaleString('ar-OM');
+            window.CountUp.animate(document.getElementById('viewCount'), {
+                end: totalViews,
+                format: (value) => window.CountUp.formatInteger(value, 'ar-OM')
+            });
 
 
 

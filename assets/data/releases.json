@@ -2,6 +2,144 @@
   "schema_version": 1,
   "releases": [
     {
+      "version": "v3.1.2",
+      "date": "2026-07-01",
+      "title": {
+        "en": "The Live Experience Polish",
+        "ar": "صقل التجربة الحية"
+      },
+      "summary": {
+        "en": "A focused polish release with clearer navigation, live platform metrics, smoother number animations, refreshed account controls, and targeted visual fixes.",
+        "ar": "إصدار صقل مركّز يضيف تنقلاً أوضح، ومؤشرات حية للمنصة، وحركة أكثر سلاسة للأرقام، وعناصر حساب محدّثة، وإصلاحات بصرية مستهدفة."
+      },
+      "tags": [
+        "improvement",
+        "fix"
+      ],
+      "user_updates": {
+        "improvements": [
+          {
+            "text": {
+              "en": "Improved the navigation menu with separators between key link groups, including Initiatives, Hub, pricing, and support content.",
+              "ar": "تحسين قائمة التنقل بإضافة فواصل بين مجموعات الروابط الرئيسية، بما يشمل المبادرات، والمركز، والأسعار، ومحتوى الدعم."
+            },
+            "evidence": [
+              "file:index.html",
+              "file:ar/index.html",
+              "file:assets/js/auth-ui-db.js"
+            ]
+          },
+          {
+            "text": {
+              "en": "Removed the chat input and send button from NexCore Intelligence while the service remains disabled, making its current status clearer.",
+              "ar": "إزالة حقل المحادثة وزر الإرسال من ذكاء NexCore أثناء بقاء الخدمة معطلة، لتوضيح حالتها الحالية بصورة أفضل."
+            },
+            "evidence": [
+              "file:intelligence.html",
+              "file:ar/intelligence.html"
+            ]
+          },
+          {
+            "text": {
+              "en": "Refreshed the homepage status cards by replacing static support and tasks figures with a live public initiatives count and live GitHub commit activity.",
+              "ar": "تحديث بطاقات حالة الصفحة الرئيسية باستبدال أرقام الدعم والمهام الثابتة بعدد حي للمبادرات العامة ونشاط حي لتحديثات GitHub."
+            },
+            "evidence": [
+              "file:index.html",
+              "file:ar/index.html",
+              "file:assets/js/github-contributions.js"
+            ]
+          },
+          {
+            "text": {
+              "en": "Added smooth count-up animations to live metrics, initiative summaries, and calculated totals on the pricing pages.",
+              "ar": "إضافة حركة تصاعدية سلسة للأرقام في المؤشرات الحية، وملخصات المبادرات، والإجماليات المحسوبة في صفحات الأسعار."
+            },
+            "evidence": [
+              "file:assets/js/count-up.js",
+              "file:index.html",
+              "file:initiatives.html",
+              "file:pricing.html",
+              "file:ar/pricing.html"
+            ]
+          },
+          {
+            "text": {
+              "en": "Refreshed the authenticated Nav User toolbar with cleaner action styling, updated icons, and improved mobile behavior.",
+              "ar": "تحديث شريط المستخدم المسجّل في قائمة التنقل بتنسيق أوضح للإجراءات، وأيقونات محدّثة، وسلوك أفضل على الهواتف."
+            },
+            "evidence": [
+              "file:assets/js/auth-ui-db.js",
+              "file:assets/css/style.css",
+              "file:assets/css/unminified-css.css"
+            ]
+          }
+        ],
+        "fixes": [
+          {
+            "text": {
+              "en": "Fixed initiative images so cached and newly loaded visuals reveal correctly and fit cleanly inside the initiative preview.",
+              "ar": "إصلاح صور المبادرات لتظهر الصور المحمّلة مسبقاً والجديدة بصورة صحيحة، وتتناسب بوضوح داخل معاينة المبادرة."
+            },
+            "evidence": [
+              "file:assets/js/initiatives.js",
+              "file:assets/css/initiatives.css",
+              "file:initiatives.html",
+              "file:ar/initiatives.html"
+            ]
+          }
+        ]
+      },
+      "developer_notes": {
+        "technical_changes": [
+          {
+            "text": {
+              "en": "Added a shared count-up utility with locale-aware formatting and reusable animation handling across homepage, initiative, and pricing metrics.",
+              "ar": "إضافة أداة مشتركة لتصاعد الأرقام مع تنسيق متوافق مع اللغة ومعالجة حركة قابلة لإعادة الاستخدام في مؤشرات الصفحة الرئيسية والمبادرات والأسعار."
+            },
+            "evidence": [
+              "file:assets/js/count-up.js",
+              "file:assets/js/initiatives.js",
+              "file:pricing.html",
+              "file:ar/pricing.html"
+            ]
+          },
+          {
+            "text": {
+              "en": "Added GitHub contribution loading for the live commits KPI and connected the public initiatives metric to published initiative data.",
+              "ar": "إضافة تحميل مساهمات GitHub لمؤشر التحديثات الحي، وربط مؤشر المبادرات العامة ببيانات المبادرات المنشورة."
+            },
+            "evidence": [
+              "file:assets/js/github-contributions.js",
+              "file:index.html",
+              "file:ar/index.html"
+            ]
+          }
+        ],
+        "internal_improvements": [
+          {
+            "text": {
+              "en": "Added regression coverage for homepage metrics, animated counters, pricing totals, initiative images, and account navigation UX.",
+              "ar": "إضافة اختبارات لمنع تكرار الأخطاء في مؤشرات الصفحة الرئيسية، وعدادات الحركة، وإجماليات الأسعار، وصور المبادرات، وتجربة تنقل الحساب."
+            },
+            "evidence": [
+              "file:scripts/homepage-metrics-test.js",
+              "file:scripts/counter-coverage-test.js",
+              "file:scripts/initiatives-test.js",
+              "file:scripts/pricing-policy-test.js",
+              "file:scripts/account-ux-test.js"
+            ]
+          }
+        ]
+      },
+      "is_major_release": false,
+      "source": {
+        "base_tag": "v3.1.1",
+        "target": "v3.1.2",
+        "commit_range": "v3.1.1..v3.1.2"
+      }
+    },
+    {
       "version": "v3.1.1",
       "date": "2026-06-27",
       "title": {

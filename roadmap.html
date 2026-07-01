@@ -1401,8 +1401,9 @@ main {
           <input type="search" placeholder="What?..." id="myInput" onkeyup="filterFunction()" title="Search...">
           <a href="initiatives.html" class="fade" data-initiatives-nav title="NexCore Labs Initiatives"><i class="fa-solid fa-wand-magic-sparkles"></i> Initiatives <span class="new-badge">New</span></a>
 
+          <div class="div-menu-line"></div>
 
-          <a href="hub.html" class="fade" title="NexCore Labs Hub"><span class="menu-dots-icon" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></span> Hub</a>
+          <a href="hub.html" class="fade mt-0" title="NexCore Labs Hub"><span class="menu-dots-icon" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></span> Hub</a>
           <a href="hub.html#projects" class="fade" title="Projects"><i class="fa-solid fa-diagram-project"></i> Projects</a>
 
           <div class="div-menu-line"></div>
@@ -1421,7 +1422,10 @@ main {
 
           <a href="pricing.html" class="fade mt-0" title="Pricing Plans"><i class="fa-solid fa-tag"></i> Pricing <span class="new-badge">New</span></a>
           <a href="pricing-policy.html" class="fade" title="Pricing and Billing Policy"><i class="fa-solid fa-receipt"></i> Pricing Policy <span class="new-badge">New</span></a>
-          <a href="faq.html" class="fade" title="FAQ & Support"><i class="fa-solid fa-circle-question"></i> FAQ</a>
+
+          <div class="div-menu-line"></div>
+
+          <a href="faq.html" class="fade mt-0" title="FAQ & Support"><i class="fa-solid fa-circle-question"></i> FAQ</a>
           <a href="how-to-use.html" class="fade" title="How to Use NexCore Labs"><i class="fa-solid fa-book-open"></i> How to Use</a>
           <a href="terms.html" class="fade" title="Terms of Service"><i class="fa-solid fa-file-contract"></i> Terms</a>
           <a href="privacy-policy.html" class="fade" title="Privacy Policy"><i class="fa-solid fa-shield-halved"></i> Privacy Policy</a>
@@ -1613,7 +1617,7 @@ main {
   <footer class="site-footer">
     <div class="container footer-inner">
       <div class="f-left">
-        <a class="paypal" href="https://www.paypal.me/nexcorelabs" target="_blank" rel="noopener" title="Optional contribution via PayPal"><i class="fa-solid fa-heart" style="color: #6EE7F3;"></i> Optional contribution to support platform development</a>
+        <a class="paypal" href="https://www.paypal.me/nexcorelabs" target="_blank" rel="noopener" title="Optional contribution via PayPal"><i class="fa-solid fa-heart" style="color: #6EE7F3;"></i><i class="fa-brands fa-paypal"></i> Optional contribution</a>
 
         <br>
 
@@ -1638,6 +1642,7 @@ main {
   <!-- <!-- <script src="assets/js/unminified-js.js"></script> --> -->
 
   <script src="assets/js/supabase-client.js"></script>
+  <script src="assets/js/count-up.js"></script>
 
   <script src="assets/js/auth-ui-db.js"></script>
 
@@ -2338,12 +2343,20 @@ async function updateStats() {
   const counts = { planned: 0, in_progress: 0, completed: 0 };
   data.forEach(r => { if (counts[r.status] !== undefined) counts[r.status]++; });
 
-  $('#stat-total') && ($('#stat-total').textContent = total);
-  $('#stat-votes') && ($('#stat-votes').textContent = votes);
-  $('#count-planned') && ($('#count-planned').textContent = counts.planned);
-  $('#count-inprog')  && ($('#count-inprog').textContent  = counts.in_progress);
-  $('#count-done')    && ($('#count-done').textContent    = counts.completed);
-  $('#stat-done')     && ($('#stat-done').textContent     = counts.completed);
+  const animateStat = (selector, value) => {
+    const element = $(selector);
+    if (!element) return;
+    window.CountUp.animate(element, {
+      end: value,
+      format: (current) => window.CountUp.formatInteger(current, 'en')
+    });
+  };
+  animateStat('#stat-total', total);
+  animateStat('#stat-votes', votes);
+  animateStat('#count-planned', counts.planned);
+  animateStat('#count-inprog', counts.in_progress);
+  animateStat('#count-done', counts.completed);
+  animateStat('#stat-done', counts.completed);
 }
 
 // ── VOTING ─────────────────────────────────────────────────
