@@ -3,6 +3,7 @@
 const assert = require("assert");
 const fs = require("fs");
 const path = require("path");
+const vm = require("vm");
 const {
   FEATURE_CATALOG,
   OMR_TO_USD,
@@ -261,6 +262,36 @@ assert(validatePolicyAcceptance(false, PRICING_POLICY_VERSION));
 assert(validatePolicyAcceptance(true, "old-version"));
 assert.equal(PAYMENTS_ENABLED, false);
 assert.equal(validatePaymentsEnabled(), PAYMENTS_PAUSED_MESSAGE);
+
+for (const file of ["pricing.html", "ar/pricing.html"]) {
+  const html = read(file);
+  assert(html.includes("assets/js/count-up.js"), `${file} must load the shared count-up animation`);
+  assert(html.includes("window.CountUp.animate(priceBarTotal"), `${file} must animate the OMR total`);
+  assert(html.includes("window.CountUp.animate(priceBarUSD"), `${file} must animate the USD reference`);
+  assert(html.includes("precision: 3"), `${file} must preserve three-decimal OMR precision`);
+  assert(html.includes("precision: 2"), `${file} must preserve two-decimal USD precision`);
+  assert(!html.includes("priceUpdate"), `${file} must remove the old price glow animation`);
+  assert(!html.includes("classList.add('updating')"), `${file} must not trigger the old glow class`);
+  assert(
+    html.includes('FEATURE_CATALOG[f.id].icon'),
+    `${file} price-bar chips must use the selected feature icon`
+  );
+  assert(
+    html.includes('class="price-feature-chip-label"'),
+    `${file} price-bar chips must retain their accessible text label`
+  );
+  assert(
+    html.includes('.price-feature-chip-label { display: none; }'),
+    `${file} price-bar chip labels must collapse on small screens`
+  );
+  for (const icon of ['fa-headset', 'fa-infinity', 'fa-screwdriver-wrench', 'fa-bolt', 'fa-star']) {
+    assert(html.includes(`icon: 'fa-solid ${icon}'`), `${file} must map ${icon} to a pricing feature`);
+  }
+  for (const match of html.matchAll(/<script([^>]*)>([\s\S]*?)<\/script>/gi)) {
+    if (/\bsrc\s*=/.test(match[1]) || /application\/ld\+json/i.test(match[1])) continue;
+    new vm.Script(match[2], { filename: `${file}:inline-script` });
+  }
+}
 
 const priced = validateAndPriceFeatures(
   [{ id: "lifetime" }, { id: "support_1month" }],

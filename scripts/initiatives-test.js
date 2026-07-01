@@ -119,7 +119,32 @@ const documentStub = {
   addEventListener() {}
 };
 vm.runInNewContext(read("assets/js/initiatives.js"), { window: windowStub, document: documentStub, URL, URLSearchParams, console });
-const { normalizeInitiative, filterInitiatives } = windowStub.InitiativesPage;
+const { normalizeInitiative, filterInitiatives, revealImageWhenReady } = windowStub.InitiativesPage;
+
+let loadHandler = null;
+const loadingImage = {
+  complete: false,
+  naturalWidth: 0,
+  classList: { add(className) { this.added = className; } },
+  addEventListener(eventName, handler, options) {
+    assert.strictEqual(eventName, "load");
+    assert.strictEqual(options.once, true);
+    loadHandler = handler;
+  }
+};
+revealImageWhenReady(loadingImage);
+assert.strictEqual(loadingImage.classList.added, undefined, "An image must remain hidden until it loads");
+loadHandler();
+assert.strictEqual(loadingImage.classList.added, "is-loaded", "A loaded initiative image must become visible");
+
+const cachedImage = {
+  complete: true,
+  naturalWidth: 512,
+  classList: { add(className) { this.added = className; } },
+  addEventListener() {}
+};
+revealImageWhenReady(cachedImage);
+assert.strictEqual(cachedImage.classList.added, "is-loaded", "A cached initiative image must become visible immediately");
 const sourceRecord = {
   slug: "nexcore-study-hub",
   status: "in-development",

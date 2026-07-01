@@ -41,6 +41,21 @@ assert(animationValues.length > 2, "Count-up animation must render intermediate 
 assert(animationValues[0] > 0 && animationValues[0] < 100, "Count-up animation must begin between its endpoints");
 assert.strictEqual(animationValues.at(-1), 100, "Count-up animation must finish on the exact total");
 
+const decimalValues = [];
+const decimalElement = {};
+Object.defineProperty(decimalElement, "textContent", {
+  set(value) { decimalValues.push(Number(value)); }
+});
+frameTime = 0;
+countUpWindow.CountUp.animate(decimalElement, {
+  end: 1.45,
+  duration: 1000,
+  precision: 3,
+  format: (value) => value.toFixed(3)
+});
+assert(decimalValues.some((value) => value > 0 && value < 1.45), "Decimal count-up must render intermediate price values");
+assert.strictEqual(decimalValues.at(-1), 1.45, "Decimal count-up must finish on the exact price");
+
 const windowStub = { addEventListener() {}, HomepageGitHubContributions: null };
 const documentStub = {
   readyState: "loading",

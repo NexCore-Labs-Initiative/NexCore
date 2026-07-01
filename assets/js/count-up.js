@@ -21,6 +21,7 @@
     const {
       end = 0,
       duration = 1000,
+      precision = 0,
       format = (value) => String(value)
     } = options || {};
     const start = options?.start ?? lastTargets.get(element) ?? 0;
@@ -42,7 +43,11 @@
       if (animationTokens.get(element) !== token) return;
       const progress = Math.min((currentTime - startTime) / duration, 1);
       const eased = 1 - Math.pow(1 - progress, 3);
-      const current = Math.floor(start + range * eased);
+      const rawValue = start + range * eased;
+      const factor = Math.pow(10, Math.max(0, precision));
+      const current = precision > 0
+        ? Math.round(rawValue * factor) / factor
+        : Math.floor(rawValue);
       element.textContent = format(current);
 
       if (progress < 1) requestAnimationFrame(update);
