@@ -61,6 +61,14 @@
   const byId = (id) => document.getElementById(id);
   const asText = (value) => String(value || "").trim();
 
+  function revealImageWhenReady(image) {
+    const reveal = () => image.classList.add("is-loaded");
+    image.addEventListener("load", reveal, { once: true });
+
+    // Cached images may already be complete before their load listener runs.
+    if (image.complete && image.naturalWidth > 0) reveal();
+  }
+
   function normalizeImageUrl(value) {
     let url = asText(value);
     if (!url) return "";
@@ -200,7 +208,15 @@
 
     ["launched", "building", "exploring"].forEach((key) => {
       const count = byId(`initiativeCount${key.charAt(0).toUpperCase()}${key.slice(1)}`);
-      if (count) count.textContent = String(counts[key]);
+      if (!count) return;
+      if (window.CountUp) {
+        window.CountUp.animate(count, {
+          end: counts[key],
+          format: (value) => window.CountUp.formatInteger(value, locale())
+        });
+      } else {
+        count.textContent = String(counts[key]);
+      }
     });
   }
 
@@ -249,6 +265,7 @@
     if (initiative.image) {
       const image = document.createElement("img");
       image.loading = "lazy";
+      revealImageWhenReady(image);
       image.src = initiative.image.src;
       image.alt = getLocalized(initiative.image.alt);
       visual.append(image);
@@ -485,7 +502,7 @@
     loadInitiatives();
   }
 
-  window.InitiativesPage = Object.freeze({ normalizeInitiative, filterInitiatives, STATUS });
+  window.InitiativesPage = Object.freeze({ normalizeInitiative, filterInitiatives, revealImageWhenReady, STATUS });
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init, { once: true });
   else init();
 })();

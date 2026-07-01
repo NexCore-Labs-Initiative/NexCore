@@ -56,6 +56,11 @@
 
     .info-value-name{font-family:inherit;word-break:normal}
 
+    .info-value-copy{flex:1;cursor:copy;padding:5px 7px;margin:-5px -7px;border-radius:7px;transition:background-color .2s,color .2s,box-shadow .2s}
+    .info-value-copy:hover{background:rgba(110,231,243,.08)}
+    .info-value-copy:focus-visible{outline:2px solid rgba(110,231,243,.7);outline-offset:2px}
+    .info-value-copy.copied{background:rgba(110,231,243,.14);color:#fff;box-shadow:0 0 0 1px rgba(110,231,243,.28)}
+
     .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 
     .btn:disabled{opacity:.5;cursor:not-allowed}
@@ -339,8 +344,9 @@
           <input type="search" placeholder="ابحث..." id="myInput" onkeyup="filterFunction()" title="بحث...">
           <a href="initiatives.html" class="fade" data-initiatives-nav title="مبادرات NexCore Labs"><i class="fa-solid fa-wand-magic-sparkles"></i> المبادرات <span class="new-badge">جديد</span></a>
 
+          <div class="div-menu-line"></div>
 
-          <a href="hub.html" class="fade" title="مركز NexCore Labs"><span class="menu-dots-icon" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></span> المركز</a>
+          <a href="hub.html" class="fade mt-0" title="مركز NexCore Labs"><span class="menu-dots-icon" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></span> المركز</a>
           <a href="hub.html#projects" class="fade" title="المشاريع"><i class="fa-solid fa-diagram-project"></i> المشاريع</a>
 
           <div class="div-menu-line"></div>
@@ -359,7 +365,10 @@
 
           <a href="pricing.html" class="fade mt-0" title="خطط التسعير"><i class="fa-solid fa-tag"></i> التسعير <span class="new-badge">جديد</span></a>
           <a href="pricing-policy.html" class="fade" title="سياسة التسعير والفوترة"><i class="fa-solid fa-receipt"></i> سياسة التسعير <span class="new-badge">جديد</span></a>
-          <a href="faq.html" class="fade" title="الأسئلة الشائعة والدعم"><i class="fa-solid fa-circle-question"></i> الأسئلة الشائعة</a>
+
+          <div class="div-menu-line"></div>
+
+          <a href="faq.html" class="fade mt-0" title="الأسئلة الشائعة والدعم"><i class="fa-solid fa-circle-question"></i> الأسئلة الشائعة</a>
           <a href="how-to-use.html" class="fade" title="كيفية استخدام NexCore Labs"><i class="fa-solid fa-book-open"></i> كيفية الاستخدام</a>
           <a href="terms.html" class="fade" title="شروط الخدمة"><i class="fa-solid fa-file-contract"></i> الشروط</a>
           <a href="privacy-policy.html" class="fade" title="سياسة الخصوصية"><i class="fa-solid fa-shield-halved"></i> الخصوصية</a>
@@ -403,11 +412,7 @@
           <div class="info-row">
             <span class="info-label">معرّف المستخدم:</span>
 
-            <span class="info-value" id="userId">جار التحميل...</span>
-
-            <button class="btn copy" id="copyUserIdBtn" title="نسخ معرّف المستخدم">
-              <i class="fa-solid fa-copy"></i>
-            </button>
+            <span class="info-value info-value-copy" id="userId" role="button" tabindex="0" title="انقر لنسخ معرّف المستخدم" aria-label="نسخ معرّف المستخدم">جار التحميل...</span>
           </div>
 
           <div class="info-row">
@@ -713,7 +718,7 @@
       <footer class="site-footer">
         <div class="container footer-inner">
           <div class="f-left">
-              <a class="paypal" href="https://www.paypal.me/nexcorelabs" target="_blank" rel="noopener" title="مساهمة اختيارية عبر PayPal"><i class="fa-solid fa-heart" style="color: #6EE7F3;"></i> مساهمة اختيارية لدعم تطوير المنصة</a>
+              <a class="paypal" href="https://www.paypal.me/nexcorelabs" target="_blank" rel="noopener" title="مساهمة اختيارية عبر PayPal"><i class="fa-solid fa-heart" style="color: #6EE7F3;"></i><i class="fa-brands fa-paypal"></i> مساهمة اختيارية</a>
 
               <br>
 
@@ -1938,9 +1943,8 @@
 
     async function copyUserId() {
 
-      const userIdText = document.getElementById("userId").textContent;
-
-      const btn = document.getElementById("copyUserIdBtn");
+      const userIdElement = document.getElementById("userId");
+      const userIdText = userIdElement.textContent;
 
 
 
@@ -1952,40 +1956,32 @@
 
         await navigator.clipboard.writeText(userIdText);
 
-
-
-        // Visual feedback
-
-        const originalHTML = btn.innerHTML;
-
-        btn.classList.add("copied");
-
-        btn.innerHTML = '<i class="fa-solid fa-check"></i>';
+        userIdElement.classList.add("copied");
+        userIdElement.setAttribute("aria-label", "تم نسخ معرّف المستخدم");
+        setMsg("", "تم نسخ معرّف المستخدم.");
 
 
 
         setTimeout(() => {
 
-          btn.classList.remove("copied");
-
-          btn.innerHTML = originalHTML;
+          userIdElement.classList.remove("copied");
+          userIdElement.setAttribute("aria-label", "نسخ معرّف المستخدم");
 
         }, 2000);
 
       } catch (error) {
 
         console.error("فشل النسخ:", error);
-
-        btn.innerHTML = '<i class="fa-solid fa-xmark"></i> فشل';
-
-        setTimeout(() => {
-
-          btn.innerHTML = '<i class="fa-solid fa-copy"></i> نسخ';
-
-        }, 2000);
+        setMsg("", "تعذر نسخ معرّف المستخدم.", true);
 
       }
 
+    }
+
+    function handleUserIdCopyKeydown(event) {
+      if (event.key !== "Enter" && event.key !== " ") return;
+      event.preventDefault();
+      copyUserId();
     }
 
     document.addEventListener("DOMContentLoaded", async () => {
@@ -2014,7 +2010,9 @@
 
       document.getElementById("deleteProjectBtn").addEventListener("click", openDeleteProjectModal);
 
-      document.getElementById("copyUserIdBtn").addEventListener("click", copyUserId);
+      const userIdElement = document.getElementById("userId");
+      userIdElement.addEventListener("click", copyUserId);
+      userIdElement.addEventListener("keydown", handleUserIdCopyKeydown);
 
       document.getElementById("contactInfoForm").addEventListener("submit", saveContactInfo);
 

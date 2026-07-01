@@ -1,5 +1,36 @@
 # Changelog
 
+## v3.1.2 - 1 July 2026
+
+### The Live Experience Polish
+
+A focused polish release with clearer navigation, live platform metrics, smoother number animations, refreshed account controls, and targeted visual fixes.
+
+#### Improvements
+
+- Improved the navigation menu with separators between key link groups, including Initiatives, Hub, pricing, and support content.
+- Removed the chat input and send button from NexCore Intelligence while the service remains disabled, making its current status clearer.
+- Refreshed the homepage status cards by replacing static support and tasks figures with a live public initiatives count and live GitHub commit activity.
+- Added smooth count-up animations to live metrics, initiative summaries, and calculated totals on the pricing pages.
+- Refreshed the authenticated Nav User toolbar with cleaner action styling, updated icons, and improved mobile behavior.
+
+#### Fixes
+
+- Fixed initiative images so cached and newly loaded visuals reveal correctly and fit cleanly inside the initiative preview.
+
+### Developer Notes
+
+#### Technical Changes
+
+- Added a shared count-up utility with locale-aware formatting and reusable animation handling across homepage, initiative, and pricing metrics.
+- Added GitHub contribution loading for the live commits KPI and connected the public initiatives metric to published initiative data.
+
+#### Internal Improvements
+
+- Added regression coverage for homepage metrics, animated counters, pricing totals, initiative images, and account navigation UX.
+
+---
+
 ## v3.1.1 - 27 June 2026
 
 ### The Anchor Navigation Fix

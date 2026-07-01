@@ -315,23 +315,6 @@
         /* Hide floating cookie button — pricing page has a sticky price bar at the same position */
         #nexcore-cookie-settings-btn { display: none !important; }
 
-        /* ── Price Update Animation ──────────────────────────────────── */
-        @keyframes priceUpdate {
-            0% { 
-                color: #6ee7f3;
-                text-shadow: 0 0 8px rgba(110,231,243,0.6);
-                transform: scale(1.05);
-            }
-            50% { 
-                text-shadow: 0 0 16px rgba(110,231,243,0.8);
-            }
-            100% { 
-                color: #6ee7f3;
-                text-shadow: none;
-                transform: scale(1);
-            }
-        }
-
         /* Price Bar */
         .price-bar {
             position: sticky;
@@ -363,6 +346,10 @@
             border-radius: 20px;
             font-size: 12px;
             color: #6ee7f3;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
         }
         .no-features { font-size: 13px; color: #9aa3b2; }
         .price-bar-total {
@@ -376,11 +363,6 @@
             font-size: 1.4rem; 
             font-weight: 800; 
             color: #6ee7f3;
-            transition: color 0.3s ease-out;
-            will-change: transform;
-        }
-        .price-bar-amount.updating {
-            animation: priceUpdate 0.6s ease-out;
         }
         .price-bar-usd { font-size: 13px; color: #9aa3b2; transition: color 0.3s ease-out; }
 
@@ -520,11 +502,6 @@
         .order-summary-row .row-price { 
             color: #6ee7f3; 
             font-weight: 600;
-            transition: color 0.3s ease-out;
-            will-change: transform;
-        }
-        .order-summary-row .row-price.updating {
-            animation: priceUpdate 0.6s ease-out;
         }
 
         /* Form Fields */
@@ -963,6 +940,17 @@
         @media screen and (max-width: 560px) {
             .payment-badge { display: none; }
 
+            /* Keep the live price bar compact while preserving each feature name. */
+            .price-feature-chip {
+                width: 32px;
+                height: 32px;
+                padding: 0;
+                justify-content: center;
+                flex: 0 0 32px;
+            }
+            .price-feature-chip-label { display: none; }
+            .price-feature-chip i { font-size: 13px; }
+
             /* Lifetime add-on: place lock badge under the price on small screens */
             .addon-card.lock, .addon-card.bt {
                 flex-wrap: wrap;
@@ -1102,8 +1090,9 @@
           <input type="search" placeholder="What?..." id="myInput" onkeyup="filterFunction()" title="Search...">
           <a href="initiatives.html" class="fade" data-initiatives-nav title="NexCore Labs Initiatives"><i class="fa-solid fa-wand-magic-sparkles"></i> Initiatives <span class="new-badge">New</span></a>
 
+          <div class="div-menu-line"></div>
 
-          <a href="hub.html" class="fade" title="NexCore Labs Hub"><span class="menu-dots-icon" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></span> Hub</a>
+          <a href="hub.html" class="fade mt-0" title="NexCore Labs Hub"><span class="menu-dots-icon" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></span> Hub</a>
           <a href="hub.html#projects" class="fade" title="Projects"><i class="fa-solid fa-diagram-project"></i> Projects</a>
 
           <div class="div-menu-line"></div>
@@ -1122,7 +1111,10 @@
 
           <a href="pricing.html" class="fade mt-0" title="Pricing Plans"><i class="fa-solid fa-tag"></i> Pricing <span class="new-badge">New</span></a>
           <a href="pricing-policy.html" class="fade" title="Pricing and Billing Policy"><i class="fa-solid fa-receipt"></i> Pricing Policy <span class="new-badge">New</span></a>
-          <a href="faq.html" class="fade" title="FAQ & Support"><i class="fa-solid fa-circle-question"></i> FAQ</a>
+
+          <div class="div-menu-line"></div>
+
+          <a href="faq.html" class="fade mt-0" title="FAQ & Support"><i class="fa-solid fa-circle-question"></i> FAQ</a>
           <a href="how-to-use.html" class="fade" title="How to Use NexCore Labs"><i class="fa-solid fa-book-open"></i> How to Use</a>
           <a href="terms.html" class="fade" title="Terms of Service"><i class="fa-solid fa-file-contract"></i> Terms</a>
           <a href="privacy-policy.html" class="fade" title="Privacy Policy"><i class="fa-solid fa-shield-halved"></i> Privacy Policy</a>
@@ -1513,7 +1505,7 @@
     <footer class="site-footer">
         <div class="container footer-inner">
             <div class="f-left">
-                <a class="paypal" href="https://www.paypal.me/nexcorelabs" target="_blank" rel="noopener" title="Optional contribution via PayPal"><i class="fa-solid fa-heart" style="color: #6EE7F3;"></i> Optional contribution to support platform development</a>
+                <a class="paypal" href="https://www.paypal.me/nexcorelabs" target="_blank" rel="noopener" title="Optional contribution via PayPal"><i class="fa-solid fa-heart" style="color: #6EE7F3;"></i><i class="fa-brands fa-paypal"></i> Optional contribution</a>
                 <br>
                 <small>NexCore Labs © <span id="year"></span> <span id="splitter">|</span>
                     <a href="https://github.com/NexCoreLabs/NexCore/blob/main/LICENSE" target="_blank" rel="noopener" class="license-link">
@@ -1527,6 +1519,8 @@
     <script src="assets/js/script.js"></script>
 
     <script src="assets/js/supabase-client.js"></script>
+
+    <script src="assets/js/count-up.js"></script>
 
     <script src="assets/js/auth-ui-db.js"></script>
     <script src="assets/js/ai-chat.js"></script>
@@ -1566,15 +1560,15 @@
         }
 
         const FEATURE_CATALOG = {
-            support_1week:  { label: 'Support — 1 Week',    price: 0.250 },
-            support_1month: { label: 'Support — 1 Month',   price: 0.500 },
-            support_3months:{ label: 'Support — 3 Months',  price: 1.000 },
-            support_6months:{ label: 'Support — 6 Months',  price: 1.500 },
-            support_1year:  { label: 'Support — 1 Year',    price: 2.500 },
-            lifetime:       { label: 'Lifetime Access',     price: 0.950 },
-            setup:          { label: 'Professional Setup',  price: 0.450 },
-            priority:       { label: 'Priority Review',     price: 0.300 },
-            spotlight:      { label: 'Featured Spotlight',  price: 0.750 },
+            support_1week:  { label: 'Support — 1 Week',    price: 0.250, icon: 'fa-solid fa-headset' },
+            support_1month: { label: 'Support — 1 Month',   price: 0.500, icon: 'fa-solid fa-headset' },
+            support_3months:{ label: 'Support — 3 Months',  price: 1.000, icon: 'fa-solid fa-headset' },
+            support_6months:{ label: 'Support — 6 Months',  price: 1.500, icon: 'fa-solid fa-headset' },
+            support_1year:  { label: 'Support — 1 Year',    price: 2.500, icon: 'fa-solid fa-headset' },
+            lifetime:       { label: 'Lifetime Access',     price: 0.950, icon: 'fa-solid fa-infinity' },
+            setup:          { label: 'Professional Setup',  price: 0.450, icon: 'fa-solid fa-screwdriver-wrench' },
+            priority:       { label: 'Priority Review',     price: 0.300, icon: 'fa-solid fa-bolt' },
+            spotlight:      { label: 'Featured Spotlight',  price: 0.750, icon: 'fa-solid fa-star' },
         };
 
         const BUNDLES = [
@@ -1646,21 +1640,25 @@
                 chipsEl.innerHTML = '<span class="no-features">No features selected yet</span>';
             } else {
                 chipsEl.innerHTML = features
-                    .map(f => `<span class="price-feature-chip">${f.label}</span>`)
+                    .map(f => `<span class="price-feature-chip" title="${f.label}" aria-label="${f.label}"><i class="${FEATURE_CATALOG[f.id].icon}" aria-hidden="true"></i><span class="price-feature-chip-label">${f.label}</span></span>`)
                     .join('');
             }
-            // Update price bar with animation
+            // Smoothly count from the previous totals to the new values.
             const priceBarTotal = document.getElementById('priceBarTotal');
-            priceBarTotal.classList.remove('updating');
-            void priceBarTotal.offsetWidth; // Force reflow to restart animation
-            priceBarTotal.classList.add('updating');
-            priceBarTotal.textContent = totalFixed.toFixed(3) + ' OMR';
+            window.CountUp.animate(priceBarTotal, {
+                end: totalFixed,
+                duration: 700,
+                precision: 3,
+                format: value => value.toFixed(3) + ' OMR'
+            });
             
             const priceBarUSD = document.getElementById('priceBarUSD');
-            priceBarUSD.classList.remove('updating');
-            void priceBarUSD.offsetWidth; // Force reflow to restart animation
-            priceBarUSD.classList.add('updating');
-            priceBarUSD.textContent = '≈ $' + usd.toFixed(2);
+            window.CountUp.animate(priceBarUSD, {
+                end: usd,
+                duration: 700,
+                precision: 2,
+                format: value => '≈ $' + value.toFixed(2)
+            });
 
             // PayPal amount hint badge (shows grossed-up amount in both USD and OMR)
             const ppBadge = document.getElementById('paypalAmountBadge');
@@ -1723,12 +1721,6 @@
                     <span class="row-price">${finalTotalOmr.toFixed(3)} OMR</span>
                 </div>`;
             
-            // Trigger animation on all price elements
-            el.querySelectorAll('.row-price').forEach(priceEl => {
-                priceEl.classList.remove('updating');
-                void priceEl.offsetWidth; // Force reflow to restart animation
-                priceEl.classList.add('updating');
-            });
         }
 
         // ─────────────────────────────────────────────────────────────────

@@ -25,7 +25,7 @@ for (const [file, page] of Object.entries(expected)) {
   assert(html.includes(`<title>${page.title}</title>`), `${file} must have its canonical title`);
   assert(html.includes(`<link rel="canonical" href="${page.canonical}">`), `${file} must declare its clean canonical`);
   assert(html.includes(`<link rel="alternate" hreflang="en" href="${page.alternate}">`) || html.includes(`<link rel="alternate" hreflang="ar" href="${page.alternate}">`), `${file} must declare its language alternate`);
-  assert(html.includes("assets/css/initiatives.css"), `${file} must load initiatives styles`);
+  assert(html.includes("assets/css/initiatives.css?v=3.1.3"), `${file} must load the current initiatives styles`);
   assert(html.includes("assets/js/initiatives.js"), `${file} must load initiatives behavior`);
   assert(html.includes('id="initiativeFilters"'), `${file} must include category filters`);
   assert(html.includes('id="initiativesGrid"'), `${file} must include the initiative grid`);
@@ -41,6 +41,19 @@ for (const [file, page] of Object.entries(expected)) {
   assert(menu.includes('fa-wand-magic-sparkles'), `${file} must use a Font Awesome Free icon for Initiatives`);
   assert(!menu.includes('fa-sparkles'), `${file} must not use the unsupported fa-sparkles icon`);
   assert(menu.includes('onkeyup="filterFunction()"'), `${file} must retain menu search behavior`);
+}
+
+for (const [file, expectedHref, expectedLabel] of [
+  ["index.html", "initiatives.html", "initiatives"],
+  ["ar/index.html", "/ar/initiatives.html", "مبادرات"]
+]) {
+  const html = read(file);
+  assert(html.includes('id="initiativeCount"'), `${file} must show the public initiatives count in the workflow card`);
+  assert(html.includes(`href="${expectedHref}"`), `${file} workflow card must link to the initiatives catalogue`);
+  assert(html.includes(`fa-wand-magic-sparkles"></i> ${expectedLabel}`), `${file} must label the initiatives KPI`);
+  assert(html.includes(".from('initiatives')"), `${file} must count initiatives from Supabase`);
+  assert(html.includes(".eq('visibility', 'public')"), `${file} must count only initiatives shown on the public catalogue`);
+  assert(!html.includes('id="support"'), `${file} must remove the old support KPI`);
 }
 
 const menuFiles = [
@@ -96,6 +109,22 @@ for (const url of ["/initiatives", "/initiatives.html", "/ar/initiatives", "/ar/
   assert(serviceWorker.includes(`'${url}'`), `Service worker must precache ${url}`);
 }
 
+const initiativesCss = read("assets/css/initiatives.css");
+const modalVisualRule = initiativesCss.match(/\.initiative-modal-visual\s*\{([^}]*)\}/)?.[1] || "";
+const modalImageRule = initiativesCss.match(/\.initiative-modal-visual img\s*\{([^}]*)\}/)?.[1] || "";
+assert(modalVisualRule.includes("align-items: center"), "Initiative modal artwork must be vertically centered");
+assert(modalVisualRule.includes("justify-content: center"), "Initiative modal artwork must be horizontally centered");
+assert(modalImageRule.includes("width: 100%"), "Initiative modal images must fit their visual column width");
+assert(modalImageRule.includes("max-width: 100%"), "Initiative modal images must not overflow their visual column");
+assert(modalImageRule.includes("height: auto"), "Initiative modal images must preserve their natural aspect ratio");
+assert(modalImageRule.includes("object-fit: contain"), "Initiative modal images must remain fully visible");
+assert(!modalImageRule.includes("height: 100%"), "Initiative modal images must not stretch to the modal height");
+assert(!modalImageRule.includes("object-fit: cover"), "Initiative modal images must not be cropped");
+assert(
+  /@media \(max-width: 640px\)[\s\S]*?\.initiative-modal-visual\s*\{[\s\S]*?height: clamp\(260px, 76vw, 340px\);[\s\S]*?max-height: none;/.test(initiativesCss),
+  "Small-screen initiative modals must provide a responsive, uncropped image stage"
+);
+
 const windowStub = {
   addEventListener() {},
   InitiativesPage: null
@@ -106,7 +135,32 @@ const documentStub = {
   addEventListener() {}
 };
 vm.runInNewContext(read("assets/js/initiatives.js"), { window: windowStub, document: documentStub, URL, URLSearchParams, console });
-const { normalizeInitiative, filterInitiatives } = windowStub.InitiativesPage;
+const { normalizeInitiative, filterInitiatives, revealImageWhenReady } = windowStub.InitiativesPage;
+
+let loadHandler = null;
+const loadingImage = {
+  complete: false,
+  naturalWidth: 0,
+  classList: { add(className) { this.added = className; } },
+  addEventListener(eventName, handler, options) {
+    assert.strictEqual(eventName, "load");
+    assert.strictEqual(options.once, true);
+    loadHandler = handler;
+  }
+};
+revealImageWhenReady(loadingImage);
+assert.strictEqual(loadingImage.classList.added, undefined, "An image must remain hidden until it loads");
+loadHandler();
+assert.strictEqual(loadingImage.classList.added, "is-loaded", "A loaded initiative image must become visible");
+
+const cachedImage = {
+  complete: true,
+  naturalWidth: 512,
+  classList: { add(className) { this.added = className; } },
+  addEventListener() {}
+};
+revealImageWhenReady(cachedImage);
+assert.strictEqual(cachedImage.classList.added, "is-loaded", "A cached initiative image must become visible immediately");
 const sourceRecord = {
   slug: "nexcore-study-hub",
   status: "in-development",
