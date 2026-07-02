@@ -38,7 +38,7 @@
     "@supabase/supabase-js": "^2.108.1",
     "@vercel/speed-insights": "^2.0.0",
     "dotenv": "^17.4.2",
-    "nodemailer": "^8.0.10",
+    "nodemailer": "^9.0.3",
     "vercel": "^54.11.1"
   }
 }
