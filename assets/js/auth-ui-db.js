@@ -80,6 +80,28 @@
         hubLink.insertAdjacentElement('afterend', link);
     }
 
+    function ensureContributeNavigation() {
+        const menu = document.getElementById('myDropdown');
+        if (!menu || menu.querySelector('[data-contribute-nav]')) return;
+
+        const initiativesLink = menu.querySelector('[data-initiatives-nav]');
+        const hubLink = [...menu.querySelectorAll('a')].find((link) =>
+            /(^|\/)hub(?:\.html)?(?:#|$)/.test(link.getAttribute('href') || '')
+        );
+        const anchor = initiativesLink || hubLink;
+        if (!anchor) return;
+
+        const link = document.createElement('a');
+        link.href = isArabicPage ? '/ar/contribute' : '/contribute';
+        link.dataset.contributeNav = 'true';
+        link.title = isArabicPage ? 'مركز المساهمين' : 'Contributor Center';
+        link.innerHTML = `<i class="fa-solid fa-handshake-angle" aria-hidden="true"></i> ${isArabicPage ? 'مركز المساهمين' : 'Contributor Center'} <span class="new-badge">${isArabicPage ? 'جديد' : 'New'}</span>`;
+        if (window.location.pathname.replace(/\/$/, '') === link.getAttribute('href')) {
+            link.setAttribute('aria-current', 'page');
+        }
+        anchor.insertAdjacentElement('afterend', link);
+    }
+
     /**
      * Fetch approved emails from database
      */
@@ -397,6 +419,7 @@
     // Initialize
     function init() {
         ensureInitiativesNavigation();
+        ensureContributeNavigation();
         // Ensure nav elements exist
         ensureNavElements();
 

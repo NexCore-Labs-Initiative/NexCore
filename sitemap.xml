@@ -31,6 +31,16 @@
     <priority>0.82</priority>
   </url>
   <url>
+    <loc>https://nexcorelabs.vercel.app/contribute</loc>
+    <lastmod>2026-07-02</lastmod>
+    <priority>0.82</priority>
+  </url>
+  <url>
+    <loc>https://nexcorelabs.vercel.app/ar/contribute</loc>
+    <lastmod>2026-07-02</lastmod>
+    <priority>0.82</priority>
+  </url>
+  <url>
     <loc>https://nexcorelabs.vercel.app/how-to-use</loc>
     <lastmod>2026-06-16</lastmod>
     <priority>0.80</priority>

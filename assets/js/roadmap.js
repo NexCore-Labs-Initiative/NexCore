@@ -124,6 +124,9 @@ async function init() {
   // Load data
   loadAnonVotes();
   await loadFeatures();
+  if (new URLSearchParams(window.location.search).get('action') === 'suggest') {
+    openSuggestModal();
+  }
 }
 
 // ── REVEAL OBSERVER ────────────────────────────────────────
