@@ -112,7 +112,7 @@ for (const page of flattenPages()) {
 
 assertIncludes(
   read("service-worker.js"),
-  "v3.1.1",
+  `v${require("../package.json").version}`,
   "service worker cache must match the current shared-asset release"
 );
 

@@ -128,9 +128,10 @@ write(
 );
 
 const serviceWorkerPath = "service-worker.js";
+const releaseTag = `v${require("../package.json").version}`;
 const serviceWorker = read(serviceWorkerPath).replace(
   /const CACHE_VERSION = '([^']+)';/,
-  "const CACHE_VERSION = 'v3.1.1';"
+  `const CACHE_VERSION = '${releaseTag}';`
 );
 write(serviceWorkerPath, serviceWorker);
 

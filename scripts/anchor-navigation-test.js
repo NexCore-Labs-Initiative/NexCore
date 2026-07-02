@@ -29,6 +29,7 @@ for (const match of index.matchAll(/\bhref\s*=\s*["']#([^"']+)["']/gi)) {
   assert.strictEqual(idCounts.get(fragment), 1, `index.html#${fragment} must resolve to exactly one id`);
 }
 
-assert(/const CACHE_VERSION = 'v3\.1\.1';/.test(read("service-worker.js")), "Service worker cache must publish the corrected shared assets");
+const releaseTag = `v${require("../package.json").version}`;
+assert(read("service-worker.js").includes(`const CACHE_VERSION = '${releaseTag}';`), "Service worker cache must publish the corrected shared assets");
 
 console.log("Anchor navigation tests passed.");

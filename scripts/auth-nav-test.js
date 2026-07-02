@@ -56,8 +56,9 @@ for (const file of ["assets/css/unminified-css.css", "assets/css/style.css"]) {
   assert(css.includes("direction: ltr") || css.includes("direction:ltr"), `${file} must keep action order stable in RTL`);
 }
 
+const releaseTag = `v${require("../package.json").version}`;
 assert(
-  /const CACHE_VERSION = 'v3\.1\.1';/.test(read("service-worker.js")),
+  read("service-worker.js").includes(`const CACHE_VERSION = '${releaseTag}';`),
   "Service worker cache must stay aligned with the current shared-asset release"
 );
 
