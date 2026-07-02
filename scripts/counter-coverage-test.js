@@ -34,11 +34,9 @@ for (const file of ["project.html", "ar/project.html"]) {
   assert(read(file).includes("window.CountUp.animate(document.getElementById('viewCount')"), `${file} view counter must animate`);
 }
 
-for (const file of ["roadmap.html", "ar/roadmap.html"]) {
-  const html = read(file);
-  for (const id of ["stat-total", "stat-votes", "stat-done", "count-planned", "count-inprog", "count-done"]) {
-    assert(html.includes(`animateStat('#${id}'`), `${file} must animate ${id}`);
-  }
+const roadmapScript = read("assets/js/roadmap.js");
+for (const id of ["stat-total", "stat-votes", "stat-done", "count-planned", "count-inprog", "count-done"]) {
+  assert(roadmapScript.includes(`animateStat('#${id}'`), `Shared roadmap controller must animate ${id}`);
 }
 
 for (const file of ["admin-users.html", "ar/admin-users.html"]) {
