@@ -7,7 +7,7 @@
     "lib": "lib"
   },
   "scripts": {
-    "test": "npm run release:test && npm run pricing:test && npm run branding:test && npm run seo:test && npm run auth-nav:test && npm run anchor-nav:test && npm run initiatives:test && npm run initiatives-admin:test && npm run roadmap:test && npm run ai-api:test && npm run homepage-metrics:test && npm run counter-coverage:test && npm run account-ux:test && npm run team-id-cards:test",
+    "test": "npm run release:test && npm run pricing:test && npm run branding:test && npm run seo:test && npm run auth-nav:test && npm run anchor-nav:test && npm run initiatives:test && npm run initiatives-admin:test && npm run roadmap:test && npm run contributor-center:test && npm run ai-api:test && npm run homepage-metrics:test && npm run counter-coverage:test && npm run account-ux:test && npm run team-id-cards:test",
     "release": "node scripts/sync-release-version.js",
     "release:test": "node scripts/release-version-test.js",
     "security:audit": "npm audit --omit=dev --audit-level=high",
@@ -19,6 +19,7 @@
     "initiatives:test": "node scripts/initiatives-test.js",
     "initiatives-admin:test": "node scripts/initiatives-admin-test.js",
     "roadmap:test": "node scripts/roadmap-shared-test.js",
+    "contributor-center:test": "node scripts/contributor-center-test.js",
     "ai-api:test": "node scripts/ai-api-test.js",
     "homepage-metrics:test": "node scripts/homepage-metrics-test.js",
     "counter-coverage:test": "node scripts/counter-coverage-test.js",

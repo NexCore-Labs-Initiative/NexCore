@@ -155,6 +155,26 @@ const PAGE_PAIRS = [
     },
   },
   {
+    key: "contribute",
+    priority: "0.82",
+    en: {
+      file: "contribute.html",
+      path: "/contribute",
+      title: "NexCore Labs | Contributor Center",
+      description:
+        "Find practical ways to contribute to NexCore Labs, share projects, suggest improvements, and follow your community activity.",
+      breadcrumb: "Contributor Center",
+    },
+    ar: {
+      file: "ar/contribute.html",
+      path: "/ar/contribute",
+      title: "NexCore Labs | مركز المساهمين",
+      description:
+        "اكتشف طرقًا عملية للمساهمة في NexCore Labs، وشارك المشاريع، واقترح التحسينات، وتابع نشاطك المجتمعي.",
+      breadcrumb: "مركز المساهمين",
+    },
+  },
+  {
     key: "how-to-use",
     priority: "0.80",
     en: {
