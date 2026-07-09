@@ -1,5 +1,42 @@
 # Changelog
 
+## v3.2.0 - 9 July 2026
+
+### The Contributor Center Launch
+
+A focused release introducing a dedicated **Contributor Center** where community members can discover contribution opportunities, access resources, learn contribution guidelines, and get involved with NexCore Labs initiatives.
+
+#### New Features
+
+- Launched a new **Contributor Center** page providing a centralized hub for community engagement and contribution opportunities.
+- Added comprehensive contribution guidelines, resource links, and step-by-step documentation for potential contributors.
+- Integrated contribution opportunity listings with filtering and discovery features.
+- Added contributor recognition and activity tracking features.
+
+#### Improvements
+
+- Extended navigation to include Contributor Center link across English and Arabic pages.
+- Enhanced community section with clearer calls-to-action and contribution pathways.
+
+### Developer Notes
+
+#### Technical Changes
+
+- Created the Contributor Center component with contribution opportunity listings and filtering system.
+- Added contributor tracking and recognition data model integration.
+- Extended SEO metadata, sitemap entries, and service-worker caching for the new Contributor Center experience.
+
+#### Database Changes
+
+- Added contributor opportunity data model with bilingual content, category, difficulty level, and status fields.
+- Extended contributor activity tracking for recognition and engagement metrics.
+
+#### Internal Improvements
+
+- Added regression coverage for Contributor Center pages, contribution filtering, and opportunity listings.
+
+---
+
 ## v3.1.2 - 1 July 2026
 
 ### The Live Experience Polish
