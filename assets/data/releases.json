@@ -2,6 +2,170 @@
   "schema_version": 1,
   "releases": [
     {
+      "version": "v3.2.0",
+      "date": "2026-07-09",
+      "title": {
+        "en": "The Contributor Center Launch",
+        "ar": "إطلاق مركز المساهمين"
+      },
+      "summary": {
+        "en": "A focused release introducing a dedicated Contributor Center where community members can discover contribution opportunities, access resources, learn contribution guidelines, and get involved with NexCore Labs initiatives.",
+        "ar": "إصدار مركّز يقدم مركز المساهمين المخصص حيث يمكن لأعضاء المجتمع اكتشاف فرص المساهمة والوصول إلى الموارد والتعرف على إرشادات المساهمة والمشاركة في مبادرات NexCore Labs."
+      },
+      "tags": [
+        "feature",
+        "improvement"
+      ],
+      "user_updates": {
+        "features": [
+          {
+            "text": {
+              "en": "Launched a new **Contributor Center** page providing a centralized hub for community engagement and contribution opportunities.",
+              "ar": "إطلاق صفحة **مركز المساهمين** الجديدة التي توفر مركزاً موحداً لمشاركة المجتمع وفرص المساهمة."
+            },
+            "evidence": [
+              "file:contribute.html",
+              "file:ar/contribute.html",
+              "file:assets/js/contributor-center.js"
+            ]
+          },
+          {
+            "text": {
+              "en": "Added comprehensive contribution guidelines, resource links, and step-by-step documentation for potential contributors.",
+              "ar": "إضافة إرشادات شاملة للمساهمة وروابط الموارد والتوثيق خطوة بخطوة للمساهمين المحتملين."
+            },
+            "evidence": [
+              "file:contribute.html",
+              "file:ar/contribute.html",
+              "file:assets/data/contribution-resources.json"
+            ]
+          },
+          {
+            "text": {
+              "en": "Integrated contribution opportunity listings with filtering and discovery features.",
+              "ar": "دمج قوائم فرص المساهمة مع ميزات التصفية والاكتشاف."
+            },
+            "evidence": [
+              "file:contribute.html",
+              "file:assets/js/contributor-center.js",
+              "file:assets/css/contributor-center.css"
+            ]
+          },
+          {
+            "text": {
+              "en": "Added contributor recognition and activity tracking features.",
+              "ar": "إضافة ميزات الاعتراف بالمساهمين وتتبع النشاط."
+            },
+            "evidence": [
+              "file:assets/js/contributor-center.js",
+              "file:lib/contributors.js"
+            ]
+          }
+        ],
+        "improvements": [
+          {
+            "text": {
+              "en": "Extended navigation to include Contributor Center link across English and Arabic pages.",
+              "ar": "توسيع التنقل لتضمين رابط مركز المساهمين عبر الصفحات الإنجليزية والعربية."
+            },
+            "evidence": [
+              "file:index.html",
+              "file:ar/index.html",
+              "file:assets/js/auth-ui-db.js"
+            ]
+          },
+          {
+            "text": {
+              "en": "Enhanced community section with clearer calls-to-action and contribution pathways.",
+              "ar": "تحسين قسم المجتمع برسائل عمل أوضح ومسارات مساهمة محسّنة."
+            },
+            "evidence": [
+              "file:index.html",
+              "file:ar/index.html",
+              "file:assets/css/style.css"
+            ]
+          }
+        ]
+      },
+      "developer_notes": {
+        "technical_changes": [
+          {
+            "text": {
+              "en": "Created the Contributor Center component with contribution opportunity listings and filtering system.",
+              "ar": "إنشاء مكون مركز المساهمين مع قوائم فرص المساهمة ونظام التصفية."
+            },
+            "evidence": [
+              "file:assets/js/contributor-center.js",
+              "file:lib/contributors.js",
+              "file:scripts/contributor-center-test.js"
+            ]
+          },
+          {
+            "text": {
+              "en": "Added contributor tracking and recognition data model integration.",
+              "ar": "إضافة تكامل نموذج بيانات تتبع الاعتراف بالمساهمين."
+            },
+            "evidence": [
+              "file:lib/contributors.js",
+              "file:api/contributors.js"
+            ]
+          },
+          {
+            "text": {
+              "en": "Extended SEO metadata, sitemap entries, and service-worker caching for the new Contributor Center experience.",
+              "ar": "توسيع بيانات SEO الوصفية، وإدخالات خريطة الموقع، وتخزين Service Worker لتجربة مركز المساهمين الجديدة."
+            },
+            "evidence": [
+              "file:sitemap.xml",
+              "file:vercel.json",
+              "file:service-worker.js",
+              "file:scripts/seo-assets.js"
+            ]
+          }
+        ],
+        "database_changes": [
+          {
+            "text": {
+              "en": "Added contributor opportunity data model with bilingual content, category, difficulty level, and status fields.",
+              "ar": "إضافة نموذج بيانات فرص المساهمة مع محتوى ثنائي اللغة وحقول الفئة ومستوى الصعوبة والحالة."
+            },
+            "evidence": [
+              "file:lib/contributors.js",
+              "file:sql/contributor_opportunities_schema.sql"
+            ]
+          },
+          {
+            "text": {
+              "en": "Extended contributor activity tracking for recognition and engagement metrics.",
+              "ar": "توسيع تتبع نشاط المساهمين لمؤشرات الاعتراف والمشاركة."
+            },
+            "evidence": [
+              "file:lib/contributors.js",
+              "file:sql/contributor_activity_schema.sql"
+            ]
+          }
+        ],
+        "internal_improvements": [
+          {
+            "text": {
+              "en": "Added regression coverage for Contributor Center pages, contribution filtering, and opportunity listings.",
+              "ar": "إضافة تغطية اختبارية لمنع تكرار الأخطاء في صفحات مركز المساهمين والتصفية والفرص."
+            },
+            "evidence": [
+              "file:scripts/contributor-center-test.js",
+              "file:package.json"
+            ]
+          }
+        ]
+      },
+      "is_major_release": false,
+      "source": {
+        "base_tag": "v3.1.2",
+        "target": "v3.2.0",
+        "commit_range": "v3.1.2..v3.2.0"
+      }
+    },
+    {
       "version": "v3.1.2",
       "date": "2026-07-01",
       "title": {
