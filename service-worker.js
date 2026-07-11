@@ -261,8 +261,23 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // For CSS/JS: stale-while-revalidate
+  // For CSS/JS: stale-while-revalidate for same-origin only; cross-origin should use network-first
   if (request.destination === 'style' || request.destination === 'script' || request.destination === 'worker') {
+    // If this is a cross-origin asset (CDN), prefer network (don't cache CDN responses here)
+    if (url.origin !== self.location.origin) {
+      event.respondWith((async () => {
+        try {
+          const resp = await fetch(request);
+          return resp;
+        } catch (err) {
+          // If network fails, try to fall back to a local cached asset or offline page
+          const cache = await caches.open(CACHE_NAME);
+          return (await cache.match(request)) || await caches.match('/offline.html') || Response.error();
+        }
+      })());
+      return;
+    }
+
     event.respondWith((async () => {
       const cache = await caches.open(CACHE_NAME);
       const cached = await cache.match(request);
