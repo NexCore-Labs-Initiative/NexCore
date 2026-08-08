@@ -1,0 +1,2 @@
+-- Historical migration recorded in production before repository migration tracking.
+-- The current production schema is captured by the generated production baseline.

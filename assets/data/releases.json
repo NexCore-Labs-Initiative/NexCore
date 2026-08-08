@@ -2,6 +2,81 @@
   "schema_version": 1,
   "releases": [
     {
+      "version": "v3.3.0",
+      "date": "2026-08-08",
+      "title": { "en": "Trust & Foundations", "ar": "الثقة والأسس" },
+      "summary": {
+        "en": "A security-led release that protects access lists and analytics, repairs voting identity and dependency risk, improves bilingual navigation accessibility, and establishes durable release governance.",
+        "ar": "إصدار تقوده الحماية يؤمّن قوائم الوصول والتحليلات ويصلح هوية التصويت ومخاطر الاعتماديات ويحسن سهولة التنقل ثنائي اللغة ويؤسس حوكمة مستدامة للإصدارات."
+      },
+      "tags": ["security", "improvement", "fix"],
+      "user_updates": {
+        "features": [
+          {
+            "text": {
+              "en": "Added explicit loading, empty, success, and unavailable states for public metrics and roadmap totals.",
+              "ar": "إضافة حالات واضحة للتحميل والفراغ والنجاح وعدم التوفر لمؤشرات المنصة وإجماليات خارطة الطريق."
+            },
+            "evidence": ["file:api/public-metrics.js", "file:index.html", "file:ar/index.html", "file:assets/js/roadmap.js"]
+          }
+        ],
+        "improvements": [
+          {
+            "text": {
+              "en": "Made the bilingual menu keyboard- and mobile-accessible and reduced empty space above Hub project discovery.",
+              "ar": "تحسين القائمة ثنائية اللغة للوصول بلوحة المفاتيح والهاتف وتقليل المساحة الفارغة قبل اكتشاف مشاريع المركز."
+            },
+            "evidence": ["file:scripts/sync-shared-shell.js", "file:assets/js/unminified-js.js", "file:assets/css/unminified-css.css", "file:hub.html", "file:ar/hub.html"]
+          },
+          {
+            "text": {
+              "en": "Kept Intelligence and pricing status pages honest while removing them from primary journeys until they become actionable.",
+              "ar": "الإبقاء على صفحات حالة الذكاء والأسعار بوضوح مع إزالتها من المسارات الرئيسية حتى تصبح قابلة للاستخدام."
+            },
+            "evidence": ["file:intelligence.html", "file:ar/intelligence.html", "file:pricing.html", "file:ar/pricing.html", "file:config/routes.json"]
+          }
+        ]
+      },
+      "developer_notes": {
+        "technical_changes": [
+          {
+            "text": {
+              "en": "Centralized serverless authentication, validation, safe errors, rate limiting, logging, public metrics, and administrator access operations.",
+              "ar": "توحيد مصادقة الخادم والتحقق والأخطاء الآمنة وتحديد المعدل والسجلات ومؤشرات العامة وعمليات وصول المشرفين."
+            },
+            "evidence": ["file:lib/api/auth.js", "file:lib/api/http.js", "file:lib/api/validation.js", "file:api/public-metrics.js", "file:api/admin/access.js"]
+          },
+          {
+            "text": {
+              "en": "Introduced a canonical bilingual route manifest, release-evidence validation, and browser accessibility smoke coverage.",
+              "ar": "إضافة سجل مسارات ثنائي اللغة موحد والتحقق من أدلة الإصدار واختبارات تصفح وإتاحة آلية."
+            },
+            "evidence": ["file:config/routes.json", "file:scripts/route-manifest-test.js", "file:scripts/release-evidence-test.js", "file:tests/browser/smoke.spec.js"]
+          }
+        ],
+        "database_changes": [
+          {
+            "text": {
+              "en": "Prepared a coordinated restrictive migration for exposed tables, protected access lists, server-owned flows, security-invoker profiles, and identity-safe voting.",
+              "ar": "إعداد ترحيل تقييدي منسق للجداول المكشوفة وقوائم الوصول المحمية والتدفقات المملوكة للخادم والملفات الآمنة والتصويت المرتبط بالهوية."
+            },
+            "evidence": ["file:supabase/migrations/20260808125353_v3_3_trust_foundations.sql", "file:docs/database.md", "file:docs/database-access-matrix.md", "file:docs/database-rollback.md"]
+          }
+        ],
+        "internal_improvements": [
+          {
+            "text": {
+              "en": "Repaired production dependency advisories and added repository governance and operating documentation.",
+              "ar": "إصلاح تنبيهات اعتماديات الإنتاج وإضافة حوكمة المستودع ووثائق التشغيل."
+            },
+            "evidence": ["file:package.json", "file:package-lock.json", "file:README.md", "file:CONTRIBUTING.md", "file:SECURITY.md"]
+          }
+        ]
+      },
+      "is_major_release": true,
+      "source": { "base_tag": "v3.2.0", "target": "v3.3.0", "commit_range": "v3.2.0..v3.3.0" }
+    },
+    {
       "version": "v3.2.0",
       "date": "2026-07-09",
       "title": {
@@ -26,7 +101,7 @@
             "evidence": [
               "file:contribute.html",
               "file:ar/contribute.html",
-              "file:assets/js/contributor-center.js"
+              "file:assets/js/contribute.js"
             ]
           },
           {
@@ -37,7 +112,7 @@
             "evidence": [
               "file:contribute.html",
               "file:ar/contribute.html",
-              "file:assets/data/contribution-resources.json"
+              "file:assets/js/contribute.js"
             ]
           },
           {
@@ -47,18 +122,18 @@
             },
             "evidence": [
               "file:contribute.html",
-              "file:assets/js/contributor-center.js",
-              "file:assets/css/contributor-center.css"
+              "file:assets/js/contribute.js",
+              "file:assets/css/contribute.css"
             ]
           },
           {
             "text": {
-              "en": "Added contributor recognition and activity tracking features.",
-              "ar": "إضافة ميزات الاعتراف بالمساهمين وتتبع النشاط."
+              "en": "Added a signed-in member activity summary derived from the member's existing projects and roadmap suggestions.",
+              "ar": "إضافة ملخص نشاط للعضو المسجل مشتق من مشاريعه الحالية واقتراحاته في خارطة الطريق."
             },
             "evidence": [
-              "file:assets/js/contributor-center.js",
-              "file:lib/contributors.js"
+              "file:assets/js/contribute.js",
+              "file:scripts/contributor-center-test.js"
             ]
           }
         ],
@@ -95,19 +170,19 @@
               "ar": "إنشاء مكون مركز المساهمين مع قوائم فرص المساهمة ونظام التصفية."
             },
             "evidence": [
-              "file:assets/js/contributor-center.js",
-              "file:lib/contributors.js",
+              "file:assets/js/contribute.js",
+              "file:assets/css/contribute.css",
               "file:scripts/contributor-center-test.js"
             ]
           },
           {
             "text": {
-              "en": "Added contributor tracking and recognition data model integration.",
-              "ar": "إضافة تكامل نموذج بيانات تتبع الاعتراف بالمساهمين."
+              "en": "Connected the activity summary to the existing projects and roadmap feature records owned by the signed-in member.",
+              "ar": "ربط ملخص النشاط بسجلات المشاريع وميزات خارطة الطريق الحالية المملوكة للعضو المسجل."
             },
             "evidence": [
-              "file:lib/contributors.js",
-              "file:api/contributors.js"
+              "file:assets/js/contribute.js",
+              "file:scripts/contributor-center-test.js"
             ]
           },
           {
@@ -126,22 +201,22 @@
         "database_changes": [
           {
             "text": {
-              "en": "Added contributor opportunity data model with bilingual content, category, difficulty level, and status fields.",
-              "ar": "إضافة نموذج بيانات فرص المساهمة مع محتوى ثنائي اللغة وحقول الفئة ومستوى الصعوبة والحالة."
+              "en": "Defined six bilingual contribution paths in the shared Contributor Center client module; no new database table was introduced.",
+              "ar": "تعريف ستة مسارات مساهمة ثنائية اللغة في وحدة مركز المساهمين المشتركة دون إضافة جدول قاعدة بيانات جديد."
             },
             "evidence": [
-              "file:lib/contributors.js",
-              "file:sql/contributor_opportunities_schema.sql"
+              "file:assets/js/contribute.js",
+              "file:scripts/contributor-center-test.js"
             ]
           },
           {
             "text": {
-              "en": "Extended contributor activity tracking for recognition and engagement metrics.",
-              "ar": "توسيع تتبع نشاط المساهمين لمؤشرات الاعتراف والمشاركة."
+              "en": "Reused existing project and roadmap records for the member activity view; no standalone contributor tracking schema was shipped.",
+              "ar": "إعادة استخدام سجلات المشاريع وخارطة الطريق الحالية لعرض نشاط العضو دون إطلاق مخطط مستقل لتتبع المساهمين."
             },
             "evidence": [
-              "file:lib/contributors.js",
-              "file:sql/contributor_activity_schema.sql"
+              "file:assets/js/contribute.js",
+              "file:scripts/contributor-center-test.js"
             ]
           }
         ],
@@ -488,7 +563,7 @@
               "ar": "إضافة نموذج بيانات المبادرات للسجلات ثنائية اللغة، وحالات الظهور، والتصنيفات، والوسائط، والنقاط البارزة، وحقول دورة الحياة المدارة من الإدارة."
             },
             "evidence": [
-              "file:supabase/initiatives.sql",
+              "file:docs/archive/sql/initiatives.legacy.sql",
               "file:lib/initiatives.js"
             ]
           }

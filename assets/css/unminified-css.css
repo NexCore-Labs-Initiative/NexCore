@@ -1839,6 +1839,46 @@ textarea:focus {
     outline-offset: 3px
 }
 
+.hub-hero.hero {
+    min-height: 34vh;
+    padding-bottom: 20px;
+}
+
+.hub-hero + #projects {
+    margin-top: 0;
+    padding-top: 28px;
+}
+
+.core-menu:focus-visible {
+    outline: 3px solid #6ee7f3;
+    outline-offset: 4px
+}
+
+.skip-link {
+    position: fixed;
+    left: 16px;
+    top: 12px;
+    z-index: 10000;
+    padding: 10px 14px;
+    border-radius: 8px;
+    color: #031017;
+    background: #6ee7f3;
+    transform: translateY(-160%);
+}
+
+.skip-link:focus {
+    transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+    }
+}
+
 /* Menu hint — first-visit speech bubble */
 .menu-hint {
     position: absolute;

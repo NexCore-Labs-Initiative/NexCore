@@ -3,11 +3,11 @@ node_modules
 .vercel
 .env*.local
 .env
-sql
-supabase
 pricing.html.disabled
 unsubscribe.html.disabled
 assets/js/release.js.disabled
-docs
 hint-report
 legal-review
+playwright-report/
+test-results/
+supabase/.temp/

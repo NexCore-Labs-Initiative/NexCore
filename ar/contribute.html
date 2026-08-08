@@ -101,16 +101,16 @@
         </script>
 </head>
   <body>
+  <a class="skip-link" href="#main-content">انتقل إلى المحتوى الرئيسي</a>
     <div class="background" aria-hidden="true"><img class="logo-img" id="logoImg" src="../assets/images/nexcore-logo.webp" alt=""><div id="spotLight" class="spot-light"></div></div>
-    <header class="navbar">
+    <header class="navbar" role="navigation" aria-label="التنقل الرئيسي">
       <div class="nav-container">
-        <div class="logo"><h1 id="logo">NexCore <span>Labs</span></h1></div>
+        <div class="logo"><div id="logo" aria-label="NexCore Labs">NexCore <span>Labs</span></div></div>
         <div class="dropdown">
-          <button class="core-menu" id="coreMenu" type="button" aria-label="فتح القائمة" title="القائمة"><span class="dot" aria-hidden="true"></span><span class="dot" aria-hidden="true"></span><span class="dot" aria-hidden="true"></span><span class="dot" aria-hidden="true"></span><span class="dot" aria-hidden="true"></span><span class="dot" aria-hidden="true"></span></button>
+          <button class="core-menu" id="coreMenu" type="button" aria-label="فتح القائمة" title="القائمة" aria-expanded="false" aria-controls="myDropdown"><span class="dot" aria-hidden="true"></span><span class="dot" aria-hidden="true"></span><span class="dot" aria-hidden="true"></span><span class="dot" aria-hidden="true"></span><span class="dot" aria-hidden="true"></span><span class="dot" aria-hidden="true"></span></button>
           <div id="myDropdown" class="dropdown-content" aria-label="قائمة الموقع">
             <a href="../contribute.html" class="lang-switch-pill mixed-content" title="عرض الموقع بالإنجليزية"><div class="pill-slider"></div><span class="pill-text en-text"><img src="../assets/images/uk.webp" alt="علم المملكة المتحدة"> EN</span><span class="pill-text ar-text"><img src="../assets/images/oman.webp" alt="علم عُمان"> ع</span></a>
             <a href="auth.html" class="magic-signup fade" title="تسجيل الدخول إلى حسابك"><i class="fa-solid fa-key"></i> استكشف الجوهر</a>
-            <a href="/ar/intelligence" class="fade ai-link" title="NexCore Intelligence"><i class="fa-solid fa-brain"></i> ذكاء NexCore</a>
             <input type="search" placeholder="ماذا؟..." id="myInput" onkeyup="filterFunction()" title="بحث...">
             <a href="initiatives.html" class="fade" data-initiatives-nav title="مبادرات NexCore Labs"><i class="fa-solid fa-wand-magic-sparkles"></i> المبادرات <span class="new-badge">جديد</span></a>
             <a href="contribute.html" class="fade" data-contribute-nav aria-current="page" title="مركز المساهمين"><i class="fa-solid fa-handshake-angle"></i> مركز المساهمين <span class="new-badge">جديد</span></a>
@@ -138,7 +138,7 @@
       </div>
     </header>
 
-    <main>
+    <main id="main-content">
       <section class="contribute-hero">
         <div class="contribute-shell contribute-hero-grid">
           <div>

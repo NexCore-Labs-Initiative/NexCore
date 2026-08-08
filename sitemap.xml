@@ -51,16 +51,6 @@
     <priority>0.80</priority>
   </url>
   <url>
-    <loc>https://nexcorelabs.vercel.app/pricing</loc>
-    <lastmod>2026-06-16</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://nexcorelabs.vercel.app/ar/pricing</loc>
-    <lastmod>2026-06-16</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
     <loc>https://nexcorelabs.vercel.app/pricing-policy</loc>
     <lastmod>2026-06-16</lastmod>
     <priority>0.75</priority>
@@ -119,15 +109,5 @@
     <loc>https://nexcorelabs.vercel.app/ar/privacy-policy</loc>
     <lastmod>2026-06-16</lastmod>
     <priority>0.60</priority>
-  </url>
-  <url>
-    <loc>https://nexcorelabs.vercel.app/intelligence</loc>
-    <lastmod>2026-06-16</lastmod>
-    <priority>0.55</priority>
-  </url>
-  <url>
-    <loc>https://nexcorelabs.vercel.app/ar/intelligence</loc>
-    <lastmod>2026-06-16</lastmod>
-    <priority>0.55</priority>
   </url>
 </urlset>

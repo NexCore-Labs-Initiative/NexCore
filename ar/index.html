@@ -126,27 +126,28 @@
 </head>
 
 <body>
+  <a class="skip-link" href="#main-content">انتقل إلى المحتوى الرئيسي</a>
 
   <div class="background">
     <img class="logo-img" id="logoImg" src="../assets/images/nexcore-logo.webp" alt="شعار NexCore Labs">
     <div id="spotLight" class="spot-light"></div>
   </div>
 
-  <header class="navbar">
+  <header class="navbar" role="navigation" aria-label="التنقل الرئيسي">
     <div class="nav-container">
       <div class="logo">
-        <h1 id="logo">NexCore <span>Labs</span></h1>
+        <div id="logo" aria-label="NexCore Labs">NexCore <span>Labs</span></div>
       </div>
 
       <div class="dropdown">
-        <div class="core-menu" id="coreMenu" aria-label="فتح القائمة" title="القائمة">
+        <button class="core-menu" id="coreMenu" type="button" aria-label="فتح القائمة" aria-expanded="false" aria-controls="myDropdown" title="فتح القائمة">
           <span class="dot" aria-hidden="true"></span>
           <span class="dot" aria-hidden="true"></span>
           <span class="dot" aria-hidden="true"></span>
           <span class="dot" aria-hidden="true"></span>
           <span class="dot" aria-hidden="true"></span>
           <span class="dot" aria-hidden="true"></span>
-        </div>
+        </button>
 
         <div id="myDropdown" class="dropdown-content">
           <a href="../index.html" class="lang-switch-pill" title="View English site">
@@ -156,18 +157,6 @@
           </a>
 
           <a href="/ar/auth.html" class="magic-signup fade" title="تسجيل الدخول إلى حسابك"><i class="fa-solid fa-key"></i> استكشف الجوهر</a>
-          <a href="/ar/intelligence" class="fade ai-link" title="ذكاء NexCore"><svg class="ai-link-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <circle cx="12" cy="12" r="3.2" fill="currentColor"/>
-              <circle cx="5.5" cy="7" r="1.8" fill="currentColor" opacity="0.85"/>
-              <circle cx="18.5" cy="7" r="1.8" fill="currentColor" opacity="0.85"/>
-              <circle cx="12" cy="19" r="1.8" fill="currentColor" opacity="0.85"/>
-              <path d="M7.1 8.2L9.6 10.1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" opacity="0.75"/>
-              <path d="M16.9 8.2L14.4 10.1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" opacity="0.75"/>
-              <path d="M12 15.2V17.1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" opacity="0.75"/>
-              <path d="M12 3.2V4.7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-              <path d="M20.8 12H19.3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-              <path d="M4.7 12H3.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-            </svg> ذكاء NexCore</a>
 
           <input type="search" placeholder="ابحث..." id="myInput" onkeyup="filterFunction()" title="بحث...">
           <a href="/ar/initiatives.html" class="fade" data-initiatives-nav title="مبادرات NexCore Labs"><i class="fa-solid fa-wand-magic-sparkles"></i> المبادرات <span class="new-badge">جديد</span></a>
@@ -205,7 +194,7 @@
     </div>
   </header>
 
-  <main>
+  <main id="main-content">
     <!-- البطل -->
     <section id="home" class="hero">
       <div class="hero-inner container">
@@ -623,56 +612,50 @@
   <script src="../version.js"></script>
 
   <script>
+    let publicMetricsPromise;
+    function loadPublicMetrics() {
+      publicMetricsPromise ||= fetch('/api/public-metrics').then((response) => {
+        if (!response.ok) throw new Error('Metrics unavailable');
+        return response.json();
+      });
+      return publicMetricsPromise;
+    }
+
     async function updateProjectCount() {
-      const sb = window.supabaseClient;
       const countElement = document.getElementById('projectCount');
       if (!countElement) {
         console.error('projectCount element not found');
         return;
       }
       try {
-        const { count, error } = await sb
-          .from('projects')
-          .select('*', { count: 'exact', head: true })
-          .eq('published', true);
-
-        if (error) {
-          console.error('Error fetching projects count:', error);
-          countElement.textContent = '--';
-          return;
-        }
-
-        const finalCount = count || 0;
+        countElement.dataset.state = 'loading';
+        const metrics = await loadPublicMetrics();
+        const finalCount = metrics.projects || 0;
         animateCount(countElement, 0, finalCount, 1000);
+        countElement.dataset.state = finalCount ? 'success' : 'empty';
       } catch (err) {
         console.error('Unexpected error fetching projects count:', err);
-        countElement.textContent = '--';
+        countElement.textContent = 'غير متاح';
+        countElement.dataset.state = 'unavailable';
       }
     }
 
     async function updateInitiativeCount() {
-      const sb = window.supabaseClient;
       const countElement = document.getElementById('initiativeCount');
       if (!countElement) {
         console.error('initiativeCount element not found');
         return;
       }
       try {
-        const { count, error } = await sb
-          .from('initiatives')
-          .select('*', { count: 'exact', head: true })
-          .eq('visibility', 'public');
-
-        if (error) {
-          console.error('Error fetching initiatives count:', error);
-          countElement.textContent = '--';
-          return;
-        }
-
-        animateCount(countElement, 0, count || 0, 1000);
+        countElement.dataset.state = 'loading';
+        const metrics = await loadPublicMetrics();
+        const count = metrics.initiatives || 0;
+        animateCount(countElement, 0, count, 1000);
+        countElement.dataset.state = count ? 'success' : 'empty';
       } catch (err) {
         console.error('Unexpected error fetching initiatives count:', err);
-        countElement.textContent = '--';
+        countElement.textContent = 'غير متاح';
+        countElement.dataset.state = 'unavailable';
       }
     }
 

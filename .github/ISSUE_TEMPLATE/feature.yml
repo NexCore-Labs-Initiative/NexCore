@@ -1,0 +1,32 @@
+name: Feature or improvement
+description: Propose a scoped, executable improvement
+title: "[Feature]: "
+labels: ["priority:P2"]
+body:
+  - type: textarea
+    id: context
+    attributes: { label: Context and outcome, description: Describe the user problem and desired result. }
+    validations: { required: true }
+  - type: textarea
+    id: scope
+    attributes: { label: Allowed files and systems }
+    validations: { required: true }
+  - type: textarea
+    id: acceptance
+    attributes: { label: Acceptance criteria, description: Use a testable checklist. }
+    validations: { required: true }
+  - type: textarea
+    id: verification
+    attributes: { label: Verification commands }
+    validations: { required: true }
+  - type: textarea
+    id: dependencies
+    attributes: { label: Dependencies and blockers }
+  - type: textarea
+    id: rollback
+    attributes: { label: Rollback notes }
+    validations: { required: true }
+  - type: textarea
+    id: exclusions
+    attributes: { label: Explicit exclusions }
+    validations: { required: true }

@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["canonicalOrigin", "routes"],
+  "properties": {
+    "canonicalOrigin": { "type": "string", "format": "uri" },
+    "routes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["route", "file", "locale", "pair", "indexed", "precache"],
+        "properties": {
+          "route": { "type": "string", "pattern": "^/" },
+          "file": { "type": "string", "pattern": "\\.html$" },
+          "locale": { "enum": ["en", "ar"] },
+          "pair": { "type": "string", "pattern": "^/" },
+          "indexed": { "type": "boolean" },
+          "precache": { "type": "boolean" },
+          "priority": { "type": "number", "minimum": 0, "maximum": 1 }
+        }
+      }
+    }
+  }
+}

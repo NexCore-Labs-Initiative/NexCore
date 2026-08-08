@@ -1,18 +1,13 @@
 /**
- * NexCore Labs - Database-Driven Authentication UI
- * Uses Supabase table for approved users whitelist
- *
- * To use this version:
- * 1. Run sql/create_approved_users_table.sql in your Supabase database
- * 2. Replace auth-ui.js with this file in your HTML pages
- * 3. Add approved emails via the dashboard or direct SQL
+ * NexCore Labs - Authentication UI
+ * Eligibility is enforced by the Supabase Auth hook. Sensitive access lists are
+ * only available through the authenticated serverless admin API.
  */
 
 (function() {
     'use strict';
 
     const sb = window.supabaseClient;
-    const ALLOWED_DOMAINS = ['squ.edu.om', 'student.squ.edu.om'];
     const AUTH_NOTICE_KEY = 'auth_notice';
     let isEnforcingEmailDomain = false;
     const isArabicPage = (document.documentElement.getAttribute('lang') || '').toLowerCase().startsWith('ar') ||
@@ -51,9 +46,6 @@
         logout: 'Logout',
         logoutFailed: 'Failed to logout. Please try again.',
     };
-
-    // Cache for approved emails (refreshed on each auth check)
-    let approvedEmailsCache = [];
 
     if (!sb) {
         console.error('Supabase client not found. Make sure supabase-client.js is loaded first.');
@@ -102,66 +94,6 @@
         anchor.insertAdjacentElement('afterend', link);
     }
 
-    /**
-     * Fetch approved emails from database
-     */
-    async function fetchApprovedEmails() {
-        try {
-            const { data, error } = await sb
-                .from('approved_users')
-                .select('email');
-
-            if (error) {
-                console.warn('Could not fetch approved users:', error.message);
-                console.warn('Error details:', error);
-                return [];
-            }
-
-            const emails = data.map(row => row.email.toLowerCase());
-            console.log('✓ Fetched approved emails:', emails);
-            return emails;
-        } catch (err) {
-            console.warn('Error fetching approved users:', err);
-            return [];
-        }
-    }
-
-    /**
-     * Check if email is allowed (domain-based or whitelisted)
-     */
-    async function isAllowedEmail(email) {
-        if (typeof email !== 'string') return false;
-        const normalized = email.trim().toLowerCase();
-
-        console.log('Checking email authorization for:', normalized);
-
-        // Check if email is from allowed domain
-        const isDomainAllowed = ALLOWED_DOMAINS.some(domain =>
-            normalized.endsWith(`@${domain}`)
-        );
-
-        if (isDomainAllowed) {
-            console.log('✓ Email allowed (SQU domain):', normalized);
-            return true;
-        }
-
-        // Check database whitelist
-        if (approvedEmailsCache.length === 0) {
-            console.log('Cache empty, fetching approved emails...');
-            approvedEmailsCache = await fetchApprovedEmails();
-        }
-
-        const isApproved = approvedEmailsCache.includes(normalized);
-        if (isApproved) {
-            console.log('✓ Email allowed (in approved_users):', normalized);
-        } else {
-            console.warn('✗ Email NOT allowed:', normalized);
-            console.warn('Approved emails in cache:', approvedEmailsCache);
-        }
-
-        return isApproved;
-    }
-
     function persistAuthNotice(message) {
         try {
             sessionStorage.setItem(AUTH_NOTICE_KEY, message);
@@ -169,31 +101,10 @@
     }
 
     async function enforceEmailDomain(session) {
-        const email = session?.user?.email;
         if (!session?.user) return false;
-
-        const allowed = await isAllowedEmail(email);
-        if (allowed) return true;
-
-        if (isEnforcingEmailDomain) return false;
-        isEnforcingEmailDomain = true;
-
-        try {
-            persistAuthNotice(copy.restrictedEmail);
-            await sb.auth.signOut();
-            if (!window.location.pathname.endsWith('/auth.html') && window.location.pathname !== '/auth.html') {
-                window.location.href = `${routePrefix}/auth.html?auth_notice=restricted_email`;
-            }
-        } catch (error) {
-            console.warn('Failed to enforce email policy:', error?.message || error);
-            if (!window.location.pathname.endsWith('/auth.html') && window.location.pathname !== '/auth.html') {
-                window.location.href = `${routePrefix}/auth.html?auth_notice=restricted_email`;
-            }
-        } finally {
-            isEnforcingEmailDomain = false;
-        }
-
-        return false;
+        // The Auth hook rejects unauthorized addresses before a session exists.
+        // Do not enumerate the server-owned approved-user list in the browser.
+        return true;
     }
 
     function getUserDisplayName(user) {
@@ -300,13 +211,8 @@
         if (!email) return false;
 
         try {
-            const { data, error } = await sb
-                .from('admins')
-                .select('email')
-                .eq('email', email.toLowerCase())
-                .single();
-
-            return !error && !!data;
+            const { data, error } = await sb.rpc('get_my_admin_status');
+            return !error && data === true;
         } catch (err) {
             return false;
         }
@@ -328,9 +234,6 @@
             const navLogout = document.getElementById('navLogout');
 
             if (session && session.user) {
-                // Refresh approved emails cache
-                approvedEmailsCache = await fetchApprovedEmails();
-
                 const allowedSession = await enforceEmailDomain(session);
                 if (!allowedSession) return;
                 await upsertUserProfile(session.user);
@@ -456,23 +359,26 @@
     // Expose updateAuthUI globally for manual calls if needed
     window.updateAuthUI = updateAuthUI;
 
-    // Expose function to add approved users (for admin dashboard)
+    async function adminAccessRequest(method, payload) {
+        const { data: { session } } = await sb.auth.getSession();
+        if (!session?.access_token) throw new Error('Administrator session required');
+        const response = await fetch('/api/admin/access', {
+            method,
+            headers: {
+                'Authorization': `Bearer ${session.access_token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        });
+        const body = await response.json().catch(() => ({}));
+        if (!response.ok) throw new Error(body.message || body.error || 'Access request failed');
+        return body;
+    }
+
+    // Compatibility helpers for admin surfaces; all writes are server-authorized.
     window.addApprovedUser = async function(email, approvedBy, reason) {
         try {
-            const { data, error } = await sb
-                .from('approved_users')
-                .insert([{
-                    email: email.toLowerCase(),
-                    approved_by: approvedBy,
-                    reason: reason
-                }])
-                .select();
-
-            if (error) throw error;
-
-            // Refresh cache
-            approvedEmailsCache = await fetchApprovedEmails();
-
+            const data = await adminAccessRequest('POST', { resource: 'approved_users', email, reason });
             return { success: true, data };
         } catch (error) {
             console.error('Failed to add approved user:', error);
@@ -483,16 +389,7 @@
     // Expose function to remove approved users
     window.removeApprovedUser = async function(email) {
         try {
-            const { error } = await sb
-                .from('approved_users')
-                .delete()
-                .eq('email', email.toLowerCase());
-
-            if (error) throw error;
-
-            // Refresh cache
-            approvedEmailsCache = await fetchApprovedEmails();
-
+            await adminAccessRequest('DELETE', { resource: 'approved_users', email });
             return { success: true };
         } catch (error) {
             console.error('Failed to remove approved user:', error);

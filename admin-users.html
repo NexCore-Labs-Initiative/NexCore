@@ -1793,6 +1793,7 @@
     </style>
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
     <!-- Toast Container -->
     <div class="toast-container" id="toastContainer"></div>
 
@@ -1802,21 +1803,21 @@
     </div>
 
     <!-- Header/Navbar -->
-    <header class="navbar">
+    <header class="navbar" role="navigation" aria-label="Primary navigation">
         <div class="nav-container">
             <div class="logo">
-                <h1 id="logo">NexCore <span>Labs</span></h1>
+                <div id="logo" aria-label="NexCore Labs">NexCore <span>Labs</span></div>
             </div>
 
             <div class="dropdown">
-                <div class="core-menu" id="coreMenu" aria-label="Open menu" title="Menu">
+                <button class="core-menu" id="coreMenu" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="myDropdown" title="Open menu">
                     <span class="dot" aria-hidden="true"></span>
                     <span class="dot" aria-hidden="true"></span>
                     <span class="dot" aria-hidden="true"></span>
                     <span class="dot" aria-hidden="true"></span>
                     <span class="dot" aria-hidden="true"></span>
                     <span class="dot" aria-hidden="true"></span>
-                </div>
+                </button>
 
                 <div id="myDropdown" class="dropdown-content">
                     <a href="ar/admin-users.html" class="lang-switch-pill mixed-content" title="View Arabic site">
@@ -1826,18 +1827,6 @@
                     </a>
                     
                     <a href="auth.html" class="magic-signup fade" title="Sign in to your account"><i class="fa-solid fa-key"></i> Access the Core</a>
-          <a href="/intelligence" class="fade ai-link" title="NexCore Intelligence"><svg class="ai-link-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <circle cx="12" cy="12" r="3.2" fill="currentColor"/>
-              <circle cx="5.5" cy="7" r="1.8" fill="currentColor" opacity="0.85"/>
-              <circle cx="18.5" cy="7" r="1.8" fill="currentColor" opacity="0.85"/>
-              <circle cx="12" cy="19" r="1.8" fill="currentColor" opacity="0.85"/>
-              <path d="M7.1 8.2L9.6 10.1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" opacity="0.75"/>
-              <path d="M16.9 8.2L14.4 10.1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" opacity="0.75"/>
-              <path d="M12 15.2V17.1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" opacity="0.75"/>
-              <path d="M12 3.2V4.7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-              <path d="M20.8 12H19.3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-              <path d="M4.7 12H3.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-            </svg> NexCore Intelligence</a>
                     <input type="search" placeholder="What?..." id="myInput" onkeyup="filterFunction()" title="Search...">
                     <a href="initiatives.html" class="fade" data-initiatives-nav title="NexCore Labs Initiatives"><i class="fa-solid fa-wand-magic-sparkles"></i> Initiatives <span class="new-badge">New</span></a>
 
@@ -1859,8 +1848,6 @@
                     <a href="releases.html" class="fade" title="Releases & Updates"><i class="fa-solid fa-clock-rotate-left"></i> Releases / Updates</a>
 
                     <div class="div-menu-line"></div>
-
-                    <a href="pricing.html" class="fade mt-0" title="Pricing Plans"><i class="fa-solid fa-tag"></i> Pricing <span class="new-badge">New</span></a>
                     <a href="pricing-policy.html" class="fade" title="Pricing and Billing Policy"><i class="fa-solid fa-receipt"></i> Pricing Policy <span class="new-badge">New</span></a>
 
                     <div class="div-menu-line"></div>
@@ -2552,6 +2539,27 @@
         let allAdmins = [];
         let allActivities = [];
 
+        async function adminAccess(method, resource, payload = {}) {
+            const { data: { session } } = await sb.auth.getSession();
+            if (!session?.access_token) throw new Error('Administrator session required');
+            const query = method === 'GET' ? `?resource=${encodeURIComponent(resource)}` : '';
+            const response = await fetch(`/api/admin/access${query}`, {
+                method,
+                headers: {
+                    'Authorization': `Bearer ${session.access_token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: method === 'GET' ? undefined : JSON.stringify({ resource, ...payload })
+            });
+            const body = await response.json().catch(() => ({}));
+            if (!response.ok) {
+                const error = new Error(body.message || body.error || 'Access request failed');
+                error.code = body.error;
+                throw error;
+            }
+            return body;
+        }
+
         // Table state management
         const tableState = {
             users: {
@@ -2949,11 +2957,8 @@
                         let removed = 0;
 
                         for (const email of emails) {
-                            const { error, count } = await sb
-                                .from('approved_users')
-                                .delete({ count: 'exact' })
-                                .eq('email', email);
-                            if (!error && count > 0) removed++;
+                            await adminAccess('DELETE', 'approved_users', { email });
+                            removed++;
                         }
 
                         if (removed === 0) throw new Error('Permission denied — no rows removed. Check RLS policy.');
@@ -3002,7 +3007,7 @@
 
                         for (const email of emails) {
                             if (email.toLowerCase() !== currentUserEmail.toLowerCase()) {
-                                await sb.from('admins').delete().eq('email', email);
+                                await adminAccess('DELETE', 'admins', { email });
                             }
                         }
 
@@ -3683,13 +3688,9 @@
             }
             currentUserEmail = session.user.email;
 
-            const { data: adminData, error } = await sb
-                .from('admins')
-                .select('email')
-                .eq('email', currentUserEmail.toLowerCase())
-                .single();
-
-            if (error || !adminData) {
+            try {
+                await adminAccess('GET', 'admins');
+            } catch (error) {
                 showToast('Access Denied: Administrator privileges required', 'error');
                 setTimeout(() => {
                     window.location.href = '/dashboard.html';
@@ -3719,8 +3720,8 @@
         async function loadStats() {
             try {
                 const [usersRes, adminsRes] = await Promise.all([
-                    sb.from('approved_users').select('email', { count: 'exact', head: true }),
-                    sb.from('admins').select('email', { count: 'exact', head: true })
+                    adminAccess('GET', 'approved_users'),
+                    adminAccess('GET', 'admins')
                 ]);
 
                 const usersCount = usersRes.count || 0;
@@ -3760,14 +3761,9 @@
             ).join('');
 
             try {
-                const { data, error } = await sb
-                    .from('approved_users')
-                    .select('*')
-                    .order('created_at', { ascending: false });
+                const { items: data } = await adminAccess('GET', 'approved_users');
 
                 loading.classList.add('hidden');
-
-                if (error) throw error;
 
                 allUsers = data || [];
 
@@ -3910,16 +3906,10 @@
             submitBtn.innerHTML = '<span class="btn-spinner"></span> Adding...';
 
             try {
-                const { error } = await sb
-                    .from('approved_users')
-                    .insert([{
-                        email: email.toLowerCase(),
-                        approved_by: currentUserEmail,
-                        reason: reason || null
-                    }]);
-
-                if (error) {
-                    if (error.code === '23505') {
+                try {
+                    await adminAccess('POST', 'approved_users', { email, reason: reason || null });
+                } catch (error) {
+                    if (error.code === 'access_record_exists') {
                         showToast('This email is already approved', 'error');
                     } else {
                         throw error;
@@ -3956,13 +3946,7 @@
                 `Are you sure you want to remove <strong>${email}</strong> from approved users?<br><br>They will no longer be able to access the platform.`,
                 async () => {
                     try {
-                        const { error, count } = await sb
-                            .from('approved_users')
-                            .delete({ count: 'exact' })
-                            .eq('email', email);
-
-                        if (error) throw error;
-                        if (count === 0) throw new Error('Permission denied — no rows removed. Check RLS policy.');
+                        await adminAccess('DELETE', 'approved_users', { email });
 
                         showToast(`✓ Removed ${email}`, 'success');
 
@@ -3998,14 +3982,9 @@
             ).join('');
 
             try {
-                const { data, error } = await sb
-                    .from('admins')
-                    .select('*')
-                    .order('added_at', { ascending: false });
+                const { items: data } = await adminAccess('GET', 'admins');
 
                 loading.classList.add('hidden');
-
-                if (error) throw error;
 
                 allAdmins = data || [];
 
@@ -4151,16 +4130,10 @@
             submitBtn.innerHTML = '<span class="btn-spinner"></span> Adding...';
 
             try {
-                const { error } = await sb
-                    .from('admins')
-                    .insert([{
-                        email: email.toLowerCase(),
-                        added_by: currentUserEmail,
-                        notes: notes || null
-                    }]);
-
-                if (error) {
-                    if (error.code === '23505') {
+                try {
+                    await adminAccess('POST', 'admins', { email, notes: notes || null });
+                } catch (error) {
+                    if (error.code === 'access_record_exists') {
                         showToast('This email is already an admin', 'error');
                     } else {
                         throw error;
@@ -4202,12 +4175,7 @@
                 `Are you sure you want to remove <strong>${email}</strong> from admins?<br><br>They will no longer have admin access.`,
                 async () => {
                     try {
-                        const { error } = await sb
-                            .from('admins')
-                            .delete()
-                            .eq('email', email);
-
-                        if (error) throw error;
+                        await adminAccess('DELETE', 'admins', { email });
 
                         showToast(`✓ Removed ${email} from admins`, 'success');
 

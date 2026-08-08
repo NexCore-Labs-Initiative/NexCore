@@ -150,6 +150,7 @@
 </head>
 
     <body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
 
     <div class="background">
       <img class="logo-img" id="logoImg" src="assets/images/nexcore-logo.webp" alt="NexCore Labs Logo">
@@ -157,21 +158,21 @@
       <div id="spotLight" class="spot-light"></div>
     </div>
 
-    <header class="navbar">
+    <header class="navbar" role="navigation" aria-label="Primary navigation">
       <div class="nav-container">
         <div class="logo">
-          <h1 id="logo">NexCore <span>Labs</span></h1>
+          <div id="logo" aria-label="NexCore Labs">NexCore <span>Labs</span></div>
         </div>
 
         <div class="dropdown">
-        <div class="core-menu" id="coreMenu" aria-label="Open menu" title="Menu">
+        <button class="core-menu" id="coreMenu" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="myDropdown" title="Open menu">
           <span class="dot" aria-hidden="true"></span>
           <span class="dot" aria-hidden="true"></span>
           <span class="dot" aria-hidden="true"></span>
           <span class="dot" aria-hidden="true"></span>
           <span class="dot" aria-hidden="true"></span>
           <span class="dot" aria-hidden="true"></span>
-        </div>
+        </button>
 
         <div id="myDropdown" class="dropdown-content">
           <a href="ar/hub.html" class="lang-switch-pill mixed-content" title="View Arabic site">
@@ -181,18 +182,6 @@
           </a>
 
           <a href="auth.html" class="magic-signup fade" title="Sign in to your account"><i class="fa-solid fa-key"></i> Access the Core</a>
-          <a href="/intelligence" class="fade ai-link" title="NexCore Intelligence"><svg class="ai-link-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <circle cx="12" cy="12" r="3.2" fill="currentColor"/>
-              <circle cx="5.5" cy="7" r="1.8" fill="currentColor" opacity="0.85"/>
-              <circle cx="18.5" cy="7" r="1.8" fill="currentColor" opacity="0.85"/>
-              <circle cx="12" cy="19" r="1.8" fill="currentColor" opacity="0.85"/>
-              <path d="M7.1 8.2L9.6 10.1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" opacity="0.75"/>
-              <path d="M16.9 8.2L14.4 10.1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" opacity="0.75"/>
-              <path d="M12 15.2V17.1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" opacity="0.75"/>
-              <path d="M12 3.2V4.7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-              <path d="M20.8 12H19.3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-              <path d="M4.7 12H3.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-            </svg> NexCore Intelligence</a>
           <input type="search" placeholder="What?..." id="myInput" onkeyup="filterFunction()" title="Search...">
           <a href="initiatives.html" class="fade" data-initiatives-nav title="NexCore Labs Initiatives"><i class="fa-solid fa-wand-magic-sparkles"></i> Initiatives <span class="new-badge">New</span></a>
 
@@ -214,8 +203,6 @@
           <a href="releases.html" class="fade" title="Releases & Updates"><i class="fa-solid fa-clock-rotate-left"></i> Releases / Updates</a>
 
           <div class="div-menu-line"></div>
-
-          <a href="pricing.html" class="fade mt-0" title="Pricing Plans"><i class="fa-solid fa-tag"></i> Pricing <span class="new-badge">New</span></a>
           <a href="pricing-policy.html" class="fade" title="Pricing and Billing Policy"><i class="fa-solid fa-receipt"></i> Pricing Policy <span class="new-badge">New</span></a>
 
           <div class="div-menu-line"></div>
@@ -229,7 +216,7 @@
       </div>
     </header>
 
-      <main>
+      <main id="main-content">
         <section class="hub-hero hero">
           <div class="container">
             <div class="hub-top">
@@ -609,31 +596,12 @@
 
             const slugToViews = new Map();
 
-            const pagePaths = (projects || []).map((p) => (p.slug ? `/project/${p.slug}` : null)).filter(Boolean);
-
-            if (!pagePaths.length) return slugToViews;
-
-            const { data: visitsData, error: visitsError } = await sb
-
-              .from('page_visits_daily')
-
-              .select('page_path, visits')
-
-              .in('page_path', pagePaths);
-
-            if (visitsError) return slugToViews;
-
-            (visitsData || []).forEach((row) => {
-
-              const path = row.page_path || '';
-
-              const slug = path.startsWith('/project/') ? path.slice('/project/'.length) : '';
-
-              if (!slug) return;
-
-              slugToViews.set(slug, (slugToViews.get(slug) || 0) + (row.visits || 0));
-
-            });
+            const slugs = (projects || []).map((p) => p.slug).filter(Boolean);
+            if (!slugs.length) return slugToViews;
+            const response = await fetch(`/api/public-metrics?slugs=${encodeURIComponent(slugs.join(','))}`);
+            if (!response.ok) return slugToViews;
+            const metrics = await response.json();
+            Object.entries(metrics.project_views || {}).forEach(([slug, views]) => slugToViews.set(slug, views));
 
             return slugToViews;
 
