@@ -15,7 +15,10 @@ function collectEvidence(value, output = []) {
 }
 
 for (const release of releases.releases) {
-  const missing = [...new Set(collectEvidence(release))].filter((file) => !fs.existsSync(path.join(root, file)));
+  const missing = [...new Set(collectEvidence(release))].filter((file) => {
+    const evidencePath = path.join(root, file);
+    return !fs.existsSync(evidencePath) || !fs.statSync(evidencePath).isFile();
+  });
   assert.deepEqual(missing, [], `${release.version} references missing evidence: ${missing.join(", ")}`);
 }
 

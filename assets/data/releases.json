@@ -794,7 +794,8 @@
               "ar": "إنشاء مجموعة الصفحات العربية ومواءمة التوجيه، والبيانات الوصفية، والتنقل، والواجهات المُولدة وقت التشغيل بين الإنجليزية والعربية."
             },
             "evidence": [
-              "file:ar",
+              "file:ar/index.html",
+              "file:ar/hub.html",
               "file:assets/js/auth-ui-db.js",
               "file:vercel.json"
             ]
@@ -898,8 +899,7 @@
               "ar": "إزالة تدفقات وسكربتات أتمتة الإصدارات لإبقاء قاعدة الكود أبسط إلى حين إعادة التفكير في عملية إصدار مستقبلية."
             },
             "evidence": [
-              "file:.github/workflows",
-              "file:scripts/releases",
+              "file:.github/workflows/ci.yml",
               "file:package.json"
             ]
           }
