@@ -1795,6 +1795,7 @@
 <link rel="alternate" hreflang="ar" href="admin-users.html">
 </head>
 <body>
+  <a class="skip-link" href="#main-content">انتقل إلى المحتوى الرئيسي</a>
     <!-- Toast Container -->
     <div class="toast-container" id="toastContainer"></div>
 
@@ -1804,21 +1805,21 @@
     </div>
 
     <!-- Header/Navbar -->
-    <header class="navbar">
+    <header class="navbar" role="navigation" aria-label="التنقل الرئيسي">
         <div class="nav-container">
             <div class="logo">
-                <h1 id="logo">NexCore <span>Labs</span></h1>
+                <div id="logo" aria-label="NexCore Labs">NexCore <span>Labs</span></div>
             </div>
 
             <div class="dropdown">
-                <div class="core-menu" id="coreMenu" aria-label="فتح القائمة" title="القائمة">
+                <button class="core-menu" id="coreMenu" type="button" aria-label="فتح القائمة" aria-expanded="false" aria-controls="myDropdown" title="فتح القائمة">
                     <span class="dot" aria-hidden="true"></span>
                     <span class="dot" aria-hidden="true"></span>
                     <span class="dot" aria-hidden="true"></span>
                     <span class="dot" aria-hidden="true"></span>
                     <span class="dot" aria-hidden="true"></span>
                     <span class="dot" aria-hidden="true"></span>
-                </div>
+                </button>
 
                 <div id="myDropdown" class="dropdown-content">
           <a href="../admin-users.html" class="lang-switch-pill" title="عرض الموقع بالإنجليزية">
@@ -1827,18 +1828,6 @@
             <span class="pill-text ar-text"><img src="../assets/images/oman.webp" alt="علم عُمان"> ع</span>
           </a>
           <a href="auth.html" class="magic-signup fade" title="تسجيل الدخول إلى حسابك"><i class="fa-solid fa-key"></i> الوصول إلى النواة</a>
-          <a href="/ar/intelligence" class="fade ai-link" title="ذكاء NexCore"><svg class="ai-link-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <circle cx="12" cy="12" r="3.2" fill="currentColor"/>
-              <circle cx="5.5" cy="7" r="1.8" fill="currentColor" opacity="0.85"/>
-              <circle cx="18.5" cy="7" r="1.8" fill="currentColor" opacity="0.85"/>
-              <circle cx="12" cy="19" r="1.8" fill="currentColor" opacity="0.85"/>
-              <path d="M7.1 8.2L9.6 10.1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" opacity="0.75"/>
-              <path d="M16.9 8.2L14.4 10.1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" opacity="0.75"/>
-              <path d="M12 15.2V17.1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" opacity="0.75"/>
-              <path d="M12 3.2V4.7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-              <path d="M20.8 12H19.3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-              <path d="M4.7 12H3.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-            </svg> ذكاء NexCore</a>
           <input type="search" placeholder="ابحث..." id="myInput" onkeyup="filterFunction()" title="بحث...">
           <a href="initiatives.html" class="fade" data-initiatives-nav title="مبادرات NexCore Labs"><i class="fa-solid fa-wand-magic-sparkles"></i> المبادرات <span class="new-badge">جديد</span></a>
 
@@ -2547,6 +2536,27 @@
         let allAdmins = [];
         let allActivities = [];
 
+        async function adminAccess(method, resource, payload = {}) {
+            const { data: { session } } = await sb.auth.getSession();
+            if (!session?.access_token) throw new Error('Administrator session required');
+            const query = method === 'GET' ? `?resource=${encodeURIComponent(resource)}` : '';
+            const response = await fetch(`/api/admin/access${query}`, {
+                method,
+                headers: {
+                    'Authorization': `Bearer ${session.access_token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: method === 'GET' ? undefined : JSON.stringify({ resource, ...payload })
+            });
+            const body = await response.json().catch(() => ({}));
+            if (!response.ok) {
+                const error = new Error(body.message || body.error || 'Access request failed');
+                error.code = body.error;
+                throw error;
+            }
+            return body;
+        }
+
         // Table state management
         const tableState = {
             users: {
@@ -2944,11 +2954,8 @@
                         let removed = 0;
 
                         for (const email of emails) {
-                            const { error, count } = await sb
-                                .from('approved_users')
-                                .delete({ count: 'exact' })
-                                .eq('email', email);
-                            if (!error && count > 0) removed++;
+                            await adminAccess('DELETE', 'approved_users', { email });
+                            removed++;
                         }
 
                         if (removed === 0) throw new Error('تم رفض الإذن - لم تتم إزالة أي صفوف. تحقق من سياسة RLS.');
@@ -2997,7 +3004,7 @@
 
                         for (const email of emails) {
                             if (email.toLowerCase() !== currentUserEmail.toLowerCase()) {
-                                await sb.from('admins').delete().eq('email', email);
+                                await adminAccess('DELETE', 'admins', { email });
                             }
                         }
 
@@ -3678,13 +3685,9 @@
             }
             currentUserEmail = session.user.email;
 
-            const { data: adminData, error } = await sb
-                .from('admins')
-                .select('email')
-                .eq('email', currentUserEmail.toLowerCase())
-                .single();
-
-            if (error || !adminData) {
+            try {
+                await adminAccess('GET', 'admins');
+            } catch (error) {
                 showToast('تم رفض الوصول: صلاحيات المشرف مطلوبة', 'error');
                 setTimeout(() => {
                     window.location.href = '/ar/dashboard.html';
@@ -3714,8 +3717,8 @@
         async function loadStats() {
             try {
                 const [usersRes, adminsRes] = await Promise.all([
-                    sb.from('approved_users').select('email', { count: 'exact', head: true }),
-                    sb.from('admins').select('email', { count: 'exact', head: true })
+                    adminAccess('GET', 'approved_users'),
+                    adminAccess('GET', 'admins')
                 ]);
 
                 const usersCount = usersRes.count || 0;
@@ -3755,14 +3758,9 @@
             ).join('');
 
             try {
-                const { data, error } = await sb
-                    .from('approved_users')
-                    .select('*')
-                    .order('created_at', { ascending: false });
+                const { items: data } = await adminAccess('GET', 'approved_users');
 
                 loading.classList.add('hidden');
-
-                if (error) throw error;
 
                 allUsers = data || [];
 
@@ -3905,16 +3903,10 @@
             submitBtn.innerHTML = '<span class="btn-spinner"></span> Adding...';
 
             try {
-                const { error } = await sb
-                    .from('approved_users')
-                    .insert([{
-                        email: email.toLowerCase(),
-                        approved_by: currentUserEmail,
-                        reason: reason || null
-                    }]);
-
-                if (error) {
-                    if (error.code === '23505') {
+                try {
+                    await adminAccess('POST', 'approved_users', { email, reason: reason || null });
+                } catch (error) {
+                    if (error.code === 'access_record_exists') {
                         showToast('هذا البريد معتمد بالفعل', 'error');
                     } else {
                         throw error;
@@ -3951,13 +3943,7 @@
                 `هل تريد إزالة <strong>${email}</strong> من المستخدمين المعتمدين؟<br><br>لن يعود بإمكانه الوصول إلى المنصة.`,
                 async () => {
                     try {
-                        const { error, count } = await sb
-                            .from('approved_users')
-                            .delete({ count: 'exact' })
-                            .eq('email', email);
-
-                        if (error) throw error;
-                        if (count === 0) throw new Error('تم رفض الإذن - لم تتم إزالة أي صفوف. تحقق من سياسة RLS.');
+                        await adminAccess('DELETE', 'approved_users', { email });
 
                         showToast(`✓ تمت إزالة ${email}`, 'success');
 
@@ -3993,14 +3979,9 @@
             ).join('');
 
             try {
-                const { data, error } = await sb
-                    .from('admins')
-                    .select('*')
-                    .order('added_at', { ascending: false });
+                const { items: data } = await adminAccess('GET', 'admins');
 
                 loading.classList.add('hidden');
-
-                if (error) throw error;
 
                 allAdmins = data || [];
 
@@ -4146,16 +4127,10 @@
             submitBtn.innerHTML = '<span class="btn-spinner"></span> Adding...';
 
             try {
-                const { error } = await sb
-                    .from('admins')
-                    .insert([{
-                        email: email.toLowerCase(),
-                        added_by: currentUserEmail,
-                        notes: notes || null
-                    }]);
-
-                if (error) {
-                    if (error.code === '23505') {
+                try {
+                    await adminAccess('POST', 'admins', { email, notes: notes || null });
+                } catch (error) {
+                    if (error.code === 'access_record_exists') {
                         showToast('هذا البريد مشرف بالفعل', 'error');
                     } else {
                         throw error;
@@ -4197,12 +4172,7 @@
                 `هل تريد إزالة <strong>${email}</strong> من المشرفين؟<br><br>لن يعود لديه وصول إداري.`,
                 async () => {
                     try {
-                        const { error } = await sb
-                            .from('admins')
-                            .delete()
-                            .eq('email', email);
-
-                        if (error) throw error;
+                        await adminAccess('DELETE', 'admins', { email });
 
                         showToast(`✓ تمت إزالة ${email} من المشرفين`, 'success');
 

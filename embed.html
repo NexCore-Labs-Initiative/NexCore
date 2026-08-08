@@ -216,6 +216,7 @@
     </style>
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
     <div id="root"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
@@ -297,11 +298,10 @@
 
         async function getViewCount(slug) {
             try {
-                const { data } = await sb
-                    .from('page_visits_daily')
-                    .select('visits')
-                    .eq('page_path', `/project/${slug}`);
-                return (data || []).reduce((sum, row) => sum + (row.visits || 0), 0);
+                const response = await fetch(`/api/public-metrics?slugs=${encodeURIComponent(slug)}`);
+                if (!response.ok) return 0;
+                const metrics = await response.json();
+                return Number(metrics.project_views?.[slug] || 0);
             } catch {
                 return 0;
             }

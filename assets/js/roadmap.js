@@ -222,6 +222,8 @@ function bindAuthModal() {
 // ── FEATURES ──────────────────────────────────────────────
 async function loadFeatures() {
   showSkeleton(true);
+  ['#stat-total', '#stat-votes', '#count-planned', '#count-inprog', '#count-done', '#stat-done']
+    .forEach((selector) => { const element = $(selector); if (element) element.dataset.state = 'loading'; });
 
   if (state.currentTab === 'pending') {
     showSkeleton(false);
@@ -256,6 +258,10 @@ async function loadFeatures() {
 
   if (error) {
     console.error('Error loading features:', error);
+    state.features = [];
+    renderFeatures();
+    ['#stat-total', '#stat-votes', '#count-planned', '#count-inprog', '#count-done', '#stat-done']
+      .forEach((selector) => { const element = $(selector); if (element) { element.textContent = '—'; element.dataset.state = 'unavailable'; } });
     showToast(roadmapText("Failed to load features.", "فشل تحميل الميزات."), '<i class="fa-solid fa-triangle-exclamation"></i>');
     return;
   }
@@ -644,9 +650,9 @@ async function moderateSuggestion(featureId, approve) {
   updateStats();
 }
 
-async function updateStats() {
-  const { data } = await db.from('features').select('status,votes_count');
-  if (!data) return;
+function updateStats() {
+  // Totals must come from the same approved record set currently rendered.
+  const data = state.features;
   const total = data.length;
   const votes = data.reduce((s, f) => s + Number(f.votes_count || 0), 0);
   const counts = { planned: 0, in_progress: 0, completed: 0 };
@@ -655,6 +661,7 @@ async function updateStats() {
   const animateStat = (selector, value) => {
     const element = $(selector);
     if (!element) return;
+    element.dataset.state = total ? 'success' : 'empty';
     window.CountUp.animate(element, {
       end: value,
       format: (current) => window.CountUp.formatInteger(current, roadmapText("en", "ar-OM"))
@@ -682,8 +689,7 @@ async function handleVote(featureId) {
     if (btn) btn.classList.toggle('voted', !alreadyVoted);
 
     const { data, error } = await db.rpc('toggle_feature_vote', {
-      p_feature_id: featureId,
-      p_user_id: state.user.id
+      p_feature_id: featureId
     });
     if (error) { renderFeatures(); return; }
 

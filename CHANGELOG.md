@@ -1,5 +1,27 @@
 # Changelog
 
+## v3.3.0 - 8 August 2026
+
+### Trust & Foundations
+
+A security-led release that protects access lists and analytics, repairs voting identity and dependency risk, improves bilingual navigation accessibility, and establishes durable release governance. Intelligence and payments remain paused.
+
+#### Security and platform
+
+- Added server-owned public metrics and administrator access APIs with shared authentication, validation, rate limiting, safe errors, and structured logging.
+- Prepared restrictive RLS/grant/RPC changes, including an authenticated vote RPC that derives identity from `auth.uid()`.
+- Removed direct browser reads of access lists and analytics tables.
+- Resolved all production dependency audit findings.
+
+#### Experience and operations
+
+- Rebuilt the Core menu as a keyboard-accessible button with focus, Escape, outside-click, reduced-motion, and 320px coverage.
+- Added skip links, navigation landmarks, one meaningful page heading, consistent metric states, and a shorter Hub first viewport.
+- De-emphasized paused Intelligence and pricing surfaces while retaining direct, honest status pages and required policies.
+- Added route/evidence validation, browser accessibility smoke tests, operating docs, contribution/security policies, and GitHub templates.
+
+---
+
 ## v3.2.0 - 9 July 2026
 
 ### The Contributor Center Launch

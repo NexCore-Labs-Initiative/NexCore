@@ -1,43 +1,12 @@
 "use strict";
 
-const { createClient } = require("@supabase/supabase-js");
-const { getSupabaseAdmin } = require("../../lib/supabaseAdmin");
 const { validateInitiative } = require("../../lib/initiatives");
+const { authenticateAdmin } = require("../../lib/api/auth");
+const { logEvent } = require("../../lib/api/logger");
+const { sendError, sendJson } = require("../../lib/api/http");
 
 function send(res, status, payload) {
-  res.status(status).json(payload);
-}
-
-function getToken(req) {
-  const value = String(req.headers?.authorization || "");
-  return value.startsWith("Bearer ") ? value.slice(7).trim() : "";
-}
-
-async function authenticateAdmin(req, dependencies = {}) {
-  const token = getToken(req);
-  if (!token) return { error: { status: 401, code: "missing_authorization" } };
-
-  const supabaseUrl = process.env.SUPABASE_URL;
-  const supabaseAnonKey = process.env.SUPABASE_ANON_KEY;
-  if ((!supabaseUrl || !supabaseAnonKey) && !dependencies.createAuthClient) {
-    return { error: { status: 500, code: "server_misconfigured" } };
-  }
-
-  const authClient = dependencies.createAuthClient
-    ? dependencies.createAuthClient(supabaseUrl, supabaseAnonKey, token)
-    : createClient(supabaseUrl, supabaseAnonKey, { global: { headers: { Authorization: `Bearer ${token}` } } });
-  const { data: { user }, error: authError } = await authClient.auth.getUser(token);
-  if (authError || !user?.email) return { error: { status: 401, code: "invalid_or_expired_authorization" } };
-
-  const adminClient = dependencies.getAdminClient ? dependencies.getAdminClient() : getSupabaseAdmin();
-  const { data: admin, error: adminError } = await adminClient
-    .from("admins")
-    .select("email")
-    .eq("email", user.email.toLowerCase())
-    .maybeSingle();
-  if (adminError || !admin) return { error: { status: 403, code: "admin_required" } };
-
-  return { user, adminClient };
+  return sendJson(res, status, payload);
 }
 
 function createHandler(dependencies = {}) {
@@ -54,7 +23,7 @@ function createHandler(dependencies = {}) {
 
     try {
       const session = await authenticateAdmin(req, dependencies);
-      if (session.error) return send(res, session.error.status, { error: session.error.code });
+      if (session.error) return sendError(res, session.error.status, session.error.code);
       const { user, adminClient } = session;
 
       if (req.method === "GET") {
@@ -95,8 +64,8 @@ function createHandler(dependencies = {}) {
       if (error) return send(res, 500, { error: "failed_to_update_initiative" });
       return send(res, 200, { initiative });
     } catch (error) {
-      console.error("Initiatives admin API failed", error);
-      return send(res, 500, { error: "initiatives_admin_failed" });
+      logEvent("error", "initiatives_admin_failed", { message: error?.message || String(error) });
+      return sendError(res, 500, "initiatives_admin_failed");
     }
   };
 }

@@ -1,0 +1,36 @@
+name: Bug report
+description: Report a reproducible NexCore problem
+title: "[Bug]: "
+labels: ["priority:P2"]
+body:
+  - type: textarea
+    id: context
+    attributes: { label: Context, description: What happened, where, and for whom? }
+    validations: { required: true }
+  - type: textarea
+    id: scope
+    attributes: { label: Allowed files and systems, description: Explicitly list what may be changed. }
+    validations: { required: true }
+  - type: textarea
+    id: reproduction
+    attributes: { label: Reproduction and evidence, description: Include route, locale, viewport, and exact steps. }
+    validations: { required: true }
+  - type: textarea
+    id: acceptance
+    attributes: { label: Acceptance criteria, description: Use a testable checklist. }
+    validations: { required: true }
+  - type: textarea
+    id: verification
+    attributes: { label: Verification commands, description: List exact commands and manual checks. }
+    validations: { required: true }
+  - type: textarea
+    id: dependencies
+    attributes: { label: Dependencies and blockers }
+  - type: textarea
+    id: rollback
+    attributes: { label: Rollback notes }
+    validations: { required: true }
+  - type: textarea
+    id: exclusions
+    attributes: { label: Explicit exclusions, description: What must not change? }
+    validations: { required: true }

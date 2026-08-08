@@ -34,10 +34,11 @@ for (const [file, page] of Object.entries(expected)) {
   const menuStart = html.indexOf('id="myDropdown"');
   const menuEnd = html.indexOf('</header>', menuStart);
   const menu = html.slice(menuStart, menuEnd);
-  for (const destination of ["auth.html", "intelligence", "hub.html", "roadmap.html", "releases.html", "pricing.html", "pricing-policy.html", "faq.html", "how-to-use.html", "terms.html", "privacy-policy.html"]) {
+  for (const destination of ["auth.html", "hub.html", "roadmap.html", "releases.html", "pricing-policy.html", "faq.html", "how-to-use.html", "terms.html", "privacy-policy.html"]) {
     assert(menu.includes(destination), `${file} must retain the complete NexCore navigation menu (${destination})`);
   }
-  assert(menu.includes('ai-link-icon'), `${file} must retain the NexCore Intelligence menu icon`);
+  assert(!menu.includes('ai-link'), `${file} must de-emphasize paused Intelligence navigation`);
+  assert(!menu.includes('title="Pricing Plans"'), `${file} must de-emphasize paused pricing navigation`);
   assert(menu.includes('fa-wand-magic-sparkles'), `${file} must use a Font Awesome Free icon for Initiatives`);
   assert(!menu.includes('fa-sparkles'), `${file} must not use the unsupported fa-sparkles icon`);
   assert(menu.includes('onkeyup="filterFunction()"'), `${file} must retain menu search behavior`);
@@ -51,8 +52,7 @@ for (const [file, expectedHref, expectedLabel] of [
   assert(html.includes('id="initiativeCount"'), `${file} must show the public initiatives count in the workflow card`);
   assert(html.includes(`href="${expectedHref}"`), `${file} workflow card must link to the initiatives catalogue`);
   assert(html.includes(`fa-wand-magic-sparkles"></i> ${expectedLabel}`), `${file} must label the initiatives KPI`);
-  assert(html.includes(".from('initiatives')"), `${file} must count initiatives from Supabase`);
-  assert(html.includes(".eq('visibility', 'public')"), `${file} must count only initiatives shown on the public catalogue`);
+  assert(html.includes("/api/public-metrics"), `${file} must use the protected aggregate metrics API`);
   assert(!html.includes('id="support"'), `${file} must remove the old support KPI`);
 }
 
@@ -92,7 +92,7 @@ for (const file of menuFiles) {
   }
 }
 
-const sql = read("supabase/initiatives.sql");
+const sql = read("docs/archive/sql/initiatives.legacy.sql");
 for (const field of ["slug", "status", "categories", "title", "mission", "summary", "overview", "highlights", "primary_link", "visibility"]) {
   assert(sql.includes(field), `Initiatives schema must include ${field}`);
 }

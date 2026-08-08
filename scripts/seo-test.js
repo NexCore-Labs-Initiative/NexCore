@@ -7,6 +7,8 @@ const { SITE_ORIGIN, PAGE_PAIRS, absoluteUrl, flattenPages } = require("./seo-as
 
 const root = path.resolve(__dirname, "..");
 const read = (file) => fs.readFileSync(path.join(root, file), "utf8");
+const routeManifest = JSON.parse(read("config/routes.json"));
+const indexedRoutes = new Set(routeManifest.routes.filter((route) => route.indexed).map((route) => route.route));
 
 const privateOrUtilityRoutes = [
   "/auth",
@@ -48,7 +50,11 @@ for (const pair of PAGE_PAIRS) {
   for (const locale of ["en", "ar"]) {
     const page = pair[locale];
     const url = absoluteUrl(page.path);
-    assertIncludes(sitemap, `<loc>${url}</loc>`, `sitemap must include ${page.file}`);
+    if (indexedRoutes.has(page.path)) {
+      assertIncludes(sitemap, `<loc>${url}</loc>`, `sitemap must include ${page.file}`);
+    } else {
+      assertNotIncludes(sitemap, `<loc>${url}</loc>`, `sitemap must exclude noindex page ${page.file}`);
+    }
   }
 }
 

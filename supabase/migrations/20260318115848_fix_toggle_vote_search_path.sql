@@ -1,0 +1,2 @@
+-- Historical migration recorded in production before repository migration tracking.
+-- Superseded by the v3.3 identity-safe vote RPC.
