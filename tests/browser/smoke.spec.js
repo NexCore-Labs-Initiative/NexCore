@@ -38,3 +38,12 @@ for (const route of ["/index.html", "/ar/index.html"]) {
     await expect(menu).toBeFocused();
   });
 }
+
+for (const route of ["/releases.html", "/ar/releases.html"]) {
+  test(`${route} renders the complete release timeline`, async ({ page }) => {
+    await page.goto(route, { waitUntil: "domcontentloaded" });
+    await expect(page.locator(".rl-card")).toHaveCount(21);
+    await expect(page.locator(".rl-card").first()).toContainText("v3.3.0");
+    await expect(page.locator("#rlTl")).not.toContainText(/Could not load release data|تعذر تحميل بيانات الإصدارات/);
+  });
+}

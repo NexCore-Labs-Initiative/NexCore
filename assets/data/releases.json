@@ -74,6 +74,26 @@
         ]
       },
       "is_major_release": true,
+      "major_details": {
+        "en": {
+          "why_it_matters": "Trust & Foundations closes critical database access gaps and gives NexCore a reproducible, reviewable foundation for safer future releases.",
+          "description": "A security-led platform release covering database boundaries, deployment ownership, accessible bilingual navigation, release evidence, and repository governance.",
+          "highlights": [
+            "Protected access lists and analytics",
+            "Identity-safe roadmap voting",
+            "Reproducible release and database foundations"
+          ]
+        },
+        "ar": {
+          "why_it_matters": "يغلق إصدار الثقة والأسس ثغرات الوصول الحرجة في قاعدة البيانات ويمنح NexCore أساساً قابلاً لإعادة البناء والمراجعة لإصدارات مستقبلية أكثر أماناً.",
+          "description": "إصدار أمني للمنصة يشمل حدود قاعدة البيانات وملكية النشر والتنقل الثنائي اللغة القابل للوصول وأدلة الإصدار وحوكمة المستودع.",
+          "highlights": [
+            "حماية قوائم الوصول والتحليلات",
+            "تصويت آمن مرتبط بهوية المستخدم",
+            "أسس قابلة لإعادة البناء للإصدارات وقاعدة البيانات"
+          ]
+        }
+      },
       "source": { "base_tag": "v3.2.0", "target": "v3.3.0", "commit_range": "v3.2.0..v3.3.0" }
     },
     {

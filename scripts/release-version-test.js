@@ -18,6 +18,15 @@ assert(/^\d+\.\d+\.\d+$/.test(version), "package.json must use a stable semantic
 assert.strictEqual(packageLock.version, version, "package-lock.json root version must match package.json");
 assert.strictEqual(packageLock.packages?.[""]?.version, version, "package-lock.json package version must match package.json");
 assert.strictEqual(releases.releases?.[0]?.version, tag, "latest release data must match package.json");
+for (const release of releases.releases || []) {
+  for (const language of ["en", "ar"]) {
+    assert(release.title?.[language], `${release.version} must have a ${language} title`);
+    assert(release.summary?.[language], `${release.version} must have a ${language} summary`);
+    if (release.is_major_release) {
+      assert(release.major_details?.[language]?.why_it_matters, `${release.version} major release must explain why it matters in ${language}`);
+    }
+  }
+}
 assert(read("version.js").includes(`const APP_VERSION = '${tag}';`), "version.js must match package.json");
 assert(read("service-worker.js").includes(`const CACHE_VERSION = '${tag}';`), "service-worker cache must match package.json");
 
