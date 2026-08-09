@@ -8,7 +8,7 @@ NexCore Labs is a public, bilingual student-community platform centered on Sulta
 **Empower our SQU Community to do more.**
 
 Production: [nexcorelabs.vercel.app](https://nexcorelabs.vercel.app)
-Current release: **v3.3.0 — Trust & Foundations**
+Current release: **[v3.3.0 — Trust & Foundations](https://github.com/NexCore-Labs-Initiative/NexCore/releases/tag/v3.3.0)**
 
 ## Product status
 
