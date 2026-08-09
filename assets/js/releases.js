@@ -138,13 +138,14 @@
   function releaseCard(release, index) {
     const id = versionId(release.version);
     const suffix = id.slice(1);
-    const major = release.is_major_release;
+    const major = Boolean(release.is_major_release);
+    const majorDetails = release.major_details?.[lang];
     const latest = index === 0;
     const open = index < 4 ? ' open' : '';
     const majorClass = major ? ' major' : '';
-    const majorNote = major ? `
+    const majorNote = major && majorDetails?.why_it_matters ? `
       <div class="rl-major-note">
-        <strong>${copy.why}:</strong> ${escapeHtml(release.major_details[lang].why_it_matters)}
+        <strong>${copy.why}:</strong> ${escapeHtml(majorDetails.why_it_matters)}
       </div>` : '';
 
     return `

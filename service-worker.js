@@ -1,9 +1,10 @@
 /* Improved Service Worker — robust caching, offline fallback, and runtime strategies */
 const CACHE_VERSION = 'v3.3.0';
+const CACHE_BUILD = '20260809.1';
 const CACHE_PREFIX = 'nexcore-cache-';
-const CACHE_NAME = `${CACHE_PREFIX}${CACHE_VERSION}`;
+const CACHE_NAME = `${CACHE_PREFIX}${CACHE_VERSION}-${CACHE_BUILD}`;
 const IMAGE_CACHE_PREFIX = 'nexcore-images-';
-const IMAGE_CACHE = `${IMAGE_CACHE_PREFIX}${CACHE_VERSION}`;
+const IMAGE_CACHE = `${IMAGE_CACHE_PREFIX}${CACHE_VERSION}-${CACHE_BUILD}`;
 
 const PRECACHE_URLS = [
   '/',
