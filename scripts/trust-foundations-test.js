@@ -93,9 +93,22 @@ async function testPublicMetrics() {
 
 function testMigrationContract() {
   const migrationsDir = path.join(__dirname, "..", "supabase", "migrations");
-  const file = fs.readdirSync(migrationsDir).find((name) => name.endsWith("_v3_3_trust_foundations.sql"));
-  assert(file, "v3.3 migration must exist");
-  const sql = fs.readFileSync(path.join(migrationsDir, file), "utf8");
+  const archiveFile = path.join(__dirname, "..", "docs", "archive", "sql", "20260808125353_v3_3_trust_foundations.applied.sql");
+  const markerFile = path.join(migrationsDir, "20260808125353_v3_3_trust_foundations.sql");
+  const baselineFile = fs.readdirSync(migrationsDir).find((name) => name.endsWith("_production_schema_baseline.sql"));
+  assert(fs.existsSync(archiveFile), "applied v3.3 SQL must remain archived as release evidence");
+  assert(fs.existsSync(markerFile), "applied v3.3 migration marker must remain in the ledger");
+  assert(baselineFile, "canonical production schema baseline must exist");
+  assert(fs.statSync(path.join(migrationsDir, baselineFile)).size > 0, "canonical production schema baseline must not be empty");
+  const baseline = fs.readFileSync(path.join(migrationsDir, baselineFile), "utf8");
+  const publicTables = baseline.match(/CREATE TABLE IF NOT EXISTS "public"\./g) || [];
+  const rlsTables = baseline.match(/ALTER TABLE "public"\.\S+ ENABLE ROW LEVEL SECURITY;/g) || [];
+  assert(publicTables.length > 0, "baseline must define the public schema");
+  assert.equal(rlsTables.length, publicTables.length, "every baseline public table must enable RLS");
+  assert(baseline.includes('CREATE EXTENSION IF NOT EXISTS "vector" WITH SCHEMA "public"'));
+  assert(!baseline.includes('COPY "public".'), "baseline must not contain production rows");
+  assert(!baseline.includes("-- Data for Name:"), "baseline must be schema-only");
+  const sql = fs.readFileSync(archiveFile, "utf8");
   for (const table of ["page_visits_daily", "project_counter", "project_moderation"]) {
     assert(sql.includes(`alter table public.${table} enable row level security`), `${table} must enable RLS`);
   }
