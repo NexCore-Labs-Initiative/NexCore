@@ -60,7 +60,7 @@
               "en": "Prepared a coordinated restrictive migration for exposed tables, protected access lists, server-owned flows, security-invoker profiles, and identity-safe voting.",
               "ar": "إعداد ترحيل تقييدي منسق للجداول المكشوفة وقوائم الوصول المحمية والتدفقات المملوكة للخادم والملفات الآمنة والتصويت المرتبط بالهوية."
             },
-            "evidence": ["file:supabase/migrations/20260808125353_v3_3_trust_foundations.sql", "file:docs/database.md", "file:docs/database-access-matrix.md", "file:docs/database-rollback.md"]
+            "evidence": ["file:docs/archive/sql/20260808125353_v3_3_trust_foundations.applied.sql", "file:supabase/migrations/20260809082345_production_schema_baseline.sql", "file:docs/database.md", "file:docs/database-access-matrix.md", "file:docs/database-rollback.md"]
           }
         ],
         "internal_improvements": [
