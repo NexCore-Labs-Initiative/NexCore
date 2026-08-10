@@ -13,7 +13,7 @@ const ORGANIZATION = {
   foundingDate: "2025-09-23",
   description:
     "NexCore Labs is an independent, student-led platform helping the SQU community access useful tools, collaborate, share work, and move ideas forward.",
-  sameAs: ["https://github.com/NexCoreLabs/NexCore"],
+  sameAs: ["https://github.com/NexCore-Labs-Initiative/NexCore"],
 };
 
 const WEBSITE = {
