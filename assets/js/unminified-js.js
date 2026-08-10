@@ -117,6 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const projectsContainer = document.getElementById("projects-container");
 
   applyLocalizedFormAndModalDirection();
+  initLivingReleaseBeacon({ isArabic, locale });
 
   // Smooth scroll to the top when the logo is clicked
   const logoTrigger = document.getElementById("logo");
@@ -420,6 +421,150 @@ if (yearEl) {
     mainContent.style.opacity = "1";
   }
 });
+
+async function initLivingReleaseBeacon({ isArabic, locale }) {
+  const escapeHtml = (value) => String(value || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+  const normalizedPath = window.location.pathname
+    .replace(/\.html$/, "")
+    .replace(/\/index$/, "")
+    .replace(/\/$/, "") || "/";
+  const publicPaths = new Set([
+    "/", "/ar", "/hub", "/ar/hub", "/initiatives", "/ar/initiatives",
+    "/contribute", "/ar/contribute", "/how-to-use", "/ar/how-to-use",
+    "/faq", "/ar/faq", "/roadmap", "/ar/roadmap", "/terms", "/ar/terms",
+    "/privacy-policy", "/ar/privacy-policy", "/pricing-policy", "/ar/pricing-policy"
+  ]);
+  if (!publicPaths.has(normalizedPath)) return;
+
+  const navContainer = document.querySelector(".navbar .nav-container");
+  const logo = navContainer?.querySelector(".logo");
+  if (!navContainer || !logo) return;
+
+  let storage;
+  try {
+    storage = window.localStorage;
+    const storageProbe = "nx_release_storage_probe";
+    storage.setItem(storageProbe, "1");
+    storage.removeItem(storageProbe);
+  } catch (error) {
+    return;
+  }
+
+  let release;
+  try {
+    const dataUrl = isArabic ? "/assets/data/releases.json" : "/assets/data/releases.json";
+    const response = await fetch(dataUrl, { headers: { Accept: "application/json" } });
+    if (!response.ok) return;
+    const payload = await response.json();
+    release = payload.releases?.find((item) => item.visitor_announcement?.enabled === true);
+  } catch (error) {
+    return;
+  }
+
+  const language = isArabic ? "ar" : "en";
+  const announcement = release?.visitor_announcement;
+  const title = release?.title?.[language];
+  const benefit = announcement?.benefit?.[language];
+  const highlights = announcement?.highlights?.[language];
+  if (!release?.version || !title || !benefit || !Array.isArray(highlights)
+      || highlights.length !== 3 || highlights.some((item) => typeof item !== "string" || !item.trim())) return;
+
+  const versionToken = release.version.replace(/[^a-z0-9]+/gi, "-").replace(/^-|-$/g, "").toLowerCase();
+  const openedKey = `nx_release_${versionToken}_opened`;
+  const dismissedKey = `nx_release_${versionToken}_dismissed`;
+  if (storage.getItem(dismissedKey) === "1") return;
+
+  const copy = isArabic ? {
+    newIn: "جديد في NexCore",
+    close: "إغلاق تفاصيل التحديث",
+    open: `استكشف الجديد في ${release.version}`,
+    explore: "استكشف الجديد",
+    dismiss: "عدم الإظهار مرة أخرى",
+    liveOpen: `تم فتح تفاصيل إصدار ${release.version}`,
+    liveClosed: "تم إغلاق تفاصيل الإصدار"
+  } : {
+    newIn: "New in NexCore",
+    close: "Close update details",
+    open: `Explore what is new in ${release.version}`,
+    explore: "Explore what’s new",
+    dismiss: "Dismiss",
+    liveOpen: `${release.version} update details opened`,
+    liveClosed: "Update details closed"
+  };
+  const panelId = `living-release-${versionToken}`;
+  const titleId = `${panelId}-title`;
+  const releaseAnchor = release.version.replace(/^v/i, "v").replace(/\./g, "-").toLowerCase();
+  const releaseHref = `${isArabic ? "/ar/releases" : "/releases"}#${releaseAnchor}`;
+
+  const shell = document.createElement("div");
+  shell.className = "living-release";
+  shell.setAttribute("lang", locale.lang);
+  shell.setAttribute("dir", locale.dir);
+  shell.innerHTML = `
+    <button class="living-release__beacon" type="button" aria-expanded="false" aria-controls="${panelId}" aria-label="${copy.open}">
+      <i class="fa-solid fa-circle-dot" aria-hidden="true"></i>
+    </button>
+    <section class="living-release__panel" id="${panelId}" role="dialog" aria-modal="false" aria-labelledby="${titleId}" hidden>
+      <button class="living-release__close" type="button" aria-label="${copy.close}">
+        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+      </button>
+      <p class="living-release__eyebrow"><i class="fa-solid fa-circle" aria-hidden="true"></i>${copy.newIn}</p>
+      <h2 id="${titleId}"><span>${escapeHtml(release.version)}</span> — ${escapeHtml(title)}</h2>
+      <p class="living-release__benefit">${escapeHtml(benefit)}</p>
+      <ul class="living-release__highlights">
+        ${highlights.map((item) => `<li><i class="fa-solid fa-check" aria-hidden="true"></i><span>${escapeHtml(item)}</span></li>`).join("")}
+      </ul>
+      <a class="living-release__cta" href="${releaseHref}">
+        <span>${copy.explore}</span><i class="fa-solid fa-arrow-${isArabic ? "left" : "right"}" aria-hidden="true"></i>
+      </a>
+      <button class="living-release__dismiss" type="button">${copy.dismiss}</button>
+    </section>
+    <span class="sr-only living-release__live" aria-live="polite"></span>`;
+  logo.appendChild(shell);
+
+  const beacon = shell.querySelector(".living-release__beacon");
+  const panel = shell.querySelector(".living-release__panel");
+  const closeButton = shell.querySelector(".living-release__close");
+  const dismissButton = shell.querySelector(".living-release__dismiss");
+  const cta = shell.querySelector(".living-release__cta");
+  const live = shell.querySelector(".living-release__live");
+
+  const setOpen = (open, { restoreFocus = false, announce = true } = {}) => {
+    shell.classList.toggle("is-open", open);
+    panel.hidden = !open;
+    beacon.setAttribute("aria-expanded", String(open));
+    if (announce) live.textContent = open ? copy.liveOpen : copy.liveClosed;
+    if (!open && restoreFocus) beacon.focus();
+  };
+  const dismiss = () => {
+    storage.setItem(dismissedKey, "1");
+    shell.remove();
+  };
+
+  beacon.addEventListener("click", () => setOpen(beacon.getAttribute("aria-expanded") !== "true"));
+  closeButton.addEventListener("click", () => setOpen(false, { restoreFocus: true }));
+  dismissButton.addEventListener("click", dismiss);
+  cta.addEventListener("click", () => storage.setItem(dismissedKey, "1"));
+  document.addEventListener("click", (event) => {
+    if (shell.isConnected && shell.classList.contains("is-open") && !shell.contains(event.target)) setOpen(false);
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && shell.isConnected && shell.classList.contains("is-open")) {
+      event.preventDefault();
+      setOpen(false, { restoreFocus: true });
+    }
+  });
+
+  if (storage.getItem(openedKey) !== "1") {
+    storage.setItem(openedKey, "1");
+    setOpen(true, { announce: false });
+  }
+}
 
 function filterFunction() {
   const input = document.getElementById("myInput");

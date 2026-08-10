@@ -98,7 +98,7 @@
   }
 
   function versionId(version) {
-    return `v${version.replace(/^v/, '').replace(/\./g, '')}`;
+    return version.replace(/^v/i, 'v').replace(/\./g, '-').toLowerCase();
   }
 
   function formatDate(date) {

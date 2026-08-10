@@ -62,7 +62,7 @@
         ar: "راجع المستودع مفتوح المصدر، أو أبلغ عن مشكلة قابلة للتكرار، أو اقترح تحسينًا محددًا للشيفرة عبر GitHub."
       },
       meta: [{ en: "Developers", ar: "المطورون" }, { en: "Open source", ar: "مفتوح المصدر" }],
-      href: "https://github.com/NexCoreLabs/NexCore",
+      href: "https://github.com/NexCore-Labs-Initiative/NexCore",
       external: true,
       cta: { en: "Open GitHub", ar: "افتح GitHub" }
     },

@@ -9,6 +9,25 @@
         "en": "A security-led release that protects access lists and analytics, repairs voting identity and dependency risk, improves bilingual navigation accessibility, and establishes durable release governance.",
         "ar": "إصدار تقوده الحماية يؤمّن قوائم الوصول والتحليلات ويصلح هوية التصويت ومخاطر الاعتماديات ويحسن سهولة التنقل ثنائي اللغة ويؤسس حوكمة مستدامة للإصدارات."
       },
+      "visitor_announcement": {
+        "enabled": true,
+        "benefit": {
+          "en": "NexCore is now safer and more dependable, with clearer navigation and stronger foundations for everything we build next.",
+          "ar": "أصبح NexCore أكثر أماناً وموثوقية، مع تنقل أوضح وأسس أقوى لكل ما سنبنيه لاحقاً."
+        },
+        "highlights": {
+          "en": [
+            "Safer access and protected platform data",
+            "More reliable roadmap voting",
+            "Clearer bilingual navigation"
+          ],
+          "ar": [
+            "وصول أكثر أماناً وحماية أفضل لبيانات المنصة",
+            "تصويت أكثر موثوقية في خارطة الطريق",
+            "تنقل أوضح باللغتين العربية والإنجليزية"
+          ]
+        }
+      },
       "tags": ["security", "improvement", "fix"],
       "user_updates": {
         "features": [

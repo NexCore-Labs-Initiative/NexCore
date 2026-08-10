@@ -22,6 +22,18 @@ for (const release of releases.releases || []) {
   for (const language of ["en", "ar"]) {
     assert(release.title?.[language], `${release.version} must have a ${language} title`);
     assert(release.summary?.[language], `${release.version} must have a ${language} summary`);
+    if (release.visitor_announcement?.enabled) {
+      assert(release.visitor_announcement.benefit?.[language], `${release.version} announcement must have a ${language} benefit`);
+      assert.strictEqual(
+        release.visitor_announcement.highlights?.[language]?.length,
+        3,
+        `${release.version} announcement must have exactly three ${language} highlights`
+      );
+      assert(
+        release.visitor_announcement.highlights[language].every((item) => typeof item === "string" && item.trim()),
+        `${release.version} announcement ${language} highlights must be non-empty strings`
+      );
+    }
     if (release.is_major_release) {
       assert(release.major_details?.[language]?.why_it_matters, `${release.version} major release must explain why it matters in ${language}`);
     }
