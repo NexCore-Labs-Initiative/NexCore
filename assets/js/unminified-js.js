@@ -75,6 +75,24 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  function ensureFlaticonAttribution() {
+    document.querySelectorAll(".site-footer .f-left").forEach((footerLeft) => {
+      if (footerLeft.querySelector(".asset-credit")) return;
+
+      const credit = document.createElement("small");
+      credit.className = "asset-credit";
+
+      const link = document.createElement("a");
+      link.href = "https://www.flaticon.com/";
+      link.target = "_blank";
+      link.rel = "noopener";
+      link.textContent = "Flaticon";
+
+      credit.append("Uicons by ", link);
+      footerLeft.append(document.createElement("br"), credit);
+    });
+  }
+
   const setupSign = () => {
     const sign = document.querySelector(".nexcore-sign") || document.getElementById("nexcoreSign");
     if (sign) {
@@ -117,6 +135,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const projectsContainer = document.getElementById("projects-container");
 
   applyLocalizedFormAndModalDirection();
+  ensureFlaticonAttribution();
   initLivingReleaseBeacon({ isArabic, locale });
 
   // Smooth scroll to the top when the logo is clicked
@@ -571,6 +590,10 @@ function filterFunction() {
   const filter = input ? input.value.toUpperCase() : "";
   const div = document.getElementById("myDropdown");
   if (!div) return;
+  if (window.NexCoreInitiativesMenu?.filterMenu) {
+    window.NexCoreInitiativesMenu.filterMenu(div, filter);
+    return;
+  }
   const a = div.getElementsByTagName("a");
   for (let i = 0; i < a.length; i++) {
     const txtValue = a[i].textContent || a[i].innerText;
@@ -581,6 +604,225 @@ function filterFunction() {
     }
   }
 }
+
+(function() {
+  const STATUS = {
+    launched: { en: "Launched", ar: "تم الإطلاق" },
+    active: { en: "Active", ar: "نشطة" },
+    "in-development": { en: "In development", ar: "قيد التطوير" },
+    incubation: { en: "Incubation", ar: "قيد الاحتضان" },
+    concept: { en: "Concept", ar: "فكرة" }
+  };
+  const CATEGORY_LABELS = {
+    "ai-dev-tools": { en: "AI & Dev Tools", ar: "الذكاء الاصطناعي" },
+    "community-events": { en: "Community", ar: "المجتمع" },
+    "hardware-exploration": { en: "Hardware", ar: "الأجهزة" },
+    education: { en: "Education", ar: "التعليم" },
+    catalogue: { en: "Catalogue", ar: "دليل" }
+  };
+
+  const isArabic = () => (document.documentElement.lang || "").toLowerCase().startsWith("ar") ||
+    /(^|\/)ar(\/|$)/.test(window.location.pathname);
+  const asText = (value) => String(value || "").trim();
+  const getLocalized = (value, locale) => {
+    if (typeof value === "string") return asText(value);
+    if (!value || typeof value !== "object") return "";
+    return asText(value[locale] || value.en || value.ar);
+  };
+
+  function normalizeImageUrl(value) {
+    let url = asText(value);
+    if (!url) return "";
+    if (url.startsWith("/") || /^https?:\/\//i.test(url)) {
+      // Already absolute or site-relative.
+    } else if (/^(?:www\.)?github\.com\//i.test(url) || /^raw\.githubusercontent\.com\//i.test(url)) {
+      url = `https://${url}`;
+    }
+
+    try {
+      const parsed = new URL(url);
+      const host = parsed.hostname.toLowerCase();
+      if (host === "github.com" || host === "www.github.com") {
+        const parts = parsed.pathname.split("/").filter(Boolean);
+        const blobIndex = parts.indexOf("blob");
+        if (parts.length >= 5 && blobIndex === 2) {
+          const [owner, repo, , branch, ...filePath] = parts;
+          return `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${filePath.join("/")}`;
+        }
+      }
+    } catch (_) {}
+
+    return url;
+  }
+
+  function labelForCategory(category, locale) {
+    const known = CATEGORY_LABELS[category];
+    if (known) return known[locale];
+    return String(category || "")
+      .split("-")
+      .filter(Boolean)
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+  }
+
+  function normalizeShortcut(raw, locale) {
+    const slug = asText(raw?.slug).toLowerCase();
+    const status = asText(raw?.status).toLowerCase();
+    const title = getLocalized(raw?.title, locale);
+    if (!slug || !title || !STATUS[status]) return null;
+    const categories = Array.isArray(raw.categories)
+      ? raw.categories.map((category) => asText(category).toLowerCase()).filter(Boolean)
+      : [];
+    return {
+      slug,
+      status,
+      statusLabel: STATUS[status][locale],
+      title,
+      categoryLabel: categories.length ? labelForCategory(categories[0], locale) : "",
+      image: normalizeImageUrl(raw?.image?.src),
+      logo: normalizeImageUrl(raw?.logo?.src)
+    };
+  }
+
+  function ensureInitiativesLink(menu, locale) {
+    let link = menu.querySelector("[data-initiatives-nav]");
+    if (link) return link;
+
+    const hubLink = [...menu.querySelectorAll("a")].find((candidate) =>
+      /(^|\/)hub(?:\.html)?(?:#|$)/.test(candidate.getAttribute("href") || "")
+    );
+    if (!hubLink) return null;
+
+    link = document.createElement("a");
+    link.className = "fade";
+    link.href = locale === "ar" ? "/ar/initiatives" : "/initiatives";
+    link.dataset.initiativesNav = "true";
+    link.title = locale === "ar" ? "مبادرات NexCore Labs" : "NexCore Labs Initiatives";
+    link.innerHTML = `<i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i> ${locale === "ar" ? "المبادرات" : "Initiatives"} <span class="new-badge">${locale === "ar" ? "جديد" : "New"}</span>`;
+    if (window.location.pathname.replace(/\/$/, "") === link.getAttribute("href")) {
+      link.setAttribute("aria-current", "page");
+    }
+    hubLink.insertAdjacentElement("beforebegin", link);
+    return link;
+  }
+
+  function ensureGroup(menu, locale) {
+    const existing = menu.querySelector("[data-initiatives-nav-group]");
+    if (existing) return existing;
+
+    const link = ensureInitiativesLink(menu, locale);
+    if (!link) return null;
+
+    const group = document.createElement("div");
+    group.className = "initiatives-nav-group";
+    group.dataset.initiativesNavGroup = "true";
+    group.setAttribute("aria-label", locale === "ar" ? "اختصارات المبادرات" : "Initiative shortcuts");
+    link.insertAdjacentElement("beforebegin", group);
+    group.appendChild(link);
+    link.href = locale === "ar" ? "/ar/initiatives" : "/initiatives";
+    return group;
+  }
+
+  function renderShortcuts(group, shortcuts, locale) {
+    group.querySelector("[data-initiatives-shortcuts]")?.remove();
+    if (!shortcuts.length) return;
+
+    const basePath = locale === "ar" ? "/ar/initiatives" : "/initiatives";
+    const drawer = document.createElement("div");
+    drawer.className = "initiatives-shortcut-drawer";
+    drawer.dataset.initiativesShortcuts = "true";
+
+    shortcuts.forEach((initiative) => {
+      const link = document.createElement("a");
+      link.className = "initiative-shortcut-link";
+      link.href = `${basePath}?initiative=${encodeURIComponent(initiative.slug)}`;
+      link.title = initiative.title;
+
+      const visual = document.createElement("span");
+      visual.className = "initiative-shortcut-visual";
+      const visualSrc = initiative.logo || initiative.image;
+      if (visualSrc) {
+        const image = document.createElement("img");
+        image.src = visualSrc;
+        image.alt = "";
+        image.loading = "lazy";
+        visual.appendChild(image);
+      } else {
+        visual.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i>';
+      }
+
+      const copy = document.createElement("span");
+      copy.className = "initiative-shortcut-copy";
+      const title = document.createElement("strong");
+      title.textContent = initiative.title;
+      const meta = document.createElement("span");
+      meta.textContent = initiative.categoryLabel
+        ? `${initiative.statusLabel} · ${initiative.categoryLabel}`
+        : initiative.statusLabel;
+      copy.append(title, meta);
+
+      const badge = document.createElement("span");
+      badge.className = `initiative-shortcut-status initiative-shortcut-status--${initiative.status}`;
+      badge.setAttribute("aria-hidden", "true");
+
+      link.append(visual, copy, badge);
+      drawer.appendChild(link);
+    });
+
+    const allLink = document.createElement("a");
+    allLink.className = "initiative-shortcut-all";
+    allLink.href = basePath;
+    allLink.innerHTML = `${locale === "ar" ? "عرض كل المبادرات" : "View all initiatives"} <i class="fa-solid fa-arrow-${locale === "ar" ? "left" : "right"}" aria-hidden="true"></i>`;
+    drawer.appendChild(allLink);
+    group.appendChild(drawer);
+  }
+
+  async function init() {
+    const menu = document.getElementById("myDropdown");
+    if (!menu) return;
+    const locale = isArabic() ? "ar" : "en";
+    const group = ensureGroup(menu, locale);
+    if (!group || group.dataset.initiativesShortcutsLoaded === "true" || group.dataset.initiativesShortcutsLoading === "true") return;
+
+    const client = window.supabaseClient;
+    if (!client) return;
+
+    group.dataset.initiativesShortcutsLoading = "true";
+    try {
+      const { data, error } = await client
+        .from("initiatives")
+        .select("slug, status, categories, featured, visibility, title, image, sort_order")
+        .eq("visibility", "public")
+        .eq("featured", true)
+        .order("sort_order", { ascending: true })
+        .limit(3);
+      if (error) throw error;
+
+      const shortcuts = (data || []).map((item) => normalizeShortcut(item, locale)).filter(Boolean);
+      renderShortcuts(group, shortcuts, locale);
+      group.dataset.initiativesShortcutsLoaded = "true";
+    } catch (error) {
+      console.warn("Initiatives shortcut drawer skipped:", error?.message || error);
+    } finally {
+      delete group.dataset.initiativesShortcutsLoading;
+    }
+  }
+
+  function filterMenu(menu, filterText) {
+    const filter = String(filterText || "").trim().toUpperCase();
+    [...menu.children].forEach((child) => {
+      if (child.id === "myInput" || child.tagName === "INPUT") return;
+      if (child.classList?.contains("div-menu-line")) {
+        child.style.display = filter ? "none" : "";
+        return;
+      }
+      const text = child.textContent || child.innerText || "";
+      child.style.display = !filter || text.toUpperCase().includes(filter) ? "" : "none";
+    });
+  }
+
+  window.NexCoreInitiativesMenu = Object.freeze({ init, filterMenu });
+})();
 
 function showWebsiteLabel() {
   const checkBox = document.getElementById("websiteShow");
@@ -618,19 +860,5 @@ if (bookmarkBtn) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  const menu = document.getElementById('myDropdown');
-  if (!menu || menu.querySelector('[data-initiatives-nav]')) return;
-
-  const isArabic = (document.documentElement.lang || '').toLowerCase().startsWith('ar')
-    || /(^|\/)ar(\/|$)/.test(window.location.pathname);
-  const hubLink = [...menu.querySelectorAll('a')].find((link) => /(^|\/)hub(?:\.html)?(?:#|$)/.test(link.getAttribute('href') || ''));
-  if (!hubLink) return;
-
-  const link = document.createElement('a');
-  link.href = isArabic ? '/ar/initiatives' : '/initiatives';
-  link.dataset.initiativesNav = 'true';
-  link.title = isArabic ? 'مبادرات NexCore Labs' : 'NexCore Labs Initiatives';
-  link.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i> ' + (isArabic ? 'المبادرات' : 'Initiatives');
-  if (window.location.pathname.replace(/\/$/, '') === link.getAttribute('href')) link.setAttribute('aria-current', 'page');
-  hubLink.insertAdjacentElement('afterend', link);
+  window.NexCoreInitiativesMenu?.init();
 });

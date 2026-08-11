@@ -403,6 +403,10 @@
         .rl-tag.feat { color: var(--accent);  border-color: rgba(110,231,243,0.25); background: rgba(110,231,243,0.06); }
         .rl-tag.impr { color: var(--cyan);    border-color: rgba(172,217,229,0.25); background: rgba(172,217,229,0.05); }
         .rl-tag.fix  { color: var(--amber);   border-color: rgba(255,204,120,0.25); background: rgba(255,204,120,0.05); }
+        .rl-tag.sec  { color: #76e6ab;        border-color: rgba(118,230,171,0.25); background: rgba(118,230,171,0.05); }
+        .rl-tag.comp { color: #c4b5fd;        border-color: rgba(196,181,253,0.25); background: rgba(196,181,253,0.05); }
+        .rl-tag.admin,
+        .rl-tag.meta { color: var(--muted);   border-color: rgba(154,163,178,0.25); background: rgba(154,163,178,0.05); }
 
         /* chevron */
         .rl-chev {

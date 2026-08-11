@@ -109,6 +109,23 @@ for (const url of ["/initiatives", "/initiatives.html", "/ar/initiatives", "/ar/
   assert(serviceWorker.includes(`'${url}'`), `Service worker must precache ${url}`);
 }
 
+const sharedMenuJs = read("assets/js/unminified-js.js");
+const authUi = read("assets/js/auth-ui-db.js");
+const sharedMenuCss = read("assets/css/unminified-css.css");
+assert(sharedMenuJs.includes("window.NexCoreInitiativesMenu"), "Shared menu script must expose the initiatives shortcut drawer helper");
+assert(sharedMenuJs.includes(".eq(\"visibility\", \"public\")"), "Shortcut drawer must only query public initiatives");
+assert(sharedMenuJs.includes(".eq(\"featured\", true)"), "Shortcut drawer must only query featured initiatives");
+assert(sharedMenuJs.includes(".limit(3)"), "Shortcut drawer must limit the menu to three initiative shortcuts");
+assert(sharedMenuJs.includes("?initiative=${encodeURIComponent(initiative.slug)}"), "Shortcut links must deep-link to the initiative quick view");
+assert(sharedMenuJs.includes("logo: normalizeImageUrl(raw?.logo?.src)"), "Shortcut drawer must normalize initiative logos");
+assert(sharedMenuJs.includes("const visualSrc = initiative.logo || initiative.image"), "Shortcut drawer must prefer compact logos over larger initiative images");
+assert(sharedMenuJs.includes("filterMenu(div, filter)"), "Menu search must delegate to the grouped-menu filter");
+assert(authUi.includes("window.NexCoreInitiativesMenu?.init();"), "Auth navigation must re-run the shortcut drawer after injected menu links");
+assert(authUi.includes("const initiativesGroup = menu.querySelector('[data-initiatives-nav-group]');"), "Contributor navigation must insert after the grouped initiatives drawer");
+for (const selector of [".initiatives-nav-group", ".initiatives-shortcut-drawer", ".initiative-shortcut-link", ".initiative-shortcut-visual", ".initiative-shortcut-all"]) {
+  assert(sharedMenuCss.includes(selector), `Shared menu CSS must style ${selector}`);
+}
+
 const initiativesCss = read("assets/css/initiatives.css");
 const modalVisualRule = initiativesCss.match(/\.initiative-modal-visual\s*\{([^}]*)\}/)?.[1] || "";
 const modalImageRule = initiativesCss.match(/\.initiative-modal-visual img\s*\{([^}]*)\}/)?.[1] || "";
@@ -178,6 +195,7 @@ const valid = normalizeInitiative(sourceRecord);
 assert(valid && Object.isFrozen(valid), "A complete public initiative must normalize into an immutable record");
 const githubImageRecord = normalizeInitiative({
   ...sourceRecord,
+  logo: { src: "https://github.com/NexCore-Labs-Initiative/nexcore-study-hub/blob/main/assets/imgs/studyhub-logo.webp" },
   image: {
     src: "https://github.com/NexCore-Labs-Initiative/nexcore-study-hub/blob/main/assets/imgs/nexcorelabs-studyhub.webp",
     alt: { en: "Study Hub preview", ar: "معاينة مركز الدراسة" }
@@ -187,6 +205,11 @@ assert.strictEqual(
   githubImageRecord.image.src,
   "https://raw.githubusercontent.com/NexCore-Labs-Initiative/nexcore-study-hub/main/assets/imgs/nexcorelabs-studyhub.webp",
   "Public initiative rendering should convert GitHub blob images to raw URLs"
+);
+assert.strictEqual(
+  githubImageRecord.logo.src,
+  "https://raw.githubusercontent.com/NexCore-Labs-Initiative/nexcore-study-hub/main/assets/imgs/studyhub-logo.webp",
+  "Public initiative rendering should convert GitHub blob logos to raw URLs"
 );
 assert.strictEqual(normalizeInitiative({ ...sourceRecord, visibility: "draft" }), null, "Draft initiatives must not render publicly");
 assert.strictEqual(normalizeInitiative({ ...sourceRecord, title: { en: "English only" } }), null, "Initiatives require both locale titles");

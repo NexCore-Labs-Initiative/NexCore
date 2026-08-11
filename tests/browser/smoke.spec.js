@@ -52,9 +52,9 @@ for (const route of ["/index.html", "/ar/index.html"]) {
 for (const route of ["/releases.html", "/ar/releases.html"]) {
   test(`${route} renders the complete release timeline`, async ({ page }) => {
     await page.goto(route, { waitUntil: "domcontentloaded" });
-    await expect(page.locator(".rl-card")).toHaveCount(21);
-    await expect(page.locator(".rl-card").first()).toContainText("v3.3.0");
-    await expect(page.locator(".rl-card").first()).toHaveAttribute("id", "v3-3-0");
+    await expect(page.locator(".rl-card")).toHaveCount(22);
+    await expect(page.locator(".rl-card").first()).toContainText("v3.3.1");
+    await expect(page.locator(".rl-card").first()).toHaveAttribute("id", "v3-3-1");
     await expect(page.locator("#rlTl")).not.toContainText(/Could not load release data|تعذر تحميل بيانات الإصدارات/);
   });
 }
@@ -66,7 +66,7 @@ test.describe("living release beacon", () => {
     const beacon = page.locator(".living-release__beacon");
     const panel = page.locator(".living-release__panel");
     await expect(panel).toBeVisible();
-    await expect(panel).toContainText("v3.3.0 — Trust & Foundations");
+    await expect(panel).toContainText("v3.3.1 — Credits & Initiative Logos");
     await expect(beacon).toHaveAttribute("aria-expanded", "true");
 
     await page.locator(".living-release__close").click();
@@ -91,7 +91,7 @@ test.describe("living release beacon", () => {
     await expect(shell).toHaveAttribute("dir", "rtl");
     await expect(shell).toContainText("جديد في NexCore");
     await expect(shell.locator(".living-release__highlights li")).toHaveCount(3);
-    await expect(shell.locator(".living-release__cta")).toHaveAttribute("href", "/ar/releases#v3-3-0");
+    await expect(shell.locator(".living-release__cta")).toHaveAttribute("href", "/ar/releases#v3-3-1");
     const panelBox = await shell.locator(".living-release__panel").boundingBox();
     expect(panelBox.x).toBeGreaterThanOrEqual(0);
     expect(panelBox.x + panelBox.width).toBeLessThanOrEqual(1280);

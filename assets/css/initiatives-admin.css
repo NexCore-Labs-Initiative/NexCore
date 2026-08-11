@@ -73,6 +73,25 @@
   transform: none;
 }
 
+.initiative-admin-preview-logo {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  padding: 7px;
+  border-radius: 14px;
+  border: 1px solid rgba(110, 231, 243, .22);
+  background: rgba(10, 11, 28, .74);
+  box-shadow: 0 12px 26px rgba(0, 0, 0, .24);
+}
+
+html[dir="rtl"] .initiative-admin-preview-logo {
+  right: 14px;
+  left: auto;
+}
+
 .initiative-admin-list-actions {
   display: flex;
   justify-content: flex-end;

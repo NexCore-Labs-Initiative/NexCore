@@ -1,5 +1,25 @@
 # Changelog
 
+## v3.3.1 - 12 August 2026
+
+### Credits & Initiative Logos
+
+A focused compliance and admin-polish release that adds quiet Uicons attribution across NexCore footers, lets admins provide compact initiative logos, and refines the header release beacon into a calmer status signal.
+
+#### Improvements
+
+- Added a subtle `Uicons by Flaticon` footer credit across English and Arabic pages while preserving the existing compact footer layout.
+- Added an admin-managed initiative `Logo URL` field so compact initiative shortcut cards can show a dedicated logo instead of relying on the larger initiative image.
+- Kept initiative logo handling safe and graceful: logo URLs are validated, GitHub blob links normalize to raw image URLs, and the UI falls back to the existing image or placeholder when no logo is provided.
+- Refined the NexCore Labs release beacon into a smaller cyan status signal with a subtle reduced-motion-safe pulse.
+
+#### Developer Notes
+
+- Added a Supabase migration for the optional `initiatives.logo` JSONB field.
+- Extended initiative validation, admin save/load behavior, public initiative normalization, shortcut rendering, and regression coverage for logo metadata.
+
+---
+
 ## v3.3.0 - 8 August 2026
 
 ### Trust & Foundations
@@ -19,6 +39,11 @@ A security-led release that protects access lists and analytics, repairs voting 
 - Added skip links, navigation landmarks, one meaningful page heading, consistent metric states, and a shorter Hub first viewport.
 - De-emphasized paused Intelligence and pricing surfaces while retaining direct, honest status pages and required policies.
 - Added route/evidence validation, browser accessibility smoke tests, operating docs, contribution/security policies, and GitHub templates.
+
+#### Fixes
+
+- Fixed production dependency audit findings so release dependencies no longer ship with known high-risk advisories.
+- Repaired roadmap voting identity handling and removed direct browser reads from protected access and analytics data.
 
 ---
 

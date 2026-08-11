@@ -72,6 +72,7 @@
 
   function buildPayload(visibility) {
     const imageUrl = normalizeImageUrl(value("initiativeImageUrl"));
+    const logoUrl = normalizeImageUrl(value("initiativeLogoUrl"));
     const linkUrl = value("initiativeLinkUrl");
     return {
       id: state.editingId,
@@ -88,6 +89,7 @@
       overview: { en: value("initiativeOverviewEn"), ar: value("initiativeOverviewAr") },
       highlights: pairedHighlights(),
       image: imageUrl ? { src: imageUrl, alt: { en: value("initiativeImageAltEn"), ar: value("initiativeImageAltAr") } } : null,
+      logo: logoUrl ? { src: logoUrl } : null,
       primary_link: linkUrl ? { url: linkUrl, label: { en: value("initiativeLinkLabelEn"), ar: value("initiativeLinkLabelAr") } } : null
     };
   }
@@ -109,6 +111,7 @@
     $("initiativeHighlightsEn").value = (record.highlights || []).map((item) => item.en).join("\n");
     $("initiativeHighlightsAr").value = (record.highlights || []).map((item) => item.ar).join("\n");
     $("initiativeImageUrl").value = record.image?.src || ""; $("initiativeImageAltEn").value = record.image?.alt?.en || ""; $("initiativeImageAltAr").value = record.image?.alt?.ar || "";
+    $("initiativeLogoUrl").value = record.logo?.src || "";
     $("initiativeLinkUrl").value = record.primary_link?.url || ""; $("initiativeLinkLabelEn").value = record.primary_link?.label?.en || ""; $("initiativeLinkLabelAr").value = record.primary_link?.label?.ar || "";
     const known = new Set(INITIAL_CATEGORIES);
     document.querySelectorAll("input[name='initiativeCategory']").forEach((input) => { input.checked = (record.categories || []).includes(input.value); });
@@ -133,6 +136,7 @@
     const card = document.createElement("article"); card.className = "initiative-card";
     const visual = document.createElement("div"); visual.className = "initiative-card-visual";
     if (payload.image?.src) { const image = document.createElement("img"); image.src = payload.image.src; image.alt = payload.image.alt.en || ""; visual.append(image); }
+    if (payload.logo?.src) { const logo = document.createElement("img"); logo.src = payload.logo.src; logo.alt = ""; logo.className = "initiative-admin-preview-logo"; visual.append(logo); }
     visual.append(addPreviewElement("span", `initiative-status initiative-status--${payload.status || "concept"}`, payload.status || "concept"));
     const content = document.createElement("div"); content.className = "initiative-card-content";
     const categories = document.createElement("div"); categories.className = "initiative-categories";
