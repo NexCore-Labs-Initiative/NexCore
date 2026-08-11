@@ -2,6 +2,99 @@
   "schema_version": 1,
   "releases": [
     {
+      "version": "v3.3.1",
+      "date": "2026-08-12",
+      "title": { "en": "Credits & Initiative Logos", "ar": "الاعتمادات وشعارات المبادرات" },
+      "summary": {
+        "en": "A focused compliance and admin-polish release that adds quiet Uicons attribution across NexCore footers, lets admins provide compact initiative logos, and refines the header release beacon into a calmer status signal.",
+        "ar": "إصدار تصحيحي مركّز يضيف اعتماد Uicons بهدوء في تذييلات NexCore، ويتيح للمشرفين إضافة شعارات مدمجة للمبادرات، ويحسّن مؤشر الإصدار في الترويسة ليصبح إشارة حالة أهدأ."
+      },
+      "visitor_announcement": {
+        "enabled": true,
+        "benefit": {
+          "en": "NexCore now credits its icon source properly and gives initiative shortcuts a cleaner logo-first presentation.",
+          "ar": "أصبح NexCore يوضح اعتماد مصدر الأيقونات بشكل مناسب ويمنح اختصارات المبادرات عرضاً أنظف يعتمد على الشعار أولاً."
+        },
+        "highlights": {
+          "en": [
+            "Proper Uicons by Flaticon attribution",
+            "Admin-managed initiative logo links",
+            "Cleaner initiative shortcut visuals"
+          ],
+          "ar": [
+            "اعتماد واضح لـ Uicons by Flaticon",
+            "روابط شعارات مبادرات يديرها المشرف",
+            "مرئيات أنظف لاختصارات المبادرات"
+          ]
+        }
+      },
+      "tags": ["compliance", "improvement", "admin"],
+      "user_updates": {
+        "features": [
+          {
+            "text": {
+              "en": "Added a quiet `Uicons by Flaticon` attribution line to standard English and Arabic footers without expanding the footer layout.",
+              "ar": "إضافة سطر اعتماد خفيف `Uicons by Flaticon` إلى التذييلات القياسية باللغتين الإنجليزية والعربية دون توسيع تخطيط التذييل."
+            },
+            "evidence": ["file:index.html", "file:ar/index.html", "file:assets/css/unminified-css.css", "file:scripts/branding-test.js"]
+          },
+          {
+            "text": {
+              "en": "Added an initiative Logo URL field in the admin dashboard so compact initiative cards can show a dedicated logo.",
+              "ar": "إضافة حقل رابط الشعار للمبادرات في لوحة المشرف حتى تعرض البطاقات المختصرة شعاراً مخصصاً."
+            },
+            "evidence": ["file:admin-users.html", "file:ar/admin-users.html", "file:assets/js/initiatives-admin.js", "file:assets/css/initiatives-admin.css"]
+          }
+        ],
+        "improvements": [
+          {
+            "text": {
+              "en": "Initiative shortcuts now prefer the compact logo, fall back to the existing initiative image, and keep the current placeholder behavior when neither is provided.",
+              "ar": "أصبحت اختصارات المبادرات تفضّل الشعار المدمج، ثم ترجع إلى صورة المبادرة الحالية، وتحافظ على السلوك الافتراضي عند عدم توفير أي منهما."
+            },
+            "evidence": ["file:assets/js/unminified-js.js", "file:assets/js/script.js", "file:scripts/initiatives-test.js"]
+          },
+          {
+            "text": {
+              "en": "Refined the NexCore Labs release beacon into a smaller cyan status signal with a subtle reduced-motion-safe pulse.",
+              "ar": "تحسين مؤشر إصدار NexCore Labs ليظهر كإشارة حالة سماوية أصغر مع حركة خفيفة تراعي إعدادات تقليل الحركة."
+            },
+            "evidence": ["file:assets/css/unminified-css.css", "file:assets/css/style.css"]
+          }
+        ]
+      },
+      "developer_notes": {
+        "technical_changes": [
+          {
+            "text": {
+              "en": "Extended initiative validation, public normalization, and admin payload handling with optional logo metadata and safe URL checks.",
+              "ar": "توسيع التحقق من المبادرات والتطبيع العام وحفظ بيانات المشرف ببيانات شعار اختيارية وفحص آمن للروابط."
+            },
+            "evidence": ["file:lib/initiatives.js", "file:assets/js/initiatives.js", "file:assets/js/initiatives-admin.js", "file:scripts/initiatives-admin-test.js"]
+          }
+        ],
+        "database_changes": [
+          {
+            "text": {
+              "en": "Added an optional `logo` JSONB column to `public.initiatives` for compact initiative logo metadata.",
+              "ar": "إضافة عمود JSONB اختياري باسم `logo` إلى `public.initiatives` لحفظ بيانات شعارات المبادرات المختصرة."
+            },
+            "evidence": ["file:supabase/migrations/20260812000921_add_initiative_logo.sql"]
+          }
+        ],
+        "internal_improvements": [
+          {
+            "text": {
+              "en": "Added regression coverage for footer attribution, logo validation, migration presence, and logo-first shortcut rendering.",
+              "ar": "إضافة تغطية اختبارات لمنع تراجع اعتماد التذييل والتحقق من الشعار ووجود الترحيل وعرض الاختصارات بالشعار أولاً."
+            },
+            "evidence": ["file:scripts/branding-test.js", "file:scripts/initiatives-admin-test.js", "file:scripts/initiatives-test.js"]
+          }
+        ]
+      },
+      "source": { "base_tag": "v3.3.0", "target": "v3.3.1", "commit_range": "v3.3.0..v3.3.1" }
+    },
+    {
       "version": "v3.3.0",
       "date": "2026-08-08",
       "title": { "en": "Trust & Foundations", "ar": "الثقة والأسس" },
@@ -53,6 +146,22 @@
               "ar": "الإبقاء على صفحات حالة الذكاء والأسعار بوضوح مع إزالتها من المسارات الرئيسية حتى تصبح قابلة للاستخدام."
             },
             "evidence": ["file:intelligence.html", "file:ar/intelligence.html", "file:pricing.html", "file:ar/pricing.html", "file:config/routes.json"]
+          }
+        ],
+        "fixes": [
+          {
+            "text": {
+              "en": "Fixed production dependency audit findings so release dependencies no longer ship with known high-risk advisories.",
+              "ar": "إصلاح نتائج تدقيق اعتماديات الإنتاج حتى لا يتم شحن الإصدار باعتماديات تحمل تنبيهات عالية الخطورة."
+            },
+            "evidence": ["file:package.json", "file:package-lock.json"]
+          },
+          {
+            "text": {
+              "en": "Repaired roadmap voting identity handling and removed direct browser reads from protected access and analytics data.",
+              "ar": "إصلاح التعامل مع هوية التصويت في خارطة الطريق وإزالة القراءة المباشرة من المتصفح لبيانات الوصول والتحليلات المحمية."
+            },
+            "evidence": ["file:docs/archive/sql/20260808125353_v3_3_trust_foundations.applied.sql", "file:api/public-metrics.js", "file:api/admin/access.js"]
           }
         ]
       },

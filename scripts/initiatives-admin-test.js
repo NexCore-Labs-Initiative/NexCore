@@ -21,6 +21,7 @@ const validPayload = {
   overview: { en: "A fuller description.", ar: "وصف أكثر تفصيلاً." },
   highlights: [{ en: "Curated", ar: "منسق" }],
   image: { src: "/assets/images/study-hub.webp", alt: { en: "Study Hub", ar: "مركز الدراسة" } },
+  logo: { src: "/assets/images/study-hub-logo.webp" },
   primary_link: { url: "https://study.nexcorelabs.com", label: { en: "Explore", ar: "استكشف" } }
 };
 
@@ -41,9 +42,18 @@ assert.strictEqual(
   "https://raw.githubusercontent.com/NexCore-Labs-Initiative/nexcore-study-hub/main/assets/imgs/nexcorelabs-studyhub.webp",
   "Initiative validation should store normalized GitHub image URLs"
 );
+assert.strictEqual(
+  validateInitiative({
+    ...validPayload,
+    logo: { src: "github.com/NexCore-Labs-Initiative/nexcore-study-hub/blob/main/assets/imgs/logo.webp" }
+  }).data.logo.src,
+  "https://raw.githubusercontent.com/NexCore-Labs-Initiative/nexcore-study-hub/main/assets/imgs/logo.webp",
+  "Initiative validation should store normalized GitHub logo URLs"
+);
 assert(validateInitiative({ ...validPayload, title: { en: "English only" } }).errors.length > 0, "Both title locales are required");
 assert(validateInitiative({ ...validPayload, categories: [] }).errors.length > 0, "A category is required");
 assert(validateInitiative({ ...validPayload, primary_link: { url: "javascript:alert(1)", label: { en: "Open", ar: "فتح" } } }).errors.length > 0, "Unsafe URLs are rejected");
+assert(validateInitiative({ ...validPayload, logo: { src: "javascript:alert(1)" } }).errors.length > 0, "Unsafe logo URLs are rejected");
 
 function createResponse() {
   return {
@@ -107,9 +117,14 @@ function createResponse() {
     const html = read(file);
     assert(html.includes('data-tab="initiatives"'), `${file} must expose the Initiatives tab`);
     assert(html.includes('id="initiativeForm"'), `${file} must include the initiative form`);
+    assert(html.includes('id="initiativeLogoUrl"'), `${file} must include the initiative logo URL field`);
     assert(html.includes('id="initiativesTableBody"'), `${file} must include the initiative list`);
     assert(html.includes('assets/js/initiatives-admin.js'), `${file} must load the shared authoring behavior`);
   }
+
+  const migration = read("supabase/migrations/20260812000921_add_initiative_logo.sql");
+  assert(migration.includes("add column if not exists logo jsonb"), "Logo migration must add the initiatives.logo JSONB column");
+  assert(migration.includes("Expected shape"), "Logo migration must document the expected JSON shape");
 
   console.log("Initiatives admin tests passed.");
 })().catch((error) => {

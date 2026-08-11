@@ -135,6 +135,8 @@
     const image = imageSrc && hasRequiredLocales(raw.image.alt)
       ? Object.freeze({ src: imageSrc, alt: raw.image.alt || {} })
       : null;
+    const logoSrc = raw.logo && typeof raw.logo === "object" ? normalizeImageUrl(raw.logo.src) : "";
+    const logo = logoSrc ? Object.freeze({ src: logoSrc }) : null;
     const primaryLink = raw.primary_link && typeof raw.primary_link === "object" && asText(raw.primary_link.url)
       ? Object.freeze({ url: asText(raw.primary_link.url), label: raw.primary_link.label || {} })
       : null;
@@ -151,6 +153,7 @@
       overview: Object.freeze({ en: asText(raw.overview.en), ar: asText(raw.overview.ar) }),
       highlights: Object.freeze(highlights),
       image,
+      logo,
       primaryLink
     });
   }

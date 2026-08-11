@@ -72,6 +72,14 @@
     ['api_updates', 'c-api', 'fa-plug'],
     ['internal_improvements', 'c-int', 'fa-gear']
   ];
+  const tagMeta = {
+    feature: { className: 'feat', icon: 'fa-wand-magic-sparkles', label: copy.features },
+    improvement: { className: 'impr', textIcon: '↑', label: copy.improvements },
+    fix: { className: 'fix', icon: 'fa-wrench', label: copy.fixes },
+    security: { className: 'sec', icon: 'fa-shield-halved', label: isArabic ? 'حماية' : 'Security' },
+    compliance: { className: 'comp', icon: 'fa-scale-balanced', label: isArabic ? 'امتثال' : 'Compliance' },
+    admin: { className: 'admin', icon: 'fa-user-gear', label: isArabic ? 'إدارة' : 'Admin' }
+  };
 
   let releaseData = null;
   let currentMode = 'user';
@@ -128,11 +136,13 @@
   }
 
   function tagMarkup(tag) {
-    if (tag === 'feature') {
-      return `<span class="rl-tag feat"><i class="fa-solid fa-wand-magic-sparkles fa-mini"></i> ${copy.features}</span>`;
-    }
-    if (tag === 'improvement') return `<span class="rl-tag impr">↑ ${copy.improvements}</span>`;
-    return `<span class="rl-tag fix"><i class="fa-solid fa-wrench fa-mini"></i> ${copy.fixes}</span>`;
+    const meta = tagMeta[tag] || {
+      className: 'meta',
+      icon: 'fa-tag',
+      label: tag.split('-').filter(Boolean).map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
+    };
+    const icon = meta.textIcon || `<i class="fa-solid ${meta.icon} fa-mini"></i>`;
+    return `<span class="rl-tag ${meta.className}">${icon} ${escapeHtml(meta.label)}</span>`;
   }
 
   function releaseCard(release, index) {
