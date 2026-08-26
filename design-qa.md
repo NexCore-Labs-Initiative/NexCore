@@ -1,46 +1,35 @@
-# Living Release Beacon Design QA
+# NexCore Help Center Design QA
 
 ## Evidence
 
-- Source visual truth: `C:\Users\aalza\.codex\generated_images\019fea67-e67b-7531-94f4-e89dc851c405\exec-317af607-dc11-476f-b8f1-4fb8ddd4277c.png`
-- Desktop implementation: `C:\Users\aalza\AppData\Local\Temp\nexcore-release-beacon-desktop-open.png`
-- Arabic implementation: `C:\Users\aalza\AppData\Local\Temp\nexcore-release-beacon-arabic-final.png`
-- Mobile implementation: `C:\Users\aalza\AppData\Local\Temp\nexcore-release-beacon-mobile-final.png`
-- Full-view comparison: `C:\Users\aalza\AppData\Local\Temp\nexcore-release-beacon-comparison.png`
-- Focused component comparison: `C:\Users\aalza\AppData\Local\Temp\nexcore-release-beacon-focused-comparison.png`
-- Desktop viewport and CSS size: 1280 x 720 at device scale 1.
-- Mobile viewport and CSS size: 320 x 700 at device scale 1.
-- Source pixels: 1672 x 941, normalized to 1280 x 720 for the full-view comparison.
-- Implementation pixels: 1280 x 720 for the desktop comparison.
-- State: first promoted release, popover open, dark theme, signed-out visitor.
+- Source visual truth: `C:\Users\aalza\AppData\Local\Temp\codex-clipboard-ea7a5c6c-c1bb-415b-9566-de1b27050735.png`
+- English desktop implementation: `C:\Users\aalza\AppData\Local\Temp\nexcore-help-center-desktop-final2.png`
+- Arabic desktop implementation: `C:\Users\aalza\AppData\Local\Temp\nexcore-help-center-ar-desktop-final3.png`
+- English mobile implementation: `C:\Users\aalza\AppData\Local\Temp\nexcore-help-center-mobile-final.png`
+- Desktop viewport: 1527 x 979 at device scale 1.
+- Mobile viewport: 390 x 900 at device scale 1.
+- State: Help Center landing page, search empty, topic sidebar visible, collection cards visible.
 
 ## Findings
 
 - No actionable P0, P1, or P2 differences remain.
-- Fonts and typography: Inter/Tajawal, weights, line heights, hierarchy, and wrapping retain the source's compact dark-product character. Live visitor copy is intentionally more specific than the concept copy.
-- Spacing and layout rhythm: the beacon remains adjacent to the wordmark and the popover keeps the selected compact width, padding, separators, CTA hierarchy, radii, and restrained elevation.
-- Colors and visual tokens: the implementation uses NexCore's existing navy, cyan, muted-text, border, and glass tokens with sufficient contrast.
-- Image and icon fidelity: no new raster artwork is required. Existing branding is preserved and the selected UI symbols use the site's existing Font Awesome library rather than custom drawings.
-- Copy and content: version, title, benefit, three highlights, CTA, close, and dismiss states are complete in English and Arabic.
-- Responsive and accessibility: the 320px state stays within the viewport, Arabic remains within the desktop viewport, keyboard focus returns to the beacon, and reduced motion removes pulse/reveal animation.
-
-## Comparison History
-
-1. Initial comparison found two P2 issues: the Arabic panel opened beyond the left viewport edge, and the mobile pulse crowded the `Labs` wordmark.
-2. The RTL anchor was corrected to the physical left side of the header beacon, the small-screen wordmark and beacon dimensions were tightened, and the mobile pulse radius was reduced.
-3. Post-fix screenshots confirm that English desktop, Arabic desktop, and 320px mobile states are contained and retain the selected hierarchy. Focused comparison confirms the popover proportions, typography, divider, highlights, CTA, and dismiss treatment.
+- Layout: the page now follows the reference support-center pattern with a light top utility bar, fixed-width topic rail, large serif search heading, compact search input, document-style article rows, and collection cards.
+- Styling: the Help Center intentionally uses a warmer, lighter support surface instead of NexCore's dark marketing shell, matching the user's direction that it should feel different from the main site.
+- Interaction: `Ctrl+K` and the top search button focus the search field; live search filters article rows and collection cards in English and Arabic.
+- Responsive behavior: the mobile viewport has no horizontal overflow and converts the sidebar into horizontal topic chips while keeping the primary article list usable.
+- RTL behavior: the Arabic page mirrors the support layout with the topic rail on the right, right-aligned content, Arabic copy, and working Arabic search keywords.
 
 ## Primary Interactions Tested
 
-- Automatic first open without focus theft.
-- Close, outside click, Escape, and beacon reopen.
-- Persistent dismiss and explore behavior.
-- A later promoted release appears despite an older dismissed version.
-- English/Arabic release anchors and excluded private/release routes.
-- Browser console checked during local visual inspection; no beacon-related errors were observed.
+- English page load at `/help-center.html`.
+- Arabic page load at `/ar/help-center.html`.
+- English search query `pricing` returns the paid-service article and matching collection only.
+- Arabic search query `التسعير` returns the paid-service article and matching collection.
+- Desktop English, desktop Arabic, and mobile English all report zero horizontal overflow.
+- Browser console checked during local visual inspection; no errors were observed.
 
 ## Follow-up Polish
 
-- P3: The implementation uses uniform check icons for the three highlights while the concept used three different category icons. This keeps future announcement content editorially flexible and visually quieter.
+- P3: The reference brand text is shorter, so NexCore's title naturally occupies more width. The implemented brand now stays on one line while preserving the support-site identity.
 
 final result: passed

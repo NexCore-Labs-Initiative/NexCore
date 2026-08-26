@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="NexCore Labs">
     <meta name="keywords" content="NexCore Labs help center, support, account access, projects, initiatives, pricing, troubleshooting, Oman students">
-    <meta name="theme-color" content="#0a0b1c">
+    <meta name="theme-color" content="#f7f5ef">
     <meta name="mobile-web-app-capable" content="yes">
     <title>NexCore Labs | Help Center</title>
     <meta name="description" content="Search NexCore Labs help articles for getting started, account access, project visibility, initiatives, pricing, security, and troubleshooting.">
@@ -30,25 +30,12 @@
     <link rel="icon" href="assets/images/nexcore-icon.png" type="image/png">
     <link rel="apple-touch-icon" href="assets/images/nexcore-logo.webp">
     <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/admin-button.css">
-    <link rel="stylesheet" href="assets/css/arabic.css">
-    <link rel="stylesheet" href="assets/css/ai-chat.css">
     <link rel="stylesheet" href="assets/css/help-center.css">
     <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
-    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.2/uicons-solid-rounded/css/uicons-solid-rounded.css'>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script>
-        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-    </script>
-    <script defer src="/_vercel/insights/script.js"></script>
-    <script>
-        window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
-    </script>
-    <script defer src="/_vercel/speed-insights/script.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
 
         <!-- NexCore SEO structured data -->
         <script type="application/ld+json" data-nexcore-seo="true">
@@ -119,208 +106,100 @@
 </head>
 <body class="help-center-body">
   <a class="skip-link" href="#main-content">Skip to main content</a>
-    <div class="background">
-        <img class="logo-img" id="logoImg" src="assets/images/nexcore-logo.webp" alt="NexCore Labs Logo">
-        <div id="spotLight" class="spot-light"></div>
-    </div>
-
-    <header class="navbar" role="navigation" aria-label="Primary navigation">
-        <div class="nav-container">
-            <div class="logo">
-                <div id="logo" aria-label="NexCore Labs"><a href="index.html" style="text-decoration: none; color: inherit;">NexCore <span>Labs</span></a></div>
-            </div>
-
-            <div class="dropdown">
-                <button class="core-menu" id="coreMenu" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="myDropdown" title="Open menu">
-                    <span class="dot" aria-hidden="true"></span><span class="dot" aria-hidden="true"></span><span class="dot" aria-hidden="true"></span><span class="dot" aria-hidden="true"></span><span class="dot" aria-hidden="true"></span><span class="dot" aria-hidden="true"></span>
-                </button>
-
-        <div id="myDropdown" class="dropdown-content">
-          <a href="ar/help-center.html" class="lang-switch-pill mixed-content" title="View Arabic site">
-              <div class="pill-slider"></div>
-              <span class="pill-text en-text"><img src="assets/images/uk.webp" alt="United Kingdom flag"> EN</span>
-              <span class="pill-text ar-text"><img src="assets/images/oman.webp" alt="Oman flag"> ع</span>
-          </a>
-          <a href="auth.html" class="magic-signup fade" title="Sign in to your account"><i class="fa-solid fa-key"></i> Access the Core</a>
-          <input type="search" placeholder="What?..." id="myInput" onkeyup="filterFunction()" title="Search...">
-          <a href="initiatives.html" class="fade" data-initiatives-nav title="NexCore Labs Initiatives"><i class="fa-solid fa-wand-magic-sparkles"></i> Initiatives <span class="new-badge">New</span></a>
-          <div class="div-menu-line"></div>
-          <a href="hub.html" class="fade mt-0" title="NexCore Labs Hub"><span class="menu-dots-icon" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></span> Hub</a>
-          <a href="hub.html#projects" class="fade" title="Projects"><i class="fa-solid fa-diagram-project"></i> Projects</a>
-          <div class="div-menu-line"></div>
-          <a href="index.html#tools" class="mt-0" title="Tools & Systems"><i class="fa-solid fa-screwdriver-wrench"></i> Tools & Systems</a>
-          <a href="index.html#about" title="About NexCore Labs"><i class="fa-solid fa-circle-info"></i> About Us</a>
-          <a href="index.html#team" title="NexCore Labs Team"><i class="fa-solid fa-users"></i> Our Team</a>
-          <a href="index.html#contact" title="Contact NexCore Labs"><i class="fa-solid fa-paper-plane"></i> Contact Us</a>
-          <div class="div-menu-line"></div>
-          <a href="roadmap.html" class="fade mt-0" title="Feature requests and roadmap board"><i class="fa-solid fa-route"></i> Feature Board</a>
-          <a href="releases.html" class="fade" title="Releases & Updates"><i class="fa-solid fa-clock-rotate-left"></i> Releases / Updates</a>
-          <div class="div-menu-line"></div>
-          <a href="pricing-policy.html" class="fade" title="Pricing and Billing Policy"><i class="fa-solid fa-receipt"></i> Pricing Policy</a>
-          <div class="div-menu-line"></div>
-          <a href="help-center.html" class="fade mt-0" title="NexCore Labs Help Center"><i class="fa-solid fa-life-ring"></i> Help Center <span class="new-badge">New</span></a>
-          <a href="terms.html" class="fade" title="Terms of Service"><i class="fa-solid fa-file-contract"></i> Terms</a>
-          <a href="privacy-policy.html" class="fade" title="Privacy Policy"><i class="fa-solid fa-shield-halved"></i> Privacy Policy</a>
-        </div>
-            </div>
-        </div>
+  <div class="support-shell">
+    <header class="support-topbar" aria-label="NexCore Support">
+      <a class="support-brand" href="index.html" aria-label="NexCore Labs home">
+        <img src="assets/images/nexcore-icon.png" alt="">
+        <span>NexCore Support</span>
+      </a>
+      <nav class="support-toplinks" aria-label="Support utility navigation">
+        <a href="how-to-use.html">Platform Guide</a>
+        <a href="releases.html">Release Notes</a>
+        <a href="index.html#contact">How to Get Support</a>
+        <a class="support-lang" href="ar/help-center.html"><i class="fa-solid fa-globe" aria-hidden="true"></i> Arabic <i class="fa-solid fa-chevron-down" aria-hidden="true"></i></a>
+        <button class="support-mini-search" type="button" data-support-search-trigger><span>Search</span><span class="support-kbd">Ctrl K</span></button>
+      </nav>
     </header>
 
-    <main id="main-content" class="help-center-page">
-      <div class="help-shell">
-        <section class="help-hero" aria-labelledby="help-title">
-          <p class="help-kicker">NexCore Labs Help Center</p>
-          <h1 id="help-title">How can we help?</h1>
-          <p>Search practical answers for access, projects, initiatives, pricing, privacy, and troubleshooting. The help center is quieter than the main site on purpose: less showcase, more answer.</p>
-          <label class="help-search" for="helpSearch">
+    <div class="support-layout">
+      <aside class="support-sidebar" aria-label="Help topics">
+        <ul class="support-sidebar-list">
+          <li><a class="support-sidebar-link is-active" href="#collections" data-support-filter="all"><i class="fa-regular fa-comments"></i><span>NexCore Labs</span><i class="fa-solid fa-chevron-right"></i></a></li>
+          <li><a class="support-sidebar-link" href="#collections" data-support-filter="access"><i class="fa-solid fa-bolt"></i><span>Account and access</span><i class="fa-solid fa-chevron-right"></i></a></li>
+          <li><a class="support-sidebar-link" href="#collections" data-support-filter="projects"><i class="fa-regular fa-folder"></i><span>Project Hub</span><i class="fa-solid fa-chevron-right"></i></a></li>
+          <li><a class="support-sidebar-link" href="#collections" data-support-filter="initiatives"><i class="fa-solid fa-code"></i><span>Initiatives</span><i class="fa-solid fa-chevron-right"></i></a></li>
+          <li><a class="support-sidebar-link" href="#collections" data-support-filter="contribute"><i class="fa-regular fa-id-card"></i><span>Contributor Center</span><i class="fa-solid fa-chevron-right"></i></a></li>
+          <li><a class="support-sidebar-link" href="#collections" data-support-filter="pricing"><i class="fa-regular fa-credit-card"></i><span>Pricing and billing</span><i class="fa-solid fa-chevron-right"></i></a></li>
+          <li><a class="support-sidebar-link" href="#collections" data-support-filter="privacy"><i class="fa-solid fa-lock"></i><span>Privacy and legal</span><i class="fa-solid fa-chevron-right"></i></a></li>
+          <li><a class="support-sidebar-link" href="#collections" data-support-filter="support"><i class="fa-regular fa-life-ring"></i><span>Troubleshooting</span><i class="fa-solid fa-chevron-right"></i></a></li>
+        </ul>
+      </aside>
+
+      <main id="main-content" class="support-content">
+        <section class="support-hero" aria-labelledby="support-title">
+          <h1 id="support-title">Search for answers or browse by topic</h1>
+          <label class="support-search" for="helpSearch">
             <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-            <input id="helpSearch" type="search" autocomplete="off" placeholder="Search help articles..." aria-label="Search help articles">
-            <span class="help-shortcut" aria-hidden="true">Ctrl K</span>
+            <input id="helpSearch" type="search" autocomplete="off" placeholder="Search for articles..." aria-label="Search for articles">
+            <span class="support-kbd" aria-hidden="true">Ctrl K</span>
           </label>
-          <div class="help-quick-actions" aria-label="Help filters">
-            <button class="help-chip is-active" type="button" data-help-filter="all"><i class="fa-solid fa-layer-group"></i> All</button>
-            <button class="help-chip" type="button" data-help-filter="getting-started"><i class="fa-solid fa-rocket"></i> Getting started</button>
-            <button class="help-chip" type="button" data-help-filter="projects"><i class="fa-solid fa-diagram-project"></i> Projects</button>
-            <button class="help-chip" type="button" data-help-filter="support"><i class="fa-solid fa-headset"></i> Support</button>
-          </div>
         </section>
 
-        <section class="help-section" aria-labelledby="collections-title">
-          <div class="help-section-head">
-            <h2 id="collections-title">Browse by topic</h2>
-            <p>Collections combine the old FAQ and How to Use pages into one support hub.</p>
-          </div>
-          <div class="help-topic-grid">
-            <article class="help-topic-card" data-category="getting-started" data-title="Getting started" data-keywords="sign in account guide how to use">
-              <span class="help-topic-icon"><i class="fa-solid fa-rocket"></i></span>
-              <div><h3><a href="#start-with-nexcore">Getting started</a></h3><p>What NexCore is, who it serves, and the fastest path into the platform.</p></div>
-            </article>
-            <article class="help-topic-card" data-category="account" data-title="Account and access" data-keywords="google login squ access approved accounts">
-              <span class="help-topic-icon"><i class="fa-solid fa-key"></i></span>
-              <div><h3><a href="#account-access">Account & access</a></h3><p>Sign-in, eligible accounts, approved access, and account basics.</p></div>
-            </article>
-            <article class="help-topic-card" data-category="projects" data-title="Projects and hub" data-keywords="project hub showcase submit discover">
-              <span class="help-topic-icon"><i class="fa-solid fa-diagram-project"></i></span>
-              <div><h3><a href="#project-hub">Projects & hub</a></h3><p>Discover, share, and understand public project visibility.</p></div>
-            </article>
-            <article class="help-topic-card" data-category="initiatives" data-title="Initiatives" data-keywords="initiatives experiments public featured">
-              <span class="help-topic-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></span>
-              <div><h3><a href="#initiatives-help">Initiatives</a></h3><p>Learn how NexCore products and community experiments are organized.</p></div>
-            </article>
-            <article class="help-topic-card" data-category="pricing" data-title="Pricing and billing" data-keywords="pricing billing paid orders paused refund support duration">
-              <span class="help-topic-icon"><i class="fa-solid fa-receipt"></i></span>
-              <div><h3><a href="#pricing-billing">Pricing & billing</a></h3><p>Current paused order state, support periods, and refund rules.</p></div>
-            </article>
-            <article class="help-topic-card" data-category="support" data-title="Security privacy troubleshooting support" data-keywords="privacy security troubleshooting contact support">
-              <span class="help-topic-icon"><i class="fa-solid fa-shield-halved"></i></span>
-              <div><h3><a href="#privacy-security">Privacy, security & support</a></h3><p>Data handling, practical troubleshooting, and how to contact NexCore.</p></div>
-            </article>
-          </div>
+        <section class="support-article-list" aria-label="Popular help articles">
+          <a class="support-article-row" href="how-to-use.html" data-support-article data-category="access" data-title="Get started with NexCore Labs" data-keywords="start guide account access squ login">
+            <span>Get started with NexCore Labs</span><i class="fa-regular fa-file-lines" aria-hidden="true"></i>
+          </a>
+          <a class="support-article-row" href="faq.html" data-support-article data-category="access" data-title="Log in to your NexCore account" data-keywords="login google account access approved">
+            <span>Log in to your NexCore account</span><i class="fa-regular fa-file-lines" aria-hidden="true"></i>
+          </a>
+          <a class="support-article-row" href="hub.html" data-support-article data-category="projects" data-title="Find projects in the Project Hub" data-keywords="project hub discover showcase public projects">
+            <span>Find projects in the Project Hub</span><i class="fa-regular fa-file-lines" aria-hidden="true"></i>
+          </a>
+          <a class="support-article-row" href="contribute.html" data-support-article data-category="contribute" data-title="Submit or update a project" data-keywords="submit update project contribution contributor">
+            <span>Submit or update a project</span><i class="fa-regular fa-file-lines" aria-hidden="true"></i>
+          </a>
+          <a class="support-article-row" href="releases.html" data-support-article data-category="support" data-title="Release notes" data-keywords="release notes updates changes">
+            <span>Release notes</span><i class="fa-regular fa-file-lines" aria-hidden="true"></i>
+          </a>
+          <a class="support-article-row" href="pricing-policy.html" data-support-article data-category="pricing" data-title="Paid service order status" data-keywords="paid order paused pricing billing refund">
+            <span>Paid service order status</span><i class="fa-regular fa-file-lines" aria-hidden="true"></i>
+          </a>
+          <div class="support-result-note" data-support-no-results>No matching articles or collections. Try a shorter search.</div>
         </section>
 
-        <section class="help-section" aria-labelledby="popular-title">
-          <div class="help-section-head">
-            <h2 id="popular-title">Popular articles</h2>
-            <p class="help-result-count" data-help-result-count data-label="articles">0 articles</p>
-          </div>
-          <div class="help-article-list">
-            <a class="help-article-card" href="#start-with-nexcore" data-category="getting-started" data-title="Start with NexCore Labs" data-keywords="what is nexcore who can use founded how to use"><h3>Start with NexCore Labs</h3><p>A quick orientation to the platform, its audience, and the first useful steps.</p><span class="help-article-meta"><i class="fa-regular fa-clock"></i> 3 min read</span></a>
-            <a class="help-article-card" href="#account-access" data-category="account" data-title="Sign in and access rules" data-keywords="google account squ approved users login"><h3>Sign in and access rules</h3><p>How current account access works while NexCore keeps paid orders paused.</p><span class="help-article-meta"><i class="fa-regular fa-clock"></i> 2 min read</span></a>
-            <a class="help-article-card" href="#project-hub" data-category="projects" data-title="Use the Project Hub" data-keywords="hub projects showcase discover submit visibility"><h3>Use the Project Hub</h3><p>Browse public work, understand project pages, and find contribution paths.</p><span class="help-article-meta"><i class="fa-regular fa-clock"></i> 4 min read</span></a>
-            <a class="help-article-card" href="#pricing-billing" data-category="pricing" data-title="Paid orders are paused" data-keywords="pricing billing paused paypal bank transfer refund"><h3>Paid orders are paused</h3><p>What is available now and what not to do with old payment links or details.</p><span class="help-article-meta"><i class="fa-regular fa-clock"></i> 2 min read</span></a>
-            <a class="help-article-card" href="#troubleshooting" data-category="support" data-title="Troubleshooting first steps" data-keywords="error login access refresh cache browser support"><h3>Troubleshooting first steps</h3><p>Simple checks before reporting an issue with access, pages, or stale content.</p><span class="help-article-meta"><i class="fa-regular fa-clock"></i> 3 min read</span></a>
-            <a class="help-article-card" href="#privacy-security" data-category="support" data-title="Privacy and security basics" data-keywords="privacy security data cookies analytics account"><h3>Privacy and security basics</h3><p>Where to learn how NexCore handles account data, cookies, analytics, and submissions.</p><span class="help-article-meta"><i class="fa-regular fa-clock"></i> 2 min read</span></a>
-          </div>
-          <div class="help-no-results" data-help-no-results>No help articles matched your search. Try a shorter phrase or contact NexCore from the support section.</div>
-        </section>
-
-        <section class="help-section help-article-grid" aria-label="Help articles">
-          <article id="start-with-nexcore" class="help-article" data-category="getting-started" data-title="Start with NexCore Labs" data-keywords="what is nexcore who can use founded how to use">
-            <h2>Start with NexCore Labs</h2>
-            <p>NexCore Labs is an independent, student-led platform built to help the SQU community access useful tools, share work, collaborate, and move ideas forward.</p>
-            <ul>
-              <li>Use the <a href="hub.html">Project Hub</a> to discover public student work and shared resources.</li>
-              <li>Use <a href="initiatives.html">Initiatives</a> to explore NexCore-built products, experiments, and community efforts.</li>
-              <li>Use <a href="contribute.html">Contributor Center</a> to share projects, suggest improvements, or follow contribution paths.</li>
-            </ul>
-          </article>
-          <article id="account-access" class="help-article" data-category="account" data-title="Sign in and access rules" data-keywords="google account squ approved users login access">
-            <h2>Sign in and access rules</h2>
-            <p>Sign in with your Google account. Eligible SQU accounts and pre-approved users can access NexCore under the current access rules, while paid service orders remain temporarily paused.</p>
-            <p>If access does not appear after signing in, check that you are using the intended Google account, refresh the page, then contact NexCore with the account email and the page you were trying to open.</p>
-          </article>
-          <article id="project-hub" class="help-article" data-category="projects" data-title="Use the Project Hub" data-keywords="project hub showcase discover visibility submit">
-            <h2>Use the Project Hub</h2>
-            <p>The Project Hub is the public discovery layer for student work, shared resources, and community projects. It is designed for browsing, comparison, and practical project visibility rather than private file storage.</p>
-            <p>For new project visibility or corrections to an existing entry, start from the Contributor Center so the request keeps the right context.</p>
-          </article>
-          <article id="initiatives-help" class="help-article" data-category="initiatives" data-title="Understand initiatives" data-keywords="initiatives launched active ideas featured">
-            <h2>Understand initiatives</h2>
-            <p>Initiatives are NexCore products, experiments, and community efforts beyond individual project pages. The page can include launched work, active builds, and ideas still taking shape.</p>
-            <p>Featured public initiatives may also appear in the site menu as shortcuts so visitors can jump into active work faster.</p>
-          </article>
-          <article id="pricing-billing" class="help-article" data-category="pricing" data-title="Pricing and billing" data-keywords="pricing billing paid orders paused refund support">
-            <h2>Pricing and billing</h2>
-            <p>Paid service orders are temporarily paused while NexCore completes legal and regulatory review. PayPal checkout, bank transfer, mobile transfer, and paid order submission are unavailable.</p>
-            <p>Please do not send payment using old details or links. For the formal policy, read the <a href="pricing-policy.html">Pricing & Billing Policy</a>.</p>
-          </article>
-          <article id="privacy-security" class="help-article" data-category="support" data-title="Privacy and security basics" data-keywords="privacy security data cookies analytics">
-            <h2>Privacy and security basics</h2>
-            <p>NexCore keeps privacy guidance in plain-language public pages. For details about account data, cookies, analytics, and project information, review the <a href="privacy-policy.html">Privacy Policy</a> and <a href="terms.html">Terms</a>.</p>
-          </article>
-          <article id="troubleshooting" class="help-article" data-category="support" data-title="Troubleshooting first steps" data-keywords="troubleshooting stale cache error login refresh browser">
-            <h2>Troubleshooting first steps</h2>
-            <ol>
-              <li>Refresh the page and confirm your internet connection.</li>
-              <li>Sign out and back in if the issue is account-related.</li>
-              <li>Open the same page in a fresh browser tab if content looks stale.</li>
-              <li>Contact NexCore with the page URL, account email if relevant, and a short description of what happened.</li>
-            </ol>
-          </article>
-        </section>
-
-        <section class="help-section" aria-labelledby="support-title">
-          <div class="help-support-panel">
-            <div>
-              <h2 id="support-title">Still need help?</h2>
-              <p>Send the page link, account context if relevant, and what you expected to happen. Clear reports are faster to handle.</p>
-            </div>
-            <div class="help-support-row">
-              <a class="help-button" href="index.html#contact"><i class="fa-solid fa-paper-plane"></i> Contact NexCore</a>
-              <a class="help-button secondary" href="contribute.html"><i class="fa-solid fa-hands-helping"></i> Contribute</a>
-            </div>
+        <section class="support-section" id="collections" aria-labelledby="collections-title">
+          <h2 id="collections-title">Collections</h2>
+          <div class="support-collection-grid">
+            <a class="support-collection-card" href="how-to-use.html" data-support-collection data-category="access" data-title="NexCore Labs" data-keywords="start guide overview">
+              <span class="support-collection-icon"><i class="fa-regular fa-comments" aria-hidden="true"></i></span>
+              <span class="support-collection-body"><h3>NexCore Labs</h3><p>Get started with NexCore across accounts, tools, projects, and support paths.</p></span>
+            </a>
+            <a class="support-collection-card" href="faq.html" data-support-collection data-category="access" data-title="Account and access" data-keywords="account login google squ access">
+              <span class="support-collection-icon"><i class="fa-solid fa-bolt" aria-hidden="true"></i></span>
+              <span class="support-collection-body"><h3>Account and access</h3><p>Understand Google sign-in, eligible accounts, and approved access rules.</p></span>
+            </a>
+            <a class="support-collection-card" href="hub.html" data-support-collection data-category="projects" data-title="Project Hub" data-keywords="project hub showcase discover">
+              <span class="support-collection-icon"><i class="fa-regular fa-folder" aria-hidden="true"></i></span>
+              <span class="support-collection-body"><h3>Project Hub</h3><p>Browse student work, public project pages, and shared resources.</p></span>
+            </a>
+            <a class="support-collection-card" href="initiatives.html" data-support-collection data-category="initiatives" data-title="Initiatives" data-keywords="initiatives experiments products public">
+              <span class="support-collection-icon"><i class="fa-solid fa-code" aria-hidden="true"></i></span>
+              <span class="support-collection-body"><h3>Initiatives</h3><p>Explore NexCore products, experiments, and community efforts.</p></span>
+            </a>
+            <a class="support-collection-card" href="contribute.html" data-support-collection data-category="contribute" data-title="Contributor Center" data-keywords="contribute submit suggest feedback">
+              <span class="support-collection-icon"><i class="fa-regular fa-id-card" aria-hidden="true"></i></span>
+              <span class="support-collection-body"><h3>Contributor Center</h3><p>Share projects, suggest improvements, and follow contribution routes.</p></span>
+            </a>
+            <a class="support-collection-card" href="privacy-policy.html" data-support-collection data-category="privacy" data-title="Privacy and legal" data-keywords="privacy legal data terms security">
+              <span class="support-collection-icon"><i class="fa-solid fa-lock" aria-hidden="true"></i></span>
+              <span class="support-collection-body"><h3>Privacy and legal</h3><p>Review data handling, platform terms, pricing policy, and trust basics.</p></span>
+            </a>
           </div>
         </section>
+      </main>
+    </div>
+  </div>
 
-        <div class="nexcore-sign">
-            <img id="nexcoreSign" src="assets/images/nexcore-word.webp" alt="NexCore Labs">
-        </div>
-      </div>
-    </main>
-
-    <footer class="site-footer">
-        <div class="container footer-inner">
-            <div class="f-left">
-                <a class="paypal" href="https://www.paypal.me/nexcorelabs" target="_blank" rel="noopener" title="Optional contribution via PayPal"><i class="fa-solid fa-heart" style="color: #6EE7F3;"></i><i class="fa-brands fa-paypal"></i> Optional contribution</a>
-                <br>
-                <small>NexCore Labs © <span id="year"></span> <span id="splitter">|</span>
-                    <a href="https://github.com/NexCore-Labs-Initiative/NexCore/blob/main/LICENSE" target="_blank" rel="noopener" class="license-link">
-                        <i class="fa-solid fa-scale-balanced"></i> MIT License
-                    </a>
-                </small>
-        <br>
-        <small class="asset-credit">Uicons by <a href="https://www.flaticon.com/" target="_blank" rel="noopener">Flaticon</a></small>
-            </div>
-            <div class="f-right footer-line"></div>
-        </div>
-    </footer>
-
-    <script src="assets/js/script.js"></script>
-    <script src="assets/js/supabase-client.js"></script>
-    <script src="assets/js/auth-ui-db.js"></script>
-    <script src="assets/js/ai-chat.js"></script>
-    <script src="assets/js/help-center.js"></script>
-    <script src="version.js"></script>
-    <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script src="assets/js/help-center.js"></script>
 </body>
 </html>
