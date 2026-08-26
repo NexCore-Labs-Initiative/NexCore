@@ -10,6 +10,8 @@
     { "route": "/ar/initiatives", "file": "ar/initiatives.html", "locale": "ar", "pair": "/initiatives", "indexed": true, "precache": true, "priority": 0.82 },
     { "route": "/contribute", "file": "contribute.html", "locale": "en", "pair": "/ar/contribute", "indexed": true, "precache": true, "priority": 0.82 },
     { "route": "/ar/contribute", "file": "ar/contribute.html", "locale": "ar", "pair": "/contribute", "indexed": true, "precache": true, "priority": 0.82 },
+    { "route": "/help-center", "file": "help-center.html", "locale": "en", "pair": "/ar/help-center", "indexed": true, "precache": true, "priority": 0.84 },
+    { "route": "/ar/help-center", "file": "ar/help-center.html", "locale": "ar", "pair": "/help-center", "indexed": true, "precache": true, "priority": 0.84 },
     { "route": "/how-to-use", "file": "how-to-use.html", "locale": "en", "pair": "/ar/how-to-use", "indexed": true, "precache": true, "priority": 0.8 },
     { "route": "/ar/how-to-use", "file": "ar/how-to-use.html", "locale": "ar", "pair": "/how-to-use", "indexed": true, "precache": true, "priority": 0.8 },
     { "route": "/faq", "file": "faq.html", "locale": "en", "pair": "/ar/faq", "indexed": true, "precache": true, "priority": 0.8 },

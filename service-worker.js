@@ -1,6 +1,6 @@
 /* Improved Service Worker — robust caching, offline fallback, and runtime strategies */
 const CACHE_VERSION = 'v3.3.1';
-const CACHE_BUILD = '20260810.1';
+const CACHE_BUILD = '20260826.1';
 const CACHE_PREFIX = 'nexcore-cache-';
 const CACHE_NAME = `${CACHE_PREFIX}${CACHE_VERSION}-${CACHE_BUILD}`;
 const IMAGE_CACHE_PREFIX = 'nexcore-images-';
@@ -23,6 +23,10 @@ const PRECACHE_URLS = [
   '/contribute.html',
   '/ar/contribute',
   '/ar/contribute.html',
+  '/help-center',
+  '/help-center.html',
+  '/ar/help-center',
+  '/ar/help-center.html',
   '/how-to-use',
   '/how-to-use.html',
   '/ar/how-to-use',
@@ -113,6 +117,7 @@ const PRECACHE_URLS = [
   '/assets/css/initiatives.css',
   '/assets/css/initiatives-admin.css',
   '/assets/css/contribute.css',
+  '/assets/css/help-center.css',
   '/assets/js/script.js',
   '/assets/js/team-id-cards.js',
   '/assets/js/ai-chat.js',
@@ -127,6 +132,7 @@ const PRECACHE_URLS = [
   '/assets/js/initiatives.js',
   '/assets/js/initiatives-admin.js',
   '/assets/js/contribute.js',
+  '/assets/js/help-center.js',
   '/assets/js/supabase-client.js',
   '/assets/js/count-up.js',
   '/assets/js/github-contributions.js',

@@ -89,9 +89,11 @@ const prohibitedClaims = [
 ];
 for (const file of [
   "faq.html",
+  "help-center.html",
   "terms.html",
   "how-to-use.html",
   "ar/faq.html",
+  "ar/help-center.html",
   "ar/terms.html",
   "ar/how-to-use.html",
   "assets/js/unminified-js.js",
@@ -109,6 +111,7 @@ const englishFooterFiles = [
   "auth.html",
   "dashboard.html",
   "faq.html",
+  "help-center.html",
   "how-to-use.html",
   "hub.html",
   "index.html",
@@ -124,6 +127,7 @@ const arabicFooterFiles = [
   "ar/auth.html",
   "ar/dashboard.html",
   "ar/faq.html",
+  "ar/help-center.html",
   "ar/how-to-use.html",
   "ar/hub.html",
   "ar/index.html",
