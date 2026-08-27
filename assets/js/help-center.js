@@ -1,72 +1,76 @@
 (function () {
-  const root = document.querySelector(".support-shell");
+  const root = document.querySelector(".help-center-page");
   if (!root) return;
 
   const searchInput = root.querySelector("#helpSearch");
-  const topSearch = root.querySelector("[data-support-search-trigger]");
-  const sidebarLinks = Array.from(root.querySelectorAll("[data-support-filter]"));
-  const articles = Array.from(root.querySelectorAll("[data-support-article]"));
-  const collections = Array.from(root.querySelectorAll("[data-support-collection]"));
-  const noResults = root.querySelector("[data-support-no-results]");
+  const chips = Array.from(root.querySelectorAll("[data-help-filter]"));
+  const topics = Array.from(root.querySelectorAll(".help-topic-card"));
+  const articleCards = Array.from(root.querySelectorAll(".help-article-card"));
+  const articles = Array.from(root.querySelectorAll(".help-article"));
+  const resultCount = root.querySelector("[data-help-result-count]");
+  const noResults = root.querySelector("[data-help-no-results]");
   let activeFilter = "all";
 
   const normalize = (value) => String(value || "").toLowerCase().trim();
-  const searchableText = (element) => normalize([
+  const searchable = (element) => normalize([
     element.dataset.title,
     element.dataset.category,
     element.dataset.keywords,
     element.textContent,
   ].join(" "));
 
-  function itemMatches(element, query) {
-    const category = element.dataset.category || "";
-    const categoryMatches = activeFilter === "all" || category === activeFilter;
-    const queryMatches = !query || searchableText(element).includes(query);
+  function matches(element, query) {
+    const categoryMatches = activeFilter === "all" || element.dataset.category === activeFilter;
+    const queryMatches = !query || searchable(element).includes(query);
     return categoryMatches && queryMatches;
   }
 
   function applyFilters() {
     const query = normalize(searchInput?.value);
-    let visibleTotal = 0;
+    let visibleArticles = 0;
+
+    topics.forEach((topic) => {
+      const topicVisible = activeFilter === "all" || topic.dataset.category === activeFilter || !query;
+      const queryVisible = !query || searchable(topic).includes(query);
+      topic.hidden = !(topicVisible && queryVisible);
+    });
+
+    articleCards.forEach((card) => {
+      const visible = matches(card, query);
+      card.hidden = !visible;
+      if (visible) visibleArticles += 1;
+    });
 
     articles.forEach((article) => {
-      const visible = itemMatches(article, query);
-      article.hidden = !visible;
-      if (visible) visibleTotal += 1;
+      article.hidden = !matches(article, query);
     });
 
-    collections.forEach((collection) => {
-      const visible = itemMatches(collection, query);
-      collection.hidden = !visible;
-      if (visible) visibleTotal += 1;
-    });
+    if (resultCount) {
+      const label = resultCount.dataset.label || "articles";
+      resultCount.textContent = `${visibleArticles} ${label}`;
+    }
 
-    noResults?.classList.toggle("is-visible", visibleTotal === 0);
+    if (noResults) {
+      noResults.classList.toggle("is-visible", visibleArticles === 0);
+    }
   }
 
-  sidebarLinks.forEach((link) => {
-    link.addEventListener("click", (event) => {
-      const href = link.getAttribute("href") || "";
-      const target = href.startsWith("#") ? document.querySelector(href) : null;
-      activeFilter = link.dataset.supportFilter || "all";
-      sidebarLinks.forEach((item) => item.classList.toggle("is-active", item === link));
+  chips.forEach((chip) => {
+    chip.addEventListener("click", () => {
+      activeFilter = chip.dataset.helpFilter || "all";
+      chips.forEach((item) => item.classList.toggle("is-active", item === chip));
       applyFilters();
-      if (target) {
-        event.preventDefault();
-        target.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
     });
   });
 
-  topSearch?.addEventListener("click", () => searchInput?.focus());
   searchInput?.addEventListener("input", applyFilters);
 
   document.addEventListener("keydown", (event) => {
-    const key = event.key.toLowerCase();
-    if ((event.ctrlKey || event.metaKey) && key === "k") {
-      event.preventDefault();
-      searchInput?.focus();
-    }
+    const isMacShortcut = event.metaKey && event.key.toLowerCase() === "k";
+    const isWinShortcut = event.ctrlKey && event.key.toLowerCase() === "k";
+    if (!isMacShortcut && !isWinShortcut) return;
+    event.preventDefault();
+    searchInput?.focus();
   });
 
   applyFilters();
