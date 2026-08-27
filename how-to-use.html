@@ -616,14 +616,15 @@
             <section class="docs-feedback-footer" aria-labelledby="docsFeedbackTitle">
                 <h2 id="docsFeedbackTitle" class="docs-feedback-title">Help and support</h2>
 
-                <div class="docs-feedback-panel docs-feedback-survey">
+                <div class="docs-feedback-panel docs-feedback-survey" data-docs-feedback data-feedback-page-key="how-to-use" data-feedback-locale="en" data-feedback-message-submitting="Saving feedback..." data-feedback-message-success="Thanks for helping improve this guide." data-feedback-message-error="Feedback could not be saved. Please try again.">
                     <h2>Did this guide help?</h2>
 
                     <div class="docs-feedback-actions" aria-label="Guide usefulness feedback">
-                        <button type="button" class="docs-feedback-choice" aria-label="Mark this guide as helpful"><i class="fa-regular fa-thumbs-up" aria-hidden="true"></i> Yes</button>
-                        <button type="button" class="docs-feedback-choice" aria-label="Mark this guide as not helpful"><i class="fa-regular fa-thumbs-down" aria-hidden="true"></i> No</button>
+                        <button type="button" class="docs-feedback-choice" data-feedback-vote="yes" aria-pressed="false" aria-label="Mark this guide as helpful"><i class="fa-regular fa-thumbs-up" aria-hidden="true"></i> Yes</button>
+                        <button type="button" class="docs-feedback-choice" data-feedback-vote="no" aria-pressed="false" aria-label="Mark this guide as not helpful"><i class="fa-regular fa-thumbs-down" aria-hidden="true"></i> No</button>
                     </div>
 
+                    <p class="docs-feedback-status" data-feedback-status role="status" aria-live="polite"></p>
                     <a href="privacy-policy.html" class="docs-feedback-link">Privacy Policy</a>
                 </div>
 

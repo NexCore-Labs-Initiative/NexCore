@@ -93,6 +93,71 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  function initDocsFeedback() {
+    document.querySelectorAll("[data-docs-feedback]").forEach((panel) => {
+      const buttons = Array.from(panel.querySelectorAll("[data-feedback-vote]"));
+      const status = panel.querySelector("[data-feedback-status]");
+      if (!buttons.length || !status) return;
+
+      const submittingMessage = panel.dataset.feedbackMessageSubmitting || (locale.lang === "ar" ? "جارٍ حفظ التقييم..." : "Saving feedback...");
+      const successMessage = panel.dataset.feedbackMessageSuccess || (locale.lang === "ar" ? "شكراً لمساعدتنا في تحسين هذا الدليل." : "Thanks for helping improve this guide.");
+      const errorMessage = panel.dataset.feedbackMessageError || (locale.lang === "ar" ? "تعذر حفظ التقييم. حاول مرة أخرى." : "Feedback could not be saved. Please try again.");
+      const pageKey = panel.dataset.feedbackPageKey || "how-to-use";
+      const feedbackLocale = panel.dataset.feedbackLocale || locale.lang;
+
+      const setStatus = (message, isError = false) => {
+        status.textContent = message;
+        status.classList.toggle("is-error", isError);
+      };
+
+      const setDisabled = (disabled) => {
+        buttons.forEach((button) => {
+          button.disabled = disabled;
+        });
+      };
+
+      buttons.forEach((button) => {
+        button.addEventListener("click", async () => {
+          const vote = button.dataset.feedbackVote;
+          setDisabled(true);
+          panel.dataset.feedbackState = "submitting";
+          setStatus(submittingMessage);
+
+          try {
+            const response = await fetch("/api/docs-feedback", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json"
+              },
+              body: JSON.stringify({
+                page_key: pageKey,
+                page_path: window.location.pathname,
+                locale: feedbackLocale,
+                vote
+              })
+            });
+
+            if (!response.ok) throw new Error("Feedback request failed");
+
+            buttons.forEach((choice) => {
+              const isSelected = choice === button;
+              choice.classList.toggle("is-selected", isSelected);
+              choice.setAttribute("aria-pressed", String(isSelected));
+            });
+            panel.dataset.feedbackState = "saved";
+            setStatus(successMessage);
+          } catch (error) {
+            panel.dataset.feedbackState = "error";
+            setStatus(errorMessage, true);
+          } finally {
+            setDisabled(false);
+          }
+        });
+      });
+    });
+  }
+
   const setupSign = () => {
     const sign = document.querySelector(".nexcore-sign") || document.getElementById("nexcoreSign");
     if (sign) {
@@ -136,6 +201,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   applyLocalizedFormAndModalDirection();
   ensureFlaticonAttribution();
+  initDocsFeedback();
   initLivingReleaseBeacon({ isArabic, locale });
 
   // Smooth scroll to the top when the logo is clicked

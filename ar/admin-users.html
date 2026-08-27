@@ -655,6 +655,118 @@
             gap: 8px;
         }
 
+        .section-heading-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+
+        .section-heading-row h2 {
+            margin-bottom: 0;
+        }
+
+        .docs-feedback-admin {
+            background: linear-gradient(135deg, rgba(110, 231, 243, 0.06), rgba(255, 255, 255, 0.02));
+        }
+
+        .docs-feedback-intro {
+            margin: 0 0 20px;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .docs-feedback-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .feedback-metric-card {
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 18px;
+            background: rgba(255, 255, 255, 0.035);
+        }
+
+        .feedback-metric-value {
+            color: #fff;
+            font-size: 1.8rem;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .feedback-metric-label {
+            color: var(--muted);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .docs-feedback-breakdown {
+            display: grid;
+            grid-template-columns: minmax(220px, 0.8fr) minmax(280px, 1.2fr);
+            gap: 20px;
+        }
+
+        .feedback-locale-row {
+            display: grid;
+            grid-template-columns: minmax(68px, 0.5fr) minmax(120px, 1fr) auto;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            color: #eaf6fb;
+            font-size: 13px;
+        }
+
+        .feedback-locale-row:last-child {
+            border-bottom: none;
+        }
+
+        .feedback-rate-track {
+            height: 7px;
+            overflow: hidden;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .feedback-rate-fill {
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, #6ee7f3, #378add);
+        }
+
+        .feedback-daily-chart {
+            align-items: end;
+            min-height: 150px;
+        }
+
+        .docs-feedback-meta {
+            margin: 16px 0 0;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .docs-feedback-error {
+            color: #ffb4b4;
+        }
+
+        @media (max-width: 760px) {
+            .docs-feedback-breakdown {
+                grid-template-columns: 1fr;
+            }
+
+            .feedback-locale-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
         .chart-container {
             position: relative;
             height: 200px;
@@ -1893,6 +2005,55 @@
                 <div class="stat-label">الطلبات المعلقة</div>
             </div>
         </div>
+
+        <section class="admin-section docs-feedback-admin" aria-labelledby="docsFeedbackTitle">
+            <div class="section-heading-row">
+                <h2 id="docsFeedbackTitle"><i class="fa-solid fa-comments"></i> آراء دليل الاستخدام</h2>
+                <button type="button" class="export-btn" onclick="loadDocsFeedbackStats()" title="تحديث إحصاءات آراء الدليل">
+                    <i class="fa-solid fa-rotate"></i>
+                    تحديث
+                </button>
+            </div>
+            <p class="docs-feedback-intro">إجابات نعم/لا المجهولة من دليل كيفية الاستخدام. لا تظهر هنا عناوين IP الخام أو وكيل المتصفح أو مصدر الإحالة أو هوية الحساب أو بصمة العميل.</p>
+            <div id="docsFeedbackLoading" class="loading hidden">
+                <i class="fa-solid fa-spinner"></i>
+                <p>جارٍ تحميل آراء الدليل...</p>
+            </div>
+            <div id="docsFeedbackContent" class="hidden">
+                <div class="docs-feedback-stats-grid">
+                    <div class="feedback-metric-card">
+                        <div class="feedback-metric-value" id="docsFeedbackTotal">-</div>
+                        <div class="feedback-metric-label">إجمالي الردود</div>
+                    </div>
+                    <div class="feedback-metric-card">
+                        <div class="feedback-metric-value" id="docsFeedbackHelpfulRate">-</div>
+                        <div class="feedback-metric-label">نسبة الإفادة</div>
+                    </div>
+                    <div class="feedback-metric-card">
+                        <div class="feedback-metric-value" id="docsFeedbackYes">-</div>
+                        <div class="feedback-metric-label">أصوات نعم</div>
+                    </div>
+                    <div class="feedback-metric-card">
+                        <div class="feedback-metric-value" id="docsFeedbackNo">-</div>
+                        <div class="feedback-metric-label">أصوات لا</div>
+                    </div>
+                </div>
+                <div class="docs-feedback-breakdown">
+                    <div class="dashboard-card">
+                        <h3><i class="fa-solid fa-language"></i> حسب اللغة</h3>
+                        <div id="docsFeedbackLocales"></div>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3><i class="fa-solid fa-chart-column"></i> الردود اليومية (آخر 14 يوماً)</h3>
+                        <div class="chart-container">
+                            <div class="bar-chart feedback-daily-chart" id="docsFeedbackDailyChart"></div>
+                        </div>
+                    </div>
+                </div>
+                <p class="docs-feedback-meta" id="docsFeedbackMeta"></p>
+            </div>
+            <p class="docs-feedback-meta docs-feedback-error hidden" id="docsFeedbackError">إحصاءات الآراء غير متاحة حالياً.</p>
+        </section>
 
         <!-- Tabs -->
         <div class="admin-tabs">
@@ -3743,6 +3904,102 @@
             });
         }
 
+        async function adminJson(path) {
+            const { data: { session } } = await sb.auth.getSession();
+            if (!session?.access_token) throw new Error('Administrator session required');
+            const response = await fetch(path, {
+                headers: {
+                    'Authorization': `Bearer ${session.access_token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+            const body = await response.json().catch(() => ({}));
+            if (!response.ok) {
+                const error = new Error(body.message || body.error || 'Admin request failed');
+                error.code = body.error;
+                throw error;
+            }
+            return body;
+        }
+
+        function setFeedbackNumber(id, value, suffix = '') {
+            const element = document.getElementById(id);
+            if (!element) return;
+            element.textContent = `${window.CountUp.formatInteger(Number(value) || 0, 'ar-OM')}${suffix}`;
+        }
+
+        function renderFeedbackLocales(locales) {
+            const container = document.getElementById('docsFeedbackLocales');
+            if (!container) return;
+            const labels = { en: 'الإنجليزية', ar: 'العربية' };
+            container.innerHTML = ['en', 'ar'].map((locale) => {
+                const item = locales?.[locale] || { total: 0, helpful_rate: 0 };
+                const rate = Number(item.helpful_rate) || 0;
+                return `
+                    <div class="feedback-locale-row">
+                        <strong>${labels[locale]}</strong>
+                        <div class="feedback-rate-track" aria-hidden="true">
+                            <div class="feedback-rate-fill" style="width:${Math.min(100, rate)}%"></div>
+                        </div>
+                        <span>${rate}% مفيدة · ${window.CountUp.formatInteger(item.total || 0, 'ar-OM')}</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderFeedbackDailyChart(items) {
+            const chart = document.getElementById('docsFeedbackDailyChart');
+            if (!chart) return;
+            const rows = Array.isArray(items) ? items : [];
+            const max = Math.max(1, ...rows.map((item) => Number(item.total) || 0));
+            chart.innerHTML = rows.map((item) => {
+                const total = Number(item.total) || 0;
+                const height = Math.max(4, Math.round((total / max) * 120));
+                const label = String(item.date || '').slice(5);
+                return `
+                    <div class="bar-item" title="${escapeHtml(item.date)}: ${total} ردود">
+                        <div class="bar" style="height:${height}px">
+                            <span class="bar-value">${window.CountUp.formatInteger(total, 'ar-OM')}</span>
+                        </div>
+                        <div class="bar-label">${escapeHtml(label)}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        async function loadDocsFeedbackStats() {
+            const loading = document.getElementById('docsFeedbackLoading');
+            const content = document.getElementById('docsFeedbackContent');
+            const error = document.getElementById('docsFeedbackError');
+
+            loading?.classList.remove('hidden');
+            content?.classList.add('hidden');
+            error?.classList.add('hidden');
+
+            try {
+                const stats = await adminJson('/api/admin/docs-feedback');
+                setFeedbackNumber('docsFeedbackTotal', stats.totals?.total || 0);
+                setFeedbackNumber('docsFeedbackHelpfulRate', stats.totals?.helpful_rate || 0, '%');
+                setFeedbackNumber('docsFeedbackYes', stats.totals?.yes || 0);
+                setFeedbackNumber('docsFeedbackNo', stats.totals?.no || 0);
+                renderFeedbackLocales(stats.locales);
+                renderFeedbackDailyChart(stats.daily?.items);
+
+                const meta = document.getElementById('docsFeedbackMeta');
+                if (meta) {
+                    const recent = stats.recent || {};
+                    meta.textContent = `آخر ${recent.days || 7} أيام: ${window.CountUp.formatInteger(recent.total || 0, 'ar-OM')} ردود، ${Number(recent.helpful_rate) || 0}% مفيدة. آخر تحديث ${new Date(stats.updated_at || Date.now()).toLocaleString('ar-OM')}.`;
+                }
+
+                loading?.classList.add('hidden');
+                content?.classList.remove('hidden');
+            } catch (err) {
+                console.error('خطأ في تحميل إحصاءات آراء الدليل:', err);
+                loading?.classList.add('hidden');
+                error?.classList.remove('hidden');
+            }
+        }
+
         // Load approved users
         async function loadApprovedUsers() {
             const loading = document.getElementById('usersLoading');
@@ -4643,6 +4900,7 @@
                 );
 
                 await loadStats();
+                await loadDocsFeedbackStats();
                 await loadApprovedUsers();
                 await loadAdmins();
                 await loadActivityLog();

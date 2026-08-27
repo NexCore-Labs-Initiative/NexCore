@@ -2951,6 +2951,30 @@ html[dir="rtl"] .dropdown-content a:not(.lang-switch-pill, .magic-signup, .ai-li
     transform: translateY(-1px)
 }
 
+.docs-feedback-choice:disabled {
+    cursor: wait;
+    opacity: .68;
+    transform: none
+}
+
+.docs-feedback-choice.is-selected {
+    border-color: rgba(110, 231, 243, .48);
+    background: rgba(110, 231, 243, .14);
+    color: #eaf6fb
+}
+
+.docs-feedback-status {
+    min-height: 18px;
+    margin: -2px 0 0;
+    color: rgba(232, 233, 240, .62);
+    font-size: 12px;
+    line-height: 1.45
+}
+
+.docs-feedback-status.is-error {
+    color: #ff9090
+}
+
 .docs-feedback-choice:focus-visible,
 .docs-feedback-button:focus-visible,
 .docs-feedback-link:focus-visible {

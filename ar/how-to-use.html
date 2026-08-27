@@ -321,14 +321,15 @@
       <section class="docs-feedback-footer" aria-labelledby="docsFeedbackTitleAr">
         <h2 id="docsFeedbackTitleAr" class="docs-feedback-title">المساعدة والدعم</h2>
 
-        <div class="docs-feedback-panel docs-feedback-survey">
+        <div class="docs-feedback-panel docs-feedback-survey" data-docs-feedback data-feedback-page-key="how-to-use" data-feedback-locale="ar" data-feedback-message-submitting="جارٍ حفظ التقييم..." data-feedback-message-success="شكراً لمساعدتنا في تحسين هذا الدليل." data-feedback-message-error="تعذر حفظ التقييم. حاول مرة أخرى.">
           <h2>هل ساعدك هذا الدليل؟</h2>
 
           <div class="docs-feedback-actions" aria-label="تقييم فائدة الدليل">
-            <button type="button" class="docs-feedback-choice" aria-label="تحديد أن الدليل مفيد"><i class="fa-regular fa-thumbs-up" aria-hidden="true"></i> نعم</button>
-            <button type="button" class="docs-feedback-choice" aria-label="تحديد أن الدليل غير مفيد"><i class="fa-regular fa-thumbs-down" aria-hidden="true"></i> لا</button>
+            <button type="button" class="docs-feedback-choice" data-feedback-vote="yes" aria-pressed="false" aria-label="تحديد أن الدليل مفيد"><i class="fa-regular fa-thumbs-up" aria-hidden="true"></i> نعم</button>
+            <button type="button" class="docs-feedback-choice" data-feedback-vote="no" aria-pressed="false" aria-label="تحديد أن الدليل غير مفيد"><i class="fa-regular fa-thumbs-down" aria-hidden="true"></i> لا</button>
           </div>
 
+          <p class="docs-feedback-status" data-feedback-status role="status" aria-live="polite"></p>
           <a href="privacy-policy.html" class="docs-feedback-link">سياسة الخصوصية</a>
         </div>
 
