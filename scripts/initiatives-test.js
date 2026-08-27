@@ -116,9 +116,11 @@ assert(sharedMenuJs.includes("window.NexCoreInitiativesMenu"), "Shared menu scri
 assert(sharedMenuJs.includes(".eq(\"visibility\", \"public\")"), "Shortcut drawer must only query public initiatives");
 assert(sharedMenuJs.includes(".eq(\"featured\", true)"), "Shortcut drawer must only query featured initiatives");
 assert(sharedMenuJs.includes(".limit(3)"), "Shortcut drawer must limit the menu to three initiative shortcuts");
+assert(sharedMenuJs.includes("title, image, logo, sort_order"), "Shortcut drawer must fetch compact initiative logos");
 assert(sharedMenuJs.includes("?initiative=${encodeURIComponent(initiative.slug)}"), "Shortcut links must deep-link to the initiative quick view");
 assert(sharedMenuJs.includes("logo: normalizeImageUrl(raw?.logo?.src)"), "Shortcut drawer must normalize initiative logos");
 assert(sharedMenuJs.includes("const visualSrc = initiative.logo || initiative.image"), "Shortcut drawer must prefer compact logos over larger initiative images");
+assert(!sharedMenuJs.includes("image.loading = \"lazy\""), "Dynamically inserted shortcut images must not be hidden by the global lazy-image opacity rule");
 assert(sharedMenuJs.includes("filterMenu(div, filter)"), "Menu search must delegate to the grouped-menu filter");
 assert(authUi.includes("window.NexCoreInitiativesMenu?.init();"), "Auth navigation must re-run the shortcut drawer after injected menu links");
 assert(authUi.includes("const initiativesGroup = menu.querySelector('[data-initiatives-nav-group]');"), "Contributor navigation must insert after the grouped initiatives drawer");

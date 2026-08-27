@@ -745,7 +745,6 @@ function filterFunction() {
         const image = document.createElement("img");
         image.src = visualSrc;
         image.alt = "";
-        image.loading = "lazy";
         visual.appendChild(image);
       } else {
         visual.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i>';
@@ -791,7 +790,7 @@ function filterFunction() {
     try {
       const { data, error } = await client
         .from("initiatives")
-        .select("slug, status, categories, featured, visibility, title, image, sort_order")
+        .select("slug, status, categories, featured, visibility, title, image, logo, sort_order")
         .eq("visibility", "public")
         .eq("featured", true)
         .order("sort_order", { ascending: true })
