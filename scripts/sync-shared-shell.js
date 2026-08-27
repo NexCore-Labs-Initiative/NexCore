@@ -43,6 +43,7 @@ function synchronize(file) {
   // Paused products remain directly reachable, but not promoted in primary menus.
   html = html.replace(/\s*<a[^>]+class="[^"]*ai-link[^"]*"[^>]*>[\s\S]*?<\/a>/g, "");
   html = html.replace(/\s*<a[^>]+title="Pricing Plans"[^>]*>[\s\S]*?<\/a>/g, "");
+  html = html.replace(/\s*<a[^>]+title="خطط (?:التسعير|الأسعار)"[^>]*>[\s\S]*?<\/a>/g, "");
 
   if (html !== original) fs.writeFileSync(file, html, "utf8");
   return html !== original;

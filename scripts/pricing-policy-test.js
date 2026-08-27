@@ -37,6 +37,10 @@ for (const file of menuFiles) {
     /href="[^"]*pricing-policy(?:\.html)?"/.test(menu),
     `${file} navigation must link to the Pricing Policy`
   );
+  assert(
+    !/title="(?:Pricing Plans|خطط (?:التسعير|الأسعار))"/.test(menu),
+    `${file} navigation must not promote pricing plans`
+  );
 }
 
 for (const file of ["pricing.html", "ar/pricing.html"]) {
