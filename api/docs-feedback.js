@@ -26,8 +26,12 @@ function parseBody(body) {
 }
 
 function normalizePagePath(value) {
-  const path = String(value || "").trim().replace(/\/index(?:\.html)?$/i, "");
-  return path.startsWith("/") ? path : `/${path}`;
+  let path = String(value || "").trim().replace(/\/index(?:\.html)?$/i, "");
+  path = path.startsWith("/") ? path : `/${path}`;
+  path = path.length > 1 ? path.replace(/\/+$/g, "") : path;
+  if (path === "/how-to-use.html") return "/how-to-use";
+  if (path === "/ar/how-to-use.html") return "/ar/how-to-use";
+  return path;
 }
 
 function getTodayUTCDateString(now = new Date()) {

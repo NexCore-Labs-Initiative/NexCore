@@ -121,7 +121,7 @@ async function runApiTests() {
   assert.strictEqual(calls[0].table, "docs_feedback_responses");
   assert.deepStrictEqual(calls[1].options, { onConflict: "page_key,locale,client_hash,response_date" });
   assert.strictEqual(calls[1].row.page_key, "how-to-use");
-  assert.strictEqual(calls[1].row.page_path, "/how-to-use.html");
+  assert.strictEqual(calls[1].row.page_path, "/how-to-use");
   assert.strictEqual(calls[1].row.locale, "en");
   assert.strictEqual(calls[1].row.vote, "yes");
   assert.strictEqual(calls[1].row.response_date, "2026-08-27");
@@ -133,6 +133,18 @@ async function runApiTests() {
 
   assert.strictEqual(getCoarseRequestIdentity(request()), "203.0.113.0");
   assert.deepStrictEqual(normalizeFeedbackPayload({ page_path: "/ar/how-to-use", page_key: "how-to-use", locale: "ar", vote: "no" }), {
+    pageKey: "how-to-use",
+    pagePath: "/ar/how-to-use",
+    locale: "ar",
+    vote: "no"
+  });
+  assert.deepStrictEqual(normalizeFeedbackPayload({ page_path: "/how-to-use/", page_key: "how-to-use", locale: "en", vote: "yes" }), {
+    pageKey: "how-to-use",
+    pagePath: "/how-to-use",
+    locale: "en",
+    vote: "yes"
+  });
+  assert.deepStrictEqual(normalizeFeedbackPayload({ page_path: "/ar/how-to-use.html/", page_key: "how-to-use", locale: "ar", vote: "no" }), {
     pageKey: "how-to-use",
     pagePath: "/ar/how-to-use",
     locale: "ar",
