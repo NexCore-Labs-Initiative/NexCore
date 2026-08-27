@@ -455,7 +455,7 @@ async function initLivingReleaseBeacon({ isArabic, locale }) {
   const publicPaths = new Set([
     "/", "/ar", "/hub", "/ar/hub", "/initiatives", "/ar/initiatives",
     "/contribute", "/ar/contribute", "/how-to-use", "/ar/how-to-use",
-    "/help-center", "/ar/help-center", "/faq", "/ar/faq", "/roadmap", "/ar/roadmap", "/terms", "/ar/terms",
+    "/faq", "/ar/faq", "/roadmap", "/ar/roadmap", "/terms", "/ar/terms",
     "/privacy-policy", "/ar/privacy-policy", "/pricing-policy", "/ar/pricing-policy"
   ]);
   if (!publicPaths.has(normalizedPath)) return;

@@ -175,26 +175,6 @@ const PAGE_PAIRS = [
     },
   },
   {
-    key: "help-center",
-    priority: "0.84",
-    en: {
-      file: "help-center.html",
-      path: "/help-center",
-      title: "NexCore Labs | Help Center",
-      description:
-        "Search NexCore Labs help articles for getting started, account access, project visibility, initiatives, pricing, security, and troubleshooting.",
-      breadcrumb: "Help Center",
-    },
-    ar: {
-      file: "ar/help-center.html",
-      path: "/ar/help-center",
-      title: "NexCore Labs | مركز المساعدة",
-      description:
-        "ابحث في مقالات مساعدة NexCore Labs حول البداية، الوصول إلى الحساب، إبراز المشاريع، المبادرات، التسعير، الأمان، واستكشاف الأخطاء.",
-      breadcrumb: "مركز المساعدة",
-    },
-  },
-  {
     key: "how-to-use",
     priority: "0.80",
     en: {

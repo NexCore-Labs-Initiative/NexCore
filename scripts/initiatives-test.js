@@ -34,7 +34,7 @@ for (const [file, page] of Object.entries(expected)) {
   const menuStart = html.indexOf('id="myDropdown"');
   const menuEnd = html.indexOf('</header>', menuStart);
   const menu = html.slice(menuStart, menuEnd);
-  for (const destination of ["auth.html", "hub.html", "roadmap.html", "releases.html", "pricing-policy.html", "help-center.html", "terms.html", "privacy-policy.html"]) {
+  for (const destination of ["auth.html", "hub.html", "roadmap.html", "releases.html", "pricing-policy.html", "faq.html", "how-to-use.html", "terms.html", "privacy-policy.html"]) {
     assert(menu.includes(destination), `${file} must retain the complete NexCore navigation menu (${destination})`);
   }
   assert(!menu.includes('ai-link'), `${file} must de-emphasize paused Intelligence navigation`);
