@@ -322,6 +322,133 @@
     #toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(16px);border: 2px solid rgba(255, 255, 255, 0.06);background: rgba(10, 11, 28, 0.6);color:#6ee7f3;padding:10px 22px;border-radius:12px;font-size:.875rem;font-weight:500;z-index:10001;opacity:0;pointer-events:none;transition:opacity .22s,transform .22s;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);max-width:min(420px,90vw);text-align:center;box-shadow:0 8px 32px rgba(0,0,0,.55);white-space:pre-line;}
     #toast.show{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:all;}
     #toast.error{border-color:rgba(255,120,120,.28);color:#ff7878;}
+
+    .wrap.dashboard-command{max-width:1280px;margin-top:132px}
+    .dashboard-command input,
+    .dashboard-command textarea{
+      width:100%;
+      box-sizing:border-box;
+      background:rgba(4,8,18,.45);
+      border:1px solid rgba(255,255,255,.1);
+      border-radius:10px;
+      color:#eaf6fb;
+      transition:border-color .18s,box-shadow .18s,background .18s;
+    }
+    .dashboard-command input:focus,
+    .dashboard-command textarea:focus{
+      outline:none;
+      border-color:rgba(110,231,243,.55);
+      box-shadow:0 0 0 3px rgba(110,231,243,.1);
+      background:rgba(4,8,18,.68);
+    }
+    .dashboard-kicker{margin:0 0 6px;color:#6ee7f3;font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+    .dashboard-title-row{display:flex;justify-content:space-between;gap:18px;align-items:flex-start;margin-bottom:22px;flex-wrap:wrap}
+    .dashboard-title-row h1{margin:0;font-size:clamp(2rem,4vw,3.2rem)}
+    .dashboard-session{max-width:760px}
+    .save-state-pill{display:inline-flex;align-items:center;gap:8px;min-height:36px;padding:7px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.035);color:#ffcc66;font-size:13px;font-weight:700}
+    .save-state-pill::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor;box-shadow:0 0 14px currentColor}
+    .save-state-pill.clean{color:#6ee7f3}
+    .save-state-pill.busy{color:#ffcc66}
+    .save-state-pill.error{color:#ff7878}
+    .project-empty-state{display:none;border:1px solid rgba(110,231,243,.18);border-radius:18px;background:linear-gradient(135deg,rgba(110,231,243,.08),rgba(255,255,255,.02));padding:24px;margin-top:12px}
+    .empty-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,.55fr);gap:22px;align-items:end}
+    .empty-form{display:grid;grid-template-columns:minmax(180px,1fr) minmax(220px,.75fr) auto;gap:12px;align-items:center}
+    .command-panel{display:none}
+    .command-band,.readiness-band,.editor-panel,.preview-panel,.action-dock,.project-empty-state{
+      border:1px solid rgba(255,255,255,.09);
+      background:rgba(7,12,26,.64);
+      box-shadow:0 20px 55px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.035);
+      -webkit-backdrop-filter:blur(8px);
+      backdrop-filter:blur(8px);
+    }
+    .command-band{border-radius:18px;padding:18px;margin-bottom:12px}
+    .command-main{display:grid;grid-template-columns:minmax(260px,1.1fr) repeat(3,minmax(120px,.45fr)) minmax(220px,.75fr);gap:16px;align-items:center}
+    .project-identity{display:flex;align-items:center;gap:14px;min-width:0}
+    .project-avatar{width:52px;height:52px;border-radius:12px;border:1px solid rgba(110,231,243,.22);background:rgba(110,231,243,.08);display:flex;align-items:center;justify-content:center;overflow:hidden;flex:0 0 auto}
+    .project-avatar img{width:100%;height:100%;object-fit:cover}
+    .project-avatar span{color:#6ee7f3;font-size:1.35rem;font-weight:900}
+    .project-title-stack{min-width:0}
+    .project-title-stack h2{margin:0;color:#fff;font-size:1.25rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .project-title-stack p{margin:6px 0 0;color:rgba(232,233,240,.62);font-size:13px}
+    .command-metric{min-width:0;padding-inline:14px;border-inline-start:1px solid rgba(255,255,255,.08)}
+    .command-label{display:flex;align-items:center;gap:8px;color:rgba(232,233,240,.62);font-size:12px;margin-bottom:8px}
+    .command-value{color:#fff;font-size:15px;font-weight:800}
+    .command-link{display:flex;align-items:center;gap:8px;color:#6ee7f3;font-size:13px;text-decoration:none;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .ai-quota-line{display:flex;align-items:center;gap:10px}
+    .ai-quota-bar{height:5px;min-width:76px;flex:1;border-radius:999px;background:rgba(255,255,255,.12);overflow:hidden}
+    .ai-quota-fill{display:block;height:100%;width:0;border-radius:inherit;background:linear-gradient(90deg,#6ee7f3,#6bd3c9)}
+    .next-action{display:flex;justify-content:space-between;gap:14px;align-items:center;padding-inline-start:16px;border-inline-start:1px solid rgba(255,255,255,.1)}
+    .next-action small{display:block;color:rgba(232,233,240,.58);font-size:12px;margin-bottom:5px}
+    .next-action strong{display:flex;align-items:center;gap:8px;color:#6ee7f3;font-size:15px}
+    .readiness-band{border-radius:16px;padding:14px 16px;margin-bottom:12px;display:grid;grid-template-columns:160px 1fr;gap:16px;align-items:center}
+    .readiness-title{margin:0;color:#eaf6fb;font-size:14px;font-weight:800}
+    .readiness-items{display:grid;grid-template-columns:repeat(6,minmax(110px,1fr));gap:10px}
+    .ready-item{display:flex;gap:9px;align-items:flex-start;color:rgba(232,233,240,.72);font-size:12px;min-width:0}
+    .ready-dot{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;border:2px solid #ffcc00;color:#ffcc00;font-size:10px;flex:0 0 auto}
+    .ready-item.complete .ready-dot{border-color:#22c55e;color:#22c55e}
+    .ready-item.blocked .ready-dot{border-color:#ff7878;color:#ff7878}
+    .ready-item strong{display:block;color:#fff;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .ready-item span:last-child{display:block;margin-top:2px;color:#ffcc00}
+    .ready-item.complete span:last-child{color:#22c55e}
+    .ready-item.blocked span:last-child{color:#ff7878}
+    .command-grid{display:grid;grid-template-columns:minmax(0,1.38fr) minmax(330px,.62fr);gap:12px;align-items:start}
+    .editor-panel,.preview-panel{border-radius:16px;overflow:hidden}
+    .dashboard-tabs{display:flex;align-items:center;gap:4px;padding:14px 16px 0;border-bottom:1px solid rgba(255,255,255,.08);overflow-x:auto;scrollbar-width:thin}
+    .dashboard-tab{display:inline-flex;align-items:center;gap:8px;padding:12px 14px;border:0;border-bottom:2px solid transparent;background:transparent;color:rgba(232,233,240,.7);font:inherit;font-size:14px;white-space:nowrap;cursor:pointer}
+    .dashboard-tab.active{color:#6ee7f3;border-bottom-color:#6ee7f3}
+    .dashboard-tab.danger{color:#ff9898}
+    .dashboard-panel{display:none;padding:18px}
+    .dashboard-panel.active{display:block}
+    .panel-title-row{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:14px}
+    .panel-title-row h3{margin:0;color:#fff;font-size:1.1rem}
+    .field-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .field-grid .full{grid-column:1/-1}
+    .field-help{margin:5px 0 0;color:rgba(232,233,240,.55);font-size:12px}
+    .dashboard-ai-box{border:1px solid rgba(110,231,243,.18);border-radius:14px;background:rgba(110,231,243,.055);padding:16px;margin-bottom:14px}
+    .dashboard-ai-box h4{margin:0 0 8px;color:#fff}
+    .dashboard-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:16px}
+    .preview-panel{position:sticky;top:96px;padding:18px}
+    .preview-eyebrow{margin:0;color:rgba(232,233,240,.56);font-size:13px}
+    .preview-panel h3{margin:4px 0 12px;color:#fff}
+    .hub-preview-card{display:grid;grid-template-columns:96px 1fr;gap:18px;align-items:center;border:1px solid rgba(255,255,255,.1);border-radius:14px;background:linear-gradient(135deg,rgba(110,231,243,.08),rgba(255,255,255,.025));padding:16px;margin:18px 0}
+    .hub-preview-image{width:96px;height:96px;border-radius:12px;background:rgba(0,0,0,.38);object-fit:cover;border:1px solid rgba(255,255,255,.06)}
+    .hub-preview-copy h4{margin:0 0 8px;color:#fff;font-size:1.08rem}
+    .hub-preview-copy p{margin:0;color:rgba(232,233,240,.66);line-height:1.5;font-size:13px}
+    .preview-link-row{display:flex;align-items:center;gap:8px;margin-top:14px;color:#6ee7f3;font-size:12px;word-break:break-all}
+    .profile-summary{border-top:1px solid rgba(255,255,255,.08);padding-top:16px}
+    .summary-row{display:flex;justify-content:space-between;gap:16px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.055);font-size:13px}
+    .summary-row span:first-child{color:rgba(232,233,240,.56)}
+    .summary-row span:last-child{color:#eaf6fb;text-align:end}
+    .action-dock{border-radius:16px;margin-top:12px;padding:14px;display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
+    .dock-actions{display:flex;gap:10px;flex-wrap:wrap}
+    .dirty-hint{color:rgba(232,233,240,.58);font-size:13px}
+    .danger-panel{border-color:rgba(255,120,120,.22);background:rgba(255,120,120,.045)}
+    @media(max-width:1120px){
+      .command-main{grid-template-columns:minmax(260px,1fr) repeat(2,minmax(120px,.45fr));}
+      .next-action{grid-column:1/-1;border-inline-start:0;border-top:1px solid rgba(255,255,255,.08);padding:14px 0 0}
+      .readiness-band{grid-template-columns:1fr}
+      .readiness-items{grid-template-columns:repeat(3,minmax(120px,1fr))}
+      .command-grid{grid-template-columns:1fr}
+      .preview-panel{position:static;order:-1}
+    }
+    @media(max-width:720px){
+      .wrap.dashboard-command{margin-top:92px;padding:12px}
+      .dashboard-title-row{margin-bottom:14px}
+      .empty-grid,.empty-form,.command-main,.field-grid{grid-template-columns:1fr}
+      .empty-form .btn{width:100%}
+      .command-metric,.next-action{border-inline-start:0;padding-inline:0;border-top:1px solid rgba(255,255,255,.08);padding-top:12px}
+      .readiness-items{grid-template-columns:1fr 1fr}
+      .hub-preview-card{grid-template-columns:72px 1fr}
+      .hub-preview-image{width:72px;height:72px}
+      .dashboard-panel,.preview-panel,.command-band{padding:14px}
+      .dashboard-tab{padding:11px 10px;font-size:13px}
+    }
+    @media(max-width:460px){
+      .readiness-items{grid-template-columns:1fr}
+      .dock-actions,.dock-actions .btn,.dashboard-actions .btn{width:100%}
+      .summary-row{display:block}
+      .summary-row span:last-child{display:block;text-align:start;margin-top:4px}
+    }
   </style>
   <!-- Vercel Web Analytics -->
   <script>
@@ -399,19 +526,24 @@
     </header>
 
   <main id="main-content">
-  <div class="wrap">
-    <h1>لوحة التحكم</h1>
-    <p class="muted" id="userLine">جار التحميل…</p>
-
-    <div class="box">
-      <div class="row" style="justify-content:space-between">
-        <h2 style="margin:0">مشروعي</h2>
+  <div class="wrap dashboard-command">
+    <div class="dashboard-title-row">
+      <div class="dashboard-session">
+        <p class="dashboard-kicker">لوحة الأعضاء</p>
+        <h1>مركز قيادة المشروع</h1>
+        <p class="muted" id="userLine">جار التحميل...</p>
       </div>
+      <span class="save-state-pill clean" id="commandSaveState">محفوظ</span>
+    </div>
 
-      <!-- State: no project -->
-        <div id="noProject" style="display:none;margin-top:12px;">
-        <p>ليس لديك مشروع بعد.</p>
-        <div class="row">
+    <section id="noProject" class="project-empty-state" style="display:none;">
+      <div class="empty-grid">
+        <div>
+          <p class="dashboard-kicker">ابدأ هنا</p>
+          <h2 style="margin:0 0 8px;">أنشئ ملف مشروعك</h2>
+          <p class="muted">سيتم إنشاء بطاقة مركز وملف عام كمسودة. يمكنك التعديل والمعاينة والنشر عندما تكون جاهزاً.</p>
+        </div>
+        <div class="empty-form">
           <input id="newProjectName" placeholder="اسم المشروع" />
           <div class="ai-select-wrap category-select-wrap" id="newProjectCategoryWrap">
             <select id="newProjectCategory" name="category" aria-label="تصنيف المشروع">
@@ -440,232 +572,236 @@
           </div>
           <button class="btn primary" id="createProjectBtn">إنشاء مشروع</button>
         </div>
-        <p class="muted" style="margin-top:10px;">
-          سيتم إنشاء بطاقة وملف مشروع كمسودة. يمكنك التعديل والنشر عندما تكون جاهزاً.
-        </p>
       </div>
+    </section>
 
-      <!-- State: has project -->
-      <div id="hasProject" style="display:none;margin-top:12px;">
-        <p class="muted">
-          المعرّف العام: <b id="publicId"></b> • الحالة: <b id="statusText"></b>
-        </p>
-        <p class="muted" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-          حالة المراجعة:
-          <span id="moderationBadge" class="mod-badge mod-unmoderated" role="button" tabindex="0">غير مراجع</span>
-        </p>
-        <p class="muted">
-          عرض الصفحة العامة:
-          <a id="publicLink" href="#" target="_blank" rel="noopener" style="color: #6EE7F3;">فتح</a>
-        </p>
-
-        <!-- CARD SECTION -->
-        <div class="card-section box">
-          <h3 style="margin-top:0;"><i class="fa-solid fa-pager"></i> البطاقة (عرض المركز)</h3>
-          <p class="muted" style="font-size:.9rem;">تظهر هذه المعلومات على بطاقات المركز.</p>
-
-          <label>اسم المشروع *</label>
-          <input id="cardName" placeholder="مثال: NexCore Labs"/>
-
-          <label>الرابط المختصر (معرّف URL) [اسم المستخدم] *</label>
-          <input id="cardSlug" placeholder="مثال: nexcore-labs" />
-          <p class="muted" style="font-size:.85rem;margin-top:4px;">يُستخدم في رابطك العام: /ar/project.html?slug=<span id="slugPreview">your-slug [username]</span></p>
-
-          <label>وصف مختصر</label>
-          <textarea id="cardDescription" placeholder="وصف قصير بجملة واحدة..."></textarea>
-          <p class="muted" style="font-size:.85rem;margin-top:4px;">جملة واحدة تظهر في بطاقات المركز</p>
-
-          <label>التصنيف *</label>
-          <div class="ai-select-wrap category-select-wrap" id="cardCategoryWrap">
-            <select id="cardCategory" name="category">
-              <option value="technology">التقنية</option>
-              <option value="business">الأعمال</option>
-              <option value="education">التعليم</option>
-              <option value="finance">المالية</option>
-              <option value="healthcare">الصحة</option>
-              <option value="environment">البيئة</option>
-              <option value="agriculture">الزراعة</option>
-              <option value="food">الأغذية</option>
-              <option value="travel">السفر</option>
-              <option value="transportation">النقل</option>
-              <option value="real-estate">العقارات</option>
-              <option value="media-entertainment">الإعلام والترفيه</option>
-              <option value="art-design">الفن والتصميم</option>
-              <option value="sports-fitness">الرياضة واللياقة</option>
-              <option value="community">المجتمع</option>
-              <option value="lifestyle">نمط الحياة</option>
-            </select>
-            <div class="ai-select-trigger" id="cardCategoryTrigger" role="button" tabindex="0" aria-haspopup="listbox" aria-expanded="false">
-              <span id="cardCategoryLabel">التقنية</span>
-              <span class="ai-select-chevron"></span>
+    <section id="hasProject" class="command-panel" style="display:none;">
+      <section class="command-band" aria-label="ملخص أوامر المشروع">
+        <div class="command-main">
+          <div class="project-identity">
+            <div class="project-avatar">
+              <img id="commandProjectImage" alt="" hidden>
+              <span id="commandProjectInitial">N</span>
             </div>
-            <div class="ai-select-panel category-select-panel" role="listbox" id="cardCategoryPanel"></div>
-          </div>
-
-          <!-- AI Card Summary Generator -->
-          <div class="box" style="background:rgba(110,231,243,.05);border-color:rgba(110,231,243,.2);margin-top:16px;">
-            <h4 style="margin:0 0 12px 0;"><i class="fa-solid fa-wand-magic-sparkles" style="color:#6EE7F3;margin-right:8px;"></i>ملخص البطاقة بالذكاء الاصطناعي</h4>
-            <p class="muted" style="font-size:.85rem;margin-bottom:12px;">أنشئ وصفاً موجزاً للبطاقة من وصف صفحتك باستخدام الذكاء الاصطناعي</p>
-
-            <button class="btn primary ai-btn" id="aiCardBtn" style="width:100%;max-width:320px; text-align: center; justify-content: center; letter-spacing: 2px;">
-              <span class="ai-btn-text">إنشاء</span>
-              <span class="ai-sparkle-layer"></span>
-            </button>
-
-            <div id="aiCardOutput" style="display:none;margin-top:12px;">
-              <label>ملخص مولد بالذكاء الاصطناعي</label>
-              <textarea id="aiOutputCard" readonly style="background:rgba(0,0,0,.2);cursor:default;min-height:80px;"></textarea>
-              <div class="row" style="margin-top:10px;gap:8px;">
-                <button class="btn primary ghost" id="aiReplaceCardBtn">
-                  <i class="fa-solid fa-arrow-up"></i> استبدال
-                </button>
-                <button class="btn copy" id="aiCopyCardBtn">
-                  <i class="fa-solid fa-copy"></i> نسخ
-                </button>
-              </div>
+            <div class="project-title-stack">
+              <h2 id="commandProjectName">مشروعي</h2>
+              <p><span id="statusText">مسودة</span> / <span id="commandModerationInline">غير مراجع</span></p>
             </div>
-
-            <p id="aiCardStatus" style="margin-top:10px;font-size:.9rem;"></p>
-            <p id="aiCardRemaining" class="muted" style="font-size:.85rem;margin-top:6px;"></p>
           </div>
-
-          <div class="row" style="margin-top:12px;align-items:center;gap:12px;">
-            <button class="btn primary ghost" id="saveCardBtn">حفظ البطاقة</button>
-            <button class="btn primary" id="togglePublishBtn" style="min-width:110px;">نشر</button>
-            <span id="publishStatus" class="muted" style="margin-left:8px;"></span>
+          <div class="command-metric">
+            <span class="command-label"><i class="fa-solid fa-eye"></i> المعرّف العام</span>
+            <span class="command-value" id="publicId">-</span>
+          </div>
+          <div class="command-metric">
+            <span class="command-label"><i class="fa-solid fa-shield-halved"></i> المراجعة</span>
+            <span id="moderationBadge" class="mod-badge mod-unmoderated" role="button" tabindex="0">غير مراجع</span>
+          </div>
+          <div class="command-metric">
+            <span class="command-label"><i class="fa-solid fa-wand-magic-sparkles"></i> استخدامات الذكاء الاصطناعي</span>
+            <span class="command-value ai-quota-line"><span id="commandAiRemaining">- / 3</span><span class="ai-quota-bar"><span class="ai-quota-fill" id="commandAiFill"></span></span></span>
+          </div>
+          <div class="next-action">
+            <div>
+              <small>الخطوة المقترحة</small>
+              <strong id="commandNextActionText"><i class="fa-regular fa-circle-check"></i> راجع الجاهزية</strong>
+            </div>
+            <button class="btn copy" id="commandNextAction" type="button" title="انتقل إلى الخطوة المقترحة"><i class="fa-solid fa-arrow-left"></i></button>
           </div>
         </div>
+      </section>
 
-        <!-- PROFILE SECTION -->
-        <div class="card-section box" style="margin-top:16px;">
-          <h3 style="margin-top:0;"><i class="fa-solid fa-globe"></i> الملف (التفاصيل الكاملة)</h3>
-          <button class="btn copy" id="copyProjectPageLink" title="نسخ رابط الصفحة العامة">
-            <i class="fa-solid fa-copy"></i> نسخ رابط الصفحة
-          </button>
-
-          <p class="muted" style="font-size:.9rem;">تظهر هذه المعلومات في صفحة مشروعك المخصصة.</p>
-
-          <label>رابط الصورة (اختياري)</label>
-          <input id="profileImageUrl" placeholder="https://..." />
-          <div style="margin-top:10px;">
-            <img id="imgPreview" alt="" style="max-width:240px;border-radius:14px;display:none;border: 2px solid rgba(255, 255, 255, 0.06);padding: 12px;" />
-          </div>
-
-          <details class="help-box">
-            <summary><i class="fa-solid fa-lightbulb"></i> نصائح رابط الصورة</summary>
-            <p style="margin-top:0;"><strong>يجب أن تكون الصورة متاحة للعامة.</strong> إليك طريقة الحصول على رابط صالح:</p>
-
-            <strong>الخيار أ: Google Drive</strong>
-            <ol>
-              <li>ارفع صورتك إلى Google Drive</li>
-              <li>انقر بزر الفأرة الأيمن ثم مشاركة، واجعل الوصول "أي شخص لديه الرابط" بصلاحية مشاهدة</li>
-              <li>انسخ رابط المشاركة. سيبدو بهذا الشكل:<br>
-                <code style="word-break: break-all;">https://drive.google.com/file/d/<strong>FILE_ID</strong>/view?...</code></li>
-              <li>استخرج <strong>FILE_ID</strong> من الرابط</li>
-              <li>استخدم هذا التنسيق المباشر:<br>
-                <code>https://drive.google.com/uc?id=<strong>FILE_ID</strong></code></li>
-            </ol>
-
-            <strong>الخيار ب: GitHub</strong>
-            <ol>
-              <li>ارفع الصورة إلى أي مستودع GitHub عام</li>
-              <li>افتح ملف الصورة في GitHub</li>
-              <li>انقر بزر الفأرة الأيمن على الصورة ثم اختر "نسخ عنوان الصورة"</li>
-              <li>ألصق رابط <code>raw.githubusercontent.com</code> هنا</li>
-            </ol>
-
-            <strong>الخيار ج: رابط مباشر</strong>
-            <ol>
-              <li>استخدم أي خدمة استضافة صور مثل Imgur أو ImageBB</li>
-              <li>تأكد أن الرابط ينتهي بصيغة صورة مثل <code>.jpg</code> أو <code>.png</code> أو <code>.webp</code>.</li>
-              <li>اختبر الرابط في تبويب جديد للتأكد من أنه يعمل</li>
-            </ol>
-          </details>
-
-          <label>الوصف التفصيلي (الصفحة)</label>
-          <textarea id="pageDescription" placeholder="عرّف العالم بمشروعك بالتفصيل..."></textarea>
-          <p class="muted" style="font-size:.85rem;margin-top:4px;">معلومات تفصيلية تظهر في صفحة المشروع الكاملة</p>
-
-          <!-- AI Improve Page Description -->
-          <div class="box" style="background:rgba(110,231,243,.05);border-color:rgba(110,231,243,.2);margin-top:16px;">
-            <h4 style="margin:0 0 12px 0;"><i class="fa-solid fa-wand-magic-sparkles" style="color:#6EE7F3;margin-right:8px;"></i>تحسين المحتوى بالذكاء الاصطناعي</h4>
-            <p class="muted" style="font-size:.85rem;margin-bottom:12px;">أنشئ محتوى صفحتك وحسّنه باستخدام الذكاء الاصطناعي</p>
-
-            <div class="row" style="margin-bottom:12px;gap:10px;align-items:center;">
-              <label style="margin:0;">النمط:</label>
-              <div class="ai-select-wrap" id="aiStyleWrap">
-                <!-- hidden native select keeps .value for JS -->
-                <select id="aiStyle" aria-hidden="true" tabindex="-1">
-                  <option value="Professional">احترافي</option>
-                  <option value="Shorter">مختصر</option>
-                  <option value="Technical">تقني</option>
-                  <option value="Inspiring">ملهم</option>
-                </select>
-                <div class="ai-select-trigger" id="aiStyleTrigger" role="button" tabindex="0" aria-haspopup="listbox" aria-expanded="false">
-                  <span id="aiStyleLabel">احترافي</span>
-                  <span class="ai-select-chevron"></span>
-                </div>
-                <div class="ai-select-panel" role="listbox" id="aiStylePanel">
-                  <div class="ai-select-option selected" role="option" data-value="Professional">
-                    <i class="fa-solid fa-briefcase opt-icon"></i> Professional
-                  </div>
-                  <div class="ai-select-option" role="option" data-value="Shorter">
-                    <i class="fa-solid fa-minimize opt-icon"></i> Shorter
-                  </div>
-                  <div class="ai-select-option" role="option" data-value="Technical">
-                    <i class="fa-solid fa-code opt-icon"></i> Technical
-                  </div>
-                  <div class="ai-select-option" role="option" data-value="Inspiring">
-                    <i class="fa-solid fa-star opt-icon"></i> Inspiring
-                  </div>
-                </div>
-              </div>
-              <button class="btn primary ai-btn" id="aiPageBtn" style="width:100%;max-width:320px; text-align: center; justify-content: center; letter-spacing: 2px;">
-                <span class="ai-btn-text">إنشاء</span>
-                <span class="ai-sparkle-layer"></span>
-              </button>
-            </div>
-
-            <div id="aiPageOutput" style="display:none;">
-              <label>وصف مولد بالذكاء الاصطناعي</label>
-              <textarea id="aiOutputPage" readonly style="background:rgba(0,0,0,.2);cursor:default;min-height:140px;"></textarea>
-              <div class="row" style="margin-top:10px;gap:8px;">
-                <button class="btn primary ghost" id="aiReplacePageBtn">
-                  <i class="fa-solid fa-arrow-up"></i> استبدال
-                </button>
-                <button class="btn copy" id="aiCopyPageBtn">
-                  <i class="fa-solid fa-copy"></i> نسخ
-                </button>
-              </div>
-            </div>
-
-            <p id="aiStatus" style="margin-top:10px;font-size:.9rem;"></p>
-            <p id="aiPageRemaining" class="muted" style="font-size:.85rem;margin-top:6px;"></p>
-          </div>
-
-          <label>رابط الموقع (اختياري)</label>
-          <input id="profileWebsite" placeholder="https://..." type="url" />
-
-          <label>رابط X (تويتر) (اختياري)</label>
-          <input id="profileX" placeholder="https://x.com/..." type="url" />
-
-          <label>رابط Instagram (اختياري)</label>
-          <input id="profileInstagram" placeholder="https://instagram.com/..." type="url" />
-
-          <label>رابط GitHub (اختياري)</label>
-          <input id="profileGithub" placeholder="https://github.com/..." type="url" />
-
-          <label>رابط LinkedIn (اختياري)</label>
-          <input id="profileLinkedin" placeholder="https://linkedin.com/..." type="url" />
-
-          <div class="row" style="margin-top:12px;">
-            <button class="btn primary ghost" id="saveProfileBtn">حفظ الملف</button>
-            <button class="btn danger" id="deleteBtn" style="margin-left:auto;"><i class="fa-solid fa-trash"></i> حذف المشروع</button>
-          </div>
-
+      <section class="readiness-band" aria-label="جاهزية المشروع">
+        <h3 class="readiness-title">جاهزية المشروع</h3>
+        <div class="readiness-items">
+          <div class="ready-item" id="readinessName"><span class="ready-dot"><i class="fa-solid fa-check"></i></span><span><strong>اسم المشروع</strong><span>معلّق</span></span></div>
+          <div class="ready-item" id="readinessSlug"><span class="ready-dot"><i class="fa-solid fa-check"></i></span><span><strong>الرابط المختصر</strong><span>معلّق</span></span></div>
+          <div class="ready-item" id="readinessCard"><span class="ready-dot"><i class="fa-solid fa-check"></i></span><span><strong>وصف البطاقة</strong><span>معلّق</span></span></div>
+          <div class="ready-item" id="readinessPage"><span class="ready-dot"><i class="fa-solid fa-check"></i></span><span><strong>وصف الصفحة</strong><span>معلّق</span></span></div>
+          <div class="ready-item" id="readinessImage"><span class="ready-dot"><i class="fa-solid fa-check"></i></span><span><strong>رابط الصورة</strong><span>معلّق</span></span></div>
+          <div class="ready-item" id="readinessModeration"><span class="ready-dot"><i class="fa-solid fa-check"></i></span><span><strong>المراجعة</strong><span>معلّق</span></span></div>
         </div>
+      </section>
+
+      <div class="command-grid">
+        <section class="editor-panel" aria-label="محرر المشروع">
+          <div class="dashboard-tabs" role="tablist" aria-label="أقسام لوحة التحكم">
+            <button class="dashboard-tab active" type="button" role="tab" aria-selected="true" data-dashboard-tab="overview"><i class="fa-solid fa-list-check"></i> نظرة عامة</button>
+            <button class="dashboard-tab" type="button" role="tab" aria-selected="false" data-dashboard-tab="hub"><i class="fa-solid fa-pager"></i> بطاقة المركز</button>
+            <button class="dashboard-tab" type="button" role="tab" aria-selected="false" data-dashboard-tab="profile"><i class="fa-regular fa-user"></i> الملف</button>
+            <button class="dashboard-tab" type="button" role="tab" aria-selected="false" data-dashboard-tab="links"><i class="fa-solid fa-link"></i> الروابط</button>
+            <button class="dashboard-tab" type="button" role="tab" aria-selected="false" data-dashboard-tab="ai"><i class="fa-solid fa-wand-magic-sparkles"></i> مساعد الذكاء</button>
+            <button class="dashboard-tab danger" type="button" role="tab" aria-selected="false" data-dashboard-tab="danger"><i class="fa-solid fa-triangle-exclamation"></i> منطقة الخطر</button>
+          </div>
+
+          <div class="dashboard-panel active" role="tabpanel" data-dashboard-panel="overview">
+            <div class="panel-title-row">
+              <div>
+                <h3>نظرة عامة</h3>
+                <p class="muted">راجع حالة المشروع واستخدم شريط الإجراءات عندما تكون جاهزاً.</p>
+              </div>
+            </div>
+            <div class="field-grid">
+              <div>
+                <label>الصفحة العامة</label>
+                <a id="publicLink" class="command-link" href="#" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square"></i> فتح الصفحة العامة</a>
+              </div>
+              <div>
+                <label>حالة النشر</label>
+                <p class="muted mt-4" id="commandPublishState">مسودة</p>
+              </div>
+              <div class="full">
+                <label>ملاحظات النشر</label>
+                <p id="publishStatus" class="muted mt-4"></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="dashboard-panel" role="tabpanel" data-dashboard-panel="hub">
+            <div class="panel-title-row">
+              <div>
+                <h3>بطاقة المركز</h3>
+                <p class="muted">تظهر هذه المعلومات في قائمة المركز العامة.</p>
+              </div>
+            </div>
+            <div class="field-grid">
+              <div class="full"><label>اسم المشروع *</label><input id="cardName" placeholder="مثال: NexCore Labs"/><p class="field-help">هذا هو اسم المركز كما يظهر في البطاقة والصفحة.</p></div>
+              <div class="full"><label>الرابط المختصر (معرّف URL) [اسم المستخدم] *</label><input id="cardSlug" placeholder="مثال: nexcore-labs" /><p class="field-help">يُستخدم في رابطك العام: /ar/project.html?slug=<span id="slugPreview">your-slug [username]</span></p></div>
+              <div class="full"><label>وصف مختصر</label><textarea id="cardDescription" placeholder="وصف قصير بجملة واحدة..."></textarea><p class="field-help">جملة واحدة تظهر في بطاقات المركز.</p></div>
+              <div class="full">
+                <label>التصنيف *</label>
+                <div class="ai-select-wrap category-select-wrap" id="cardCategoryWrap">
+                  <select id="cardCategory" name="category">
+                    <option value="technology">التقنية</option>
+                    <option value="business">الأعمال</option>
+                    <option value="education">التعليم</option>
+                    <option value="finance">المالية</option>
+                    <option value="healthcare">الصحة</option>
+                    <option value="environment">البيئة</option>
+                    <option value="agriculture">الزراعة</option>
+                    <option value="food">الأغذية</option>
+                    <option value="travel">السفر</option>
+                    <option value="transportation">النقل</option>
+                    <option value="real-estate">العقارات</option>
+                    <option value="media-entertainment">الإعلام والترفيه</option>
+                    <option value="art-design">الفن والتصميم</option>
+                    <option value="sports-fitness">الرياضة واللياقة</option>
+                    <option value="community">المجتمع</option>
+                    <option value="lifestyle">نمط الحياة</option>
+                  </select>
+                  <div class="ai-select-trigger" id="cardCategoryTrigger" role="button" tabindex="0" aria-haspopup="listbox" aria-expanded="false"><span id="cardCategoryLabel">التقنية</span><span class="ai-select-chevron"></span></div>
+                  <div class="ai-select-panel category-select-panel" role="listbox" id="cardCategoryPanel"></div>
+                </div>
+              </div>
+            </div>
+            <div class="dashboard-actions">
+              <button class="btn primary ghost" id="saveCardBtn">حفظ البطاقة</button>
+              <button class="btn primary" id="togglePublishBtn">نشر</button>
+            </div>
+          </div>
+
+          <div class="dashboard-panel" role="tabpanel" data-dashboard-panel="profile">
+            <div class="panel-title-row"><div><h3>الملف</h3><p class="muted">يظهر هذا المحتوى في صفحة مشروعك المخصصة.</p></div></div>
+            <div class="field-grid">
+              <div class="full"><label>رابط الصورة (اختياري)</label><input id="profileImageUrl" placeholder="https://..." /><div style="margin-top:10px;"><img id="imgPreview" alt="" class="img-preview" style="display:none;" /></div></div>
+              <div class="full"><details class="help-box"><summary><i class="fa-solid fa-lightbulb"></i> نصائح رابط الصورة</summary><p style="margin-top:0;"><strong>يجب أن تكون الصورة متاحة للعامة.</strong> استخدم Google Drive أو ملفات GitHub الخام أو رابط استضافة صورة مباشر يعمل في تبويب جديد.</p></details></div>
+              <div class="full"><label>الوصف التفصيلي (الصفحة)</label><textarea id="pageDescription" placeholder="عرّف العالم بمشروعك بالتفصيل..."></textarea><p class="field-help">معلومات تفصيلية تظهر في صفحة المشروع الكاملة.</p></div>
+            </div>
+            <div class="dashboard-actions"><button class="btn primary ghost" id="saveProfileBtn">حفظ الملف</button></div>
+          </div>
+
+          <div class="dashboard-panel" role="tabpanel" data-dashboard-panel="links">
+            <div class="panel-title-row"><div><h3>الروابط</h3><p class="muted">اربط الزوار بقنوات مشروعك العامة.</p></div></div>
+            <div class="field-grid">
+              <div class="full"><label>رابط الموقع (اختياري)</label><input id="profileWebsite" placeholder="https://..." type="url" /></div>
+              <div><label>رابط X (تويتر) (اختياري)</label><input id="profileX" placeholder="https://x.com/..." type="url" /></div>
+              <div><label>رابط Instagram (اختياري)</label><input id="profileInstagram" placeholder="https://instagram.com/..." type="url" /></div>
+              <div><label>رابط GitHub (اختياري)</label><input id="profileGithub" placeholder="https://github.com/..." type="url" /></div>
+              <div><label>رابط LinkedIn (اختياري)</label><input id="profileLinkedin" placeholder="https://linkedin.com/..." type="url" /></div>
+            </div>
+            <div class="dashboard-actions">
+              <button class="btn primary ghost" id="saveLinksBtn" type="button">حفظ الروابط</button>
+              <button class="btn copy" id="copyProjectPageLink" title="نسخ رابط الصفحة العامة"><i class="fa-solid fa-copy"></i> نسخ رابط الصفحة</button>
+            </div>
+          </div>
+
+          <div class="dashboard-panel" role="tabpanel" data-dashboard-panel="ai">
+            <div class="dashboard-ai-box">
+              <h4><i class="fa-solid fa-wand-magic-sparkles color-ai"></i> ملخص البطاقة بالذكاء الاصطناعي</h4>
+              <p class="muted">أنشئ وصفاً موجزاً للبطاقة من وصف صفحتك باستخدام الذكاء الاصطناعي.</p>
+              <button class="btn primary ai-btn w-100 max-w-320 ta-center jc-center ls-2" id="aiCardBtn"><span class="ai-btn-text">إنشاء</span><span class="ai-sparkle-layer"></span></button>
+              <div id="aiCardOutput" style="display:none;margin-top:12px;">
+                <label>ملخص مولد بالذكاء الاصطناعي</label>
+                <textarea id="aiOutputCard" readonly style="background:rgba(0,0,0,.2);cursor:default;min-height:80px;"></textarea>
+                <div class="dashboard-actions"><button class="btn primary ghost" id="aiReplaceCardBtn"><i class="fa-solid fa-arrow-up"></i> استبدال</button><button class="btn copy" id="aiCopyCardBtn"><i class="fa-solid fa-copy"></i> نسخ</button></div>
+              </div>
+              <p id="aiCardStatus" class="mt-10 fs-9"></p>
+              <p id="aiCardRemaining" class="muted fs-85 mt-4"></p>
+            </div>
+
+            <div class="dashboard-ai-box">
+              <h4><i class="fa-solid fa-wand-magic-sparkles color-ai"></i> تحسين المحتوى بالذكاء الاصطناعي</h4>
+              <p class="muted">أنشئ محتوى صفحتك وحسّنه باستخدام الذكاء الاصطناعي.</p>
+              <div class="row gap-10" style="margin-bottom:12px;align-items:center;">
+                <label style="margin:0;">النمط:</label>
+                <div class="ai-select-wrap" id="aiStyleWrap">
+                  <select id="aiStyle" aria-hidden="true" tabindex="-1"><option value="Professional">احترافي</option><option value="Shorter">مختصر</option><option value="Technical">تقني</option><option value="Inspiring">ملهم</option></select>
+                  <div class="ai-select-trigger" id="aiStyleTrigger" role="button" tabindex="0" aria-haspopup="listbox" aria-expanded="false"><span id="aiStyleLabel">احترافي</span><span class="ai-select-chevron"></span></div>
+                  <div class="ai-select-panel" role="listbox" id="aiStylePanel">
+                    <div class="ai-select-option selected" role="option" data-value="Professional"><i class="fa-solid fa-briefcase opt-icon"></i> احترافي</div>
+                    <div class="ai-select-option" role="option" data-value="Shorter"><i class="fa-solid fa-minimize opt-icon"></i> مختصر</div>
+                    <div class="ai-select-option" role="option" data-value="Technical"><i class="fa-solid fa-code opt-icon"></i> تقني</div>
+                    <div class="ai-select-option" role="option" data-value="Inspiring"><i class="fa-solid fa-star opt-icon"></i> ملهم</div>
+                  </div>
+                </div>
+                <button class="btn primary ai-btn w-100 max-w-320 ta-center jc-center ls-2" id="aiPageBtn"><span class="ai-btn-text">إنشاء</span><span class="ai-sparkle-layer"></span></button>
+              </div>
+              <div id="aiPageOutput" style="display:none;">
+                <label>وصف مولد بالذكاء الاصطناعي</label>
+                <textarea id="aiOutputPage" readonly style="background:rgba(0,0,0,.2);cursor:default;min-height:140px;"></textarea>
+                <div class="dashboard-actions"><button class="btn primary ghost" id="aiReplacePageBtn"><i class="fa-solid fa-arrow-up"></i> استبدال</button><button class="btn copy" id="aiCopyPageBtn"><i class="fa-solid fa-copy"></i> نسخ</button></div>
+              </div>
+              <p id="aiStatus" class="mt-10 fs-9"></p>
+              <p id="aiPageRemaining" class="muted fs-85 mt-4"></p>
+            </div>
+          </div>
+
+          <div class="dashboard-panel danger-panel" role="tabpanel" data-dashboard-panel="danger">
+            <div class="panel-title-row"><div><h3>منطقة الخطر</h3><p class="muted">الحذف يزيل هذا المشروع نهائياً من المركز والصفحة العامة.</p></div></div>
+            <button class="btn danger" id="deleteBtn"><i class="fa-solid fa-trash"></i> حذف المشروع</button>
+          </div>
+        </section>
+
+        <aside class="preview-panel" aria-label="معاينة المشروع">
+          <p class="preview-eyebrow">معاينة</p>
+          <h3>لقطة يراها الزائر</h3>
+          <div class="hub-preview-card">
+            <img class="hub-preview-image" id="previewImage" alt="">
+            <div class="hub-preview-copy">
+              <h4 id="previewTitle">مشروعي</h4>
+              <p id="previewCategory">التقنية</p>
+              <p id="previewDescription">أضف وصفاً مختصراً للمشروع لمعاينة بطاقة المركز.</p>
+              <span class="preview-link-row"><i class="fa-solid fa-link"></i><span id="previewLink">project.html?slug=your-slug</span></span>
+            </div>
+          </div>
+          <div class="profile-summary">
+            <h4>ملخص الملف</h4>
+            <div class="summary-row"><span>الحالة</span><span id="summaryStatus">مسودة</span></div>
+            <div class="summary-row"><span>المراجعة</span><span id="summaryModeration">غير مراجع</span></div>
+            <div class="summary-row"><span>الروابط</span><span id="summaryLinks">لا توجد روابط بعد</span></div>
+            <div class="summary-row"><span>آخر تحديث</span><span id="summaryUpdated">-</span></div>
+          </div>
+        </aside>
       </div>
-    </div>
+
+      <section class="action-dock" aria-label="إجراءات لوحة التحكم">
+        <span class="dirty-hint" id="commandActionHint">احفظ التغييرات قبل النشر.</span>
+        <div class="dock-actions">
+          <button class="btn primary ghost" id="commandSaveBtn" type="button"><i class="fa-solid fa-floppy-disk"></i> حفظ</button>
+          <button class="btn primary" id="commandPublishBtn" type="button"><i class="fa-regular fa-paper-plane"></i> نشر</button>
+          <button class="btn copy" id="commandOpenPublicBtn" type="button"><i class="fa-solid fa-arrow-up-right-from-square"></i> فتح الصفحة العامة</button>
+        </div>
+      </section>
+    </section>
   </div>
 
           <div class="nexcore-sign">
@@ -739,6 +875,51 @@
       el.className = isError ? "msg-error" : "msg-success";
     }
 
+    function getEl(id) {
+      return document.getElementById(id);
+    }
+
+    function setText(id, text) {
+      const el = getEl(id);
+      if (el) el.textContent = text;
+    }
+
+    function valueOf(id) {
+      return (getEl(id)?.value || "").trim();
+    }
+
+    function isValidImageUrl(value) {
+      return /^https?:\/\/.+\.(png|jpe?g|webp|gif|avif)(\?.*)?$/i.test(value);
+    }
+
+    function hasHttpValue(value) {
+      return /^https?:\/\//i.test(value);
+    }
+
+    const AR_CATEGORY_LABELS = {
+      technology: "التقنية",
+      business: "الأعمال",
+      education: "التعليم",
+      finance: "المالية",
+      healthcare: "الصحة",
+      environment: "البيئة",
+      agriculture: "الزراعة",
+      food: "الأغذية",
+      travel: "السفر",
+      transportation: "النقل",
+      "real-estate": "العقارات",
+      "media-entertainment": "الإعلام والترفيه",
+      "art-design": "الفن والتصميم",
+      "sports-fitness": "الرياضة واللياقة",
+      community: "المجتمع",
+      lifestyle: "نمط الحياة"
+    };
+
+    function getCategoryLabel(value) {
+      const categoryValue = normalizeProjectCategory(value);
+      return AR_CATEGORY_LABELS[categoryValue] || "غير مصنف";
+    }
+
     let _toastTimer = null;
     function showToast(text, isError = false) {
       if (!text) return;
@@ -768,7 +949,7 @@
     }
 
     function disableButtons(disabled) {
-      const btns = ["createProjectBtn", "saveCardBtn", "saveProfileBtn", "togglePublishBtn", "deleteBtn"];
+      const btns = ["createProjectBtn", "saveCardBtn", "saveProfileBtn", "saveLinksBtn", "togglePublishBtn", "deleteBtn", "commandSaveBtn", "commandPublishBtn", "commandOpenPublicBtn", "commandNextAction"];
       btns.forEach(id => {
         const el = document.getElementById(id);
         if (el) el.disabled = disabled;
@@ -778,6 +959,40 @@
     let project = null;
     let currentUserId = null;
     let currentSession = null;
+    let dashboardSnapshot = "";
+    let dashboardDirty = false;
+    let dashboardAiRemaining = null;
+    let dashboardAiMax = 3;
+
+    const DASHBOARD_COPY = {
+      saved: "محفوظ",
+      unsaved: "تغييرات غير محفوظة",
+      saving: "جار الحفظ",
+      checking: "جار فحص المراجعة",
+      failed: "فشل الإجراء",
+      published: "منشور",
+      draft: "مسودة",
+      approved: "مقبول",
+      blocked: "محظور",
+      review: "يحتاج مراجعة",
+      unmoderated: "غير مراجع",
+      complete: "مكتمل",
+      pending: "معلّق",
+      invalid: "غير صالح",
+      noLinks: "لا توجد روابط بعد",
+      addName: "أضف اسم المشروع",
+      addSlug: "أضف الرابط المختصر",
+      addCard: "أكمل بطاقة المركز",
+      addPage: "أكمل الملف",
+      addImage: "أضف رابط الصورة",
+      fixImage: "أصلح رابط الصورة",
+      requestReview: "اطلب المراجعة",
+      readyPublish: "جاهز للنشر",
+      openPublic: "افتح الصفحة العامة",
+      keepSaved: "احفظ التغييرات قبل النشر.",
+      saveCurrent: "احفظ القسم الحالي",
+      generated: "تم الإنشاء بنجاح!"
+    };
 
 
     function getUserDisplayName(user) {
@@ -857,6 +1072,242 @@
       showToast(reason, true);
     }
 
+    function getDashboardValues() {
+      return {
+        name: valueOf("cardName"),
+        slug: slugify(valueOf("cardSlug") || valueOf("cardName")),
+        card_description: valueOf("cardDescription"),
+        category: normalizeProjectCategory(getEl("cardCategory")?.value),
+        image_url: valueOf("profileImageUrl"),
+        page_description: valueOf("pageDescription"),
+        website: valueOf("profileWebsite"),
+        x_url: valueOf("profileX"),
+        github_url: valueOf("profileGithub"),
+        linkedin_url: valueOf("profileLinkedin"),
+        instagram_url: valueOf("profileInstagram")
+      };
+    }
+
+    function getDashboardSnapshot() {
+      if (!project) return "";
+      return JSON.stringify(getDashboardValues());
+    }
+
+    function setSaveState(state, text) {
+      const el = getEl("commandSaveState");
+      if (!el) return;
+      el.className = `save-state-pill ${state || "clean"}`;
+      el.textContent = text || DASHBOARD_COPY.saved;
+    }
+
+    function captureDashboardSnapshot() {
+      dashboardSnapshot = getDashboardSnapshot();
+      dashboardDirty = false;
+      setSaveState("clean", DASHBOARD_COPY.saved);
+      setText("commandActionHint", DASHBOARD_COPY.keepSaved);
+    }
+
+    function markDashboardDirty() {
+      if (!project) return;
+      dashboardDirty = getDashboardSnapshot() !== dashboardSnapshot;
+      if (dashboardDirty) {
+        setSaveState("busy", DASHBOARD_COPY.unsaved);
+        setText("commandActionHint", DASHBOARD_COPY.saveCurrent);
+      } else {
+        setSaveState("clean", DASHBOARD_COPY.saved);
+        setText("commandActionHint", DASHBOARD_COPY.keepSaved);
+      }
+      updateCommandCenter();
+    }
+
+    function getModerationLabel(status) {
+      const normalized = normalizeModerationStatus(status);
+      if (normalized === "approved") return DASHBOARD_COPY.approved;
+      if (normalized === "blocked") return DASHBOARD_COPY.blocked;
+      if (normalized === "review") return DASHBOARD_COPY.review;
+      return DASHBOARD_COPY.unmoderated;
+    }
+
+    function formatDate(value) {
+      if (!value) return "-";
+      try {
+        return new Intl.DateTimeFormat("ar", { month: "short", day: "numeric", year: "numeric" }).format(new Date(value));
+      } catch {
+        return "-";
+      }
+    }
+
+    function setReadyItem(id, complete, label, blocked = false) {
+      const item = getEl(id);
+      if (!item) return;
+      item.classList.toggle("complete", !!complete);
+      item.classList.toggle("blocked", !!blocked);
+      const status = item.querySelector("span span");
+      const icon = item.querySelector(".ready-dot i");
+      if (status) status.textContent = label;
+      if (icon) icon.className = complete ? "fa-solid fa-check" : (blocked ? "fa-solid fa-xmark" : "fa-solid fa-circle");
+    }
+
+    function getReadiness(values = getDashboardValues()) {
+      const moderation = normalizeModerationStatus(project?.moderation_status);
+      return [
+        { id: "readinessName", key: "name", complete: !!values.name, label: values.name ? DASHBOARD_COPY.complete : DASHBOARD_COPY.pending, tab: "hub", focus: "cardName" },
+        { id: "readinessSlug", key: "slug", complete: !!values.slug, label: values.slug ? DASHBOARD_COPY.complete : DASHBOARD_COPY.pending, tab: "hub", focus: "cardSlug" },
+        { id: "readinessCard", key: "card", complete: values.card_description.length >= 12, label: values.card_description.length >= 12 ? DASHBOARD_COPY.complete : DASHBOARD_COPY.pending, tab: "hub", focus: "cardDescription" },
+        { id: "readinessPage", key: "page", complete: values.page_description.length >= 40, label: values.page_description.length >= 40 ? DASHBOARD_COPY.complete : DASHBOARD_COPY.pending, tab: "profile", focus: "pageDescription" },
+        { id: "readinessImage", key: "image", complete: !values.image_url || isValidImageUrl(values.image_url), blocked: !!values.image_url && !isValidImageUrl(values.image_url), label: values.image_url ? (isValidImageUrl(values.image_url) ? DASHBOARD_COPY.complete : DASHBOARD_COPY.invalid) : DASHBOARD_COPY.pending, tab: "profile", focus: "profileImageUrl" },
+        { id: "readinessModeration", key: "moderation", complete: moderation === "approved", blocked: moderation === "blocked", label: getModerationLabel(moderation), tab: "overview", focus: "moderationBadge" }
+      ];
+    }
+
+    function updateReadiness(values = getDashboardValues()) {
+      const items = getReadiness(values);
+      items.forEach((item) => setReadyItem(item.id, item.complete, item.label, item.blocked));
+      return items;
+    }
+
+    function updateCommandAiQuota(remaining = dashboardAiRemaining, max = dashboardAiMax) {
+      dashboardAiRemaining = remaining;
+      dashboardAiMax = max || 3;
+      const r = Number.isFinite(Number(remaining)) ? Math.max(0, Math.min(dashboardAiMax, Number(remaining))) : null;
+      setText("commandAiRemaining", r === null ? `- / ${dashboardAiMax}` : `${r} / ${dashboardAiMax}`);
+      const fill = getEl("commandAiFill");
+      if (fill) fill.style.width = r === null ? "0%" : `${(r / dashboardAiMax) * 100}%`;
+    }
+
+    function updateProjectPreview(values = getDashboardValues()) {
+      const title = values.name || "مشروعي";
+      const description = values.card_description || values.page_description || "أضف وصفاً مختصراً للمشروع لمعاينة بطاقة المركز.";
+      const slug = values.slug || "your-slug";
+      const publicPath = `/ar/project.html?slug=${encodeURIComponent(slug)}`;
+
+      setText("commandProjectName", title);
+      setText("previewTitle", title);
+      setText("previewCategory", getCategoryLabel(values.category));
+      setText("previewDescription", description);
+      setText("previewLink", publicPath);
+
+      const initial = (title.match(/[A-Za-z0-9\u0600-\u06FF]/)?.[0] || "N").toUpperCase();
+      setText("commandProjectInitial", initial);
+
+      const previewImage = getEl("previewImage");
+      const commandImage = getEl("commandProjectImage");
+      const commandInitial = getEl("commandProjectInitial");
+      if (values.image_url && hasHttpValue(values.image_url)) {
+        if (previewImage) previewImage.src = values.image_url;
+        if (commandImage) {
+          commandImage.src = values.image_url;
+          commandImage.hidden = false;
+        }
+        if (commandInitial) commandInitial.hidden = true;
+      } else {
+        if (previewImage) previewImage.src = "../assets/images/nexcore-logo.webp";
+        if (commandImage) {
+          commandImage.removeAttribute("src");
+          commandImage.hidden = true;
+        }
+        if (commandInitial) commandInitial.hidden = false;
+      }
+    }
+
+    function updateCommandCenter() {
+      const values = getDashboardValues();
+      const published = isProjectPublished(project);
+      const moderation = normalizeModerationStatus(project?.moderation_status);
+      const moderationLabel = getModerationLabel(moderation);
+      const link = `/ar/project.html?slug=${encodeURIComponent(values.slug || project?.slug || "")}`;
+      const linksCount = ["website", "x_url", "github_url", "linkedin_url", "instagram_url"].filter((key) => hasHttpValue(values[key])).length;
+
+      updateProjectPreview(values);
+      const readiness = updateReadiness(values);
+      const next = readiness.find((item) => !item.complete || item.blocked);
+      const nextLabels = {
+        name: DASHBOARD_COPY.addName,
+        slug: DASHBOARD_COPY.addSlug,
+        card: DASHBOARD_COPY.addCard,
+        page: DASHBOARD_COPY.addPage,
+        image: next?.blocked ? DASHBOARD_COPY.fixImage : DASHBOARD_COPY.addImage,
+        moderation: moderation === "blocked" ? DASHBOARD_COPY.blocked : DASHBOARD_COPY.requestReview
+      };
+
+      setText("commandModerationInline", moderationLabel);
+      setText("commandPublishState", published ? DASHBOARD_COPY.published : DASHBOARD_COPY.draft);
+      setText("summaryStatus", published ? DASHBOARD_COPY.published : DASHBOARD_COPY.draft);
+      setText("summaryModeration", moderationLabel);
+      setText("summaryLinks", linksCount ? `${linksCount} روابط مضافة` : DASHBOARD_COPY.noLinks);
+      setText("summaryUpdated", formatDate(project?.updated_at || project?.created_at));
+      setText("commandNextActionText", next ? nextLabels[next.key] : (published ? DASHBOARD_COPY.openPublic : DASHBOARD_COPY.readyPublish));
+
+      const publicLink = getEl("publicLink");
+      if (publicLink) {
+        publicLink.href = link;
+        publicLink.innerHTML = `<i class="fa-solid fa-arrow-up-right-from-square"></i> ${link}`;
+      }
+
+      const openBtn = getEl("commandOpenPublicBtn");
+      if (openBtn) openBtn.disabled = !values.slug;
+      const publishBtn = getEl("commandPublishBtn");
+      if (publishBtn) publishBtn.innerHTML = published ? '<i class="fa-solid fa-eye-slash"></i> إلغاء النشر' : '<i class="fa-regular fa-paper-plane"></i> نشر';
+    }
+
+    function setDashboardTab(name) {
+      document.querySelectorAll("[data-dashboard-tab]").forEach((tab) => {
+        const active = tab.dataset.dashboardTab === name;
+        tab.classList.toggle("active", active);
+        tab.setAttribute("aria-selected", active ? "true" : "false");
+      });
+      document.querySelectorAll("[data-dashboard-panel]").forEach((panel) => {
+        panel.classList.toggle("active", panel.dataset.dashboardPanel === name);
+      });
+    }
+
+    function getActiveDashboardTab() {
+      return document.querySelector("[data-dashboard-tab].active")?.dataset.dashboardTab || "overview";
+    }
+
+    function focusDashboardStep(step) {
+      if (!step) return;
+      setDashboardTab(step.tab);
+      const target = getEl(step.focus);
+      if (target) setTimeout(() => target.focus?.(), 80);
+    }
+
+    function initDashboardTabs() {
+      document.querySelectorAll("[data-dashboard-tab]").forEach((tab) => {
+        tab.addEventListener("click", () => setDashboardTab(tab.dataset.dashboardTab));
+      });
+    }
+
+    function initDashboardDirtyTracking() {
+      const ids = ["cardName", "cardSlug", "cardDescription", "cardCategory", "profileImageUrl", "pageDescription", "profileWebsite", "profileX", "profileInstagram", "profileGithub", "profileLinkedin"];
+      ids.forEach((id) => {
+        const el = getEl(id);
+        if (!el) return;
+        el.addEventListener("input", markDashboardDirty);
+        el.addEventListener("change", markDashboardDirty);
+      });
+    }
+
+    function initCommandActions() {
+      getEl("commandSaveBtn")?.addEventListener("click", async () => {
+        const active = getActiveDashboardTab();
+        if (active === "profile" || active === "links") await saveProfile();
+        else await saveCard();
+      });
+      getEl("saveLinksBtn")?.addEventListener("click", saveProfile);
+      getEl("commandPublishBtn")?.addEventListener("click", togglePublish);
+      getEl("commandOpenPublicBtn")?.addEventListener("click", () => {
+        const link = getEl("publicLink");
+        if (link?.href && link.getAttribute("href") !== "#") window.open(link.href, "_blank", "noopener");
+      });
+      getEl("commandNextAction")?.addEventListener("click", () => {
+        const next = getReadiness().find((item) => !item.complete || item.blocked);
+        if (next) focusDashboardStep(next);
+        else if (isProjectPublished(project)) getEl("commandOpenPublicBtn")?.click();
+        else focusDashboardStep({ tab: "overview", focus: "commandPublishBtn" });
+      });
+    }
+
 
 
     function setRemainingUI(el, remaining, max = 3) {
@@ -866,6 +1317,7 @@
       const r = Math.max(0, Math.min(max, Number(remaining)));
       el.textContent = `استخدامات الذكاء الاصطناعي المتبقية اليوم: ${r}/${max}`;
       el.classList.add(r === 3 ? "ok3" : r === 2 ? "ok2" : r === 1 ? "ok1" : "ok0");
+      updateCommandAiQuota(r, max);
     }
 
     function setBothRemainingUI(remaining, max = 3) {
@@ -1011,14 +1463,19 @@
         document.title = "لوحة التحكم | NexCore Labs";
       }
 
-      if (!p) return;
+      if (!p) {
+        setSaveState("clean", DASHBOARD_COPY.saved);
+        dashboardSnapshot = "";
+        dashboardDirty = false;
+        return;
+      }
 
       document.getElementById("publicId").textContent = p.public_id || "";
   const published = isProjectPublished(p);
   document.getElementById("statusText").textContent = published ? "منشور ✓" : "مسودة";
 
       const publishBtn = document.getElementById("togglePublishBtn");
-  publishBtn.textContent = published ? "Unpublish" : "نشر";
+  publishBtn.textContent = published ? "إلغاء النشر" : "نشر";
 
   setPublishStatus(published ? "✓ ظاهر في المركز" : "");
   renderModerationStatus(p);
@@ -1060,6 +1517,9 @@
       } else {
         img.style.display = "none";
       }
+
+      updateCommandCenter();
+      captureDashboardSnapshot();
     }
 
     async function requireAuth() {
@@ -1176,6 +1636,7 @@
       if (!slug) return showToast("اسم المشروع غير صالح.", true);
 
       disableButtons(true);
+      setSaveState("busy", DASHBOARD_COPY.saving);
 
       // Try to insert
       const creatorName = getUserDisplayName(currentSession?.user);
@@ -1213,11 +1674,13 @@
             // Check if it's the one_project_per_user constraint
             if (retry.error.code === '23505' && retry.error.message.includes('one_project_per_user')) {
               disableButtons(false);
+              setSaveState("error", DASHBOARD_COPY.failed);
               showToast("لديك مشروع بالفعل. جار تحميله الآن...");
               await loadMyProject(currentUserId);
               return;
             }
             disableButtons(false);
+            setSaveState("error", DASHBOARD_COPY.failed);
             return showToast(retry.error.message, true);
           }
 
@@ -1225,11 +1688,13 @@
         } else if (error.code === '23505' && error.message.includes('one_project_per_user')) {
           // User already has a project
           disableButtons(false);
+          setSaveState("error", DASHBOARD_COPY.failed);
           showToast("لديك مشروع بالفعل. جار تحميله الآن...");
           await loadMyProject(currentUserId);
           return;
         } else {
           disableButtons(false);
+          setSaveState("error", DASHBOARD_COPY.failed);
           return showToast(error.message, true);
         }
       }
@@ -1256,6 +1721,7 @@
       if (!slug) return showToast("الرابط المختصر غير صالح.", true);
 
       disableButtons(true);
+      setSaveState("busy", DASHBOARD_COPY.saving);
 
       const { data, error } = await sb
         .from("projects")
@@ -1275,6 +1741,7 @@
       disableButtons(false);
 
       if (error) {
+        setSaveState("error", DASHBOARD_COPY.failed);
         if (error.code === '23505' && error.message.includes('slug')) {
           return showToast("هذا الرابط المختصر مستخدم من مشروع آخر. يرجى اختيار رابط مختلف.", true);
         }
@@ -1285,8 +1752,10 @@
 
       if (wasPublished) {
         showToast("جار التحقق من المراجعة بعد التعديل...");
+        setSaveState("busy", DASHBOARD_COPY.checking);
         const moderation = await moderateProject("edit_check", true);
         if (!moderation.ok) {
+          setSaveState("error", DASHBOARD_COPY.failed);
           showToast(`فشل فحص المراجعة: ${moderation.error}`, true);
           return;
         }
@@ -1304,6 +1773,7 @@
       }
 
       showToast("تم حفظ البطاقة ✓");
+      setSaveState("clean", DASHBOARD_COPY.saved);
     }
 
     async function saveProfile() {
@@ -1321,6 +1791,7 @@
       const creatorAvatar = getUserAvatar(currentSession?.user);
 
       disableButtons(true);
+      setSaveState("busy", DASHBOARD_COPY.saving);
 
       const { data, error } = await sb
         .from("projects")
@@ -1342,12 +1813,17 @@
 
       disableButtons(false);
 
-      if (error) return showToast(error.message, true);
+      if (error) {
+        setSaveState("error", DASHBOARD_COPY.failed);
+        return showToast(error.message, true);
+      }
 
       if (wasPublished) {
         showToast("جار التحقق من المراجعة بعد التعديل...");
+        setSaveState("busy", DASHBOARD_COPY.checking);
         const moderation = await moderateProject("edit_check", true);
         if (!moderation.ok) {
+          setSaveState("error", DASHBOARD_COPY.failed);
           showToast("تم حفظ الملف، لكن فحص المراجعة فشل. حاول مرة أخرى.", true);
           return;
         }
@@ -1365,6 +1841,7 @@
       }
 
       showToast("تم حفظ الملف ✓");
+      render(data);
     }
 
     async function togglePublish() {
@@ -1375,6 +1852,7 @@
       const next = !currentlyPublished;
 
       disableButtons(true);
+      setSaveState("busy", next ? DASHBOARD_COPY.checking : DASHBOARD_COPY.saving);
 
       if (!next) {
         const { data, error } = await sb
@@ -1389,7 +1867,10 @@
 
         disableButtons(false);
 
-        if (error) return showToast(error.message, true);
+        if (error) {
+          setSaveState("error", DASHBOARD_COPY.failed);
+          return showToast(error.message, true);
+        }
 
         render(data);
         showToast("تم إخفاؤه من المركز.");
@@ -1401,6 +1882,7 @@
       disableButtons(false);
 
       if (!moderation.ok) {
+        setSaveState("error", DASHBOARD_COPY.failed);
         showToast(`فشلت المراجعة: ${moderation.error}`, true);
         return;
       }
@@ -1459,6 +1941,10 @@
 
       currentUserId = session.user.id;
       console.log("Current user:", currentUserId);
+
+      initDashboardTabs();
+      initDashboardDirtyTracking();
+      initCommandActions();
 
       document.getElementById("createProjectBtn").addEventListener("click", createProject);
       document.getElementById("copyProjectPageLink").addEventListener("click", copyProjectPageLink);
@@ -1642,6 +2128,7 @@
           }
           if (aiElements.pageDescription) {
             aiElements.pageDescription.value = aiOutput;
+            markDashboardDirty();
             setMsg(aiElements.aiStatus, "تم الاستبدال بنجاح!");
           }
         });
@@ -1768,6 +2255,7 @@
           }
           if (aiElements.cardDescription) {
             aiElements.cardDescription.value = aiOutput;
+            markDashboardDirty();
             setMsg(aiElements.aiCardStatus, "تم الاستبدال بنجاح!");
           }
         });
