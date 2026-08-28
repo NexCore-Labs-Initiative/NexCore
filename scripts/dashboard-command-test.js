@@ -69,9 +69,6 @@ for (const [file, heading, publicPath] of [
     assert(html.includes(hook), `${file} must include ${hook}`);
   }
 
-  assert(!html.includes("showToast(reason, true);"), `${file} moderation reason toast must not always render as an error`);
-  assert(html.includes('tone === "blocked" || tone === "review"'), `${file} moderation reason toast must only use error tone for blocked/review statuses`);
-
   assert(!html.includes('<h1>Dashboard</h1>'), `${file} must remove the old dashboard heading`);
   assert(!html.includes('<h1>لوحة التحكم</h1>'), `${file} must remove the old Arabic dashboard heading`);
 

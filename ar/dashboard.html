@@ -318,6 +318,10 @@
     .jc-center{justify-content:center!important}
     .ls-2{letter-spacing:2px!important}
     .img-preview{max-width:240px;border-radius:14px;border: 2px solid rgba(255, 255, 255, 0.06);padding: 12px;}
+    /* ── Toast notification ── */
+    #toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(16px);border: 2px solid rgba(255, 255, 255, 0.06);background: rgba(10, 11, 28, 0.6);color:#6ee7f3;padding:10px 22px;border-radius:12px;font-size:.875rem;font-weight:500;z-index:10001;opacity:0;pointer-events:none;transition:opacity .22s,transform .22s;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);max-width:min(420px,90vw);text-align:center;box-shadow:0 8px 32px rgba(0,0,0,.55);white-space:pre-line;}
+    #toast.show{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:all;}
+    #toast.error{border-color:rgba(255,120,120,.28);color:#ff7878;}
 
     .wrap.dashboard-command{max-width:1280px;margin-top:132px}
     .dashboard-command input,
@@ -916,6 +920,16 @@
       return AR_CATEGORY_LABELS[categoryValue] || "غير مصنف";
     }
 
+    let _toastTimer = null;
+    function showToast(text, isError = false) {
+      if (!text) return;
+      const toast = document.getElementById('toast');
+      toast.textContent = text;
+      toast.className = 'show' + (isError ? ' error' : '');
+      clearTimeout(_toastTimer);
+      _toastTimer = setTimeout(() => toast.classList.remove('show'), 3800);
+    }
+
     function slugify(s) {
       return (s || "")
         .toLowerCase()
@@ -1057,6 +1071,242 @@
       const reason = (why.dataset.reason || why.title || "لا يوجد سبب مراجعة متاح").trim();
       const tone = normalizeModerationStatus(why.className.match(/mod-(approved|blocked|review|unmoderated)/)?.[1]);
       showToast(reason, tone === "blocked" || tone === "review" ? "error" : "info");
+    }
+
+    function getDashboardValues() {
+      return {
+        name: valueOf("cardName"),
+        slug: slugify(valueOf("cardSlug") || valueOf("cardName")),
+        card_description: valueOf("cardDescription"),
+        category: normalizeProjectCategory(getEl("cardCategory")?.value),
+        image_url: valueOf("profileImageUrl"),
+        page_description: valueOf("pageDescription"),
+        website: valueOf("profileWebsite"),
+        x_url: valueOf("profileX"),
+        github_url: valueOf("profileGithub"),
+        linkedin_url: valueOf("profileLinkedin"),
+        instagram_url: valueOf("profileInstagram")
+      };
+    }
+
+    function getDashboardSnapshot() {
+      if (!project) return "";
+      return JSON.stringify(getDashboardValues());
+    }
+
+    function setSaveState(state, text) {
+      const el = getEl("commandSaveState");
+      if (!el) return;
+      el.className = `save-state-pill ${state || "clean"}`;
+      el.textContent = text || DASHBOARD_COPY.saved;
+    }
+
+    function captureDashboardSnapshot() {
+      dashboardSnapshot = getDashboardSnapshot();
+      dashboardDirty = false;
+      setSaveState("clean", DASHBOARD_COPY.saved);
+      setText("commandActionHint", DASHBOARD_COPY.keepSaved);
+    }
+
+    function markDashboardDirty() {
+      if (!project) return;
+      dashboardDirty = getDashboardSnapshot() !== dashboardSnapshot;
+      if (dashboardDirty) {
+        setSaveState("busy", DASHBOARD_COPY.unsaved);
+        setText("commandActionHint", DASHBOARD_COPY.saveCurrent);
+      } else {
+        setSaveState("clean", DASHBOARD_COPY.saved);
+        setText("commandActionHint", DASHBOARD_COPY.keepSaved);
+      }
+      updateCommandCenter();
+    }
+
+    function getModerationLabel(status) {
+      const normalized = normalizeModerationStatus(status);
+      if (normalized === "approved") return DASHBOARD_COPY.approved;
+      if (normalized === "blocked") return DASHBOARD_COPY.blocked;
+      if (normalized === "review") return DASHBOARD_COPY.review;
+      return DASHBOARD_COPY.unmoderated;
+    }
+
+    function formatDate(value) {
+      if (!value) return "-";
+      try {
+        return new Intl.DateTimeFormat("ar", { month: "short", day: "numeric", year: "numeric" }).format(new Date(value));
+      } catch {
+        return "-";
+      }
+    }
+
+    function setReadyItem(id, complete, label, blocked = false) {
+      const item = getEl(id);
+      if (!item) return;
+      item.classList.toggle("complete", !!complete);
+      item.classList.toggle("blocked", !!blocked);
+      const status = item.querySelector("span span");
+      const icon = item.querySelector(".ready-dot i");
+      if (status) status.textContent = label;
+      if (icon) icon.className = complete ? "fa-solid fa-check" : (blocked ? "fa-solid fa-xmark" : "fa-solid fa-circle");
+    }
+
+    function getReadiness(values = getDashboardValues()) {
+      const moderation = normalizeModerationStatus(project?.moderation_status);
+      return [
+        { id: "readinessName", key: "name", complete: !!values.name, label: values.name ? DASHBOARD_COPY.complete : DASHBOARD_COPY.pending, tab: "hub", focus: "cardName" },
+        { id: "readinessSlug", key: "slug", complete: !!values.slug, label: values.slug ? DASHBOARD_COPY.complete : DASHBOARD_COPY.pending, tab: "hub", focus: "cardSlug" },
+        { id: "readinessCard", key: "card", complete: values.card_description.length >= 12, label: values.card_description.length >= 12 ? DASHBOARD_COPY.complete : DASHBOARD_COPY.pending, tab: "hub", focus: "cardDescription" },
+        { id: "readinessPage", key: "page", complete: values.page_description.length >= 40, label: values.page_description.length >= 40 ? DASHBOARD_COPY.complete : DASHBOARD_COPY.pending, tab: "profile", focus: "pageDescription" },
+        { id: "readinessImage", key: "image", complete: !values.image_url || isValidImageUrl(values.image_url), blocked: !!values.image_url && !isValidImageUrl(values.image_url), label: values.image_url ? (isValidImageUrl(values.image_url) ? DASHBOARD_COPY.complete : DASHBOARD_COPY.invalid) : DASHBOARD_COPY.pending, tab: "profile", focus: "profileImageUrl" },
+        { id: "readinessModeration", key: "moderation", complete: moderation === "approved", blocked: moderation === "blocked", label: getModerationLabel(moderation), tab: "overview", focus: "moderationBadge" }
+      ];
+    }
+
+    function updateReadiness(values = getDashboardValues()) {
+      const items = getReadiness(values);
+      items.forEach((item) => setReadyItem(item.id, item.complete, item.label, item.blocked));
+      return items;
+    }
+
+    function updateCommandAiQuota(remaining = dashboardAiRemaining, max = dashboardAiMax) {
+      dashboardAiRemaining = remaining;
+      dashboardAiMax = max || 3;
+      const r = Number.isFinite(Number(remaining)) ? Math.max(0, Math.min(dashboardAiMax, Number(remaining))) : null;
+      setText("commandAiRemaining", r === null ? `- / ${dashboardAiMax}` : `${r} / ${dashboardAiMax}`);
+      const fill = getEl("commandAiFill");
+      if (fill) fill.style.width = r === null ? "0%" : `${(r / dashboardAiMax) * 100}%`;
+    }
+
+    function updateProjectPreview(values = getDashboardValues()) {
+      const title = values.name || "مشروعي";
+      const description = values.card_description || values.page_description || "أضف وصفاً مختصراً للمشروع لمعاينة بطاقة المركز.";
+      const slug = values.slug || "your-slug";
+      const publicPath = `/ar/project.html?slug=${encodeURIComponent(slug)}`;
+
+      setText("commandProjectName", title);
+      setText("previewTitle", title);
+      setText("previewCategory", getCategoryLabel(values.category));
+      setText("previewDescription", description);
+      setText("previewLink", publicPath);
+
+      const initial = (title.match(/[A-Za-z0-9\u0600-\u06FF]/)?.[0] || "N").toUpperCase();
+      setText("commandProjectInitial", initial);
+
+      const previewImage = getEl("previewImage");
+      const commandImage = getEl("commandProjectImage");
+      const commandInitial = getEl("commandProjectInitial");
+      if (values.image_url && hasHttpValue(values.image_url)) {
+        if (previewImage) previewImage.src = values.image_url;
+        if (commandImage) {
+          commandImage.src = values.image_url;
+          commandImage.hidden = false;
+        }
+        if (commandInitial) commandInitial.hidden = true;
+      } else {
+        if (previewImage) previewImage.src = "../assets/images/nexcore-logo.webp";
+        if (commandImage) {
+          commandImage.removeAttribute("src");
+          commandImage.hidden = true;
+        }
+        if (commandInitial) commandInitial.hidden = false;
+      }
+    }
+
+    function updateCommandCenter() {
+      const values = getDashboardValues();
+      const published = isProjectPublished(project);
+      const moderation = normalizeModerationStatus(project?.moderation_status);
+      const moderationLabel = getModerationLabel(moderation);
+      const link = `/ar/project.html?slug=${encodeURIComponent(values.slug || project?.slug || "")}`;
+      const linksCount = ["website", "x_url", "github_url", "linkedin_url", "instagram_url"].filter((key) => hasHttpValue(values[key])).length;
+
+      updateProjectPreview(values);
+      const readiness = updateReadiness(values);
+      const next = readiness.find((item) => !item.complete || item.blocked);
+      const nextLabels = {
+        name: DASHBOARD_COPY.addName,
+        slug: DASHBOARD_COPY.addSlug,
+        card: DASHBOARD_COPY.addCard,
+        page: DASHBOARD_COPY.addPage,
+        image: next?.blocked ? DASHBOARD_COPY.fixImage : DASHBOARD_COPY.addImage,
+        moderation: moderation === "blocked" ? DASHBOARD_COPY.blocked : DASHBOARD_COPY.requestReview
+      };
+
+      setText("commandModerationInline", moderationLabel);
+      setText("commandPublishState", published ? DASHBOARD_COPY.published : DASHBOARD_COPY.draft);
+      setText("summaryStatus", published ? DASHBOARD_COPY.published : DASHBOARD_COPY.draft);
+      setText("summaryModeration", moderationLabel);
+      setText("summaryLinks", linksCount ? `${linksCount} روابط مضافة` : DASHBOARD_COPY.noLinks);
+      setText("summaryUpdated", formatDate(project?.updated_at || project?.created_at));
+      setText("commandNextActionText", next ? nextLabels[next.key] : (published ? DASHBOARD_COPY.openPublic : DASHBOARD_COPY.readyPublish));
+
+      const publicLink = getEl("publicLink");
+      if (publicLink) {
+        publicLink.href = link;
+        publicLink.innerHTML = `<i class="fa-solid fa-arrow-up-right-from-square"></i> ${link}`;
+      }
+
+      const openBtn = getEl("commandOpenPublicBtn");
+      if (openBtn) openBtn.disabled = !values.slug;
+      const publishBtn = getEl("commandPublishBtn");
+      if (publishBtn) publishBtn.innerHTML = published ? '<i class="fa-solid fa-eye-slash"></i> إلغاء النشر' : '<i class="fa-regular fa-paper-plane"></i> نشر';
+    }
+
+    function setDashboardTab(name) {
+      document.querySelectorAll("[data-dashboard-tab]").forEach((tab) => {
+        const active = tab.dataset.dashboardTab === name;
+        tab.classList.toggle("active", active);
+        tab.setAttribute("aria-selected", active ? "true" : "false");
+      });
+      document.querySelectorAll("[data-dashboard-panel]").forEach((panel) => {
+        panel.classList.toggle("active", panel.dataset.dashboardPanel === name);
+      });
+    }
+
+    function getActiveDashboardTab() {
+      return document.querySelector("[data-dashboard-tab].active")?.dataset.dashboardTab || "overview";
+    }
+
+    function focusDashboardStep(step) {
+      if (!step) return;
+      setDashboardTab(step.tab);
+      const target = getEl(step.focus);
+      if (target) setTimeout(() => target.focus?.(), 80);
+    }
+
+    function initDashboardTabs() {
+      document.querySelectorAll("[data-dashboard-tab]").forEach((tab) => {
+        tab.addEventListener("click", () => setDashboardTab(tab.dataset.dashboardTab));
+      });
+    }
+
+    function initDashboardDirtyTracking() {
+      const ids = ["cardName", "cardSlug", "cardDescription", "cardCategory", "profileImageUrl", "pageDescription", "profileWebsite", "profileX", "profileInstagram", "profileGithub", "profileLinkedin"];
+      ids.forEach((id) => {
+        const el = getEl(id);
+        if (!el) return;
+        el.addEventListener("input", markDashboardDirty);
+        el.addEventListener("change", markDashboardDirty);
+      });
+    }
+
+    function initCommandActions() {
+      getEl("commandSaveBtn")?.addEventListener("click", async () => {
+        const active = getActiveDashboardTab();
+        if (active === "profile" || active === "links") await saveProfile();
+        else await saveCard();
+      });
+      getEl("saveLinksBtn")?.addEventListener("click", saveProfile);
+      getEl("commandPublishBtn")?.addEventListener("click", togglePublish);
+      getEl("commandOpenPublicBtn")?.addEventListener("click", () => {
+        const link = getEl("publicLink");
+        if (link?.href && link.getAttribute("href") !== "#") window.open(link.href, "_blank", "noopener");
+      });
+      getEl("commandNextAction")?.addEventListener("click", () => {
+        const next = getReadiness().find((item) => !item.complete || item.blocked);
+        if (next) focusDashboardStep(next);
+        else if (isProjectPublished(project)) getEl("commandOpenPublicBtn")?.click();
+        else focusDashboardStep({ tab: "overview", focus: "commandPublishBtn" });
+      });
     }
 
     function getDashboardValues() {
