@@ -1353,7 +1353,8 @@
       const why = document.getElementById("moderationBadge");
       if (!why) return;
       const reason = (why.dataset.reason || why.title || "No moderation reason available").trim();
-      showToast(reason, true);
+      const tone = normalizeModerationStatus(why.className.match(/mod-(approved|blocked|review|unmoderated)/)?.[1]);
+      showToast(reason, tone === "blocked" || tone === "review" ? "error" : "info");
     }
 
 
@@ -2518,6 +2519,5 @@
     })();
   </script>
   <script src="assets/js/cookies.js" defer></script>
-  <div id="toast" role="alert" aria-live="assertive"></div>
 </body>
 </html>

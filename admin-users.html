@@ -1112,106 +1112,6 @@
             flex-wrap: wrap;
         }
 
-        /* Toast Notifications */
-        .toast-container {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 10000;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            pointer-events: none;
-        }
-
-        .toast {
-            min-width: 300px;
-            max-width: 400px;
-            padding: 16px 20px;
-            background: rgba(10, 11, 28, 0.95);
-            border-radius: 12px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            pointer-events: auto;
-            animation: slideInRight 0.3s ease-out;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-        }
-
-        .toast.hiding {
-            animation: slideOutRight 0.3s ease-in forwards;
-        }
-
-        .toast-success {
-            border: 1px solid rgba(120, 255, 120, 0.4);
-            background: linear-gradient(135deg, rgba(120, 255, 120, 0.15), rgba(10, 11, 28, 0.95));
-        }
-
-        .toast-error {
-            border: 1px solid rgba(255, 100, 100, 0.4);
-            background: linear-gradient(135deg, rgba(255, 100, 100, 0.15), rgba(10, 11, 28, 0.95));
-        }
-
-        .toast-info {
-            border: 1px solid rgba(110, 231, 243, 0.4);
-            background: linear-gradient(135deg, rgba(110, 231, 243, 0.15), rgba(10, 11, 28, 0.95));
-        }
-
-        .toast-icon {
-            font-size: 20px;
-            flex-shrink: 0;
-        }
-
-        .toast-success .toast-icon { color: #7fff7f; }
-        .toast-error .toast-icon { color: #ff7878; }
-        .toast-info .toast-icon { color: #6ee7f3; }
-
-        .toast-content {
-            flex: 1;
-            color: #eaf6fb;
-            font-size: 14px;
-            line-height: 1.4;
-        }
-
-        .toast-close {
-            background: none;
-            border: none;
-            color: var(--muted);
-            cursor: pointer;
-            padding: 4px;
-            font-size: 16px;
-            transition: color 0.2s;
-            flex-shrink: 0;
-        }
-
-        .toast-close:hover {
-            color: #eaf6fb;
-        }
-
-        @keyframes slideInRight {
-            from {
-                transform: translateX(400px);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-
-        @keyframes slideOutRight {
-            from {
-                transform: translateX(0);
-                opacity: 1;
-            }
-            to {
-                transform: translateX(400px);
-                opacity: 0;
-            }
-        }
-
         /* Confirmation Modal */
         .modal-overlay {
             position: fixed;
@@ -1561,17 +1461,6 @@
                 margin: 0 16px;
             }
 
-            .toast-container {
-                left: 12px;
-                right: 12px;
-            }
-
-            .toast {
-                min-width: auto;
-                max-width: 100%;
-                padding: 12px 16px;
-            }
-
             .modal {
                 padding: 20px;
                 width: calc(100% - 32px);
@@ -1906,9 +1795,6 @@
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
-    <!-- Toast Container -->
-    <div class="toast-container" id="toastContainer"></div>
-
     <div class="background">
         <img class="logo-img" id="logoImg" src="assets/images/nexcore-logo.webp" alt="NexCore Labs Logo">
         <div id="spotLight" class="spot-light"></div>
@@ -2758,34 +2644,6 @@
                 filteredData: []
             }
         };
-
-        // Toast Notification System
-        function showToast(message, type = 'info') {
-            const container = document.getElementById('toastContainer');
-            const toast = document.createElement('div');
-            toast.className = `toast toast-${type}`;
-
-            const iconMap = {
-                success: 'fa-circle-check',
-                error: 'fa-circle-exclamation',
-                info: 'fa-circle-info'
-            };
-
-            toast.innerHTML = `
-                <i class="fa-solid ${iconMap[type]} toast-icon"></i>
-                <div class="toast-content">${message}</div>
-                <button class="toast-close" onclick="this.parentElement.remove()">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-            `;
-
-            container.appendChild(toast);
-
-            setTimeout(() => {
-                toast.classList.add('hiding');
-                setTimeout(() => toast.remove(), 300);
-            }, 5000);
-        }
 
         // Confirmation Modal System
         function showConfirmModal(title, message, onConfirm, triggerEl = null) {
