@@ -99,7 +99,6 @@ const PRECACHE_URLS = [
   '/ar/offline',
   '/ar/offline.html',
   '/googleb60d962a5a64f048.html',
-  '/arabic-demo.html',
 
   '/assets/css/style.css',
   '/assets/css/team-id-cards.css',

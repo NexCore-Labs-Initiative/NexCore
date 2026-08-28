@@ -43,7 +43,6 @@ for (const file of [
   "manifest.json",
   "package.json",
   "README.md",
-  "arabic-demo.html",
 ]) {
   const content = read(file);
   for (const phrase of retiredCopy) {
