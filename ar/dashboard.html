@@ -1069,7 +1069,8 @@
       const why = document.getElementById("moderationBadge");
       if (!why) return;
       const reason = (why.dataset.reason || why.title || "لا يوجد سبب مراجعة متاح").trim();
-      showToast(reason, true);
+      const tone = normalizeModerationStatus(why.className.match(/mod-(approved|blocked|review|unmoderated)/)?.[1]);
+      showToast(reason, tone === "blocked" || tone === "review");
     }
 
     function getDashboardValues() {
