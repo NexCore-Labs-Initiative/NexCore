@@ -4,6 +4,14 @@
   const roadmapLocale = document.documentElement.lang.toLowerCase().startsWith("ar") ? "ar" : "en";
   const roadmapText = (english, arabic) => roadmapLocale === "ar" ? arabic : english;
 
+function notifyRoadmap(message, type = "info", icon) {
+  if (window.NexCoreNotify?.show) {
+    window.NexCoreNotify.show({ message, type, icon });
+  } else if (window.showToast) {
+    window.showToast(message, type);
+  }
+}
+
 function getAnonFingerprint() {
   const KEY = 'nexcore_anon_fp';
   let fp = localStorage.getItem(KEY);
@@ -73,7 +81,7 @@ async function checkAdminStatus() {
 async function init() {
   if (!db) {
     console.error('Supabase client is unavailable. Check script loading order.');
-    showToast(roadmapText("Roadmap is temporarily unavailable.", "تم تعطيل خريطة الطريق مؤقتاً."), '<i class="fa-solid fa-triangle-exclamation"></i>');
+    notifyRoadmap(roadmapText("Roadmap is temporarily unavailable.", "تم تعطيل خريطة الطريق مؤقتاً."), "error", "triangle-exclamation");
     return;
   }
 
@@ -185,7 +193,7 @@ function renderAuthNav() {
 
 async function handleSignOut() {
   await db.auth.signOut();
-  showToast(roadmapText("Signed out successfully.", "تم تسجيل الخروج بنجاح."), '<i class="fa-solid fa-right-from-bracket"></i>');
+  notifyRoadmap(roadmapText("Signed out successfully.", "تم تسجيل الخروج بنجاح."), "success", "right-from-bracket");
 }
 
 // ── AUTH MODAL ─────────────────────────────────────────────
@@ -262,7 +270,7 @@ async function loadFeatures() {
     renderFeatures();
     ['#stat-total', '#stat-votes', '#count-planned', '#count-inprog', '#count-done', '#stat-done']
       .forEach((selector) => { const element = $(selector); if (element) { element.textContent = '—'; element.dataset.state = 'unavailable'; } });
-    showToast(roadmapText("Failed to load features.", "فشل تحميل الميزات."), '<i class="fa-solid fa-triangle-exclamation"></i>');
+    notifyRoadmap(roadmapText("Failed to load features.", "فشل تحميل الميزات."), "error", "triangle-exclamation");
     return;
   }
 
@@ -588,7 +596,7 @@ async function updateFeatureStatus(featureId, newStatus) {
 
   if (error) {
     feature.status = prevStatus;
-    showToast(roadmapText("Failed to update status.", "فشل تحديث الحالة."), '<i class="fa-solid fa-xmark"></i>');
+    notifyRoadmap(roadmapText("Failed to update status.", "فشل تحديث الحالة."), "error", "xmark");
     await loadFeatures();
     return;
   }
@@ -616,7 +624,7 @@ async function updateFeatureStatus(featureId, newStatus) {
     }
   }
 
-  showToast(`${roadmapText("Status updated to ", "تم تحديث الحالة إلى ")}${statusLabels[newStatus]}`, '<i class="fa-solid fa-crown" style="color:#f5a623"></i>');
+  notifyRoadmap(`${roadmapText("Status updated to ", "تم تحديث الحالة إلى ")}${statusLabels[newStatus]}`, "warning", "crown");
   updateStats();
 }
 
@@ -626,12 +634,13 @@ async function moderateSuggestion(featureId, approve) {
     p_approve: approve
   });
   if (error) {
-    showToast(roadmapText("Action failed.", "فشل الإجراء."), '<i class="fa-solid fa-xmark"></i>');
+    notifyRoadmap(roadmapText("Action failed.", "فشل الإجراء."), "error", "xmark");
     return;
   }
-  showToast(
+  notifyRoadmap(
     approve ? roadmapText("Suggestion approved and now live!", "تم قبول الاقتراح وأصبح ظاهرًا الآن!") : roadmapText("Suggestion rejected.", "تم رفض الاقتراح."),
-    approve ? '<i class="fa-solid fa-check"></i>' : '<i class="fa-solid fa-trash-can"></i>'
+    approve ? "success" : "info",
+    approve ? "check" : "trash-can"
   );
 
   const card = document.querySelector(`.feature-card[data-id="${featureId}"]`);
@@ -784,7 +793,7 @@ async function deleteOwnFeature(featureId) {
         .eq('created_by', state.user.id);
 
       if (error) {
-        showToast(roadmapText("Failed to delete suggestion.", "فشل حذف الاقتراح."), '<i class="fa-solid fa-circle-exclamation"></i>');
+        notifyRoadmap(roadmapText("Failed to delete suggestion.", "فشل حذف الاقتراح."), "error", "circle-exclamation");
         throw error;
       }
       if (count === 0) {
@@ -797,7 +806,7 @@ async function deleteOwnFeature(featureId) {
       }
 
       removeFeatureFromCurrentView(featureId);
-      showToast(roadmapText("Suggestion deleted.", "تم حذف الاقتراح."), '<i class="fa-regular fa-trash-can"></i>');
+      notifyRoadmap(roadmapText("Suggestion deleted.", "تم حذف الاقتراح."), "success", "trash-can");
     }
   });
 }
@@ -873,9 +882,9 @@ async function submitFeature() {
 
   closeModal('suggest-modal');
   if (!state.user && !wasEditing) {
-    showToast(roadmapText("Suggestion submitted! It will appear after review.", "تم إرسال الاقتراح! سيظهر بعد المراجعة."), '<i class="fa-solid fa-clock"></i>');
+    notifyRoadmap(roadmapText("Suggestion submitted! It will appear after review.", "تم إرسال الاقتراح! سيظهر بعد المراجعة."), "info", "clock");
   } else {
-    showToast(wasEditing ? roadmapText("Suggestion updated.", "تم تحديث الاقتراح.") : roadmapText("Feature added to the roadmap!", "تمت إضافة الميزة إلى خريطة الطريق!"), '<i class="fa-solid fa-lightbulb text-accent"></i>');
+    notifyRoadmap(wasEditing ? roadmapText("Suggestion updated.", "تم تحديث الاقتراح.") : roadmapText("Feature added to the roadmap!", "تمت إضافة الميزة إلى خريطة الطريق!"), "success", "lightbulb");
   }
 
   if (data && state.user) {
@@ -912,7 +921,7 @@ async function deleteOwnComment(featureId, commentId) {
   const comments = state.commentsByFeature[featureId] || [];
   const comment = comments.find(c => c.id === commentId && c.user_id === state.user.id);
   if (!comment) {
-    showToast(roadmapText("You can only delete your own comment.", "يمكنك فقط حذف تعليقاتك الخاصة."), '<i class="fa-solid fa-lock"></i>');
+    notifyRoadmap(roadmapText("You can only delete your own comment.", "يمكنك فقط حذف تعليقاتك الخاصة."), "warning", "lock");
     return;
   }
   openConfirmModal({
@@ -927,7 +936,7 @@ async function deleteOwnComment(featureId, commentId) {
         .eq('user_id', state.user.id);
 
       if (error) {
-        showToast(roadmapText("Failed to delete comment.", "فشل حذف التعليق."), '<i class="fa-solid fa-circle-exclamation"></i>');
+        notifyRoadmap(roadmapText("Failed to delete comment.", "فشل حذف التعليق."), "error", "circle-exclamation");
         throw error;
       }
       if (count === 0) {
@@ -936,7 +945,7 @@ async function deleteOwnComment(featureId, commentId) {
 
       state.commentsByFeature[featureId] = comments.filter(c => c.id !== commentId);
       refreshCommentViews(featureId);
-      showToast(roadmapText("Comment deleted.", "تم حذف التعليق."), '<i class="fa-regular fa-trash-can"></i>');
+      notifyRoadmap(roadmapText("Comment deleted.", "تم حذف التعليق."), "success", "trash-can");
     }
   });
 }
@@ -1150,7 +1159,7 @@ async function submitComment() {
   btn.textContent = roadmapText("Post", "إرسال");
 
   if (error) {
-    showToast(roadmapText("Failed to post comment.", "فشل نشر التعليق."), '<i class="fa-solid fa-circle-exclamation"></i>');
+    notifyRoadmap(roadmapText("Failed to post comment.", "فشل نشر التعليق."), "error", "circle-exclamation");
     return;
   }
 
@@ -1162,7 +1171,7 @@ async function submitComment() {
   const inlineList = $(`#inline-comments-${state.activeFeatureId}`);
   if (inlineList) inlineList.innerHTML = renderCommentCollection(cached, state.activeFeatureId);
   updateCommentCountUI(state.activeFeatureId, cached.length);
-  showToast(roadmapText("Comment posted!", "تم نشر التعليق!"), '<i class="fa-solid fa-check"></i>');
+  notifyRoadmap(roadmapText("Comment posted!", "تم نشر التعليق!"), "success", "check");
 }
 
 async function submitInlineComment(featureId) {
@@ -1188,7 +1197,7 @@ async function submitInlineComment(featureId) {
   btn.textContent = roadmapText("Post", "إرسال");
 
   if (error) {
-    showToast(roadmapText("Failed to post comment.", "فشل نشر التعليق."), '<i class="fa-solid fa-circle-exclamation"></i>');
+    notifyRoadmap(roadmapText("Failed to post comment.", "فشل نشر التعليق."), "error", "circle-exclamation");
     return;
   }
 
@@ -1213,7 +1222,7 @@ async function submitInlineComment(featureId) {
 
   updateCommentCountUI(featureId, cached.length);
   refreshExpandedHeight(featureId);
-  showToast(roadmapText("Comment posted!", "تم نشر التعليق!"), '<i class="fa-solid fa-check"></i>');
+  notifyRoadmap(roadmapText("Comment posted!", "تم نشر التعليق!"), "success", "check");
 }
 
 // ── TABS & FILTERS ─────────────────────────────────────────
@@ -1309,22 +1318,6 @@ function showSkeleton(visible) {
   $$('.feature-card').forEach(c => {
     if (visible) c.remove();
   });
-}
-
-// ── TOAST ──────────────────────────────────────────────────
-let toastTimer;
-function showToast(message, iconHtml = '<i class="fa-solid fa-check text-accent"></i>') {
-  const toast = $('#toast');
-  const iconEl = $('#toast-icon');
-  const msgEl  = $('#toast-msg');
-  if (!toast) return;
-
-  iconEl.innerHTML = iconHtml;
-  msgEl.textContent = message;
-  toast.classList.remove('hidden');
-
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => toast.classList.add('hidden'), 3200);
 }
 
 // ── FORM ERROR ─────────────────────────────────────────────

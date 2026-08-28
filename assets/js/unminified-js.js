@@ -15,6 +15,161 @@ async function trackVisit() {
   }
 }
 
+(() => {
+  const TYPE_CONFIG = {
+    success: {
+      icon: "fa-circle-check",
+      label: { en: "Success", ar: "تم بنجاح" },
+    },
+    error: {
+      icon: "fa-circle-exclamation",
+      label: { en: "Error", ar: "خطأ" },
+    },
+    warning: {
+      icon: "fa-triangle-exclamation",
+      label: { en: "Warning", ar: "تنبيه" },
+    },
+    info: {
+      icon: "fa-circle-info",
+      label: { en: "Info", ar: "معلومة" },
+    },
+  };
+
+  const ICON_ALIASES = {
+    check: "fa-check",
+    "circle-check": "fa-circle-check",
+    "circle-exclamation": "fa-circle-exclamation",
+    "triangle-exclamation": "fa-triangle-exclamation",
+    info: "fa-circle-info",
+    xmark: "fa-xmark",
+    "trash-can": "fa-trash-can",
+    "right-from-bracket": "fa-right-from-bracket",
+    crown: "fa-crown",
+    clock: "fa-clock",
+    lightbulb: "fa-lightbulb",
+    lock: "fa-lock",
+  };
+
+  const getLocale = () => {
+    const lang = (document.documentElement.getAttribute("lang") || "en").toLowerCase().startsWith("ar") ? "ar" : "en";
+    const dir = document.documentElement.getAttribute("dir") || (lang === "ar" ? "rtl" : "ltr");
+    return { lang, dir };
+  };
+
+  const normalizeType = (type) => {
+    if (type === true) return "error";
+    if (typeof type === "string" && Object.prototype.hasOwnProperty.call(TYPE_CONFIG, type)) return type;
+    return "info";
+  };
+
+  const resolveIcon = (type, icon) => {
+    if (typeof icon === "string") {
+      const key = icon.toLowerCase().trim().replace(/^fa-/, "");
+      if (ICON_ALIASES[key]) return ICON_ALIASES[key];
+    }
+    return TYPE_CONFIG[type].icon;
+  };
+
+  const getRegion = () => {
+    if (!document.body) return null;
+
+    let region = document.getElementById("nexcore-toast-region");
+    if (!region) {
+      region = document.createElement("div");
+      region.id = "nexcore-toast-region";
+      region.className = "nexcore-toast-region";
+      region.setAttribute("aria-live", "polite");
+      region.setAttribute("aria-atomic", "false");
+      document.body.appendChild(region);
+    }
+
+    return region;
+  };
+
+  const dismissToast = (toast) => {
+    if (!toast || toast.dataset.dismissing === "true") return;
+    toast.dataset.dismissing = "true";
+    toast.classList.remove("is-visible");
+    toast.classList.add("is-hiding");
+    window.setTimeout(() => toast.remove(), 240);
+  };
+
+  const showNotification = (input = {}) => {
+    const options = typeof input === "object" && input !== null ? input : { message: input };
+    const message = String(options.message || "").trim();
+    if (!message) return null;
+
+    const type = normalizeType(options.type);
+    const region = getRegion();
+    if (!region) return null;
+
+    const locale = getLocale();
+    const closeLabel = locale.lang === "ar" ? "إغلاق الإشعار" : "Dismiss notification";
+    const toast = document.createElement("div");
+    toast.className = `nexcore-toast nexcore-toast--${type}`;
+    toast.setAttribute("role", type === "error" ? "alert" : "status");
+    toast.setAttribute("lang", locale.lang);
+    toast.setAttribute("dir", locale.dir);
+
+    const icon = document.createElement("i");
+    icon.className = `fa-solid ${resolveIcon(type, options.icon)} nexcore-toast__icon`;
+    icon.setAttribute("aria-hidden", "true");
+
+    const content = document.createElement("div");
+    content.className = "nexcore-toast__content";
+
+    const label = document.createElement("span");
+    label.className = "nexcore-toast__label";
+    label.textContent = TYPE_CONFIG[type].label[locale.lang];
+
+    const text = document.createElement("span");
+    text.className = "nexcore-toast__message";
+    text.textContent = message;
+
+    const close = document.createElement("button");
+    close.className = "nexcore-toast__close";
+    close.type = "button";
+    close.setAttribute("aria-label", closeLabel);
+    close.innerHTML = '<i class="fa-solid fa-xmark" aria-hidden="true"></i>';
+
+    content.append(label, text);
+    toast.append(icon, content, close);
+
+    close.addEventListener("click", () => dismissToast(toast));
+
+    while (region.children.length >= 4) {
+      dismissToast(region.firstElementChild);
+    }
+
+    region.appendChild(toast);
+    window.requestAnimationFrame(() => toast.classList.add("is-visible"));
+
+    const duration = Number.isFinite(options.duration) ? Number(options.duration) : (type === "error" ? 5600 : 4200);
+    if (duration > 0) {
+      window.setTimeout(() => dismissToast(toast), duration);
+    }
+
+    return {
+      element: toast,
+      dismiss: () => dismissToast(toast),
+    };
+  };
+
+  const notify = {
+    show: showNotification,
+    success: (message, options = {}) => showNotification({ ...options, message, type: "success" }),
+    error: (message, options = {}) => showNotification({ ...options, message, type: "error" }),
+    warning: (message, options = {}) => showNotification({ ...options, message, type: "warning" }),
+    info: (message, options = {}) => showNotification({ ...options, message, type: "info" }),
+  };
+
+  window.NexCoreNotify = Object.freeze(notify);
+  window.showToast = (message, tone) => {
+    const options = typeof tone === "object" && tone !== null ? { ...tone, message } : { message, type: tone };
+    return showNotification(options);
+  };
+})();
+
 window.addEventListener("load", trackVisit);
 
 document.addEventListener("DOMContentLoaded", () => {
