@@ -42,7 +42,7 @@ assert(
   "Logout must redirect to the locale-aware auth page"
 );
 assert(
-  authUi.includes("fa-wand-magic-sparkles") && !authUi.includes("fa-sparkles"),
+  authUi.includes("fa-cube") && !authUi.includes("fa-sparkles"),
   "Injected Initiatives navigation must use a Font Awesome Free icon"
 );
 

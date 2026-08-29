@@ -318,11 +318,6 @@
     .jc-center{justify-content:center!important}
     .ls-2{letter-spacing:2px!important}
     .img-preview{max-width:240px;border-radius:14px;border: 2px solid rgba(255, 255, 255, 0.06);padding: 12px;}
-    /* ── Toast notification ── */
-    #toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(16px);border: 2px solid rgba(255, 255, 255, 0.06);background: rgba(10, 11, 28, 0.6);color:#6ee7f3;padding:10px 22px;border-radius:12px;font-size:.875rem;font-weight:500;z-index:10001;opacity:0;pointer-events:none;transition:opacity .22s,transform .22s;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);max-width:min(420px,90vw);text-align:center;box-shadow:0 8px 32px rgba(0,0,0,.55);white-space:pre-line;}
-    #toast.show{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:all;}
-    #toast.error{border-color:rgba(255,120,120,.28);color:#ff7878;}
-
     .wrap.dashboard-command{max-width:1280px;margin-top:132px}
     .dashboard-command input,
     .dashboard-command textarea{
@@ -492,33 +487,47 @@
             <span class="pill-text en-text"><img src="../assets/images/uk.webp" alt="علم المملكة المتحدة"> EN</span>
             <span class="pill-text ar-text"><img src="../assets/images/oman.webp" alt="علم عُمان"> ع</span>
           </a>
-          <a href="auth.html" class="magic-signup fade" title="تسجيل الدخول إلى حسابك"><i class="fa-solid fa-key"></i> الوصول إلى النواة</a>
-          <input type="search" placeholder="ابحث..." id="myInput" onkeyup="filterFunction()" title="بحث...">
-          <a href="initiatives.html" class="fade" data-initiatives-nav title="مبادرات NexCore Labs"><i class="fa-solid fa-wand-magic-sparkles"></i> المبادرات <span class="new-badge">جديد</span></a>
 
-          <div class="div-menu-line"></div>
+          <a href="auth.html" class="magic-signup fade" title="تسجيل الدخول إلى حسابك"><i class="fa-solid fa-key"></i> الوصول إلى النواة</a>
+
+          <input type="search" placeholder="ابحث..." id="myInput" onkeyup="filterFunction()" title="بحث...">
+
+          <div class="menu-section-title">المنصة</div>
+
+          <a href="initiatives.html" class="fade" data-initiatives-nav title="مبادرات NexCore Labs"><i class="fa-solid fa-cube"></i> المبادرات <span class="new-badge">جديد</span></a>
 
           <a href="hub.html" class="fade mt-0" title="مركز NexCore Labs"><span class="menu-dots-icon" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></span> المركز</a>
-          <a href="hub.html#projects" class="fade" title="المشاريع"><i class="fa-solid fa-diagram-project"></i> المشاريع</a>
-          <div class="div-menu-line"></div>
-          <a href="index.html#tools" class="mt-0" title="الأدوات والأنظمة"><i class="fa-solid fa-screwdriver-wrench"></i> الأدوات والأنظمة</a>
-          <a href="index.html#about" title="حول NexCore Labs"><i class="fa-solid fa-circle-info"></i> من نحن</a>
-          <a href="index.html#team" title="فريق NexCore Labs"><i class="fa-solid fa-users"></i> الفريق</a>
-          <a href="index.html#contact" title="اتصل بـ NexCore Labs"><i class="fa-solid fa-paper-plane"></i> اتصل بنا</a>
-          <div class="div-menu-line"></div>
-          <a href="roadmap.html" class="fade mt-0" title="لوحة الميزات والخريطة"><i class="fa-solid fa-route"></i> لوحة الميزات</a>
-          <a href="releases.html" class="fade" title="الإصدارات والتحديثات"><i class="fa-solid fa-clock-rotate-left"></i> الإصدارات والتحديثات</a>
-          <div class="div-menu-line"></div>
-          <a href="pricing-policy.html" class="fade mt-0" title="سياسة التسعير والفوترة"><i class="fa-solid fa-receipt"></i> سياسة التسعير</a>
 
-          <div class="div-menu-line"></div>
+          <a href="hub.html#projects" class="fade" title="المشاريع"><i class="fa-solid fa-diagram-project"></i> المشاريع</a>
+
+          <div class="menu-section-title">نكسكور</div>
+
+          <a href="index.html#tools" class="mt-0" title="الأدوات والأنظمة"><i class="fa-solid fa-screwdriver-wrench"></i> الأدوات والأنظمة</a>
+
+          <a href="index.html#about" title="حول NexCore Labs"><i class="fa-solid fa-circle-info"></i> من نحن</a>
+
+          <a href="index.html#team" title="فريق NexCore Labs"><i class="fa-solid fa-users"></i> الفريق</a>
+
+          <a href="index.html#contact" title="اتصل بـ NexCore Labs"><i class="fa-solid fa-paper-plane"></i> اتصل بنا</a>
+
+          <div class="menu-section-title">التحديثات</div>
+
+          <a href="roadmap.html" class="fade mt-0" title="لوحة الميزات والخريطة"><i class="fa-solid fa-route"></i> لوحة الميزات</a>
+
+          <a href="releases.html" class="fade" title="الإصدارات والتحديثات"><i class="fa-solid fa-clock-rotate-left"></i> الإصدارات والتحديثات</a>
+
+          <div class="menu-section-title">المساعدة</div>
 
           <a href="faq.html" class="fade mt-0" title="الأسئلة الشائعة والدعم"><i class="fa-solid fa-circle-question"></i> الأسئلة الشائعة</a>
+
           <a href="how-to-use.html" class="fade" title="كيفية استخدام NexCore Labs"><i class="fa-solid fa-book-open"></i> كيفية الاستخدام</a>
 
-          <div class="div-menu-line"></div>
+          <div class="menu-section-title">السياسات</div>
+
+          <a href="pricing-policy.html" class="fade mt-0" title="سياسة التسعير والفوترة"><i class="fa-solid fa-receipt"></i> سياسة التسعير</a>
 
           <a href="terms.html" class="mt-0" class="fade" title="شروط الخدمة"><i class="fa-solid fa-file-contract"></i> الشروط</a>
+
           <a href="privacy-policy.html" class="fade" title="سياسة الخصوصية"><i class="fa-solid fa-shield-halved"></i> الخصوصية</a>
         </div>
         </div>
@@ -918,16 +927,6 @@
     function getCategoryLabel(value) {
       const categoryValue = normalizeProjectCategory(value);
       return AR_CATEGORY_LABELS[categoryValue] || "غير مصنف";
-    }
-
-    let _toastTimer = null;
-    function showToast(text, isError = false) {
-      if (!text) return;
-      const toast = document.getElementById('toast');
-      toast.textContent = text;
-      toast.className = 'show' + (isError ? ' error' : '');
-      clearTimeout(_toastTimer);
-      _toastTimer = setTimeout(() => toast.classList.remove('show'), 3800);
     }
 
     function slugify(s) {

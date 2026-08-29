@@ -256,9 +256,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const submittingMessage = panel.dataset.feedbackMessageSubmitting || (locale.lang === "ar" ? "جارٍ حفظ التقييم..." : "Saving feedback...");
       const successMessage = panel.dataset.feedbackMessageSuccess || (locale.lang === "ar" ? "شكراً لمساعدتنا في تحسين هذا الدليل." : "Thanks for helping improve this guide.");
+      const yesMessage = panel.dataset.feedbackMessageYes || successMessage;
+      const noMessage = panel.dataset.feedbackMessageNo || (locale.lang === "ar" ? "وصلتنا الملاحظة — سنراجع طريقة تحسينه." : "Got it — we'll look into improving this.");
       const errorMessage = panel.dataset.feedbackMessageError || (locale.lang === "ar" ? "تعذر حفظ التقييم. حاول مرة أخرى." : "Feedback could not be saved. Please try again.");
       const pageKey = panel.dataset.feedbackPageKey || "how-to-use";
       const feedbackLocale = panel.dataset.feedbackLocale || locale.lang;
+      const activeClass = (vote) => vote === "yes" ? "active-yes" : "active-no";
 
       const setStatus = (message, isError = false) => {
         status.textContent = message;
@@ -274,6 +277,15 @@ document.addEventListener("DOMContentLoaded", () => {
       buttons.forEach((button) => {
         button.addEventListener("click", async () => {
           const vote = button.dataset.feedbackVote;
+          const wasActive = button.classList.contains(activeClass(vote));
+          if (wasActive) {
+            button.classList.remove("active-yes", "active-no");
+            button.setAttribute("aria-pressed", "false");
+            panel.dataset.feedbackState = "";
+            setStatus("");
+            return;
+          }
+
           setDisabled(true);
           panel.dataset.feedbackState = "submitting";
           setStatus(submittingMessage);
@@ -297,11 +309,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
             buttons.forEach((choice) => {
               const isSelected = choice === button;
-              choice.classList.toggle("is-selected", isSelected);
+              choice.classList.remove("active-yes", "active-no");
+              if (isSelected) choice.classList.add(activeClass(vote));
               choice.setAttribute("aria-pressed", String(isSelected));
             });
             panel.dataset.feedbackState = "saved";
-            setStatus(successMessage);
+            setStatus(vote === "yes" ? yesMessage : noMessage);
           } catch (error) {
             panel.dataset.feedbackState = "error";
             setStatus(errorMessage, true);
@@ -919,7 +932,7 @@ function filterFunction() {
     link.href = locale === "ar" ? "/ar/initiatives" : "/initiatives";
     link.dataset.initiativesNav = "true";
     link.title = locale === "ar" ? "مبادرات NexCore Labs" : "NexCore Labs Initiatives";
-    link.innerHTML = `<i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i> ${locale === "ar" ? "المبادرات" : "Initiatives"} <span class="new-badge">${locale === "ar" ? "جديد" : "New"}</span>`;
+    link.innerHTML = `<i class="fa-solid fa-cube" aria-hidden="true"></i> ${locale === "ar" ? "المبادرات" : "Initiatives"} <span class="new-badge">${locale === "ar" ? "جديد" : "New"}</span>`;
     if (window.location.pathname.replace(/\/$/, "") === link.getAttribute("href")) {
       link.setAttribute("aria-current", "page");
     }
@@ -1032,7 +1045,7 @@ function filterFunction() {
     const filter = String(filterText || "").trim().toUpperCase();
     [...menu.children].forEach((child) => {
       if (child.id === "myInput" || child.tagName === "INPUT") return;
-      if (child.classList?.contains("div-menu-line")) {
+      if (child.classList?.contains("menu-section-title")) {
         child.style.display = filter ? "none" : "";
         return;
       }

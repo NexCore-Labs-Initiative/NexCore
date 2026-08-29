@@ -65,7 +65,7 @@
         link.href = isArabicPage ? '/ar/initiatives' : '/initiatives';
         link.dataset.initiativesNav = 'true';
         link.title = isArabicPage ? 'مبادرات NexCore Labs' : 'NexCore Labs Initiatives';
-        link.innerHTML = `<i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i> ${isArabicPage ? 'المبادرات' : 'Initiatives'} <span class="new-badge">${isArabicPage ? 'جديد' : 'New'}</span>`;
+        link.innerHTML = `<i class="fa-solid fa-cube" aria-hidden="true"></i> ${isArabicPage ? 'المبادرات' : 'Initiatives'} <span class="new-badge">${isArabicPage ? 'جديد' : 'New'}</span>`;
         if (window.location.pathname.replace(/\/$/, '') === link.getAttribute('href')) {
             link.setAttribute('aria-current', 'page');
         }
