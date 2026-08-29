@@ -51,7 +51,7 @@ for (const [file, expectedHref, expectedLabel] of [
   const html = read(file);
   assert(html.includes('id="initiativeCount"'), `${file} must show the public initiatives count in the workflow card`);
   assert(html.includes(`href="${expectedHref}"`), `${file} workflow card must link to the initiatives catalogue`);
-  assert(html.includes(`fa-wand-magic-sparkles"></i> ${expectedLabel}`), `${file} must label the initiatives KPI`);
+  assert(html.includes(`fa-cube"></i> ${expectedLabel}`), `${file} must label the initiatives KPI`);
   assert(html.includes("/api/public-metrics"), `${file} must use the protected aggregate metrics API`);
   assert(!html.includes('id="support"'), `${file} must remove the old support KPI`);
 }
