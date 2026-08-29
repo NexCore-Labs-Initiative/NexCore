@@ -264,6 +264,9 @@ function runStaticTests() {
     assert(html.includes('data-feedback-vote="yes"'), `${file} must expose yes vote`);
     assert(html.includes('data-feedback-vote="no"'), `${file} must expose no vote`);
     assert(html.includes("data-feedback-status"), `${file} must include feedback status region`);
+    assert(html.includes("@tabler/icons-webfont"), `${file} must load Tabler outline icons`);
+    assert(html.includes("ti ti-thumb-up"), `${file} must use Tabler thumbs-up icon`);
+    assert(html.includes("ti ti-thumb-down"), `${file} must use Tabler thumbs-down icon`);
     assert(html.includes(yes), `${file} must retain yes label`);
     assert(html.includes(no), `${file} must retain no label`);
   }
@@ -272,6 +275,10 @@ function runStaticTests() {
   assert(js.includes("function initDocsFeedback"), "Shared JS must initialize docs feedback");
   assert(js.includes('fetch("/api/docs-feedback"'), "Shared JS must post feedback to the API");
   assert(js.includes("data-feedback-vote"), "Shared JS must use stable vote attributes");
+  assert(js.includes("active-yes"), "Shared JS must support the yes active state");
+  assert(js.includes("active-no"), "Shared JS must support the no active state");
+  assert(js.includes("feedbackMessageYes"), "Shared JS must support yes-specific feedback copy");
+  assert(js.includes("feedbackMessageNo"), "Shared JS must support no-specific feedback copy");
 
   for (const [file, title] of [
     ["admin-users.html", "How-To-Use Feedback"],

@@ -17,7 +17,7 @@ for (const [file, scriptPath, label] of [
   const countUpPath = file.startsWith("ar/") ? "../assets/js/count-up.js" : "assets/js/count-up.js";
   assert(html.includes(`src="${countUpPath}"`), `${file} must load the shared count-up animation`);
   assert(html.includes('id="githubCommitCount"'), `${file} must include the GitHub commits KPI`);
-  assert(new RegExp(`fa-github"></i>\\s+${label}`).test(html), `${file} must label the GitHub commits KPI`);
+  assert(new RegExp(`ti-brand-github"></i>\\s+${label}`).test(html), `${file} must label the GitHub commits KPI`);
   assert(!html.includes('id="tasks"'), `${file} must remove the static tasks KPI`);
 }
 

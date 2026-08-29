@@ -33,9 +33,20 @@ for (const file of menuFiles) {
   const menuStart = html.indexOf('id="myDropdown"');
   const headerEnd = html.indexOf("</header>", menuStart);
   const menu = html.slice(menuStart, headerEnd);
+  const isArabic = file.startsWith("ar/");
+  const policyTitle = isArabic ? "السياسات" : "Policies";
+  const policiesIndex = menu.indexOf(`<div class="menu-section-title">${policyTitle}</div>`);
+  const pricingIndex = menu.indexOf("pricing-policy.html", policiesIndex);
+  const termsIndex = menu.indexOf("terms.html", policiesIndex);
+  const privacyIndex = menu.indexOf("privacy-policy.html", policiesIndex);
   assert(
     /href="[^"]*pricing-policy(?:\.html)?"/.test(menu),
     `${file} navigation must link to the Pricing Policy`
+  );
+  assert(policiesIndex >= 0, `${file} navigation must include a Policies section title`);
+  assert(
+    policiesIndex < pricingIndex && pricingIndex < termsIndex && termsIndex < privacyIndex,
+    `${file} navigation must group Pricing Policy with Terms and Privacy Policy`
   );
   assert(
     !/title="(?:Pricing Plans|خطط (?:التسعير|الأسعار))"/.test(menu),

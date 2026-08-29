@@ -55,6 +55,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.46.0/dist/tabler-icons.min.css">
         <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.2/uicons-solid-rounded/css/uicons-solid-rounded.css'>
@@ -165,38 +166,45 @@
           </a>
 
           <a href="auth.html" class="magic-signup fade" title="Sign in to your account"><i class="fa-solid fa-key"></i> Access the Core</a>
+
           <input type="search" placeholder="What?..." id="myInput" onkeyup="filterFunction()" title="Search...">
 
-          <a href="initiatives.html" class="fade" data-initiatives-nav title="NexCore Labs Initiatives"><i class="fa-solid fa-wand-magic-sparkles"></i> Initiatives <span class="new-badge">New</span></a>
+          <div class="menu-section-title">Platform</div>
 
-          <div class="div-menu-line"></div>
+          <a href="initiatives.html" class="fade" data-initiatives-nav title="NexCore Labs Initiatives"><i class="fa-solid fa-cube"></i> Initiatives <span class="new-badge">New</span></a>
 
           <a href="hub.html" class="fade mt-0" title="NexCore Labs Hub"><span class="menu-dots-icon" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></span> Hub</a>
+
           <a href="hub.html#projects" class="fade" title="Projects"><i class="fa-solid fa-diagram-project"></i> Projects</a>
 
-          <div class="div-menu-line"></div>
+          <div class="menu-section-title">NexCore</div>
 
           <a href="#tools" class="mt-0" title="Tools & Systems"><i class="fa-solid fa-screwdriver-wrench"></i> Tools & Systems</a>
+
           <a href="#about" title="About NexCore Labs"><i class="fa-solid fa-circle-info"></i> About Us</a>
+
           <a href="#team" title="NexCore Labs Team"><i class="fa-solid fa-users"></i> Our Team</a>
+
           <a href="#contact" title="Contact NexCore Labs"><i class="fa-solid fa-paper-plane"></i> Contact Us</a>
 
-          <div class="div-menu-line"></div>
+          <div class="menu-section-title">Updates</div>
 
           <a href="roadmap.html" class="fade mt-0" title="Feature requests and roadmap board"><i class="fa-solid fa-route"></i> Feature Board</a>
+
           <a href="releases.html" class="fade" title="Releases & Updates"><i class="fa-solid fa-clock-rotate-left"></i> Releases / Updates</a>
 
-          <div class="div-menu-line"></div>
-          <a href="pricing-policy.html" class="fade mt-0" title="Pricing and Billing Policy"><i class="fa-solid fa-receipt"></i> Pricing Policy</a>
-
-          <div class="div-menu-line"></div>
+          <div class="menu-section-title">Help</div>
 
           <a href="faq.html" class="fade mt-0" title="FAQ & Support"><i class="fa-solid fa-circle-question"></i> FAQ</a>
+
           <a href="how-to-use.html" class="fade" title="How to Use NexCore Labs"><i class="fa-solid fa-book-open"></i> How to Use</a>
 
-          <div class="div-menu-line"></div>
+          <div class="menu-section-title">Policies</div>
+
+          <a href="pricing-policy.html" class="fade mt-0" title="Pricing and Billing Policy"><i class="fa-solid fa-receipt"></i> Pricing Policy</a>
 
           <a href="terms.html" class="fade mt-0" title="Terms of Service"><i class="fa-solid fa-file-contract"></i> Terms</a>
+
           <a href="privacy-policy.html" class="fade" title="Privacy Policy"><i class="fa-solid fa-shield-halved"></i> Privacy Policy</a>
         </div>
       </div>
@@ -239,7 +247,7 @@
                 </a>
 
                 <a href="https://github.com/NexCore-Labs-Initiative/NexCore/commits/" target="_blank" rel="noopener noreferrer">
-                  <div class="stat"><strong id="githubCommitCount">--</strong><span><i class="fa-brands fa-github"></i>
+                  <div class="stat"><strong id="githubCommitCount">--</strong><span><i class="ti ti-brand-github"></i>
                       commits</span>
                     <div class="tooltip">Total commits attributed to this repository’s contributors on GitHub</div>
                   </div>
@@ -247,7 +255,7 @@
 
                 <a href="initiatives.html">
                   <div class="stat"><strong id="initiativeCount">00+</strong><span><i
-                        class="fa-solid fa-wand-magic-sparkles"></i> initiatives</span>
+                        class="fa-solid fa-cube"></i> initiatives</span>
                     <div class="tooltip">All public initiatives currently available</div>
                   </div>
                 </a>
@@ -430,7 +438,7 @@
                 <a class="social" href="https://x.com/AlFarisMujahid_" target="_blank" rel="noopener"><i
                     class="fa-brands fa-x-twitter" title="X"></i></a>
                 <a class="social" href="https://github.com/faris-zak" target="_blank" rel="noopener"><i
-                    class="fa-brands fa-github" title="GitHub"></i></a>
+                    class="ti ti-brand-github" title="GitHub"></i></a>
                 <!-- <a class="social" href="https://www.linkedin.com/in/al-faris-mujahid-alzakwani-b013283b3" target="_blank"
                   rel="noopener"><i class="fa-brands fa-linkedin" title="LinkedIn"></i></a> -->
                 <a class="social" href="https://api.whatsapp.com/send?phone=+96893281000&text=Hello%20Al-Faris!" target="_blank" rel="noopener"><i
@@ -472,7 +480,7 @@
 
             <div class="socials">
               <a class="social" href="https://github.com/NexCoreLabs" target="_blank" rel="noopener" title="GitHub"><i
-                  class="fa-brands fa-github"></i></a>
+                  class="ti ti-brand-github"></i></a>
               <a class="social" href="https://x.com/nexcorelabs" target="_blank" rel="noopener" title="X (Twitter)"><i
                   class="fa-brands fa-x-twitter"></i></a>
               <a class="social" href="https://api.whatsapp.com/send?phone=+96892154811&text=Hello%20NexCore%20Labs!" target="_blank" rel="noopener" title="WhatsApp"><i

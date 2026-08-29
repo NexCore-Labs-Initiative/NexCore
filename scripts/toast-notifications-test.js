@@ -9,9 +9,11 @@ const root = path.resolve(__dirname, "..");
 const read = (file) => fs.readFileSync(path.join(root, file), "utf8");
 
 const sharedJs = read("assets/js/unminified-js.js");
+const builtJs = read("assets/js/script.js");
 const sharedCss = read("assets/css/unminified-css.css");
 
 new vm.Script(sharedJs, { filename: "assets/js/unminified-js.js" });
+new vm.Script(builtJs, { filename: "assets/js/script.js" });
 new vm.Script(read("assets/js/roadmap.js"), { filename: "assets/js/roadmap.js" });
 
 for (const snippet of [
@@ -26,6 +28,15 @@ for (const snippet of [
   "nexcore-toast-region",
 ]) {
   assert(sharedJs.includes(snippet), `Shared JS must include ${snippet}`);
+}
+
+for (const snippet of [
+  "window.NexCoreNotify",
+  "window.showToast",
+  "nexcore-toast-region",
+  "nexcore-toast--",
+]) {
+  assert(builtJs.includes(snippet), `Built JS must include ${snippet}`);
 }
 
 for (const snippet of [

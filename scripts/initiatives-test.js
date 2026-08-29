@@ -39,7 +39,7 @@ for (const [file, page] of Object.entries(expected)) {
   }
   assert(!menu.includes('ai-link'), `${file} must de-emphasize paused Intelligence navigation`);
   assert(!menu.includes('title="Pricing Plans"'), `${file} must de-emphasize paused pricing navigation`);
-  assert(menu.includes('fa-wand-magic-sparkles'), `${file} must use a Font Awesome Free icon for Initiatives`);
+  assert(menu.includes('fa-cube'), `${file} must use the cube Font Awesome Free icon for Initiatives`);
   assert(!menu.includes('fa-sparkles'), `${file} must not use the unsupported fa-sparkles icon`);
   assert(menu.includes('onkeyup="filterFunction()"'), `${file} must retain menu search behavior`);
 }
@@ -51,7 +51,7 @@ for (const [file, expectedHref, expectedLabel] of [
   const html = read(file);
   assert(html.includes('id="initiativeCount"'), `${file} must show the public initiatives count in the workflow card`);
   assert(html.includes(`href="${expectedHref}"`), `${file} workflow card must link to the initiatives catalogue`);
-  assert(html.includes(`fa-wand-magic-sparkles"></i> ${expectedLabel}`), `${file} must label the initiatives KPI`);
+  assert(html.includes(`fa-cube"></i> ${expectedLabel}`), `${file} must label the initiatives KPI`);
   assert(html.includes("/api/public-metrics"), `${file} must use the protected aggregate metrics API`);
   assert(!html.includes('id="support"'), `${file} must remove the old support KPI`);
 }
@@ -71,16 +71,32 @@ for (const file of menuFiles) {
   const menuEnd = html.indexOf('</header>', menuStart);
   const menu = html.slice(menuStart, menuEnd);
   const isArabic = file.startsWith("ar/");
+  const sectionTitles = isArabic
+    ? ["المنصة", "نكسكور", "التحديثات", "المساعدة", "السياسات"]
+    : ["Platform", "NexCore", "Updates", "Help", "Policies"];
+  const platformTitleIndex = menu.indexOf(`<div class="menu-section-title">${sectionTitles[0]}</div>`);
+  const policiesTitleIndex = menu.indexOf(`<div class="menu-section-title">${sectionTitles[4]}</div>`);
   const hubIndex = menu.indexOf('menu-dots-icon');
   const initiativesIndex = menu.indexOf('data-initiatives-nav');
   const projectsIndex = menu.indexOf('fa-diagram-project');
+  const pricingIndex = menu.indexOf('pricing-policy.html', policiesTitleIndex);
+  const termsIndex = menu.indexOf('terms.html', policiesTitleIndex);
+  const privacyIndex = menu.indexOf('privacy-policy.html', policiesTitleIndex);
 
   assert(initiativesIndex >= 0, `${file} navigation must include the Initiatives link`);
+  assert(!menu.includes("div-menu-line"), `${file} navigation must replace divider lines with section titles`);
+  for (const title of sectionTitles) {
+    assert(menu.includes(`<div class="menu-section-title">${title}</div>`), `${file} navigation must include the ${title} section title`);
+  }
   assert(
-    hubIndex >= 0 && initiativesIndex < hubIndex && hubIndex < projectsIndex,
-    `${file} navigation must place Initiatives above Hub and Projects`
+    platformTitleIndex >= 0 && platformTitleIndex < initiativesIndex && hubIndex >= 0 && initiativesIndex < hubIndex && hubIndex < projectsIndex,
+    `${file} navigation must group Initiatives, Hub, and Projects under Platform`
   );
-  assert(menu.includes('fa-wand-magic-sparkles'), `${file} must use the supported Initiatives icon`);
+  assert(
+    policiesTitleIndex >= 0 && policiesTitleIndex < pricingIndex && pricingIndex < termsIndex && termsIndex < privacyIndex,
+    `${file} navigation must group Pricing Policy, Terms, and Privacy Policy under Policies`
+  );
+  assert(menu.includes('fa-cube'), `${file} must use the supported Initiatives icon`);
   assert(!menu.includes('fa-sparkles'), `${file} must not use the unsupported Initiatives icon`);
   if (isArabic) {
     const href = menu.includes('href="/ar/hub.html"') ? '/ar/initiatives.html' : 'initiatives.html';
@@ -122,11 +138,13 @@ assert(sharedMenuJs.includes("logo: normalizeImageUrl(raw?.logo?.src)"), "Shortc
 assert(sharedMenuJs.includes("const visualSrc = initiative.logo || initiative.image"), "Shortcut drawer must prefer compact logos over larger initiative images");
 assert(!sharedMenuJs.includes("image.loading = \"lazy\""), "Dynamically inserted shortcut images must not be hidden by the global lazy-image opacity rule");
 assert(sharedMenuJs.includes("filterMenu(div, filter)"), "Menu search must delegate to the grouped-menu filter");
+assert(sharedMenuJs.includes("menu-section-title"), "Menu search must hide section titles while filtering");
 assert(authUi.includes("window.NexCoreInitiativesMenu?.init();"), "Auth navigation must re-run the shortcut drawer after injected menu links");
 assert(authUi.includes("const initiativesGroup = menu.querySelector('[data-initiatives-nav-group]');"), "Contributor navigation must insert after the grouped initiatives drawer");
 for (const selector of [".initiatives-nav-group", ".initiatives-shortcut-drawer", ".initiative-shortcut-link", ".initiative-shortcut-visual", ".initiative-shortcut-all"]) {
   assert(sharedMenuCss.includes(selector), `Shared menu CSS must style ${selector}`);
 }
+assert(sharedMenuCss.includes(".menu-section-title"), "Shared menu CSS must style section titles");
 
 const initiativesCss = read("assets/css/initiatives.css");
 const modalVisualRule = initiativesCss.match(/\.initiative-modal-visual\s*\{([^}]*)\}/)?.[1] || "";
