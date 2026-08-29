@@ -58,7 +58,7 @@
     "http-server": "14.1.1",
     "nodemailer": "^9.0.3",
     "terser": "5.49.2",
-    "vercel": "^54.18.7"
+    "vercel": "^59.5.0"
   },
   "overrides": {
     "brace-expansion@^2.0.0": "2.1.4",
