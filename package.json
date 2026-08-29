@@ -49,7 +49,7 @@
   "homepage": "https://nexcorelabs.vercel.app",
   "dependencies": {
     "@google/genai": "^2.10.0",
-    "@supabase/supabase-js": "^2.108.1"
+    "@supabase/supabase-js": "^2.112.4"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.12.1",
