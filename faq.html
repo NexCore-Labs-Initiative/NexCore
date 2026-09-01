@@ -1049,6 +1049,75 @@
 
             const noResults = container.querySelector('.no-results');
 
+            const faqSectionsWrapper = container.querySelector('.faq-sections');
+
+            let faqCategoryTransitionInProgress = false;
+
+            function updateCategoryButtonSelection(category) {
+
+                categoryButtons.forEach(button => {
+
+                    const isActive = button.dataset.category === category;
+                    button.classList.toggle('active', isActive);
+                    button.setAttribute('aria-pressed', String(isActive));
+
+                });
+
+            }
+
+            function switchFaqCategory(category) {
+
+                const currentSection = container.querySelector('.faq-category-section.active');
+                const nextSection = Array.from(faqSections).find(section => section.dataset.section === category);
+
+                if (!faqSectionsWrapper || !currentSection || !nextSection || currentSection === nextSection || faqCategoryTransitionInProgress) return;
+
+                updateCategoryButtonSelection(category);
+
+                if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+
+                    currentSection.classList.remove('active', 'is-leaving');
+                    currentSection.style.display = 'none';
+                    currentSection.setAttribute('aria-hidden', 'true');
+                    nextSection.style.display = '';
+                    nextSection.classList.remove('is-entering', 'is-visible');
+                    nextSection.classList.add('active');
+                    nextSection.setAttribute('aria-hidden', 'false');
+                    return;
+
+                }
+
+                faqCategoryTransitionInProgress = true;
+                categoryButtons.forEach(button => { button.disabled = true; });
+                faqSectionsWrapper.style.height = `${currentSection.getBoundingClientRect().height}px`;
+                nextSection.style.display = '';
+                nextSection.classList.add('is-entering');
+                nextSection.setAttribute('aria-hidden', 'false');
+
+                window.requestAnimationFrame(() => {
+
+                    faqSectionsWrapper.style.height = `${nextSection.getBoundingClientRect().height}px`;
+                    currentSection.classList.remove('active');
+                    currentSection.classList.add('is-leaving');
+                    currentSection.setAttribute('aria-hidden', 'true');
+                    nextSection.classList.add('is-visible');
+
+                });
+
+                window.setTimeout(() => {
+
+                    currentSection.classList.remove('is-leaving');
+                    currentSection.style.display = 'none';
+                    nextSection.classList.remove('is-entering', 'is-visible');
+                    nextSection.classList.add('active');
+                    faqSectionsWrapper.style.height = '';
+                    categoryButtons.forEach(button => { button.disabled = false; });
+                    faqCategoryTransitionInProgress = false;
+
+                }, 240);
+
+            }
+
             // Initialize ARIA attributes for accessibility
 
             container.querySelectorAll('.faq-item').forEach(item => {
@@ -1058,6 +1127,19 @@
                 item.setAttribute('tabindex', '0');
 
                 item.setAttribute('aria-expanded', item.classList.contains('active') ? 'true' : 'false');
+
+            });
+
+            faqSections.forEach(section => {
+
+                section.setAttribute('aria-hidden', section.classList.contains('active') ? 'false' : 'true');
+
+            });
+
+            categoryButtons.forEach(button => {
+
+                button.type = 'button';
+                button.setAttribute('aria-pressed', button.classList.contains('active') ? 'true' : 'false');
 
             });
 
@@ -1224,33 +1306,7 @@
 
                 btn.addEventListener('click', () => {
 
-                    categoryButtons.forEach(b => b.classList.remove('active'));
-
-                    btn.classList.add('active');
-
-                    const category = btn.dataset.category;
-
-                    faqSections.forEach(section => {
-
-                        if (section.dataset.section === category) {
-
-                            section.classList.add('active');
-
-                            section.style.display = '';
-
-                        } else {
-
-                            section.classList.remove('active');
-
-                            section.style.display = 'none';
-
-                        }
-
-                    });
-
-                    // Re-run search to apply both filters
-
-                    performSearch();
+                    switchFaqCategory(btn.dataset.category);
 
                 });
 

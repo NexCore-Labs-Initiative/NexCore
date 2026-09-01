@@ -90,6 +90,50 @@ for (const route of ["/how-to-use.html", "/ar/how-to-use.html"]) {
   });
 }
 
+for (const route of ["/faq.html", "/ar/faq.html"]) {
+  test(`${route} FAQ categories transition between sections`, async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: "no-preference" });
+    await page.goto(route, { waitUntil: "domcontentloaded" });
+    await page.locator(".living-release__close").click();
+
+    const generalSection = page.locator('.faq-category-section[data-section="general"]');
+    const serviceSection = page.locator('.faq-category-section[data-section="service"]');
+    const generalButton = page.locator('.category-btn[data-category="general"]');
+    const serviceButton = page.locator('.category-btn[data-category="service"]');
+
+    await expect(generalSection).toHaveClass(/active/);
+    await expect(serviceSection).toHaveAttribute("aria-hidden", "true");
+    await serviceButton.click();
+    await expect(serviceButton).toHaveAttribute("aria-pressed", "true");
+    await expect(generalButton).toBeDisabled();
+    await expect(serviceSection).toHaveClass(/is-entering/);
+    await page.waitForTimeout(260);
+    await expect(serviceSection).toHaveClass(/active/);
+    await expect(serviceSection).toHaveAttribute("aria-hidden", "false");
+    await expect(generalSection).toHaveAttribute("aria-hidden", "true");
+    await expect(generalButton).toBeEnabled();
+
+    await generalButton.focus();
+    await page.keyboard.press("Enter");
+    await page.waitForTimeout(260);
+    await expect(generalSection).toHaveClass(/active/);
+    await expect(generalButton).toHaveAttribute("aria-pressed", "true");
+  });
+
+  test(`${route} FAQ categories respect reduced motion on mobile`, async ({ page }) => {
+    await page.setViewportSize({ width: 320, height: 700 });
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.goto(route, { waitUntil: "domcontentloaded" });
+    await page.locator(".living-release__close").click();
+    await page.locator('.category-btn[data-category="service"]').click();
+    const serviceSection = page.locator('.faq-category-section[data-section="service"]');
+    await expect(serviceSection).toHaveClass(/active/);
+    await expect(serviceSection).not.toHaveClass(/is-entering|is-visible/);
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth);
+    expect(overflow).toBe(false);
+  });
+}
+
 for (const route of ["/releases.html", "/ar/releases.html"]) {
   test(`${route} renders the complete release timeline`, async ({ page }) => {
     await page.goto(route, { waitUntil: "domcontentloaded" });

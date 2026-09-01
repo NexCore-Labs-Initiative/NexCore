@@ -3214,16 +3214,54 @@ strong {
 }
 
 .faq-sections {
-    display: grid;
-    gap: 60px
+    position: relative;
+    transition: height 220ms ease-out
 }
 
 .faq-category-section {
-    display: none
+    position: absolute;
+    inset: 0 0 auto;
+    width: 100%;
+    opacity: 0;
+    transform: translateY(8px);
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 220ms ease-out, transform 220ms ease-out, visibility 0s linear 220ms
 }
 
 .faq-category-section.active {
-    display: block
+    position: relative;
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+    pointer-events: auto;
+    transition: opacity 220ms ease-out, transform 220ms ease-out
+}
+
+.faq-category-section.is-entering {
+    position: absolute;
+    visibility: visible;
+    pointer-events: none
+}
+
+.faq-category-section.is-entering.is-visible {
+    opacity: 1;
+    transform: translateY(0)
+}
+
+.faq-category-section.is-leaving {
+    position: absolute;
+    opacity: 0;
+    transform: translateY(-4px);
+    visibility: visible;
+    pointer-events: none;
+    transition: opacity 140ms ease-out, transform 140ms ease-out
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .faq-sections,
+    .faq-category-section,
+    .category-btn { transition: none !important }
 }
 
 .faq-category-title {
