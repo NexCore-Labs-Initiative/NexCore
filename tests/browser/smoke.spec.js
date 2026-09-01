@@ -139,9 +139,21 @@ for (const route of ["/privacy-policy.html", "/ar/privacy-policy.html"]) {
     await page.setViewportSize({ width: 320, height: 700 });
     await page.goto(route, { waitUntil: "domcontentloaded" });
     await expect(page.locator(".privacy-policy-container .terms-header")).toBeVisible();
+    await expect(page.locator(".policy-meta-pill")).toHaveCount(2);
     await expect(page.locator(".privacy-policy-container .table-of-contents a")).toHaveCount(6);
     await expect(page.locator("#privacy-rights")).toBeVisible();
     await expect(page.locator(".privacy-consent-panel #withdraw-consent")).toBeVisible();
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth);
+    expect(overflow).toBe(false);
+  });
+}
+
+for (const route of ["/terms.html", "/ar/terms.html", "/pricing-policy.html", "/ar/pricing-policy.html"]) {
+  test(`${route} renders responsive policy metadata`, async ({ page }) => {
+    await page.setViewportSize({ width: 320, height: 700 });
+    await page.goto(route, { waitUntil: "domcontentloaded" });
+    await expect(page.locator(".policy-meta-pills")).toBeVisible();
+    await expect(page.locator(".policy-meta-pill")).toHaveCount(route.includes("pricing-policy") ? 3 : 2);
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth);
     expect(overflow).toBe(false);
   });

@@ -4799,3 +4799,39 @@ html[lang="ar"] .living-release {
         width: 70%;
     }
 }
+
+/* Shared legal-document metadata, matching the release page pill treatment. */
+.policy-meta-pills {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin: 22px auto 38px;
+}
+
+.policy-meta-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 13px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.1));
+    border-radius: 8px;
+    color: var(--text-mid, #a0aec0);
+    font-family: var(--mono, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace);
+    font-size: 0.8rem;
+    font-weight: 600;
+    line-height: 1.35;
+}
+
+.policy-meta-pill i,
+.policy-meta-pill strong {
+    color: var(--accent, #6ee7f3);
+}
+
+@media screen and (max-width: 360px) {
+    .policy-meta-pills {
+        flex-direction: column;
+        align-items: center;
+    }
+}

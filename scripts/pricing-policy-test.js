@@ -89,6 +89,14 @@ for (const file of ["pricing-policy.html", "ar/pricing-policy.html"]) {
   assert(html.includes('class="nexcore-sign"'), `${file} must include the standard NexCore signature`);
   assert(html.includes("MIT License") || html.includes("رخصة MIT"), `${file} must use the standard footer`);
   assert(html.includes("assets/js/script.js"), `${file} must load the shared site behavior`);
+  assert(html.includes('class="policy-meta-pills"'), `${file} must use shared policy metadata pills`);
+  assert.strictEqual((html.match(/class="policy-meta-pill"/g) || []).length, 3, `${file} must retain its three policy metadata items`);
+}
+
+for (const file of ["privacy-policy.html", "ar/privacy-policy.html", "terms.html", "ar/terms.html"]) {
+  const html = read(file);
+  assert(html.includes('class="policy-meta-pills"'), `${file} must use shared policy metadata pills`);
+  assert.strictEqual((html.match(/class="policy-meta-pill"/g) || []).length, 2, `${file} must provide policy and updated metadata`);
 }
 
 const prohibitedClaims = [
