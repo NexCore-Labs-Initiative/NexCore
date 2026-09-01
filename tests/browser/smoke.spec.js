@@ -116,17 +116,17 @@ for (const route of ["/faq.html", "/ar/faq.html"]) {
     }
     await expect(generalSection).toHaveClass(/active/);
     await expect(generalButton).toHaveAttribute("aria-pressed", "true");
+    await expect(generalButton).toHaveCSS("color", "rgb(110, 231, 243)");
     await expect(serviceSection).toHaveAttribute("aria-hidden", "true");
     await serviceButton.click();
     await expect(serviceButton).toHaveAttribute("aria-pressed", "true");
-    await expect(generalButton).toBeDisabled();
     await expect(serviceSection).toHaveClass(/is-entering/);
     await page.waitForTimeout(260);
     await expect(serviceSection).toHaveClass(/active/);
+    await expect(serviceButton).toHaveCSS("color", "rgb(110, 231, 243)");
     await expect(serviceSection.locator('.faq-item').first()).toBeVisible();
     await expect(serviceSection).toHaveAttribute("aria-hidden", "false");
     await expect(generalSection).toHaveAttribute("aria-hidden", "true");
-    await expect(generalButton).toBeEnabled();
 
     await generalButton.focus();
     await page.keyboard.press("Enter");

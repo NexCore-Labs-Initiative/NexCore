@@ -3254,19 +3254,19 @@ strong {
 }
 
 .faq-cat-btn.active {
-    background: rgba(56, 161, 255, .12);
-    color: #38a1ff;
-    border-color: rgba(56, 161, 255, .35);
+    background: rgba(110, 231, 243, .12);
+    color: #6ee7f3;
+    border-color: rgba(110, 231, 243, .35);
     font-weight: 500;
 }
 
 .faq-cat-btn.active i {
     opacity: 1;
-    color: #38a1ff;
+    color: #6ee7f3;
 }
 
 .faq-cat-btn:focus-visible {
-    outline: 2px solid rgba(56, 161, 255, .75);
+    outline: 2px solid rgba(110, 231, 243, .75);
     outline-offset: 3px;
 }
 
