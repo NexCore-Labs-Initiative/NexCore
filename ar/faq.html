@@ -51,6 +51,7 @@
 
     <link rel="manifest" href="../manifest.json">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.46.0/dist/tabler-icons.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
@@ -262,13 +263,33 @@
             </div>
 
             <div class="faq-categories" id="categoryButtons">
-                <button class="category-btn active" data-category="general">عام</button>
-                <button class="category-btn" data-category="service">الخدمات</button>
-                <button class="category-btn" data-category="technical">تقني</button>
-                <button class="category-btn" data-category="support">الدعم</button>
-                <button class="category-btn" data-category="security">الأمان</button>
-                <button class="category-btn" data-category="pricing">التسعير</button>
+                <button class="faq-cat-btn active" type="button" data-category="general" aria-pressed="true">
+                    <i class="ti ti-help-circle" aria-hidden="true"></i>
+                    عام
+                </button>
+                <button class="faq-cat-btn" type="button" data-category="services" aria-pressed="false">
+                    <i class="ti ti-box" aria-hidden="true"></i>
+                    الخدمات
+                </button>
+                <button class="faq-cat-btn" type="button" data-category="technical" aria-pressed="false">
+                    <i class="ti ti-terminal-2" aria-hidden="true"></i>
+                    تقني
+                </button>
+                <button class="faq-cat-btn" type="button" data-category="support" aria-pressed="false">
+                    <i class="ti ti-headset" aria-hidden="true"></i>
+                    الدعم
+                </button>
+                <button class="faq-cat-btn" type="button" data-category="pricing" aria-pressed="false">
+                    <i class="ti ti-currency-dollar" aria-hidden="true"></i>
+                    التسعير
+                </button>
+                <button class="faq-cat-btn" type="button" data-category="security" aria-pressed="false">
+                    <i class="ti ti-shield-check" aria-hidden="true"></i>
+                    الأمان
+                </button>
             </div>
+
+            <div class="faq-divider"></div>
 
             <div class="faq-sections">
                 <!-- General Category -->
@@ -339,7 +360,7 @@
 
                 <!-- Services Category -->
 
-                <div class="faq-category-section" data-section="service">
+                <div class="faq-category-section" data-section="services">
                     <h2 class="faq-category-title"><i class="fa-solid fa-briefcase"></i> الخدمات</h2>
 
                     <div class="faq-item">
@@ -662,7 +683,7 @@
 
             const faqSections = container.querySelectorAll('.faq-category-section');
 
-            const categoryButtons = container.querySelectorAll('.category-btn');
+            const categoryButtons = container.querySelectorAll('.faq-cat-btn');
 
             const searchInput = container.querySelector('#faqSearch');
 
@@ -823,7 +844,7 @@
 
                 const searchTerm = searchInput ? (searchInput.value || '').trim().toLowerCase() : '';
 
-                const activeCategory = container.querySelector('.category-btn.active')?.dataset.category || null;
+                const activeCategory = container.querySelector('.faq-cat-btn.active')?.dataset.category || null;
 
                 const matchesCountPerSection = new Map();
 

@@ -97,11 +97,15 @@ for (const route of ["/faq.html", "/ar/faq.html"]) {
     await page.locator(".living-release__close").click();
 
     const generalSection = page.locator('.faq-category-section[data-section="general"]');
-    const serviceSection = page.locator('.faq-category-section[data-section="service"]');
-    const generalButton = page.locator('.category-btn[data-category="general"]');
-    const serviceButton = page.locator('.category-btn[data-category="service"]');
+    const serviceSection = page.locator('.faq-category-section[data-section="services"]');
+    const generalButton = page.locator('.faq-cat-btn[data-category="general"]');
+    const serviceButton = page.locator('.faq-cat-btn[data-category="services"]');
 
+    await expect(page.locator('.faq-cat-btn')).toHaveCount(6);
+    await expect(page.locator('.faq-cat-btn i.ti')).toHaveCount(6);
+    await expect(page.locator('.faq-divider')).toBeVisible();
     await expect(generalSection).toHaveClass(/active/);
+    await expect(generalButton).toHaveAttribute("aria-pressed", "true");
     await expect(serviceSection).toHaveAttribute("aria-hidden", "true");
     await serviceButton.click();
     await expect(serviceButton).toHaveAttribute("aria-pressed", "true");
@@ -125,8 +129,8 @@ for (const route of ["/faq.html", "/ar/faq.html"]) {
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto(route, { waitUntil: "domcontentloaded" });
     await page.locator(".living-release__close").click();
-    await page.locator('.category-btn[data-category="service"]').click();
-    const serviceSection = page.locator('.faq-category-section[data-section="service"]');
+    await page.locator('.faq-cat-btn[data-category="services"]').click();
+    const serviceSection = page.locator('.faq-category-section[data-section="services"]');
     await expect(serviceSection).toHaveClass(/active/);
     await expect(serviceSection).not.toHaveClass(/is-entering|is-visible/);
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth);
