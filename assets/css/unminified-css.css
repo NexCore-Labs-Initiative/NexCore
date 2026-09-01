@@ -1310,16 +1310,52 @@ a.project-card:hover .id {
     }
 }
 
-.privacy-section {
-    max-width: 700px;
-    margin: 80px auto 40px;
-    text-align: left
+.privacy-policy-container .terms-header p {
+    max-width: 600px;
+    margin: 0 auto
 }
 
-.privacy-section h2 {
-    margin-bottom: 20px;
+.privacy-consent-panel {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 20px;
+    margin: 24px 0 0;
+    border: 1px solid rgba(110, 231, 243, .2);
+    border-radius: 8px;
+    background: rgba(122, 217, 234, .08);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px)
+}
+
+.privacy-consent-panel h3 {
+    margin: 0 0 6px;
     color: #6ee7f3;
-    font-size: 2rem
+    font-size: 1.15rem
+}
+
+.privacy-consent-panel p {
+    margin: 0;
+    color: #a0aec0;
+    font-size: .9rem;
+    line-height: 1.6
+}
+
+.privacy-consent-panel .btn {
+    flex: 0 0 auto;
+    justify-content: center
+}
+
+@media screen and (max-width: 600px) {
+    .privacy-consent-panel {
+        align-items: stretch;
+        flex-direction: column
+    }
+
+    .privacy-consent-panel .btn {
+        width: 100%
+    }
 }
 
 .trustpilot-review-widget {

@@ -134,6 +134,19 @@ for (const route of ["/faq.html", "/ar/faq.html"]) {
   });
 }
 
+for (const route of ["/privacy-policy.html", "/ar/privacy-policy.html"]) {
+  test(`${route} renders as a responsive policy document`, async ({ page }) => {
+    await page.setViewportSize({ width: 320, height: 700 });
+    await page.goto(route, { waitUntil: "domcontentloaded" });
+    await expect(page.locator(".privacy-policy-container .terms-header")).toBeVisible();
+    await expect(page.locator(".privacy-policy-container .table-of-contents a")).toHaveCount(6);
+    await expect(page.locator("#privacy-rights")).toBeVisible();
+    await expect(page.locator(".privacy-consent-panel #withdraw-consent")).toBeVisible();
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth);
+    expect(overflow).toBe(false);
+  });
+}
+
 for (const route of ["/releases.html", "/ar/releases.html"]) {
   test(`${route} renders the complete release timeline`, async ({ page }) => {
     await page.goto(route, { waitUntil: "domcontentloaded" });
