@@ -113,6 +113,7 @@ for (const route of ["/faq.html", "/ar/faq.html"]) {
     await expect(serviceSection).toHaveClass(/is-entering/);
     await page.waitForTimeout(260);
     await expect(serviceSection).toHaveClass(/active/);
+    await expect(serviceSection.locator('.faq-item').first()).toBeVisible();
     await expect(serviceSection).toHaveAttribute("aria-hidden", "false");
     await expect(generalSection).toHaveAttribute("aria-hidden", "true");
     await expect(generalButton).toBeEnabled();
@@ -121,6 +122,7 @@ for (const route of ["/faq.html", "/ar/faq.html"]) {
     await page.keyboard.press("Enter");
     await page.waitForTimeout(260);
     await expect(generalSection).toHaveClass(/active/);
+    await expect(generalSection.locator('.faq-item').first()).toBeVisible();
     await expect(generalButton).toHaveAttribute("aria-pressed", "true");
   });
 
@@ -132,6 +134,7 @@ for (const route of ["/faq.html", "/ar/faq.html"]) {
     await page.locator('.faq-cat-btn[data-category="services"]').click();
     const serviceSection = page.locator('.faq-category-section[data-section="services"]');
     await expect(serviceSection).toHaveClass(/active/);
+    await expect(serviceSection.locator('.faq-item').first()).toBeVisible();
     await expect(serviceSection).not.toHaveClass(/is-entering|is-visible/);
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth);
     expect(overflow).toBe(false);
