@@ -49,6 +49,47 @@ for (const route of ["/index.html", "/ar/index.html"]) {
   });
 }
 
+for (const route of ["/how-to-use.html", "/ar/how-to-use.html"]) {
+  test(`${route} guide panels transition between paths`, async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: "no-preference" });
+    await page.goto(route, { waitUntil: "domcontentloaded" });
+
+    const squPanel = page.locator("#guideSquPanel");
+    const nonSquPanel = page.locator("#guideNonSquPanel");
+    const squButton = page.locator("#tabSquBtn");
+    const nonSquButton = page.locator("#tabNonSquBtn");
+
+    await expect(squPanel).toHaveClass(/active/);
+    await expect(nonSquPanel).toHaveAttribute("aria-hidden", "true");
+    await nonSquButton.click();
+    await expect(nonSquButton).toHaveAttribute("aria-pressed", "true");
+    await expect(squButton).toBeDisabled();
+    await expect(nonSquPanel).toHaveClass(/is-entering/);
+    await page.waitForTimeout(260);
+    await expect(nonSquPanel).toHaveClass(/active/);
+    await expect(nonSquPanel).toHaveAttribute("aria-hidden", "false");
+    await expect(squPanel).toHaveAttribute("aria-hidden", "true");
+    await expect(squButton).toBeEnabled();
+
+    await squButton.focus();
+    await page.keyboard.press("Enter");
+    await page.waitForTimeout(260);
+    await expect(squPanel).toHaveClass(/active/);
+    await expect(squButton).toHaveAttribute("aria-pressed", "true");
+  });
+
+  test(`${route} guide panels respect reduced motion on mobile`, async ({ page }) => {
+    await page.setViewportSize({ width: 320, height: 700 });
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.goto(route, { waitUntil: "domcontentloaded" });
+    await page.locator("#tabNonSquBtn").click();
+    await expect(page.locator("#guideNonSquPanel")).toHaveClass(/active/);
+    await expect(page.locator("#guideNonSquPanel")).not.toHaveClass(/is-entering|is-visible/);
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth);
+    expect(overflow).toBe(false);
+  });
+}
+
 for (const route of ["/releases.html", "/ar/releases.html"]) {
   test(`${route} renders the complete release timeline`, async ({ page }) => {
     await page.goto(route, { waitUntil: "domcontentloaded" });
