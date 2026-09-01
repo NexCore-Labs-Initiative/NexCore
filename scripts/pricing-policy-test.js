@@ -91,6 +91,10 @@ for (const file of ["pricing-policy.html", "ar/pricing-policy.html"]) {
   assert(html.includes("assets/js/script.js"), `${file} must load the shared site behavior`);
   assert(html.includes('class="policy-meta-pills"'), `${file} must use shared policy metadata pills`);
   assert.strictEqual((html.match(/class="policy-meta-pill"/g) || []).length, 3, `${file} must retain its three policy metadata items`);
+  assert(
+    /<a href="terms\.html" class="fade mt-0" title=/.test(html),
+    `${file} Terms menu link must use the shared menu classes`
+  );
 }
 
 for (const file of ["privacy-policy.html", "ar/privacy-policy.html", "terms.html", "ar/terms.html"]) {

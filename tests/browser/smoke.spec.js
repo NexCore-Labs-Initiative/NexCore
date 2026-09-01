@@ -154,6 +154,13 @@ for (const route of ["/terms.html", "/ar/terms.html", "/pricing-policy.html", "/
     await page.goto(route, { waitUntil: "domcontentloaded" });
     await expect(page.locator(".policy-meta-pills")).toBeVisible();
     await expect(page.locator(".policy-meta-pill")).toHaveCount(route.includes("pricing-policy") ? 3 : 2);
+    if (route.includes("pricing-policy")) {
+      const releaseClose = page.locator(".living-release__close");
+      if (await releaseClose.isVisible()) await releaseClose.click({ force: true });
+      await page.locator("#coreMenu").click({ force: true });
+      await expect(page.locator('#myDropdown a[href="terms.html"]')).toBeVisible();
+      await expect(page.locator('#myDropdown a[href="terms.html"]')).toHaveClass(/fade/);
+    }
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth);
     expect(overflow).toBe(false);
   });
