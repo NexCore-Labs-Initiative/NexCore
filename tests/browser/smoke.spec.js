@@ -104,6 +104,16 @@ for (const route of ["/faq.html", "/ar/faq.html"]) {
     await expect(page.locator('.faq-cat-btn')).toHaveCount(6);
     await expect(page.locator('.faq-cat-btn i.ti')).toHaveCount(6);
     await expect(page.locator('.faq-divider')).toBeVisible();
+    for (const [category, iconClass] of [
+      ["general", "ti-help-circle"],
+      ["services", "ti-box"],
+      ["technical", "ti-terminal-2"],
+      ["support", "ti-headset"],
+      ["pricing", "ti-currency-dollar"],
+      ["security", "ti-shield-check"],
+    ]) {
+      await expect(page.locator(`.faq-category-section[data-section="${category}"] .faq-category-title i`)).toHaveClass(new RegExp(iconClass));
+    }
     await expect(generalSection).toHaveClass(/active/);
     await expect(generalButton).toHaveAttribute("aria-pressed", "true");
     await expect(serviceSection).toHaveAttribute("aria-hidden", "true");
