@@ -40,6 +40,11 @@ const behaviorHooks = [
   "function updateCommandCenter()",
   "function updateReadiness(",
   "function initDashboardTabs()",
+  "dashboard-panel-stage",
+  "dashboard-panel.is-entering",
+  "dashboard-panel.is-leaving",
+  "__nexcoreDashboardPanelTransition",
+  "prefers-reduced-motion: reduce",
   "function initDashboardDirtyTracking()",
   "function initCommandActions()",
   "markDashboardDirty();",
@@ -57,6 +62,9 @@ for (const [file, heading, publicPath] of [
   assert(html.includes('class="command-band"'), `${file} must include the top command band`);
   assert(html.includes('class="readiness-band"'), `${file} must include the readiness checklist`);
   assert(html.includes('class="preview-panel"'), `${file} must include the preview panel`);
+  assert(html.includes('class="dashboard-panel-stage"'), `${file} must wrap dashboard panels in a transition stage`);
+  assert(html.includes('class="empty-intro"'), `${file} must include the guided no-project introduction`);
+  assert(html.includes('class="empty-form-fields"'), `${file} must include the grouped project creation fields`);
   assert(html.includes('class="action-dock"'), `${file} must include the action dock`);
   assert(html.includes(publicPath), `${file} must use the locale-specific public path`);
 
@@ -67,6 +75,14 @@ for (const [file, heading, publicPath] of [
 
   for (const hook of behaviorHooks) {
     assert(html.includes(hook), `${file} must include ${hook}`);
+  }
+
+  const tabSwitches = html.match(/function setDashboardTab\(name\) \{[\s\S]*?\n    \}/g) || [];
+  assert(tabSwitches.length > 0, `${file} must include a dashboard tab switcher`);
+  for (const tabSwitch of tabSwitches) {
+    assert(tabSwitch.includes("__nexcoreDashboardPanelTransition"), `${file} tab switching must guard an active transition`);
+    assert(tabSwitch.includes("is-entering"), `${file} tab switching must animate the incoming panel`);
+    assert(tabSwitch.includes("is-leaving"), `${file} tab switching must animate the outgoing panel`);
   }
 
   assert(!html.includes('<h1>Dashboard</h1>'), `${file} must remove the old dashboard heading`);

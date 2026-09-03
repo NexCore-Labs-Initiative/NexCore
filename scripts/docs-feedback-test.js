@@ -150,6 +150,12 @@ async function runApiTests() {
     locale: "ar",
     vote: "no"
   });
+  assert.deepStrictEqual(normalizeFeedbackPayload({ page_path: "/faq.html", page_key: "faq", locale: "en", vote: "yes" }), {
+    pageKey: "faq",
+    pagePath: "/faq",
+    locale: "en",
+    vote: "yes"
+  });
 
   const invalidVote = responseMock();
   await handler(request({ body: { page_key: "how-to-use", page_path: "/how-to-use.html", locale: "en", vote: "maybe" } }), invalidVote);
@@ -157,7 +163,7 @@ async function runApiTests() {
   assert.strictEqual(invalidVote.body.error, "invalid_vote");
 
   const invalidPage = responseMock();
-  await handler(request({ body: { page_key: "faq", page_path: "/faq.html", locale: "en", vote: "yes" } }), invalidPage);
+  await handler(request({ body: { page_key: "unknown", page_path: "/faq.html", locale: "en", vote: "yes" } }), invalidPage);
   assert.strictEqual(invalidPage.statusCode, 400);
   assert.strictEqual(invalidPage.body.error, "invalid_page");
 
@@ -254,16 +260,19 @@ function runStaticTests() {
     assert(migration.includes(expected), `Migration must include: ${expected}`);
   }
 
-  for (const [file, locale, yes, no] of [
-    ["how-to-use.html", "en", "Yes", "No"],
-    ["ar/how-to-use.html", "ar", "نعم", "لا"]
+  for (const [file, pageKey, locale, yes, no] of [
+    ["how-to-use.html", "how-to-use", "en", "Yes", "No"],
+    ["ar/how-to-use.html", "how-to-use", "ar", "نعم", "لا"],
+    ["faq.html", "faq", "en", "Yes", "No"],
+    ["ar/faq.html", "faq", "ar", "نعم", "لا"]
   ]) {
     const html = read(file);
     assert(html.includes("data-docs-feedback"), `${file} must expose docs feedback root`);
+    assert(html.includes(`data-feedback-page-key="${pageKey}"`), `${file} must declare feedback page key`);
     assert(html.includes(`data-feedback-locale="${locale}"`), `${file} must declare feedback locale`);
     assert(html.includes('data-feedback-vote="yes"'), `${file} must expose yes vote`);
     assert(html.includes('data-feedback-vote="no"'), `${file} must expose no vote`);
-    assert(html.includes("data-feedback-status"), `${file} must include feedback status region`);
+    assert(!html.includes("data-feedback-status"), `${file} must not include inline feedback status markup`);
     assert(html.includes("@tabler/icons-webfont"), `${file} must load Tabler outline icons`);
     assert(html.includes("ti ti-thumb-up"), `${file} must use Tabler thumbs-up icon`);
     assert(html.includes("ti ti-thumb-down"), `${file} must use Tabler thumbs-down icon`);
@@ -279,6 +288,9 @@ function runStaticTests() {
   assert(js.includes("active-no"), "Shared JS must support the no active state");
   assert(js.includes("feedbackMessageYes"), "Shared JS must support yes-specific feedback copy");
   assert(js.includes("feedbackMessageNo"), "Shared JS must support no-specific feedback copy");
+  assert(js.includes("window.NexCoreNotify?.show"), "Shared JS must show docs feedback messages through the global notifier");
+  assert(js.includes('"success"'), "Shared JS must use success toasts for saved feedback");
+  assert(js.includes('"error"'), "Shared JS must use error toasts for failed feedback");
 
   for (const [file, title] of [
     ["admin-users.html", "How-To-Use Feedback"],

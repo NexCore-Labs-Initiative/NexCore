@@ -53,6 +53,7 @@
 
     <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.46.0/dist/tabler-icons.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
@@ -282,24 +283,39 @@
             </div> -->
 
             <div class="faq-categories" id="categoryButtons">
-                <button class="category-btn active" data-category="general">General</button>
-
-                <button class="category-btn" data-category="service">Services</button>
-
-                <button class="category-btn" data-category="technical">Technical</button>
-
-                <button class="category-btn" data-category="support">Support</button>
-
-                <button class="category-btn" data-category="security">Security</button>
-
-                <button class="category-btn" data-category="pricing">Pricing</button>
+                <button class="faq-cat-btn active" type="button" data-category="general" aria-pressed="true">
+                    <i class="ti ti-help-circle" aria-hidden="true"></i>
+                    General
+                </button>
+                <button class="faq-cat-btn" type="button" data-category="services" aria-pressed="false">
+                    <i class="ti ti-box" aria-hidden="true"></i>
+                    Services
+                </button>
+                <button class="faq-cat-btn" type="button" data-category="technical" aria-pressed="false">
+                    <i class="ti ti-terminal-2" aria-hidden="true"></i>
+                    Technical
+                </button>
+                <button class="faq-cat-btn" type="button" data-category="support" aria-pressed="false">
+                    <i class="ti ti-headset" aria-hidden="true"></i>
+                    Support
+                </button>
+                <button class="faq-cat-btn" type="button" data-category="pricing" aria-pressed="false">
+                    <i class="ti ti-currency-dollar" aria-hidden="true"></i>
+                    Pricing
+                </button>
+                <button class="faq-cat-btn" type="button" data-category="security" aria-pressed="false">
+                    <i class="ti ti-shield-check" aria-hidden="true"></i>
+                    Security
+                </button>
             </div>
+
+            <div class="faq-divider"></div>
 
             <div class="faq-sections">
                 <!-- General Category -->
 
                 <div class="faq-category-section active" data-section="general">
-                    <h2 class="faq-category-title"><i class="fa-solid fa-circle-info"></i> General</h2>
+                    <h2 class="faq-category-title"><i class="ti ti-help-circle" aria-hidden="true"></i> General</h2>
 
                     <div class="faq-item active">
                         <h3 class="faq-question">
@@ -400,8 +416,8 @@
 
                 <!-- Services Category -->
 
-                <div class="faq-category-section" data-section="service">
-                    <h2 class="faq-category-title"><i class="fa-solid fa-briefcase"></i> Services</h2>
+                <div class="faq-category-section" data-section="services">
+                    <h2 class="faq-category-title"><i class="ti ti-box" aria-hidden="true"></i> Services</h2>
 
                     <div class="faq-item">
                         <h3 class="faq-question">
@@ -531,7 +547,7 @@
                 <!-- Technical Category -->
 
                 <div class="faq-category-section" data-section="technical">
-                    <h2 class="faq-category-title"><i class="fa-solid fa-code"></i> Technical</h2>
+                    <h2 class="faq-category-title"><i class="ti ti-terminal-2" aria-hidden="true"></i> Technical</h2>
 
                     <div class="faq-item">
                         <h3 class="faq-question">
@@ -683,7 +699,7 @@
                 <!-- Support Category -->
 
                 <div class="faq-category-section" data-section="support">
-                    <h2 class="faq-category-title"><i class="fa-solid fa-headset"></i> Support</h2>
+                    <h2 class="faq-category-title"><i class="ti ti-headset" aria-hidden="true"></i> Support</h2>
 
                     <div class="faq-item">
                         <h3 class="faq-question">
@@ -824,7 +840,7 @@
                 <!-- Security Category -->
 
                 <div class="faq-category-section" data-section="security">
-                    <h2 class="faq-category-title"><i class="fa-solid fa-shield"></i> Security</h2>
+                    <h2 class="faq-category-title"><i class="ti ti-shield-check" aria-hidden="true"></i> Security</h2>
 
                     <div class="faq-item">
                         <h3 class="faq-question">
@@ -912,7 +928,7 @@
                 <!-- Pricing Category -->
 
                 <div class="faq-category-section" data-section="pricing" id="pricing">
-                    <h2 class="faq-category-title"><i class="fa-solid fa-tag"></i> Pricing</h2>
+                    <h2 class="faq-category-title"><i class="ti ti-currency-dollar" aria-hidden="true"></i> Pricing</h2>
 
                     <div class="faq-item">
                         <h3 class="faq-question">
@@ -972,15 +988,42 @@
                 </div>
             </div>
 
-            <!-- Contact CTA -->
+            <section class="docs-feedback-footer" aria-labelledby="faqDocsFeedbackTitle">
+                <h2 id="faqDocsFeedbackTitle" class="docs-feedback-title">HELP &amp; SUPPORT</h2>
 
-            <div class="contact-cta">
-                <h2>Didn't Find Your Answer?</h2>
+                <div class="docs-feedback-panel docs-feedback-survey" data-docs-feedback data-feedback-page-key="faq" data-feedback-locale="en" data-feedback-message-submitting="Saving feedback..." data-feedback-message-yes="Thanks for the feedback!" data-feedback-message-no="Got it — we'll use this to improve the FAQ." data-feedback-message-error="Feedback could not be saved. Please try again.">
+                    <h2>Did this FAQ help?</h2>
+                    <p>Your feedback helps us make these answers clearer.</p>
 
-                <p>Our team is here to help! Get in touch with any questions or concerns.</p>
+                    <div class="docs-feedback-actions" aria-label="FAQ usefulness feedback">
+                        <button type="button" class="docs-feedback-choice" data-feedback-vote="yes" aria-pressed="false" aria-label="Mark this FAQ as helpful"><i class="ti ti-thumb-up" aria-hidden="true"></i> Yes</button>
+                        <button type="button" class="docs-feedback-choice" data-feedback-vote="no" aria-pressed="false" aria-label="Mark this FAQ as not helpful"><i class="ti ti-thumb-down" aria-hidden="true"></i> No</button>
+                    </div>
 
-                <a href="index.html#contact" class="btn ghost fade">Send a Message</a>
-            </div>
+                    <a href="privacy-policy.html" class="docs-feedback-link">Privacy Policy</a>
+                </div>
+
+                <div class="docs-feedback-panel docs-feedback-contribute">
+                    <h2>Help improve these answers</h2>
+
+                    <p>Found an unclear answer or a missing topic? Send a small improvement through the Contributor Center.</p>
+
+                    <a href="contribute.html" class="docs-feedback-button"><i class="ti ti-git-pull-request" aria-hidden="true"></i> Make a contribution</a>
+                    <a href="contribute.html" class="docs-feedback-link">Learn how to contribute</a>
+                </div>
+
+                <div class="docs-feedback-panel docs-feedback-help">
+                    <h2>Still need help?</h2>
+
+                    <p>Reach out through any of these channels.</p>
+
+                    <div class="docs-feedback-links">
+                        <a href="https://discord.gg/ExtGSwy5Pn" class="docs-feedback-link docs-feedback-contact-link" target="_blank" rel="noopener"><i class="ti ti-brand-discord" aria-hidden="true"></i> Ask the community</a>
+                        <a href="index.html#contact" class="docs-feedback-link docs-feedback-contact-link"><i class="ti ti-send" aria-hidden="true"></i> Contact NexCore Labs</a>
+                        <a href="https://github.com/NexCore-Labs-Initiative/NexCore" class="docs-feedback-link docs-feedback-contact-link" target="_blank" rel="noopener"><i class="ti ti-brand-github" aria-hidden="true"></i> View the repository</a>
+                    </div>
+                </div>
+            </section>
 
             <div class="no-results">
                 <i class="fa-solid fa-magnifying-glass"></i>
@@ -1043,11 +1086,80 @@
 
             const faqSections = container.querySelectorAll('.faq-category-section');
 
-            const categoryButtons = container.querySelectorAll('.category-btn');
+            const categoryButtons = container.querySelectorAll('.faq-cat-btn');
 
             const searchInput = container.querySelector('#faqSearch');
 
             const noResults = container.querySelector('.no-results');
+
+            const faqSectionsWrapper = container.querySelector('.faq-sections');
+
+            let faqCategoryTransitionInProgress = false;
+
+            function updateCategoryButtonSelection(category) {
+
+                categoryButtons.forEach(button => {
+
+                    const isActive = button.dataset.category === category;
+                    button.classList.toggle('active', isActive);
+                    button.setAttribute('aria-pressed', String(isActive));
+
+                });
+
+            }
+
+            function switchFaqCategory(category) {
+
+                const currentSection = container.querySelector('.faq-category-section.active');
+                const nextSection = Array.from(faqSections).find(section => section.dataset.section === category);
+
+                if (!faqSectionsWrapper || !currentSection || !nextSection || currentSection === nextSection || faqCategoryTransitionInProgress) return;
+
+                updateCategoryButtonSelection(category);
+
+                if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+
+                    currentSection.classList.remove('active', 'is-leaving');
+                    currentSection.style.display = 'none';
+                    currentSection.setAttribute('aria-hidden', 'true');
+                    nextSection.style.display = '';
+                    nextSection.classList.remove('is-entering', 'is-visible');
+                    nextSection.classList.add('active');
+                    nextSection.setAttribute('aria-hidden', 'false');
+                    return;
+
+                }
+
+                faqCategoryTransitionInProgress = true;
+                categoryButtons.forEach(button => { button.disabled = true; });
+                faqSectionsWrapper.style.height = `${currentSection.getBoundingClientRect().height}px`;
+                nextSection.style.display = '';
+                nextSection.classList.add('is-entering');
+                nextSection.setAttribute('aria-hidden', 'false');
+
+                window.requestAnimationFrame(() => {
+
+                    faqSectionsWrapper.style.height = `${nextSection.getBoundingClientRect().height}px`;
+                    currentSection.classList.remove('active');
+                    currentSection.classList.add('is-leaving');
+                    currentSection.setAttribute('aria-hidden', 'true');
+                    nextSection.classList.add('is-visible');
+
+                });
+
+                window.setTimeout(() => {
+
+                    currentSection.classList.remove('is-leaving');
+                    currentSection.style.display = 'none';
+                    nextSection.classList.remove('is-entering', 'is-visible');
+                    nextSection.classList.add('active');
+                    faqSectionsWrapper.style.height = '';
+                    categoryButtons.forEach(button => { button.disabled = false; });
+                    faqCategoryTransitionInProgress = false;
+
+                }, 240);
+
+            }
 
             // Initialize ARIA attributes for accessibility
 
@@ -1058,6 +1170,19 @@
                 item.setAttribute('tabindex', '0');
 
                 item.setAttribute('aria-expanded', item.classList.contains('active') ? 'true' : 'false');
+
+            });
+
+            faqSections.forEach(section => {
+
+                section.setAttribute('aria-hidden', section.classList.contains('active') ? 'false' : 'true');
+
+            });
+
+            categoryButtons.forEach(button => {
+
+                button.type = 'button';
+                button.setAttribute('aria-pressed', button.classList.contains('active') ? 'true' : 'false');
 
             });
 
@@ -1122,7 +1247,7 @@
 
                 const searchTerm = searchInput ? (searchInput.value || '').trim().toLowerCase() : '';
 
-                const activeCategory = container.querySelector('.category-btn.active')?.dataset.category || null;
+                const activeCategory = container.querySelector('.faq-cat-btn.active')?.dataset.category || null;
 
                 const matchesCountPerSection = new Map();
 
@@ -1224,33 +1349,7 @@
 
                 btn.addEventListener('click', () => {
 
-                    categoryButtons.forEach(b => b.classList.remove('active'));
-
-                    btn.classList.add('active');
-
-                    const category = btn.dataset.category;
-
-                    faqSections.forEach(section => {
-
-                        if (section.dataset.section === category) {
-
-                            section.classList.add('active');
-
-                            section.style.display = '';
-
-                        } else {
-
-                            section.classList.remove('active');
-
-                            section.style.display = 'none';
-
-                        }
-
-                    });
-
-                    // Re-run search to apply both filters
-
-                    performSearch();
+                    switchFaqCategory(btn.dataset.category);
 
                 });
 
@@ -1297,10 +1396,6 @@
                 }
 
             });
-
-            // Initial run to respect active category on load
-
-            performSearch();
 
         })();
     </script>

@@ -216,17 +216,32 @@
         </div>
     </header>
 
-  <main id="main-content" class="panel container" style="padding-bottom: 0; margin-bottom: 0;">
-    <h1>Privacy Policy</h1>
+  <main id="main-content">
+    <div class="terms-container privacy-policy-container">
+      <div class="terms-header">
+        <h1>Privacy Policy</h1>
+        <p>How NexCore Labs handles account data, project information, cookies, and privacy choices.</p>
+      </div>
 
-    <div class="last-updated">
+      <div class="policy-meta-pills" aria-label="Privacy policy metadata">
+        <span class="policy-meta-pill"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i><span>Policy:</span> <strong>Privacy</strong></span>
+        <span class="policy-meta-pill"><i class="fa-regular fa-calendar" aria-hidden="true"></i><span>Updated:</span> <strong>June 13, 2026</strong></span>
+      </div>
 
-        Last updated: June 13, 2026
+      <div class="table-of-contents">
+        <h2><i class="fa-solid fa-list"></i> Privacy at a Glance</h2>
+        <ul>
+          <li><a href="#data-collection">1. What Data We Collect</a></li>
+          <li><a href="#data-use">2. Why We Collect Data</a></li>
+          <li><a href="#legal-basis">3. Legal Basis</a></li>
+          <li><a href="#processors">4. Third-Party Processors</a></li>
+          <li><a href="#retention">5. Data Retention</a></li>
+          <li><a href="#privacy-rights">6. Your Privacy Rights</a></li>
+        </ul>
+      </div>
 
-    </div>
-
-    <div class="privacy-section">
-      <h2>What data we collect</h2>
+    <div id="data-collection" class="terms-section privacy-section">
+      <h2>1. What Data We Collect</h2>
 
       <ul>
         <li>Usage data (pageviews, timestamps) via Google Analytics — only with your explicit consent.</li>
@@ -244,16 +259,16 @@
 
     </div>
 
-    <div class="privacy-section">
-      <h2>Why we collect data</h2>
+    <div id="data-use" class="terms-section privacy-section">
+      <h2>2. Why We Collect Data</h2>
 
       <p>We use data to provide accounts and project features, respond to requests, operate and secure the platform,
         prevent misuse, keep required service and consent records, and improve performance and accessibility. We do not
         sell personal data.</p>
     </div>
 
-    <div class="privacy-section">
-      <h2>Legal basis</h2>
+    <div id="legal-basis" class="terms-section privacy-section">
+      <h2>3. Legal Basis</h2>
 
       <p>We process personal data under the laws applicable in the Sultanate of Oman, including the Personal Data
         Protection Law and its Executive Regulation. Depending on the activity, processing may be based on your
@@ -262,8 +277,8 @@
         when they legally apply to the relevant processing.</p>
     </div>
 
-    <div class="privacy-section">
-      <h2>Third-party processors</h2>
+    <div id="processors" class="terms-section privacy-section">
+      <h2>4. Third-Party Processors</h2>
 
       <ul>
         <li>Google LLC — Google Analytics 4 (Measurement ID: G-PYZB5L2R8W). GA is only loaded if you accept analytics cookies. We enable IP anonymization and disable ad personalization.</li>
@@ -281,8 +296,8 @@
         after considering the safeguards and requirements that apply to the transfer.</p>
     </div>
 
-    <div class="privacy-section">
-      <h2>How long we keep data</h2>
+    <div id="retention" class="terms-section privacy-section">
+      <h2>5. How Long We Keep Data</h2>
 
       <p>We keep personal data only for a purpose-specific and proportionate period:</p>
       <ul>
@@ -295,8 +310,8 @@
         investigation, or backup cycle may require limited retention after an account or service ends.</p>
     </div>
 
-    <div class="privacy-section">
-      <h2>Your privacy rights</h2>
+    <div id="privacy-rights" class="terms-section privacy-section">
+      <h2>6. Your Privacy Rights</h2>
 
       <ul>
         <li><strong>Access:</strong> Request a copy of any personal data we hold about you.</li>
@@ -316,11 +331,13 @@
         authority where the law gives you that right.</p>
     </div>
 
-    <div class="privacy-section" style="text-align: center; margin-bottom: 60px; margin-top: 40px;">
-        <button id="withdraw-consent" class="btn ghost">Withdraw cookies (Clear)</button>
-
-        <small style="display:block;margin-top:8px;color:#666">This will remove stored consent and clear common analytics cookies; the page will reload.</small>
-
+      <div class="privacy-consent-panel">
+        <div>
+          <h3>Cookie Preference</h3>
+          <p>This removes stored consent and clears common analytics cookies before reloading the page.</p>
+        </div>
+        <button id="withdraw-consent" class="btn ghost">Withdraw Cookies</button>
+      </div>
     </div>
 
         <div class="nexcore-sign" style="margin-top: 40px;">

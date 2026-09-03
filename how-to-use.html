@@ -105,8 +105,50 @@
             border: 1px solid rgba(110,231,243,0.3);
         }
         .guide-tab-btn:hover:not(.active) { color: #eaf6fb; }
-        .guide-panel { display: none; }
-        .guide-panel.active { display: block; }
+        .guide-panels {
+            position: relative;
+            transition: height 220ms ease-out;
+        }
+        .guide-panel {
+            position: absolute;
+            inset: 0 0 auto;
+            width: 100%;
+            opacity: 0;
+            transform: translateY(8px);
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 220ms ease-out, transform 220ms ease-out, visibility 0s linear 220ms;
+        }
+        .guide-panel.active {
+            position: relative;
+            opacity: 1;
+            transform: translateY(0);
+            visibility: visible;
+            pointer-events: auto;
+            transition: opacity 220ms ease-out, transform 220ms ease-out;
+        }
+        .guide-panel.is-entering {
+            position: absolute;
+            visibility: visible;
+            pointer-events: none;
+        }
+        .guide-panel.is-entering.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .guide-panel.is-leaving {
+            position: absolute;
+            opacity: 0;
+            transform: translateY(-4px);
+            visibility: visible;
+            pointer-events: none;
+            transition: opacity 140ms ease-out, transform 140ms ease-out;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .guide-panels,
+            .guide-panel,
+            .guide-tab-btn { transition: none !important; }
+        }
         .guide-note {
             display: flex;
             align-items: flex-start;
@@ -364,17 +406,18 @@
                 <p>Follow the guide that matches your situation to get your project live on NexCore.</p>
 
                 <!-- Tab Toggle -->
-                <div class="guide-toggle">
-                    <button class="guide-tab-btn active" id="tabSquBtn" onclick="switchGuideTab('squ')">
+                <div class="guide-toggle" role="group" aria-label="Choose your guide">
+                    <button type="button" class="guide-tab-btn active" id="tabSquBtn" aria-controls="guideSquPanel" aria-pressed="true" onclick="switchGuideTab('squ')">
                         <i class="fa-solid fa-graduation-cap"></i> SQU Student
                     </button>
-                    <button class="guide-tab-btn" id="tabNonSquBtn" onclick="switchGuideTab('nonsqu')">
+                    <button type="button" class="guide-tab-btn" id="tabNonSquBtn" aria-controls="guideNonSquPanel" aria-pressed="false" onclick="switchGuideTab('nonsqu')">
                         <i class="fa-solid fa-globe"></i> Non-SQU
                     </button>
                 </div>
 
+                <div class="guide-panels" id="guidePanels">
                 <!-- SQU Panel -->
-                <div id="guideSquPanel" class="guide-panel active">
+                <div id="guideSquPanel" class="guide-panel active" aria-hidden="false">
 
                     <div class="guide-note info">
                         <i class="fa-solid fa-circle-info"></i>
@@ -402,7 +445,7 @@
                 </div>
 
                 <!-- Non-SQU Panel -->
-                <div id="guideNonSquPanel" class="guide-panel">
+                <div id="guideNonSquPanel" class="guide-panel" aria-hidden="true">
 
                     <div class="guide-note warn">
                         <i class="fa-solid fa-triangle-exclamation"></i>
@@ -452,6 +495,7 @@
                         </li>
 
                     </ol>
+                </div>
                 </div>
             </section>
 
@@ -634,7 +678,6 @@
                         <button type="button" class="docs-feedback-choice" data-feedback-vote="no" aria-pressed="false" aria-label="Mark this guide as not helpful"><i class="ti ti-thumb-down" aria-hidden="true"></i> No</button>
                     </div>
 
-                    <p class="docs-feedback-status" data-feedback-status role="status" aria-live="polite"></p>
                     <a href="privacy-policy.html" class="docs-feedback-link">Privacy Policy</a>
                 </div>
 
@@ -706,12 +749,62 @@
         document.getElementById('year').textContent = new Date().getFullYear();
 
         // Step-by-Step Guide tab switcher
+        let guideTransitionInProgress = false;
+
+        function updateGuideTabSelection(isSqu) {
+            const squButton = document.getElementById('tabSquBtn');
+            const nonSquButton = document.getElementById('tabNonSquBtn');
+            squButton.classList.toggle('active', isSqu);
+            nonSquButton.classList.toggle('active', !isSqu);
+            squButton.setAttribute('aria-pressed', String(isSqu));
+            nonSquButton.setAttribute('aria-pressed', String(!isSqu));
+        }
+
         function switchGuideTab(tab) {
             const isSqu = tab === 'squ';
-            document.getElementById('guideSquPanel').classList.toggle('active', isSqu);
-            document.getElementById('guideNonSquPanel').classList.toggle('active', !isSqu);
-            document.getElementById('tabSquBtn').classList.toggle('active', isSqu);
-            document.getElementById('tabNonSquBtn').classList.toggle('active', !isSqu);
+            const panels = document.getElementById('guidePanels');
+            const currentPanel = document.querySelector('.guide-panel.active');
+            const nextPanel = document.getElementById(isSqu ? 'guideSquPanel' : 'guideNonSquPanel');
+            const squButton = document.getElementById('tabSquBtn');
+            const nonSquButton = document.getElementById('tabNonSquBtn');
+
+            if (!panels || !currentPanel || !nextPanel || currentPanel === nextPanel || guideTransitionInProgress) return;
+
+            updateGuideTabSelection(isSqu);
+
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                currentPanel.classList.remove('active', 'is-leaving');
+                currentPanel.setAttribute('aria-hidden', 'true');
+                nextPanel.classList.remove('is-entering', 'is-visible');
+                nextPanel.classList.add('active');
+                nextPanel.setAttribute('aria-hidden', 'false');
+                return;
+            }
+
+            guideTransitionInProgress = true;
+            squButton.disabled = true;
+            nonSquButton.disabled = true;
+            panels.style.height = `${currentPanel.getBoundingClientRect().height}px`;
+            nextPanel.classList.add('is-entering');
+            nextPanel.setAttribute('aria-hidden', 'false');
+
+            window.requestAnimationFrame(() => {
+                panels.style.height = `${nextPanel.getBoundingClientRect().height}px`;
+                currentPanel.classList.remove('active');
+                currentPanel.classList.add('is-leaving');
+                currentPanel.setAttribute('aria-hidden', 'true');
+                nextPanel.classList.add('is-visible');
+            });
+
+            window.setTimeout(() => {
+                currentPanel.classList.remove('is-leaving');
+                nextPanel.classList.remove('is-entering', 'is-visible');
+                nextPanel.classList.add('active');
+                panels.style.height = '';
+                squButton.disabled = false;
+                nonSquButton.disabled = false;
+                guideTransitionInProgress = false;
+            }, 240);
         }
 
         // FAQ toggle functionality

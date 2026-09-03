@@ -251,10 +251,8 @@ document.addEventListener("DOMContentLoaded", () => {
   function initDocsFeedback() {
     document.querySelectorAll("[data-docs-feedback]").forEach((panel) => {
       const buttons = Array.from(panel.querySelectorAll("[data-feedback-vote]"));
-      const status = panel.querySelector("[data-feedback-status]");
-      if (!buttons.length || !status) return;
+      if (!buttons.length) return;
 
-      const submittingMessage = panel.dataset.feedbackMessageSubmitting || (locale.lang === "ar" ? "جارٍ حفظ التقييم..." : "Saving feedback...");
       const successMessage = panel.dataset.feedbackMessageSuccess || (locale.lang === "ar" ? "شكراً لمساعدتنا في تحسين هذا الدليل." : "Thanks for helping improve this guide.");
       const yesMessage = panel.dataset.feedbackMessageYes || successMessage;
       const noMessage = panel.dataset.feedbackMessageNo || (locale.lang === "ar" ? "وصلتنا الملاحظة — سنراجع طريقة تحسينه." : "Got it — we'll look into improving this.");
@@ -263,9 +261,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const feedbackLocale = panel.dataset.feedbackLocale || locale.lang;
       const activeClass = (vote) => vote === "yes" ? "active-yes" : "active-no";
 
-      const setStatus = (message, isError = false) => {
-        status.textContent = message;
-        status.classList.toggle("is-error", isError);
+      const notifyFeedback = (message, type) => {
+        window.NexCoreNotify?.show({ message, type });
       };
 
       const setDisabled = (disabled) => {
@@ -282,13 +279,11 @@ document.addEventListener("DOMContentLoaded", () => {
             button.classList.remove("active-yes", "active-no");
             button.setAttribute("aria-pressed", "false");
             panel.dataset.feedbackState = "";
-            setStatus("");
             return;
           }
 
           setDisabled(true);
           panel.dataset.feedbackState = "submitting";
-          setStatus(submittingMessage);
 
           try {
             const response = await fetch("/api/docs-feedback", {
@@ -314,10 +309,10 @@ document.addEventListener("DOMContentLoaded", () => {
               choice.setAttribute("aria-pressed", String(isSelected));
             });
             panel.dataset.feedbackState = "saved";
-            setStatus(vote === "yes" ? yesMessage : noMessage);
+            notifyFeedback(vote === "yes" ? yesMessage : noMessage, "success");
           } catch (error) {
             panel.dataset.feedbackState = "error";
-            setStatus(errorMessage, true);
+            notifyFeedback(errorMessage, "error");
           } finally {
             setDisabled(false);
           }
@@ -772,7 +767,7 @@ async function initLivingReleaseBeacon({ isArabic, locale }) {
       <ul class="living-release__highlights">
         ${highlights.map((item) => `<li><i class="fa-solid fa-check" aria-hidden="true"></i><span>${escapeHtml(item)}</span></li>`).join("")}
       </ul>
-      <a class="living-release__cta" href="${releaseHref}">
+      <a class="btn primary living-release__cta" href="${releaseHref}">
         <span>${copy.explore}</span><i class="fa-solid fa-arrow-${isArabic ? "left" : "right"}" aria-hidden="true"></i>
       </a>
       <button class="living-release__dismiss" type="button">${copy.dismiss}</button>

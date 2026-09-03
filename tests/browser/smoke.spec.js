@@ -49,6 +49,240 @@ for (const route of ["/index.html", "/ar/index.html"]) {
   });
 }
 
+for (const route of ["/how-to-use.html", "/ar/how-to-use.html"]) {
+  test(`${route} guide panels transition between paths`, async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: "no-preference" });
+    await page.goto(route, { waitUntil: "domcontentloaded" });
+
+    const squPanel = page.locator("#guideSquPanel");
+    const nonSquPanel = page.locator("#guideNonSquPanel");
+    const squButton = page.locator("#tabSquBtn");
+    const nonSquButton = page.locator("#tabNonSquBtn");
+
+    await expect(squPanel).toHaveClass(/active/);
+    await expect(nonSquPanel).toHaveAttribute("aria-hidden", "true");
+    await nonSquButton.click();
+    await expect(nonSquButton).toHaveAttribute("aria-pressed", "true");
+    await expect(squButton).toBeDisabled();
+    await expect(nonSquPanel).toHaveClass(/is-entering/);
+    await page.waitForTimeout(260);
+    await expect(nonSquPanel).toHaveClass(/active/);
+    await expect(nonSquPanel).toHaveAttribute("aria-hidden", "false");
+    await expect(squPanel).toHaveAttribute("aria-hidden", "true");
+    await expect(squButton).toBeEnabled();
+
+    await squButton.focus();
+    await page.keyboard.press("Enter");
+    await page.waitForTimeout(260);
+    await expect(squPanel).toHaveClass(/active/);
+    await expect(squButton).toHaveAttribute("aria-pressed", "true");
+  });
+
+  test(`${route} guide panels respect reduced motion on mobile`, async ({ page }) => {
+    await page.setViewportSize({ width: 320, height: 700 });
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.goto(route, { waitUntil: "domcontentloaded" });
+    await page.locator("#tabNonSquBtn").click();
+    await expect(page.locator("#guideNonSquPanel")).toHaveClass(/active/);
+    await expect(page.locator("#guideNonSquPanel")).not.toHaveClass(/is-entering|is-visible/);
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth);
+    expect(overflow).toBe(false);
+  });
+}
+
+for (const route of ["/dashboard.html", "/ar/dashboard.html"]) {
+  test(`${route} presents a responsive no-project setup flow`, async ({ page }) => {
+    await page.goto(route, { waitUntil: "domcontentloaded" });
+    await page.waitForFunction(() => typeof window.setDashboardTab === "function");
+    await page.evaluate(() => {
+      document.getElementById("hasProject").style.display = "none";
+      document.getElementById("noProject").style.display = "block";
+    });
+
+    const emptyState = page.locator("#noProject");
+    await expect(emptyState.locator(".empty-intro")).toBeVisible();
+    await expect(emptyState.locator(".empty-form-heading")).toBeVisible();
+    await expect(emptyState.locator("#newProjectName")).toBeVisible();
+    await expect(emptyState.locator("#createProjectBtn")).toBeVisible();
+
+    await page.setViewportSize({ width: 390, height: 844 });
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth);
+    expect(overflow).toBe(false);
+  });
+
+  test(`${route} command-center panels transition without overflow`, async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: "no-preference" });
+    await page.goto(route, { waitUntil: "domcontentloaded" });
+    await page.waitForFunction(() => typeof window.setDashboardTab === "function");
+    await page.evaluate(() => {
+      document.getElementById("noProject").style.display = "none";
+      document.getElementById("hasProject").style.display = "block";
+    });
+
+    await page.evaluate(() => window.initDashboardTabs());
+    const profileTab = page.locator('[data-dashboard-tab="profile"]');
+    const overviewPanel = page.locator('[data-dashboard-panel="overview"]');
+    const profilePanel = page.locator('[data-dashboard-panel="profile"]');
+    await profileTab.click();
+    await expect(profileTab).toHaveAttribute("aria-selected", "true");
+    await expect(profilePanel).toHaveClass(/is-entering/);
+    await expect(overviewPanel).toHaveClass(/is-leaving/);
+    await page.waitForTimeout(280);
+    await expect(profilePanel).toHaveClass(/active/);
+    await expect(profilePanel).not.toHaveClass(/is-entering|is-visible/);
+    await expect(overviewPanel).not.toHaveClass(/active|is-leaving/);
+
+    await page.setViewportSize({ width: 390, height: 844 });
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth);
+    expect(overflow).toBe(false);
+  });
+
+  test(`${route} command-center panels respect reduced motion`, async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.goto(route, { waitUntil: "domcontentloaded" });
+    await page.waitForFunction(() => typeof window.setDashboardTab === "function");
+    await page.evaluate(() => window.setDashboardTab("links"));
+    const linksPanel = page.locator('[data-dashboard-panel="links"]');
+    await expect(linksPanel).toHaveClass(/active/);
+    await expect(linksPanel).not.toHaveClass(/is-entering|is-visible/);
+  });
+}
+
+for (const route of ["/faq.html", "/ar/faq.html"]) {
+  test(`${route} FAQ categories transition between sections`, async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: "no-preference" });
+    await page.goto(route, { waitUntil: "domcontentloaded" });
+    await page.locator(".living-release__close").click();
+
+    const generalSection = page.locator('.faq-category-section[data-section="general"]');
+    const serviceSection = page.locator('.faq-category-section[data-section="services"]');
+    const generalButton = page.locator('.faq-cat-btn[data-category="general"]');
+    const serviceButton = page.locator('.faq-cat-btn[data-category="services"]');
+
+    await expect(page.locator('.faq-cat-btn')).toHaveCount(6);
+    await expect(page.locator('.faq-cat-btn i.ti')).toHaveCount(6);
+    await expect(page.locator('.faq-divider')).toBeVisible();
+    await expect(page.locator('.docs-feedback-footer')).toBeVisible();
+    await expect(page.locator('[data-docs-feedback][data-feedback-page-key="faq"]')).toBeVisible();
+    for (const [category, iconClass] of [
+      ["general", "ti-help-circle"],
+      ["services", "ti-box"],
+      ["technical", "ti-terminal-2"],
+      ["support", "ti-headset"],
+      ["pricing", "ti-currency-dollar"],
+      ["security", "ti-shield-check"],
+    ]) {
+      await expect(page.locator(`.faq-category-section[data-section="${category}"] .faq-category-title i`)).toHaveClass(new RegExp(iconClass));
+    }
+    await expect(generalSection).toHaveClass(/active/);
+    await expect(generalButton).toHaveAttribute("aria-pressed", "true");
+    await expect(generalButton).toHaveCSS("color", "rgb(110, 231, 243)");
+    await expect(serviceSection).toHaveAttribute("aria-hidden", "true");
+    await serviceButton.click();
+    await expect(serviceButton).toHaveAttribute("aria-pressed", "true");
+    await expect(serviceSection).toHaveClass(/is-entering/);
+    await page.waitForTimeout(260);
+    await expect(serviceSection).toHaveClass(/active/);
+    await expect(serviceButton).toHaveCSS("color", "rgb(110, 231, 243)");
+    await expect(serviceSection.locator('.faq-item').first()).toBeVisible();
+    await expect(serviceSection).toHaveAttribute("aria-hidden", "false");
+    await expect(generalSection).toHaveAttribute("aria-hidden", "true");
+
+    await generalButton.focus();
+    await page.keyboard.press("Enter");
+    await page.waitForTimeout(260);
+    await expect(generalSection).toHaveClass(/active/);
+    await expect(generalSection.locator('.faq-item').first()).toBeVisible();
+    await expect(generalButton).toHaveAttribute("aria-pressed", "true");
+  });
+
+  test(`${route} FAQ categories respect reduced motion on mobile`, async ({ page }) => {
+    await page.setViewportSize({ width: 320, height: 700 });
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.goto(route, { waitUntil: "domcontentloaded" });
+    await page.locator(".living-release__close").click();
+    await page.locator('.faq-cat-btn[data-category="services"]').click();
+    const serviceSection = page.locator('.faq-category-section[data-section="services"]');
+    await expect(serviceSection).toHaveClass(/active/);
+    await expect(serviceSection.locator('.faq-item').first()).toBeVisible();
+    await expect(serviceSection).not.toHaveClass(/is-entering|is-visible/);
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth);
+    expect(overflow).toBe(false);
+  });
+
+  test(`${route} docs feedback uses shared toast notifications`, async ({ page }) => {
+    let feedbackRequests = 0;
+    await page.route("**/api/docs-feedback", async (routeRequest) => {
+      feedbackRequests += 1;
+      await routeRequest.fulfill({
+        status: feedbackRequests === 1 ? 200 : 500,
+        contentType: "application/json",
+        body: JSON.stringify(feedbackRequests === 1 ? { ok: true, status: "saved" } : { error: "server_error" })
+      });
+    });
+
+    await page.goto(route, { waitUntil: "domcontentloaded" });
+    await page.locator(".living-release__close").click();
+
+    const feedbackPanel = page.locator('[data-docs-feedback][data-feedback-page-key="faq"]');
+    await expect(feedbackPanel.locator("[data-feedback-status]")).toHaveCount(0);
+    await feedbackPanel.locator('[data-feedback-vote="yes"]').click();
+    await expect(page.locator(".nexcore-toast--success")).toBeVisible();
+
+    await feedbackPanel.locator('[data-feedback-vote="no"]').click();
+    await expect(page.locator(".nexcore-toast--error")).toBeVisible();
+  });
+}
+
+for (const route of ["/auth.html", "/ar/auth.html"]) {
+  test(`${route} renders the responsive SQU access gateway`, async ({ page }) => {
+    await page.goto(route, { waitUntil: "domcontentloaded" });
+    await expect(page.locator(".auth-gateway__card")).toBeVisible();
+    await expect(page.locator("#googleSignInBtn")).toBeVisible();
+    await expect(page.locator(".auth-gateway__eligibility")).toBeVisible();
+    await expect(page.locator(".auth-gateway__paused")).toBeVisible();
+    await expect(page.locator('.auth-gateway a[href*="pricing"]')).toHaveCount(0);
+
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.reload({ waitUntil: "domcontentloaded" });
+    await expect(page.locator(".auth-gateway__card")).toBeVisible();
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth);
+    expect(overflow).toBe(false);
+  });
+}
+
+for (const route of ["/privacy-policy.html", "/ar/privacy-policy.html"]) {
+  test(`${route} renders as a responsive policy document`, async ({ page }) => {
+    await page.setViewportSize({ width: 320, height: 700 });
+    await page.goto(route, { waitUntil: "domcontentloaded" });
+    await expect(page.locator(".privacy-policy-container .terms-header")).toBeVisible();
+    await expect(page.locator(".policy-meta-pill")).toHaveCount(2);
+    await expect(page.locator(".privacy-policy-container .table-of-contents a")).toHaveCount(6);
+    await expect(page.locator("#privacy-rights")).toBeVisible();
+    await expect(page.locator(".privacy-consent-panel #withdraw-consent")).toBeVisible();
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth);
+    expect(overflow).toBe(false);
+  });
+}
+
+for (const route of ["/terms.html", "/ar/terms.html", "/pricing-policy.html", "/ar/pricing-policy.html"]) {
+  test(`${route} renders responsive policy metadata`, async ({ page }) => {
+    await page.setViewportSize({ width: 320, height: 700 });
+    await page.goto(route, { waitUntil: "domcontentloaded" });
+    await expect(page.locator(".policy-meta-pills")).toBeVisible();
+    await expect(page.locator(".policy-meta-pill")).toHaveCount(route.includes("pricing-policy") ? 3 : 2);
+    if (route.includes("pricing-policy")) {
+      const releaseClose = page.locator(".living-release__close");
+      if (await releaseClose.isVisible()) await releaseClose.click({ force: true });
+      await page.locator("#coreMenu").click({ force: true });
+      await expect(page.locator('#myDropdown a[href="terms.html"]')).toBeVisible();
+      await expect(page.locator('#myDropdown a[href="terms.html"]')).toHaveClass(/fade/);
+    }
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth);
+    expect(overflow).toBe(false);
+  });
+}
+
 for (const route of ["/releases.html", "/ar/releases.html"]) {
   test(`${route} renders the complete release timeline`, async ({ page }) => {
     await page.goto(route, { waitUntil: "domcontentloaded" });
@@ -92,6 +326,8 @@ test.describe("living release beacon", () => {
     await expect(shell).toContainText("جديد في NexCore");
     await expect(shell.locator(".living-release__highlights li")).toHaveCount(3);
     await expect(shell.locator(".living-release__cta")).toHaveAttribute("href", "/ar/releases#v3-3-1");
+    await expect(shell.locator(".living-release__cta")).toHaveClass(/btn/);
+    await expect(shell.locator(".living-release__cta")).toHaveClass(/primary/);
     const panelBox = await shell.locator(".living-release__panel").boundingBox();
     expect(panelBox.x).toBeGreaterThanOrEqual(0);
     expect(panelBox.x + panelBox.width).toBeLessThanOrEqual(1280);

@@ -345,9 +345,25 @@
     .save-state-pill.clean{color:#6ee7f3}
     .save-state-pill.busy{color:#ffcc66}
     .save-state-pill.error{color:#ff7878}
-    .project-empty-state{display:none;border:1px solid rgba(110,231,243,.18);border-radius:18px;background:linear-gradient(135deg,rgba(110,231,243,.08),rgba(255,255,255,.02));padding:24px;margin-top:12px}
-    .empty-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,.55fr);gap:22px;align-items:end}
-    .empty-form{display:grid;grid-template-columns:minmax(180px,1fr) minmax(220px,.75fr) auto;gap:12px;align-items:center}
+    .project-empty-state{display:none;overflow:hidden;border:1px solid rgba(110,231,243,.18);border-radius:18px;background:linear-gradient(135deg,rgba(110,231,243,.08),rgba(255,255,255,.02));margin-top:12px}
+    .empty-grid{display:grid;grid-template-columns:minmax(0,.92fr) minmax(320px,.78fr);align-items:stretch}
+    .empty-intro{padding:30px;border-inline-end:1px solid rgba(255,255,255,.08);background:linear-gradient(135deg,rgba(110,231,243,.11),rgba(7,12,26,.04))}
+    .empty-icon{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;margin-bottom:18px;border:1px solid rgba(110,231,243,.28);border-radius:10px;background:rgba(110,231,243,.1);color:#6ee7f3;font-size:16px}
+    .empty-intro h2{margin:0 0 9px;color:#fff;font-size:1.35rem}
+    .empty-intro .muted{max-width:520px;margin:0;line-height:1.6}
+    .empty-highlights{display:flex;flex-wrap:wrap;gap:9px;margin-top:20px}
+    .empty-highlight{display:inline-flex;align-items:center;gap:7px;color:rgba(232,233,240,.78);font-size:12px}
+    .empty-highlight i{color:#6ee7f3;font-size:11px}
+    .empty-form{display:grid;gap:15px;padding:30px}
+    .empty-form-heading{margin:0;color:#fff;font-size:14px;font-weight:800}
+    .empty-form-fields{display:grid;grid-template-columns:minmax(0,1fr) minmax(180px,.72fr);gap:12px}
+    .empty-field{min-width:0}
+    .empty-field label{display:block;margin-bottom:7px;color:rgba(232,233,240,.62);font-size:12px;font-weight:700}
+    .empty-form .ai-select-wrap{width:100%}
+    .empty-form .ai-select-trigger,.empty-form input{min-height:44px}
+    .empty-submit{display:flex;align-items:center;justify-content:space-between;gap:14px;padding-top:4px}
+    .empty-note{margin:0;color:rgba(232,233,240,.48);font-size:12px;line-height:1.5}
+    .empty-submit .btn{min-height:44px;white-space:nowrap}
     .command-panel{display:none}
     .command-band,.readiness-band,.editor-panel,.preview-panel,.action-dock,.project-empty-state{
       border:1px solid rgba(255,255,255,.09);
@@ -392,8 +408,12 @@
     .dashboard-tab{display:inline-flex;align-items:center;gap:8px;padding:12px 14px;border:0;border-bottom:2px solid transparent;background:transparent;color:rgba(232,233,240,.7);font:inherit;font-size:14px;white-space:nowrap;cursor:pointer}
     .dashboard-tab.active{color:#6ee7f3;border-bottom-color:#6ee7f3}
     .dashboard-tab.danger{color:#ff9898}
+    .dashboard-panel-stage{position:relative;overflow:hidden;transition:height 220ms ease-out}
     .dashboard-panel{display:none;padding:18px}
     .dashboard-panel.active{display:block}
+    .dashboard-panel.is-entering{opacity:0;transform:translateY(8px);transition:opacity 220ms ease-out,transform 220ms ease-out}
+    .dashboard-panel.is-entering.is-visible{opacity:1;transform:translateY(0)}
+    .dashboard-panel.is-leaving{position:absolute;inset-inline:0;top:0;opacity:0;transform:translateY(-4px);pointer-events:none;transition:opacity 140ms ease-out,transform 140ms ease-out}
     .panel-title-row{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:14px}
     .panel-title-row h3{margin:0;color:#fff;font-size:1.1rem}
     .field-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
@@ -429,8 +449,11 @@
     @media(max-width:720px){
       .wrap.dashboard-command{margin-top:92px;padding:12px}
       .dashboard-title-row{margin-bottom:14px}
-      .empty-grid,.empty-form,.command-main,.field-grid{grid-template-columns:1fr}
-      .empty-form .btn{width:100%}
+      .empty-grid,.empty-form-fields,.command-main,.field-grid{grid-template-columns:1fr}
+      .empty-intro{padding:24px;border-inline-end:0;border-bottom:1px solid rgba(255,255,255,.08)}
+      .empty-form{padding:24px}
+      .empty-submit{align-items:stretch;flex-direction:column}
+      .empty-submit .btn{width:100%}
       .command-metric,.next-action{border-inline-start:0;padding-inline:0;border-top:1px solid rgba(255,255,255,.08);padding-top:12px}
       .readiness-items{grid-template-columns:1fr 1fr}
       .hub-preview-card{grid-template-columns:72px 1fr}
@@ -441,8 +464,12 @@
     @media(max-width:460px){
       .readiness-items{grid-template-columns:1fr}
       .dock-actions,.dock-actions .btn,.dashboard-actions .btn{width:100%}
+      .empty-intro,.empty-form{padding:20px}
       .summary-row{display:block}
       .summary-row span:last-child{display:block;text-align:start;margin-top:4px}
+    }
+    @media(prefers-reduced-motion:reduce){
+      .dashboard-panel-stage,.dashboard-panel.is-entering,.dashboard-panel.is-leaving{transition:none!important}
     }
   </style>
   <!-- Vercel Web Analytics -->
@@ -547,15 +574,27 @@
 
     <section id="noProject" class="project-empty-state" style="display:none;">
       <div class="empty-grid">
-        <div>
+        <div class="empty-intro">
           <p class="dashboard-kicker">ابدأ هنا</p>
-          <h2 style="margin:0 0 8px;">أنشئ ملف مشروعك</h2>
+          <div class="empty-icon" aria-hidden="true"><i class="fa-solid fa-rocket"></i></div>
+          <h2>أنشئ ملف مشروعك</h2>
           <p class="muted">سيتم إنشاء بطاقة مركز وملف عام كمسودة. يمكنك التعديل والمعاينة والنشر عندما تكون جاهزاً.</p>
+          <div class="empty-highlights" aria-label="ما الذي سيحدث بعد ذلك">
+            <span class="empty-highlight"><i class="fa-solid fa-check"></i> يبدأ كمسودة خاصة</span>
+            <span class="empty-highlight"><i class="fa-solid fa-check"></i> مراجعة قبل النشر</span>
+          </div>
         </div>
         <div class="empty-form">
-          <input id="newProjectName" placeholder="اسم المشروع" />
-          <div class="ai-select-wrap category-select-wrap" id="newProjectCategoryWrap">
-            <select id="newProjectCategory" name="category" aria-label="تصنيف المشروع">
+          <p class="empty-form-heading">أساسيات المشروع</p>
+          <div class="empty-form-fields">
+            <div class="empty-field">
+              <label for="newProjectName">اسم المشروع</label>
+              <input id="newProjectName" placeholder="مثال: منصة الحرم" />
+            </div>
+            <div class="empty-field">
+              <label for="newProjectCategory">التصنيف</label>
+              <div class="ai-select-wrap category-select-wrap" id="newProjectCategoryWrap">
+                <select id="newProjectCategory" name="category" aria-label="تصنيف المشروع">
               <option value="technology">التقنية</option>
               <option value="business">الأعمال</option>
               <option value="education">التعليم</option>
@@ -572,14 +611,19 @@
               <option value="sports-fitness">الرياضة واللياقة</option>
               <option value="community">المجتمع</option>
               <option value="lifestyle">نمط الحياة</option>
-            </select>
-            <div class="ai-select-trigger" id="newProjectCategoryTrigger" role="button" tabindex="0" aria-haspopup="listbox" aria-expanded="false">
-              <span id="newProjectCategoryLabel">التقنية</span>
-              <span class="ai-select-chevron"></span>
+                </select>
+                <div class="ai-select-trigger" id="newProjectCategoryTrigger" role="button" tabindex="0" aria-haspopup="listbox" aria-expanded="false">
+                  <span id="newProjectCategoryLabel">التقنية</span>
+                  <span class="ai-select-chevron"></span>
+                </div>
+                <div class="ai-select-panel category-select-panel" role="listbox" id="newProjectCategoryPanel"></div>
+              </div>
             </div>
-            <div class="ai-select-panel category-select-panel" role="listbox" id="newProjectCategoryPanel"></div>
           </div>
-          <button class="btn primary" id="createProjectBtn">إنشاء مشروع</button>
+          <div class="empty-submit">
+            <p class="empty-note">يمكنك تحسين كل التفاصيل قبل أن يراها زوار مشروعك.</p>
+            <button class="btn primary" id="createProjectBtn"><i class="fa-solid fa-arrow-left"></i> إنشاء المشروع</button>
+          </div>
         </div>
       </div>
     </section>
@@ -642,6 +686,7 @@
             <button class="dashboard-tab danger" type="button" role="tab" aria-selected="false" data-dashboard-tab="danger"><i class="fa-solid fa-triangle-exclamation"></i> منطقة الخطر</button>
           </div>
 
+          <div class="dashboard-panel-stage">
           <div class="dashboard-panel active" role="tabpanel" data-dashboard-panel="overview">
             <div class="panel-title-row">
               <div>
@@ -777,6 +822,7 @@
           <div class="dashboard-panel danger-panel" role="tabpanel" data-dashboard-panel="danger">
             <div class="panel-title-row"><div><h3>منطقة الخطر</h3><p class="muted">الحذف يزيل هذا المشروع نهائياً من المركز والصفحة العامة.</p></div></div>
             <button class="btn danger" id="deleteBtn"><i class="fa-solid fa-trash"></i> حذف المشروع</button>
+          </div>
           </div>
         </section>
 
@@ -1251,14 +1297,53 @@
     }
 
     function setDashboardTab(name) {
+      const transition = window.__nexcoreDashboardPanelTransition || (window.__nexcoreDashboardPanelTransition = {});
+      if (transition.inProgress) return;
+
+      const currentName = getActiveDashboardTab();
+      if (currentName === name) return;
+
+      const currentPanel = document.querySelector(`[data-dashboard-panel="${currentName}"]`);
+      const nextPanel = document.querySelector(`[data-dashboard-panel="${name}"]`);
+      if (!currentPanel || !nextPanel) return;
+
       document.querySelectorAll("[data-dashboard-tab]").forEach((tab) => {
         const active = tab.dataset.dashboardTab === name;
         tab.classList.toggle("active", active);
         tab.setAttribute("aria-selected", active ? "true" : "false");
       });
-      document.querySelectorAll("[data-dashboard-panel]").forEach((panel) => {
-        panel.classList.toggle("active", panel.dataset.dashboardPanel === name);
+
+      if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
+        currentPanel.classList.remove("active", "is-entering", "is-visible", "is-leaving");
+        nextPanel.classList.add("active");
+        return;
+      }
+
+      const stage = currentPanel.closest(".dashboard-panel-stage");
+      if (!stage) {
+        currentPanel.classList.remove("active");
+        nextPanel.classList.add("active");
+        return;
+      }
+
+      transition.inProgress = true;
+      const currentHeight = currentPanel.getBoundingClientRect().height;
+      stage.style.height = `${currentHeight}px`;
+      currentPanel.classList.add("is-leaving");
+      nextPanel.classList.add("active", "is-entering");
+      const nextHeight = nextPanel.getBoundingClientRect().height;
+
+      requestAnimationFrame(() => {
+        nextPanel.classList.add("is-visible");
+        stage.style.height = `${nextHeight}px`;
       });
+
+      transition.timer = window.setTimeout(() => {
+        currentPanel.classList.remove("active", "is-leaving");
+        nextPanel.classList.remove("is-entering", "is-visible");
+        stage.style.height = "";
+        transition.inProgress = false;
+      }, 240);
     }
 
     function getActiveDashboardTab() {
@@ -1487,14 +1572,53 @@
     }
 
     function setDashboardTab(name) {
+      const transition = window.__nexcoreDashboardPanelTransition || (window.__nexcoreDashboardPanelTransition = {});
+      if (transition.inProgress) return;
+
+      const currentName = getActiveDashboardTab();
+      if (currentName === name) return;
+
+      const currentPanel = document.querySelector(`[data-dashboard-panel="${currentName}"]`);
+      const nextPanel = document.querySelector(`[data-dashboard-panel="${name}"]`);
+      if (!currentPanel || !nextPanel) return;
+
       document.querySelectorAll("[data-dashboard-tab]").forEach((tab) => {
         const active = tab.dataset.dashboardTab === name;
         tab.classList.toggle("active", active);
         tab.setAttribute("aria-selected", active ? "true" : "false");
       });
-      document.querySelectorAll("[data-dashboard-panel]").forEach((panel) => {
-        panel.classList.toggle("active", panel.dataset.dashboardPanel === name);
+
+      if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
+        currentPanel.classList.remove("active", "is-entering", "is-visible", "is-leaving");
+        nextPanel.classList.add("active");
+        return;
+      }
+
+      const stage = currentPanel.closest(".dashboard-panel-stage");
+      if (!stage) {
+        currentPanel.classList.remove("active");
+        nextPanel.classList.add("active");
+        return;
+      }
+
+      transition.inProgress = true;
+      const currentHeight = currentPanel.getBoundingClientRect().height;
+      stage.style.height = `${currentHeight}px`;
+      currentPanel.classList.add("is-leaving");
+      nextPanel.classList.add("active", "is-entering");
+      const nextHeight = nextPanel.getBoundingClientRect().height;
+
+      requestAnimationFrame(() => {
+        nextPanel.classList.add("is-visible");
+        stage.style.height = `${nextHeight}px`;
       });
+
+      transition.timer = window.setTimeout(() => {
+        currentPanel.classList.remove("active", "is-leaving");
+        nextPanel.classList.remove("is-entering", "is-visible");
+        stage.style.height = "";
+        transition.inProgress = false;
+      }, 240);
     }
 
     function getActiveDashboardTab() {
