@@ -212,6 +212,31 @@ for (const route of ["/dashboard.html", "/ar/dashboard.html"]) {
   });
 }
 
+for (const [route, viewport] of [
+  ["/index.html", { width: 1280, height: 800 }],
+  ["/ar/index.html", { width: 390, height: 844 }]
+]) {
+  test(`${route} renders notifications below the navigation`, async ({ page }) => {
+    await page.setViewportSize(viewport);
+    await page.goto(route, { waitUntil: "domcontentloaded" });
+    await page.waitForFunction(() => Boolean(window.NexCoreNotify));
+    await page.evaluate(() => window.NexCoreNotify.show({ message: "Toast placement smoke test", type: "info", duration: 0 }));
+    await page.locator(".nexcore-toast.is-visible").waitFor();
+
+    const placement = await page.evaluate(() => {
+      const navigation = document.querySelector(".nav-container").getBoundingClientRect();
+      const toast = document.querySelector(".nexcore-toast").getBoundingClientRect();
+      return {
+        belowNavigation: toast.top >= navigation.bottom,
+        overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
+      };
+    });
+
+    expect(placement.belowNavigation).toBe(true);
+    expect(placement.overflow).toBe(false);
+  });
+}
+
 for (const route of ["/faq.html", "/ar/faq.html"]) {
   test(`${route} FAQ categories transition between sections`, async ({ page }) => {
     await page.emulateMedia({ reducedMotion: "no-preference" });
