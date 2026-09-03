@@ -772,7 +772,7 @@ async function initLivingReleaseBeacon({ isArabic, locale }) {
       <ul class="living-release__highlights">
         ${highlights.map((item) => `<li><i class="fa-solid fa-check" aria-hidden="true"></i><span>${escapeHtml(item)}</span></li>`).join("")}
       </ul>
-      <a class="living-release__cta" href="${releaseHref}">
+      <a class="btn primary living-release__cta" href="${releaseHref}">
         <span>${copy.explore}</span><i class="fa-solid fa-arrow-${isArabic ? "left" : "right"}" aria-hidden="true"></i>
       </a>
       <button class="living-release__dismiss" type="button">${copy.dismiss}</button>

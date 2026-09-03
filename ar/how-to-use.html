@@ -55,8 +55,13 @@
     .guide-tab-btn{padding:10px 22px;background:transparent;border:none;border-radius:9px;color:#9aa3b2;cursor:pointer;font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px;transition:all .2s;font-family:Tajawal,Inter,sans-serif}
     .guide-tab-btn.active{background:rgba(110,231,243,.15);color:#6ee7f3;border:1px solid rgba(110,231,243,.3)}
     .guide-tab-btn:hover:not(.active){color:#eaf6fb}
-    .guide-panel{display:none}
-    .guide-panel.active{display:block}
+    .guide-panels{position:relative;transition:height 220ms ease-out}
+    .guide-panel{position:absolute;inset:0 0 auto;width:100%;opacity:0;transform:translateY(8px);visibility:hidden;pointer-events:none;transition:opacity 220ms ease-out,transform 220ms ease-out,visibility 0s linear 220ms}
+    .guide-panel.active{position:relative;opacity:1;transform:translateY(0);visibility:visible;pointer-events:auto;transition:opacity 220ms ease-out,transform 220ms ease-out}
+    .guide-panel.is-entering{position:absolute;visibility:visible;pointer-events:none}
+    .guide-panel.is-entering.is-visible{opacity:1;transform:translateY(0)}
+    .guide-panel.is-leaving{position:absolute;opacity:0;transform:translateY(-4px);visibility:visible;pointer-events:none;transition:opacity 140ms ease-out,transform 140ms ease-out}
+    @media (prefers-reduced-motion:reduce){.guide-panels,.guide-panel,.guide-tab-btn{transition:none!important}}
     .guide-note{display:flex;align-items:flex-start;gap:12px;padding:14px 18px;border-radius:8px;margin:20px 0;font-size:14px;line-height:1.8}
     .guide-note.info{background:rgba(110,231,243,.08);border-right:4px solid #6ee7f3;color:#a8d8e0}
     .guide-note.warn{background:rgba(255,180,50,.08);border-right:4px solid #ffb432;color:#d4b06a}
@@ -250,16 +255,17 @@
         <h2><i class="fa-solid fa-map"></i> دليل خطوة بخطوة</h2>
         <p>اختر المسار الذي يناسبك حتى يصل مشروعك إلى نكسكور بالطريقة الصحيحة.</p>
 
-        <div class="guide-toggle">
-          <button class="guide-tab-btn active" id="tabSquBtn" onclick="switchGuideTab('squ')">
+        <div class="guide-toggle" role="group" aria-label="اختر دليلك">
+          <button type="button" class="guide-tab-btn active" id="tabSquBtn" aria-controls="guideSquPanel" aria-pressed="true" onclick="switchGuideTab('squ')">
             <i class="fa-solid fa-graduation-cap"></i> طالب جامعة السلطان قابوس
           </button>
-          <button class="guide-tab-btn" id="tabNonSquBtn" onclick="switchGuideTab('nonsqu')">
+          <button type="button" class="guide-tab-btn" id="tabNonSquBtn" aria-controls="guideNonSquPanel" aria-pressed="false" onclick="switchGuideTab('nonsqu')">
             <i class="fa-solid fa-globe"></i> خارج جامعة السلطان قابوس
           </button>
         </div>
 
-        <div id="guideSquPanel" class="guide-panel active">
+        <div class="guide-panels" id="guidePanels">
+        <div id="guideSquPanel" class="guide-panel active" aria-hidden="false">
           <div class="guide-note info">
             <i class="fa-solid fa-circle-info"></i>
             <span><strong>تحصل حسابات جامعة السلطان قابوس المؤهلة حالياً على وصول مجاني وفق قواعد NexCore الخاصة.</strong> NexCore مبادرة طلابية مستقلة وليست مشغلة أو ممولة أو معتمدة من الجامعة.</span>
@@ -272,7 +278,7 @@
           </ol>
         </div>
 
-        <div id="guideNonSquPanel" class="guide-panel">
+        <div id="guideNonSquPanel" class="guide-panel" aria-hidden="true">
           <div class="guide-note warn">
             <i class="fa-solid fa-triangle-exclamation"></i>
             <span><strong>الوصول المدفوع غير متاح مؤقتاً.</strong> تبقى الأسعار ظاهرة بالريال العماني للشفافية، لكن NexCore لا تستقبل حالياً دفع طلبات الخدمات عبر PayPal أو التحويل البنكي أو تحويل الهاتف أو الطلبات المدفوعة أثناء المراجعة القانونية والتنظيمية.</span>
@@ -287,6 +293,7 @@
             <li data-step="٦"><strong>سيظهر الإجمالي قبل الدفع</strong><br>عند إعادة فتح الدفع ستعرض صفحة الإتمام كامل المبلغ المستحق ورسوم المعالج ومبلغ الصرف قبل الموافقة والدفع.</li>
             <li data-step="٧"><strong>سجل الدخول وأدر مشروعك</strong><br>بعد التفعيل، سجل الدخول بالبريد نفسه لتصل إلى لوحة التحكم.</li>
           </ol>
+        </div>
         </div>
       </section>
 
@@ -398,12 +405,62 @@
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
+    let guideTransitionInProgress = false;
+
+    function updateGuideTabSelection(isSqu) {
+      const squButton = document.getElementById('tabSquBtn');
+      const nonSquButton = document.getElementById('tabNonSquBtn');
+      squButton.classList.toggle('active', isSqu);
+      nonSquButton.classList.toggle('active', !isSqu);
+      squButton.setAttribute('aria-pressed', String(isSqu));
+      nonSquButton.setAttribute('aria-pressed', String(!isSqu));
+    }
+
     function switchGuideTab(tab) {
       const isSqu = tab === 'squ';
-      document.getElementById('guideSquPanel').classList.toggle('active', isSqu);
-      document.getElementById('guideNonSquPanel').classList.toggle('active', !isSqu);
-      document.getElementById('tabSquBtn').classList.toggle('active', isSqu);
-      document.getElementById('tabNonSquBtn').classList.toggle('active', !isSqu);
+      const panels = document.getElementById('guidePanels');
+      const currentPanel = document.querySelector('.guide-panel.active');
+      const nextPanel = document.getElementById(isSqu ? 'guideSquPanel' : 'guideNonSquPanel');
+      const squButton = document.getElementById('tabSquBtn');
+      const nonSquButton = document.getElementById('tabNonSquBtn');
+
+      if (!panels || !currentPanel || !nextPanel || currentPanel === nextPanel || guideTransitionInProgress) return;
+
+      updateGuideTabSelection(isSqu);
+
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        currentPanel.classList.remove('active', 'is-leaving');
+        currentPanel.setAttribute('aria-hidden', 'true');
+        nextPanel.classList.remove('is-entering', 'is-visible');
+        nextPanel.classList.add('active');
+        nextPanel.setAttribute('aria-hidden', 'false');
+        return;
+      }
+
+      guideTransitionInProgress = true;
+      squButton.disabled = true;
+      nonSquButton.disabled = true;
+      panels.style.height = `${currentPanel.getBoundingClientRect().height}px`;
+      nextPanel.classList.add('is-entering');
+      nextPanel.setAttribute('aria-hidden', 'false');
+
+      window.requestAnimationFrame(() => {
+        panels.style.height = `${nextPanel.getBoundingClientRect().height}px`;
+        currentPanel.classList.remove('active');
+        currentPanel.classList.add('is-leaving');
+        currentPanel.setAttribute('aria-hidden', 'true');
+        nextPanel.classList.add('is-visible');
+      });
+
+      window.setTimeout(() => {
+        currentPanel.classList.remove('is-leaving');
+        nextPanel.classList.remove('is-entering', 'is-visible');
+        nextPanel.classList.add('active');
+        panels.style.height = '';
+        squButton.disabled = false;
+        nonSquButton.disabled = false;
+        guideTransitionInProgress = false;
+      }, 240);
     }
 
     const faqItems = document.querySelectorAll('.faq-item');

@@ -51,6 +51,7 @@
 
     <link rel="manifest" href="../manifest.json">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.46.0/dist/tabler-icons.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
@@ -262,19 +263,39 @@
             </div>
 
             <div class="faq-categories" id="categoryButtons">
-                <button class="category-btn active" data-category="general">عام</button>
-                <button class="category-btn" data-category="service">الخدمات</button>
-                <button class="category-btn" data-category="technical">تقني</button>
-                <button class="category-btn" data-category="support">الدعم</button>
-                <button class="category-btn" data-category="security">الأمان</button>
-                <button class="category-btn" data-category="pricing">التسعير</button>
+                <button class="faq-cat-btn active" type="button" data-category="general" aria-pressed="true">
+                    <i class="ti ti-help-circle" aria-hidden="true"></i>
+                    عام
+                </button>
+                <button class="faq-cat-btn" type="button" data-category="services" aria-pressed="false">
+                    <i class="ti ti-box" aria-hidden="true"></i>
+                    الخدمات
+                </button>
+                <button class="faq-cat-btn" type="button" data-category="technical" aria-pressed="false">
+                    <i class="ti ti-terminal-2" aria-hidden="true"></i>
+                    تقني
+                </button>
+                <button class="faq-cat-btn" type="button" data-category="support" aria-pressed="false">
+                    <i class="ti ti-headset" aria-hidden="true"></i>
+                    الدعم
+                </button>
+                <button class="faq-cat-btn" type="button" data-category="pricing" aria-pressed="false">
+                    <i class="ti ti-currency-dollar" aria-hidden="true"></i>
+                    التسعير
+                </button>
+                <button class="faq-cat-btn" type="button" data-category="security" aria-pressed="false">
+                    <i class="ti ti-shield-check" aria-hidden="true"></i>
+                    الأمان
+                </button>
             </div>
+
+            <div class="faq-divider"></div>
 
             <div class="faq-sections">
                 <!-- General Category -->
 
                 <div class="faq-category-section active" data-section="general">
-                    <h2 class="faq-category-title"><i class="fa-solid fa-circle-info"></i> عام</h2>
+                    <h2 class="faq-category-title"><i class="ti ti-help-circle" aria-hidden="true"></i> عام</h2>
 
                     <div class="faq-item active">
                         <h3 class="faq-question">
@@ -339,8 +360,8 @@
 
                 <!-- Services Category -->
 
-                <div class="faq-category-section" data-section="service">
-                    <h2 class="faq-category-title"><i class="fa-solid fa-briefcase"></i> الخدمات</h2>
+                <div class="faq-category-section" data-section="services">
+                    <h2 class="faq-category-title"><i class="ti ti-box" aria-hidden="true"></i> الخدمات</h2>
 
                     <div class="faq-item">
                         <h3 class="faq-question">
@@ -429,7 +450,7 @@
                 <!-- Technical Category -->
 
                 <div class="faq-category-section" data-section="technical">
-                    <h2 class="faq-category-title"><i class="fa-solid fa-code"></i> تقني</h2>
+                    <h2 class="faq-category-title"><i class="ti ti-terminal-2" aria-hidden="true"></i> تقني</h2>
 
                     <div class="faq-item">
                         <h3 class="faq-question">
@@ -508,7 +529,7 @@
                 <!-- Support Category -->
 
                 <div class="faq-category-section" data-section="support">
-                    <h2 class="faq-category-title"><i class="fa-solid fa-headset"></i> الدعم</h2>
+                    <h2 class="faq-category-title"><i class="ti ti-headset" aria-hidden="true"></i> الدعم</h2>
 
                     <div class="faq-item">
                         <h3 class="faq-question">
@@ -544,7 +565,7 @@
                 <!-- Security Category -->
 
                 <div class="faq-category-section" data-section="security">
-                    <h2 class="faq-category-title"><i class="fa-solid fa-shield-halved"></i> الأمان</h2>
+                    <h2 class="faq-category-title"><i class="ti ti-shield-check" aria-hidden="true"></i> الأمان</h2>
 
                     <div class="faq-item">
                         <h3 class="faq-question">
@@ -578,7 +599,7 @@
                 <!-- Pricing Category -->
 
                 <div class="faq-category-section" data-section="pricing">
-                    <h2 class="faq-category-title"><i class="fa-solid fa-tag"></i> التسعير</h2>
+                    <h2 class="faq-category-title"><i class="ti ti-currency-dollar" aria-hidden="true"></i> التسعير</h2>
 
                     <div class="faq-item">
                         <h3 class="faq-question">
@@ -621,6 +642,44 @@
                     </div>
                 </div>
             </div>
+
+            <section class="docs-feedback-footer" aria-labelledby="faqDocsFeedbackTitleAr">
+                <h2 id="faqDocsFeedbackTitleAr" class="docs-feedback-title">المساعدة والدعم</h2>
+
+                <div class="docs-feedback-panel docs-feedback-survey" data-docs-feedback data-feedback-page-key="faq" data-feedback-locale="ar" data-feedback-message-submitting="جارٍ حفظ التقييم..." data-feedback-message-yes="شكراً على رأيك!" data-feedback-message-no="وصلتنا الملاحظة — سنستخدمها لتحسين الأسئلة الشائعة." data-feedback-message-error="تعذر حفظ التقييم. حاول مرة أخرى.">
+                    <h2>هل ساعدتك هذه الأسئلة الشائعة؟</h2>
+                    <p>يساعدنا رأيك على جعل الإجابات أوضح.</p>
+
+                    <div class="docs-feedback-actions" aria-label="تقييم فائدة الأسئلة الشائعة">
+                        <button type="button" class="docs-feedback-choice" data-feedback-vote="yes" aria-pressed="false" aria-label="تحديد أن الأسئلة الشائعة مفيدة"><i class="ti ti-thumb-up" aria-hidden="true"></i> نعم</button>
+                        <button type="button" class="docs-feedback-choice" data-feedback-vote="no" aria-pressed="false" aria-label="تحديد أن الأسئلة الشائعة غير مفيدة"><i class="ti ti-thumb-down" aria-hidden="true"></i> لا</button>
+                    </div>
+
+                    <p class="docs-feedback-status" data-feedback-status role="status" aria-live="polite"></p>
+                    <a href="privacy-policy.html" class="docs-feedback-link">سياسة الخصوصية</a>
+                </div>
+
+                <div class="docs-feedback-panel docs-feedback-contribute">
+                    <h2>ساعدنا في تحسين الإجابات</h2>
+
+                    <p>وجدت إجابة غير واضحة أو موضوعاً ناقصاً؟ أرسل تحسيناً صغيراً من خلال مركز المساهمين.</p>
+
+                    <a href="contribute.html" class="docs-feedback-button"><i class="ti ti-git-pull-request" aria-hidden="true"></i> ساهم في التحسين</a>
+                    <a href="contribute.html" class="docs-feedback-link">تعرّف على طريقة المساهمة</a>
+                </div>
+
+                <div class="docs-feedback-panel docs-feedback-help">
+                    <h2>ما زلت تحتاج مساعدة؟</h2>
+
+                    <p>تواصل معنا عبر أي من هذه القنوات.</p>
+
+                    <div class="docs-feedback-links">
+                        <a href="https://discord.gg/ExtGSwy5Pn" class="docs-feedback-link docs-feedback-contact-link" target="_blank" rel="noopener"><i class="ti ti-brand-discord" aria-hidden="true"></i> اسأل المجتمع</a>
+                        <a href="index.html#contact" class="docs-feedback-link docs-feedback-contact-link"><i class="ti ti-send" aria-hidden="true"></i> تواصل مع NexCore Labs</a>
+                        <a href="https://github.com/NexCore-Labs-Initiative/NexCore" class="docs-feedback-link docs-feedback-contact-link" target="_blank" rel="noopener"><i class="ti ti-brand-github" aria-hidden="true"></i> افتح المستودع</a>
+                    </div>
+                </div>
+            </section>
         </div>
     </main>
 
@@ -662,11 +721,80 @@
 
             const faqSections = container.querySelectorAll('.faq-category-section');
 
-            const categoryButtons = container.querySelectorAll('.category-btn');
+            const categoryButtons = container.querySelectorAll('.faq-cat-btn');
 
             const searchInput = container.querySelector('#faqSearch');
 
             const noResults = container.querySelector('.no-results');
+
+            const faqSectionsWrapper = container.querySelector('.faq-sections');
+
+            let faqCategoryTransitionInProgress = false;
+
+            function updateCategoryButtonSelection(category) {
+
+                categoryButtons.forEach(button => {
+
+                    const isActive = button.dataset.category === category;
+                    button.classList.toggle('active', isActive);
+                    button.setAttribute('aria-pressed', String(isActive));
+
+                });
+
+            }
+
+            function switchFaqCategory(category) {
+
+                const currentSection = container.querySelector('.faq-category-section.active');
+                const nextSection = Array.from(faqSections).find(section => section.dataset.section === category);
+
+                if (!faqSectionsWrapper || !currentSection || !nextSection || currentSection === nextSection || faqCategoryTransitionInProgress) return;
+
+                updateCategoryButtonSelection(category);
+
+                if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+
+                    currentSection.classList.remove('active', 'is-leaving');
+                    currentSection.style.display = 'none';
+                    currentSection.setAttribute('aria-hidden', 'true');
+                    nextSection.style.display = '';
+                    nextSection.classList.remove('is-entering', 'is-visible');
+                    nextSection.classList.add('active');
+                    nextSection.setAttribute('aria-hidden', 'false');
+                    return;
+
+                }
+
+                faqCategoryTransitionInProgress = true;
+                categoryButtons.forEach(button => { button.disabled = true; });
+                faqSectionsWrapper.style.height = `${currentSection.getBoundingClientRect().height}px`;
+                nextSection.style.display = '';
+                nextSection.classList.add('is-entering');
+                nextSection.setAttribute('aria-hidden', 'false');
+
+                window.requestAnimationFrame(() => {
+
+                    faqSectionsWrapper.style.height = `${nextSection.getBoundingClientRect().height}px`;
+                    currentSection.classList.remove('active');
+                    currentSection.classList.add('is-leaving');
+                    currentSection.setAttribute('aria-hidden', 'true');
+                    nextSection.classList.add('is-visible');
+
+                });
+
+                window.setTimeout(() => {
+
+                    currentSection.classList.remove('is-leaving');
+                    currentSection.style.display = 'none';
+                    nextSection.classList.remove('is-entering', 'is-visible');
+                    nextSection.classList.add('active');
+                    faqSectionsWrapper.style.height = '';
+                    categoryButtons.forEach(button => { button.disabled = false; });
+                    faqCategoryTransitionInProgress = false;
+
+                }, 240);
+
+            }
 
             // Initialize ARIA attributes for accessibility
 
@@ -677,6 +805,19 @@
                 item.setAttribute('tabindex', '0');
 
                 item.setAttribute('aria-expanded', item.classList.contains('active') ? 'true' : 'false');
+
+            });
+
+            faqSections.forEach(section => {
+
+                section.setAttribute('aria-hidden', section.classList.contains('active') ? 'false' : 'true');
+
+            });
+
+            categoryButtons.forEach(button => {
+
+                button.type = 'button';
+                button.setAttribute('aria-pressed', button.classList.contains('active') ? 'true' : 'false');
 
             });
 
@@ -741,7 +882,7 @@
 
                 const searchTerm = searchInput ? (searchInput.value || '').trim().toLowerCase() : '';
 
-                const activeCategory = container.querySelector('.category-btn.active')?.dataset.category || null;
+                const activeCategory = container.querySelector('.faq-cat-btn.active')?.dataset.category || null;
 
                 const matchesCountPerSection = new Map();
 
@@ -843,33 +984,7 @@
 
                 btn.addEventListener('click', () => {
 
-                    categoryButtons.forEach(b => b.classList.remove('active'));
-
-                    btn.classList.add('active');
-
-                    const category = btn.dataset.category;
-
-                    faqSections.forEach(section => {
-
-                        if (section.dataset.section === category) {
-
-                            section.classList.add('active');
-
-                            section.style.display = '';
-
-                        } else {
-
-                            section.classList.remove('active');
-
-                            section.style.display = 'none';
-
-                        }
-
-                    });
-
-                    // Re-run search to apply both filters
-
-                    performSearch();
+                    switchFaqCategory(btn.dataset.category);
 
                 });
 
@@ -916,10 +1031,6 @@
                 }
 
             });
-
-            // Initial run to respect active category on load
-
-            performSearch();
 
         })();
     </script>
