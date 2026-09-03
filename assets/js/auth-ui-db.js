@@ -16,7 +16,7 @@
     const copy = isArabicPage ? {
         lang: 'ar',
         dir: 'rtl',
-        restrictedEmail: 'يمكن فقط لبريد جامعة السلطان قابوس (@student.squ.edu.om / @squ.edu.om) أو المستخدمين المعتمدين تسجيل الدخول.',
+        restrictedEmail: 'الوصول متاح حالياً لحسابات جامعة السلطان قابوس المؤهلة فقط. الوصول الخارجي متوقف مؤقتاً.',
         signInTitle: 'تسجيل الدخول',
         accessCore: 'استكشف الجوهر',
         dashboardTitle: 'لوحة التحكم',
@@ -32,7 +32,7 @@
     } : {
         lang: 'en',
         dir: 'ltr',
-        restrictedEmail: 'Only SQU email addresses (@student.squ.edu.om / @squ.edu.om) or approved users can sign in.',
+        restrictedEmail: 'Access is currently limited to eligible SQU email addresses. External access is paused.',
         signInTitle: 'Sign In',
         accessCore: 'Access the Core',
         dashboardTitle: 'Dashboard',

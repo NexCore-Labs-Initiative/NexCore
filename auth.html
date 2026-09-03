@@ -63,18 +63,9 @@
         <link rel="alternate" hreflang="en" href="auth.html">
         <link rel="alternate" hreflang="ar" href="ar/auth.html">
 
-    <style>
-        .mt-0 { margin-top: 0 !important; }
-        .p-3-0 { padding: 3rem 0 !important; }
-        .mt-1rem { margin-top: 1rem !important; }
-        .pl-1-25rem { padding-left: 1.25rem !important; }
-        .d-none { display: none !important; }
-        .auth-msg-box { padding: 1rem; background: rgba(110, 231, 243, 0.1); border-radius: 8px; margin-bottom: 1rem; color: #6EE7F3; }
-        .auth-note-box { padding: 0.875rem; background: rgba(255, 120, 120, 0.12); border: 1px solid rgba(255, 120, 120, 0.3); border-radius: 8px; margin-bottom: 1rem; color: #ff8888; font-size: 0.9rem; line-height: 1.5; }
-    </style>
     </head>
 
-    <body>
+    <body class="auth-page">
   <a class="skip-link" href="#main-content">Skip to main content</a>
 
         <div class="background">
@@ -155,47 +146,14 @@
         </header>
 
         <main id="main-content">
-            <section class="panel p-3-0">
-                <div class="container">
-                    <div class="signup-wrapper">
-                        <!-- Left Column: Information -->
+            <section class="auth-gateway" aria-labelledby="authGatewayTitle">
+                <div class="auth-gateway__shell">
+                    <div class="auth-gateway__card">
+                        <p class="auth-gateway__eyebrow"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i> NexCore member access</p>
+                        <h1 id="authGatewayTitle">Access the Core</h1>
+                        <p class="auth-gateway__lead">Sign in with your SQU Google account to reach your project dashboard.</p>
 
-                        <div class="signup-info">
-                            <div class="info-block">
-                                <div class="auth-content-text" id="signupContent">
-                                    <h3><i class="fa-solid fa-rocket"></i> Why Join NexCore?</h3>
-
-                                    <p>Align your project vision with our expertise and bring your ideas to life online. We provide comprehensive digital solutions tailored for student-led initiatives.</p>
-
-                                    <ul class="mt-1rem pl-1-25rem">
-                                        <li>Professional page development</li>
-
-                                        <li>Technical support & guidance</li>
-
-                                        <li>Portfolio building opportunity</li>
-
-                                        <li>Collaborative team environment</li>
-                                    </ul>
-
-                                </div>
-                            </div>
-
-                            <div class="info-block">
-                                <h3><i class="fa-solid fa-graduation-cap"></i> Oman Student Community</h3>
-
-                                <p>NexCore Labs is open to students at universities and colleges across Oman. SQU students get <strong style="color:#6ee7f3;">free access</strong> automatically. From another Oman university? You can still get your project on the platform &mdash; <a href="pricing.html" style="color:#6ee7f3; text-decoration:none; border-bottom:1px solid rgba(110,231,243,0.3);">see how &rarr;</a></p>
-                            </div>
-                        </div>
-
-                        <!-- Right Column: Auth Form -->
-
-                        <div class="signup-form">
-                            <div class="form-box">
-                                <h2 id="formTitle">Access the Core</h2>
-
-                                <p class="form-desc" id="formDesc">Sign in with your Google account</p>
-
-                                <button class="google-btn" id="googleSignInBtn">
+                        <button class="google-btn auth-gateway__google" id="googleSignInBtn" type="button">
 
                                     <svg class="google-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
 
@@ -212,19 +170,27 @@
                                     <span id="btnText">Continue with Google</span>
                                 </button>
 
-                                <div class="squ-notice">
-                                    <i class="fa-solid fa-info-circle"></i>
-
-                                    Allowed: SQU affiliates (@student.squ.edu.om / @squ.edu.om) & approved NexCore users.
-
-                                </div>
-
-                                <div style="margin-top:14px; text-align:center; font-size:13px; color:#9aa3b2;">
-                                    Not from SQU? <a href="pricing.html" style="color:#6ee7f3; text-decoration:none; border-bottom:1px solid rgba(110,231,243,0.35); transition:border-color 0.2s;">Get approved in NexCore Labs &rarr;</a>
-                                </div>
+                        <div class="auth-gateway__eligibility">
+                            <i class="fa-solid fa-building-columns" aria-hidden="true"></i>
+                            <div>
+                                <strong>Use your SQU Google account</strong>
+                                <span><bdi dir="ltr">@student.squ.edu.om</bdi> or <bdi dir="ltr">@squ.edu.om</bdi></span>
                             </div>
                         </div>
+
+                        <p class="auth-gateway__paused"><i class="fa-solid fa-circle-pause" aria-hidden="true"></i> External access is currently paused.</p>
+
+                        <p class="auth-gateway__legal">By continuing, you agree to the <a href="terms.html">Terms</a> and <a href="privacy-policy.html">Privacy Policy</a>.</p>
                     </div>
+
+                    <section class="auth-gateway__next" aria-labelledby="authNextTitle">
+                        <h2 id="authNextTitle">After you sign in</h2>
+                        <ol>
+                            <li><i class="fa-solid fa-table-columns" aria-hidden="true"></i><span>Open your project dashboard.</span></li>
+                            <li><i class="fa-solid fa-pen-to-square" aria-hidden="true"></i><span>Shape your project page and links.</span></li>
+                            <li><i class="fa-solid fa-rocket" aria-hidden="true"></i><span>Publish once moderation is complete.</span></li>
+                        </ol>
+                    </section>
                 </div>
             </section>
 
@@ -280,7 +246,7 @@
             ];
 
             const AUTH_NOTICE_KEY = 'auth_notice';
-            const RESTRICTED_EMAIL_NOTICE = 'Only SQU email addresses (@student.squ.edu.om / @squ.edu.om) can sign in.';
+            const RESTRICTED_EMAIL_NOTICE = 'Access is currently limited to eligible SQU email addresses. External access is paused.';
 
             let suppressSignedOutNote = false;
 
@@ -381,7 +347,10 @@
 
                     // Show backend error message directly
 
-                    const message = errorDescription || error || 'Authentication failed';
+                    const authError = `${error || ''} ${errorDescription || ''}`.toLowerCase();
+                    const message = /authorized|restricted|pre-approved|squ email/.test(authError)
+                        ? RESTRICTED_EMAIL_NOTICE
+                        : (errorDescription || error || 'Authentication failed');
 
                     showNote(message, true);
 

@@ -53,18 +53,9 @@
         <link rel="alternate" hreflang="en" href="../auth.html">
         <link rel="alternate" hreflang="ar" href="auth.html">
 
-    <style>
-        .mt-0 { margin-top: 0 !important; }
-        .p-3-0 { padding: 3rem 0 !important; }
-        .mt-1rem { margin-top: 1rem !important; }
-        .pl-1-25rem { padding-left: 1.25rem !important; }
-        .d-none { display: none !important; }
-        .auth-msg-box { padding: 1rem; background: rgba(110, 231, 243, 0.1); border-radius: 8px; margin-bottom: 1rem; color: #6EE7F3; }
-        .auth-note-box { padding: 0.875rem; background: rgba(255, 120, 120, 0.12); border: 1px solid rgba(255, 120, 120, 0.3); border-radius: 8px; margin-bottom: 1rem; color: #ff8888; font-size: 0.9rem; line-height: 1.5; }
-    </style>
     </head>
 
-    <body>
+    <body class="auth-page">
   <a class="skip-link" href="#main-content">انتقل إلى المحتوى الرئيسي</a>
 
         <div class="background">
@@ -143,44 +134,14 @@
         </header>
 
         <main id="main-content">
-            <section class="panel p-3-0">
-                <div class="container">
-                    <div class="signup-wrapper">
-                        <!-- العمود الأيسر: المعلومات -->
+            <section class="auth-gateway" aria-labelledby="authGatewayTitle">
+                <div class="auth-gateway__shell">
+                    <div class="auth-gateway__card">
+                        <p class="auth-gateway__eyebrow"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i> نفاذ أعضاء NexCore</p>
+                        <h1 id="authGatewayTitle">الوصول إلى النواة</h1>
+                        <p class="auth-gateway__lead">سجّل الدخول بحساب Google التابع لجامعة السلطان قابوس للوصول إلى لوحة مشروعك.</p>
 
-                        <div class="signup-info">
-                            <div class="info-block">
-                                <div class="auth-content-text" id="signupContent">
-                                    <h3><i class="fa-solid fa-rocket"></i> لماذا تنضم إلى NexCore؟</h3>
-
-                                    <p>وافق رؤية مشروعك مع خبرتنا واجعل أفكارك حقيقة على الإنترنت. نحن نوفر حلولاً رقمية شاملة مصممة خصيصاً للمشاريع التي يقودها الطلاب.</p>
-
-                                    <ul class="mt-1rem pl-1-25rem">
-                                        <li>تطوير الصفحات الاحترافي</li>
-                                        <li>الدعم التقني والإرشادات</li>
-                                        <li>فرصة بناء المحفظة</li>
-                                        <li>بيئة العمل التعاوني</li>
-                                    </ul>
-
-                                </div>
-                            </div>
-
-                            <div class="info-block">
-                                <h3><i class="fa-solid fa-graduation-cap"></i> مجتمع الطلاب العماني</h3>
-
-                                <p>NexCore Labs مفتوحة لطلاب الجامعات والكليات في جميع أنحاء عمان. طلاب جامعة السلطان قابوس يحصلون على <strong style="color:#6ee7f3;">وصول مجاني</strong> تلقائياً. من جامعة أخرى في عمان؟ يمكنك الحصول على مشروعك على المنصة — <a href="../pricing.html" style="color:#6ee7f3; text-decoration:none; border-bottom:1px solid rgba(110,231,243,0.3);">انظر كيف ←</a></p>
-                            </div>
-                        </div>
-
-                        <!-- العمود الأيمن: نموذج المصادقة -->
-
-                        <div class="signup-form">
-                            <div class="form-box">
-                                <h2 id="formTitle">الوصول إلى النواة</h2>
-
-                                <p class="form-desc" id="formDesc">سجل الدخول باستخدام حسابك على جوجل</p>
-
-                                <button class="google-btn" id="googleSignInBtn">
+                        <button class="google-btn auth-gateway__google" id="googleSignInBtn" type="button">
 
                                     <svg class="google-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
 
@@ -197,17 +158,27 @@
                                     <span id="btnText">المتابعة بواسطة جوجل</span>
                                 </button>
 
-                                <div class="squ-notice">
-                                    <i class="fa-solid fa-info-circle"></i>
-                                    المسموح: أعضاء جامعة السلطان قابوس (@student.squ.edu.om / @squ.edu.om) والمستخدمون المعتمدون.
-                                </div>
-
-                                <div style="margin-top:14px; text-align:center; font-size:13px; color:#9aa3b2;">
-                                    هل أنت من خارج جامعة السلطان قابوس؟ <a href="pricing.html" style="color:#6ee7f3; text-decoration:none; border-bottom:1px solid rgba(110,231,243,0.35); transition:border-color 0.2s;">احصل على الموافقة في NexCore Labs ←</a>
-                                </div>
+                        <div class="auth-gateway__eligibility">
+                            <i class="fa-solid fa-building-columns" aria-hidden="true"></i>
+                            <div>
+                                <strong>استخدم حساب Google الجامعي التابع لجامعة السلطان قابوس</strong>
+                                <span><bdi dir="ltr">@student.squ.edu.om</bdi> أو <bdi dir="ltr">@squ.edu.om</bdi></span>
                             </div>
                         </div>
+
+                        <p class="auth-gateway__paused"><i class="fa-solid fa-circle-pause" aria-hidden="true"></i> الوصول الخارجي متوقف مؤقتاً حالياً.</p>
+
+                        <p class="auth-gateway__legal">بالمتابعة، أنت توافق على <a href="terms.html">الشروط</a> و<a href="privacy-policy.html">سياسة الخصوصية</a>.</p>
                     </div>
+
+                    <section class="auth-gateway__next" aria-labelledby="authNextTitle">
+                        <h2 id="authNextTitle">بعد تسجيل الدخول</h2>
+                        <ol>
+                            <li><i class="fa-solid fa-table-columns" aria-hidden="true"></i><span>افتح لوحة مشروعك.</span></li>
+                            <li><i class="fa-solid fa-pen-to-square" aria-hidden="true"></i><span>حدّث صفحة مشروعك وروابطه.</span></li>
+                            <li><i class="fa-solid fa-rocket" aria-hidden="true"></i><span>انشر بعد اكتمال المراجعة.</span></li>
+                        </ol>
+                    </section>
                 </div>
             </section>
 
@@ -248,7 +219,7 @@
             const ALLOWED_DOMAINS = ['squ.edu.om', 'student.squ.edu.om'];
             const APPROVED_EMAILS = [];
             const AUTH_NOTICE_KEY = 'auth_notice';
-            const RESTRICTED_EMAIL_NOTICE = 'فقط عناوين البريد الإلكترونية لجامعة السلطان قابوس (@student.squ.edu.om / @squ.edu.om) يمكنها تسجيل الدخول.';
+            const RESTRICTED_EMAIL_NOTICE = 'الوصول متاح حالياً لحسابات جامعة السلطان قابوس المؤهلة فقط. الوصول الخارجي متوقف مؤقتاً.';
             let suppressSignedOutNote = false;
 
             const googleBtn = document.getElementById('googleSignInBtn');
@@ -311,7 +282,10 @@
                 }
 
                 if (error || errorDescription) {
-                    const message = errorDescription || error || 'فشل المصادقة';
+                    const authError = `${error || ''} ${errorDescription || ''}`.toLowerCase();
+                    const message = /authorized|restricted|pre-approved|squ email/.test(authError)
+                        ? RESTRICTED_EMAIL_NOTICE
+                        : (errorDescription || error || 'فشل المصادقة');
                     showNote(message, true);
                     const cleanUrl = window.location.pathname;
                     window.history.replaceState({}, '', cleanUrl);

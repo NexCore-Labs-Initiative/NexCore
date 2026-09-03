@@ -176,6 +176,23 @@ for (const route of ["/faq.html", "/ar/faq.html"]) {
   });
 }
 
+for (const route of ["/auth.html", "/ar/auth.html"]) {
+  test(`${route} renders the responsive SQU access gateway`, async ({ page }) => {
+    await page.goto(route, { waitUntil: "domcontentloaded" });
+    await expect(page.locator(".auth-gateway__card")).toBeVisible();
+    await expect(page.locator("#googleSignInBtn")).toBeVisible();
+    await expect(page.locator(".auth-gateway__eligibility")).toBeVisible();
+    await expect(page.locator(".auth-gateway__paused")).toBeVisible();
+    await expect(page.locator('.auth-gateway a[href*="pricing"]')).toHaveCount(0);
+
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.reload({ waitUntil: "domcontentloaded" });
+    await expect(page.locator(".auth-gateway__card")).toBeVisible();
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth);
+    expect(overflow).toBe(false);
+  });
+}
+
 for (const route of ["/privacy-policy.html", "/ar/privacy-policy.html"]) {
   test(`${route} renders as a responsive policy document`, async ({ page }) => {
     await page.setViewportSize({ width: 320, height: 700 });
