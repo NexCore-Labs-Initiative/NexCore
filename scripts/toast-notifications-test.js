@@ -46,6 +46,8 @@ for (const snippet of [
   ".nexcore-toast--warning",
   ".nexcore-toast--info",
   ".nexcore-toast__close",
+  "top: 132px",
+  "top: 120px",
   "@media screen and (max-width: 600px)",
 ]) {
   assert(sharedCss.includes(snippet), `Shared CSS must include ${snippet}`);
