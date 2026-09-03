@@ -90,6 +90,41 @@ for (const route of ["/how-to-use.html", "/ar/how-to-use.html"]) {
   });
 }
 
+for (const route of ["/dashboard.html", "/ar/dashboard.html"]) {
+  test(`${route} command-center panels transition without overflow`, async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: "no-preference" });
+    await page.goto(route, { waitUntil: "domcontentloaded" });
+    await page.waitForFunction(() => typeof window.setDashboardTab === "function");
+
+    await page.evaluate(() => window.initDashboardTabs());
+    const profileTab = page.locator('[data-dashboard-tab="profile"]');
+    const overviewPanel = page.locator('[data-dashboard-panel="overview"]');
+    const profilePanel = page.locator('[data-dashboard-panel="profile"]');
+    await profileTab.click();
+    await expect(profileTab).toHaveAttribute("aria-selected", "true");
+    await expect(profilePanel).toHaveClass(/is-entering/);
+    await expect(overviewPanel).toHaveClass(/is-leaving/);
+    await page.waitForTimeout(280);
+    await expect(profilePanel).toHaveClass(/active/);
+    await expect(profilePanel).not.toHaveClass(/is-entering|is-visible/);
+    await expect(overviewPanel).not.toHaveClass(/active|is-leaving/);
+
+    await page.setViewportSize({ width: 390, height: 844 });
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth);
+    expect(overflow).toBe(false);
+  });
+
+  test(`${route} command-center panels respect reduced motion`, async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.goto(route, { waitUntil: "domcontentloaded" });
+    await page.waitForFunction(() => typeof window.setDashboardTab === "function");
+    await page.evaluate(() => window.setDashboardTab("links"));
+    const linksPanel = page.locator('[data-dashboard-panel="links"]');
+    await expect(linksPanel).toHaveClass(/active/);
+    await expect(linksPanel).not.toHaveClass(/is-entering|is-visible/);
+  });
+}
+
 for (const route of ["/faq.html", "/ar/faq.html"]) {
   test(`${route} FAQ categories transition between sections`, async ({ page }) => {
     await page.emulateMedia({ reducedMotion: "no-preference" });
