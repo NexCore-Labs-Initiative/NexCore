@@ -63,6 +63,8 @@ for (const [file, heading, publicPath] of [
   assert(html.includes('class="readiness-band"'), `${file} must include the readiness checklist`);
   assert(html.includes('class="preview-panel"'), `${file} must include the preview panel`);
   assert(html.includes('class="dashboard-panel-stage"'), `${file} must wrap dashboard panels in a transition stage`);
+  assert(html.includes('class="empty-intro"'), `${file} must include the guided no-project introduction`);
+  assert(html.includes('class="empty-form-fields"'), `${file} must include the grouped project creation fields`);
   assert(html.includes('class="action-dock"'), `${file} must include the action dock`);
   assert(html.includes(publicPath), `${file} must use the locale-specific public path`);
 

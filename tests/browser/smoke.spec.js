@@ -91,6 +91,25 @@ for (const route of ["/how-to-use.html", "/ar/how-to-use.html"]) {
 }
 
 for (const route of ["/dashboard.html", "/ar/dashboard.html"]) {
+  test(`${route} presents a responsive no-project setup flow`, async ({ page }) => {
+    await page.goto(route, { waitUntil: "domcontentloaded" });
+    await page.waitForFunction(() => typeof window.setDashboardTab === "function");
+    await page.evaluate(() => {
+      document.getElementById("hasProject").style.display = "none";
+      document.getElementById("noProject").style.display = "block";
+    });
+
+    const emptyState = page.locator("#noProject");
+    await expect(emptyState.locator(".empty-intro")).toBeVisible();
+    await expect(emptyState.locator(".empty-form-heading")).toBeVisible();
+    await expect(emptyState.locator("#newProjectName")).toBeVisible();
+    await expect(emptyState.locator("#createProjectBtn")).toBeVisible();
+
+    await page.setViewportSize({ width: 390, height: 844 });
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth);
+    expect(overflow).toBe(false);
+  });
+
   test(`${route} command-center panels transition without overflow`, async ({ page }) => {
     await page.emulateMedia({ reducedMotion: "no-preference" });
     await page.goto(route, { waitUntil: "domcontentloaded" });
