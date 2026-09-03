@@ -1431,8 +1431,7 @@ a.project-card:hover .id {
     border-bottom-color: #6ee7f3
 }
 
-.google-btn,
-.auth-gateway__google {
+.google-btn {
     width: 100%;
     padding: .875rem 1.5rem;
     background: hsla(0, 0%, 100%, .3);
@@ -1450,16 +1449,14 @@ a.project-card:hover .id {
     margin-top: 1.5rem
 }
 
-.google-btn:hover:not(:disabled),
-.auth-gateway__google:hover:not(:disabled) {
+.google-btn:hover:not(:disabled) {
     transform: scale(1.01);
     border-color: #fff;
     background-color: hsla(0, 0%, 100%, .4);
     box-shadow: 0 4px 12px hsla(0, 0%, 100%, .25)
 }
 
-.google-btn:disabled,
-.auth-gateway__google:disabled {
+.google-btn:disabled {
     opacity: .6;
     cursor: not-allowed
 }
@@ -1506,8 +1503,7 @@ a.project-card:hover .id {
         padding: .75rem 1rem
     }
 
-    .google-btn,
-    .auth-gateway__google {
+    .google-btn {
         font-size: .9rem;
         padding: .75rem 1.25rem
     }
@@ -1579,16 +1575,34 @@ a.project-card:hover .id {
 }
 
 .auth-gateway__google {
+    width: 100%;
+    padding: .875rem 1.5rem;
+    border: 2px solid rgba(255, 255, 255, .16);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, .1);
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .75rem;
+    text-align: center;
     min-height: 50px;
     margin: 0;
-    border-color: rgba(255, 255, 255, .16);
-    background: rgba(255, 255, 255, .1);
-    font-weight: 600
+}
+
+.auth-gateway__google:disabled {
+    opacity: .6;
+    cursor: not-allowed
 }
 
 .auth-gateway__google:hover:not(:disabled) {
+    transform: scale(1.01);
     border-color: var(--border-accent);
-    background: rgba(110, 231, 243, .1)
+    background: rgba(110, 231, 243, .1);
+    box-shadow: 0 4px 12px rgba(110, 231, 243, .16)
 }
 
 .auth-gateway__eligibility {
@@ -1703,6 +1717,11 @@ a.project-card:hover .id {
 
     .auth-gateway__card {
         padding: 24px 18px
+    }
+
+    .auth-gateway__google {
+        padding: .75rem 1.25rem;
+        font-size: .9rem
     }
 
     .auth-gateway h1 {
