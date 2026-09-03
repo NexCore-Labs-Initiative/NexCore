@@ -3032,22 +3032,6 @@ html[dir="rtl"] .dropdown-content a:not(.lang-switch-pill, .magic-signup, .ai-li
     color: var(--text-danger)
 }
 
-.docs-feedback-status {
-    min-height: 18px;
-    margin: -2px 0 0;
-    color: var(--text-muted);
-    font-size: 12px;
-    line-height: 1.45
-}
-
-.docs-feedback-status:empty {
-    display: none
-}
-
-.docs-feedback-status.is-error {
-    color: var(--text-danger)
-}
-
 .docs-feedback-choice:focus-visible,
 .docs-feedback-button:focus-visible,
 .docs-feedback-link:focus-visible {

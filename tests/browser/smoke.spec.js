@@ -151,6 +151,29 @@ for (const route of ["/faq.html", "/ar/faq.html"]) {
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth);
     expect(overflow).toBe(false);
   });
+
+  test(`${route} docs feedback uses shared toast notifications`, async ({ page }) => {
+    let feedbackRequests = 0;
+    await page.route("**/api/docs-feedback", async (routeRequest) => {
+      feedbackRequests += 1;
+      await routeRequest.fulfill({
+        status: feedbackRequests === 1 ? 200 : 500,
+        contentType: "application/json",
+        body: JSON.stringify(feedbackRequests === 1 ? { ok: true, status: "saved" } : { error: "server_error" })
+      });
+    });
+
+    await page.goto(route, { waitUntil: "domcontentloaded" });
+    await page.locator(".living-release__close").click();
+
+    const feedbackPanel = page.locator('[data-docs-feedback][data-feedback-page-key="faq"]');
+    await expect(feedbackPanel.locator("[data-feedback-status]")).toHaveCount(0);
+    await feedbackPanel.locator('[data-feedback-vote="yes"]').click();
+    await expect(page.locator(".nexcore-toast--success")).toBeVisible();
+
+    await feedbackPanel.locator('[data-feedback-vote="no"]').click();
+    await expect(page.locator(".nexcore-toast--error")).toBeVisible();
+  });
 }
 
 for (const route of ["/privacy-policy.html", "/ar/privacy-policy.html"]) {

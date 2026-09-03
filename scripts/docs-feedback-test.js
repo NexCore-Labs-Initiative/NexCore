@@ -272,7 +272,7 @@ function runStaticTests() {
     assert(html.includes(`data-feedback-locale="${locale}"`), `${file} must declare feedback locale`);
     assert(html.includes('data-feedback-vote="yes"'), `${file} must expose yes vote`);
     assert(html.includes('data-feedback-vote="no"'), `${file} must expose no vote`);
-    assert(html.includes("data-feedback-status"), `${file} must include feedback status region`);
+    assert(!html.includes("data-feedback-status"), `${file} must not include inline feedback status markup`);
     assert(html.includes("@tabler/icons-webfont"), `${file} must load Tabler outline icons`);
     assert(html.includes("ti ti-thumb-up"), `${file} must use Tabler thumbs-up icon`);
     assert(html.includes("ti ti-thumb-down"), `${file} must use Tabler thumbs-down icon`);
@@ -288,6 +288,9 @@ function runStaticTests() {
   assert(js.includes("active-no"), "Shared JS must support the no active state");
   assert(js.includes("feedbackMessageYes"), "Shared JS must support yes-specific feedback copy");
   assert(js.includes("feedbackMessageNo"), "Shared JS must support no-specific feedback copy");
+  assert(js.includes("window.NexCoreNotify?.show"), "Shared JS must show docs feedback messages through the global notifier");
+  assert(js.includes('"success"'), "Shared JS must use success toasts for saved feedback");
+  assert(js.includes('"error"'), "Shared JS must use error toasts for failed feedback");
 
   for (const [file, title] of [
     ["admin-users.html", "How-To-Use Feedback"],
