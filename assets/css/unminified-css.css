@@ -3095,9 +3095,31 @@ html[dir=rtl] .docs-feedback-panel {
 @media (max-width:780px) {
     .docs-feedback-footer {
         grid-template-columns: 1fr;
-        gap: 24px;
+        gap: 0;
         margin-top: 58px;
         padding-top: 26px
+    }
+
+    .docs-feedback-title {
+        margin: 0 0 18px
+    }
+
+    .docs-feedback-panel {
+        gap: 10px
+    }
+
+    .docs-feedback-panel + .docs-feedback-panel {
+        margin-top: 28px;
+        padding-top: 24px;
+        border-top: 0.5px solid var(--border)
+    }
+
+    .docs-feedback-status:empty {
+        display: none
+    }
+
+    .docs-feedback-survey .docs-feedback-link {
+        margin-top: 4px
     }
 }
 
