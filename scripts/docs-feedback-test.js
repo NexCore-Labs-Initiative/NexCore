@@ -131,6 +131,20 @@ async function runApiTests() {
   assert(!Object.hasOwn(calls[1].row, "referrer"), "Referrer must not be stored");
   assert(!Object.hasOwn(calls[1].row, "user_id"), "Account identity must not be stored");
 
+  const faqCalls = [];
+  const faqResponse = responseMock();
+  await createDocsFeedbackHandler({
+    getAdminClient: () => createSupabaseMock(faqCalls),
+    rateLimiter: () => ({ allowed: true, remaining: 9 }),
+    env: { DOCS_FEEDBACK_SALT: "test-salt" },
+    now: () => new Date("2026-08-27T10:15:30.000Z"),
+    logger: { error() {} }
+  })(request({ body: { page_key: "faq", page_path: "/faq.html", locale: "en", vote: "no" } }), faqResponse);
+  assert.strictEqual(faqResponse.statusCode, 200);
+  assert.strictEqual(faqCalls[1].row.page_key, "faq");
+  assert.strictEqual(faqCalls[1].row.page_path, "/faq");
+  assert.strictEqual(faqCalls[1].row.vote, "no");
+
   assert.strictEqual(getCoarseRequestIdentity(request()), "203.0.113.0");
   assert.deepStrictEqual(normalizeFeedbackPayload({ page_path: "/ar/how-to-use", page_key: "how-to-use", locale: "ar", vote: "no" }), {
     pageKey: "how-to-use",
@@ -248,6 +262,7 @@ async function runApiTests() {
 
 function runStaticTests() {
   const migration = read("supabase/migrations/20260827000100_create_docs_feedback_responses.sql");
+  const faqMigration = read("supabase/migrations/20260903132000_allow_faq_docs_feedback.sql");
   for (const expected of [
     "create table if not exists public.docs_feedback_responses",
     "client_hash text not null",
@@ -259,6 +274,8 @@ function runStaticTests() {
   ]) {
     assert(migration.includes(expected), `Migration must include: ${expected}`);
   }
+  assert(faqMigration.includes("drop constraint if exists docs_feedback_responses_page_key_check"), "FAQ migration must replace the original page key constraint");
+  assert(faqMigration.includes("check (page_key in ('how-to-use', 'faq'))"), "FAQ migration must allow FAQ feedback rows");
 
   for (const [file, pageKey, locale, yes, no] of [
     ["how-to-use.html", "how-to-use", "en", "Yes", "No"],

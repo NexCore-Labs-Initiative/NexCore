@@ -104,6 +104,12 @@ for (const route of ["/dashboard.html", "/ar/dashboard.html"]) {
     await expect(emptyState.locator(".empty-form-heading")).toBeVisible();
     await expect(emptyState.locator("#newProjectName")).toBeVisible();
     await expect(emptyState.locator("#createProjectBtn")).toBeVisible();
+    const selectFits = await emptyState.locator("#newProjectCategoryTrigger").evaluate((trigger) => {
+      const triggerRect = trigger.getBoundingClientRect();
+      const formRect = trigger.closest(".empty-form").getBoundingClientRect();
+      return triggerRect.left >= formRect.left && triggerRect.right <= formRect.right;
+    });
+    expect(selectFits).toBe(true);
 
     await page.setViewportSize({ width: 390, height: 844 });
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth);
