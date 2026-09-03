@@ -1052,6 +1052,155 @@ function filterFunction() {
   window.NexCoreInitiativesMenu = Object.freeze({ init, filterMenu });
 })();
 
+(function initProjectsMenu() {
+  const CATEGORY_LABELS = {
+    technology: { en: "Technology", ar: "التقنية" },
+    education: { en: "Education", ar: "التعليم" },
+    community: { en: "Community", ar: "المجتمع" },
+    research: { en: "Research", ar: "البحث" },
+    business: { en: "Business", ar: "الأعمال" },
+    creative: { en: "Creative", ar: "الإبداع" },
+    health: { en: "Health", ar: "الصحة" },
+    environment: { en: "Environment", ar: "البيئة" },
+    uncategorized: { en: "Uncategorized", ar: "غير مصنف" }
+  };
+
+  function isArabic() {
+    return document.documentElement.lang?.toLowerCase().startsWith("ar") || document.documentElement.dir === "rtl";
+  }
+
+  function asText(value) {
+    return typeof value === "string" ? value.trim() : "";
+  }
+
+  function categoryLabel(category, locale) {
+    const normalized = asText(category).toLowerCase();
+    const known = CATEGORY_LABELS[normalized];
+    if (known) return known[locale];
+    return normalized
+      .split("-")
+      .filter(Boolean)
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ") || CATEGORY_LABELS.uncategorized[locale];
+  }
+
+  function normalizeProject(raw, locale) {
+    const slug = asText(raw?.slug).toLowerCase();
+    const name = asText(raw?.name);
+    if (!slug || !name) return null;
+
+    const logo = asText(raw?.logo_url);
+    const image = asText(raw?.image_url);
+    return {
+      slug,
+      name,
+      publicId: asText(raw?.public_id),
+      categoryLabel: categoryLabel(raw?.category, locale),
+      image: /^https?:\/\//i.test(logo) ? logo : (/^https?:\/\//i.test(image) ? image : "")
+    };
+  }
+
+  function ensureGroup(menu, locale) {
+    const existing = menu.querySelector("[data-projects-nav-group]");
+    if (existing) return existing;
+
+    const hubLink = [...menu.querySelectorAll("a")].find((candidate) =>
+      /(^|\/)hub(?:\.html)?(?:#|$)/.test(candidate.getAttribute("href") || "")
+    );
+    if (!hubLink) return null;
+
+    const group = document.createElement("div");
+    group.className = "projects-nav-group";
+    group.dataset.projectsNavGroup = "true";
+    group.setAttribute("aria-label", locale === "ar" ? "اختصارات المشاريع" : "Project shortcuts");
+
+    const heading = document.createElement("div");
+    heading.className = "projects-shortcut-heading";
+    heading.innerHTML = `<i class="fa-solid fa-diagram-project" aria-hidden="true"></i><span>${locale === "ar" ? "المشاريع" : "Projects"}</span>`;
+    group.appendChild(heading);
+    hubLink.insertAdjacentElement("afterend", group);
+    return group;
+  }
+
+  function renderShortcuts(group, projects, locale) {
+    group.querySelector("[data-projects-shortcuts]")?.remove();
+    const drawer = document.createElement("div");
+    drawer.className = "projects-shortcut-drawer";
+    drawer.dataset.projectsShortcuts = "true";
+    const basePath = locale === "ar" ? "/ar/project.html" : "/project.html";
+
+    projects.forEach((project) => {
+      const link = document.createElement("a");
+      link.className = "project-shortcut-link";
+      link.href = `${basePath}?slug=${encodeURIComponent(project.slug)}`;
+      link.title = project.name;
+
+      const visual = document.createElement("span");
+      visual.className = "project-shortcut-visual";
+      if (project.image) {
+        const image = document.createElement("img");
+        image.src = project.image;
+        image.alt = "";
+        visual.appendChild(image);
+      } else {
+        visual.innerHTML = '<i class="fa-solid fa-diagram-project" aria-hidden="true"></i>';
+      }
+
+      const copy = document.createElement("span");
+      copy.className = "project-shortcut-copy";
+      const title = document.createElement("strong");
+      title.textContent = project.name;
+      const meta = document.createElement("span");
+      meta.textContent = project.publicId ? `${project.publicId} · ${project.categoryLabel}` : project.categoryLabel;
+      copy.append(title, meta);
+      link.append(visual, copy);
+      drawer.appendChild(link);
+    });
+
+    const allLink = document.createElement("a");
+    allLink.className = "project-shortcut-all";
+    allLink.href = locale === "ar" ? "/ar/hub.html#projects" : "/hub.html#projects";
+    allLink.innerHTML = `${locale === "ar" ? "عرض كل المشاريع" : "View all projects"} <i class="fa-solid fa-arrow-${locale === "ar" ? "left" : "right"}" aria-hidden="true"></i>`;
+    drawer.appendChild(allLink);
+    group.appendChild(drawer);
+  }
+
+  async function init() {
+    const menu = document.getElementById("myDropdown");
+    const client = window.supabaseClient;
+    if (!menu || !client) return;
+
+    const locale = isArabic() ? "ar" : "en";
+    const existing = menu.querySelector("[data-projects-nav-group]");
+    if (existing?.dataset.projectsShortcutsLoaded === "true" || menu.dataset.projectsShortcutsLoading === "true") return;
+    menu.dataset.projectsShortcutsLoading = "true";
+
+    try {
+      const { data, error } = await client
+        .from("projects")
+        .select("slug, name, public_id, category, logo_url, image_url, created_at")
+        .eq("published", true)
+        .order("created_at", { ascending: false })
+        .limit(3);
+      if (error) throw error;
+
+      const projects = (data || []).map((item) => normalizeProject(item, locale)).filter(Boolean);
+      if (!projects.length) return;
+
+      const group = ensureGroup(menu, locale);
+      if (!group) return;
+      renderShortcuts(group, projects, locale);
+      group.dataset.projectsShortcutsLoaded = "true";
+    } catch (error) {
+      console.warn("Projects shortcut drawer skipped:", error?.message || error);
+    } finally {
+      delete menu.dataset.projectsShortcutsLoading;
+    }
+  }
+
+  window.NexCoreProjectsMenu = Object.freeze({ init });
+})();
+
 function showWebsiteLabel() {
   const checkBox = document.getElementById("websiteShow");
   const websiteLabel = document.getElementById("websiteURLLabel");
@@ -1089,4 +1238,5 @@ if (bookmarkBtn) {
 
 document.addEventListener('DOMContentLoaded', () => {
   window.NexCoreInitiativesMenu?.init();
+  window.NexCoreProjectsMenu?.init();
 });

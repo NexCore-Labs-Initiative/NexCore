@@ -325,6 +325,7 @@
         ensureInitiativesNavigation();
         ensureContributeNavigation();
         window.NexCoreInitiativesMenu?.init();
+        window.NexCoreProjectsMenu?.init();
         // Ensure nav elements exist
         ensureNavElements();
 

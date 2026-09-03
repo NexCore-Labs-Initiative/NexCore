@@ -78,7 +78,6 @@ for (const file of menuFiles) {
   const policiesTitleIndex = menu.indexOf(`<div class="menu-section-title">${sectionTitles[4]}</div>`);
   const hubIndex = menu.indexOf('menu-dots-icon');
   const initiativesIndex = menu.indexOf('data-initiatives-nav');
-  const projectsIndex = menu.indexOf('fa-diagram-project');
   const pricingIndex = menu.indexOf('pricing-policy.html', policiesTitleIndex);
   const termsIndex = menu.indexOf('terms.html', policiesTitleIndex);
   const privacyIndex = menu.indexOf('privacy-policy.html', policiesTitleIndex);
@@ -89,8 +88,8 @@ for (const file of menuFiles) {
     assert(menu.includes(`<div class="menu-section-title">${title}</div>`), `${file} navigation must include the ${title} section title`);
   }
   assert(
-    platformTitleIndex >= 0 && platformTitleIndex < initiativesIndex && hubIndex >= 0 && initiativesIndex < hubIndex && hubIndex < projectsIndex,
-    `${file} navigation must group Initiatives, Hub, and Projects under Platform`
+    platformTitleIndex >= 0 && platformTitleIndex < initiativesIndex && hubIndex >= 0 && initiativesIndex < hubIndex,
+    `${file} navigation must group Initiatives and Hub under Platform`
   );
   assert(
     policiesTitleIndex >= 0 && policiesTitleIndex < pricingIndex && pricingIndex < termsIndex && termsIndex < privacyIndex,

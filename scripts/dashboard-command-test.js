@@ -20,6 +20,8 @@ const sharedRequiredIds = [
   "readinessPage",
   "readinessImage",
   "readinessModeration",
+  "profileLogoUrl",
+  "logoPreview",
   "previewImage",
   "previewTitle",
   "previewDescription",
@@ -66,6 +68,7 @@ for (const [file, heading, publicPath] of [
   assert(html.includes('class="empty-intro"'), `${file} must include the guided no-project introduction`);
   assert(html.includes('class="empty-form-fields"'), `${file} must include the grouped project creation fields`);
   assert(html.includes('class="action-dock"'), `${file} must include the action dock`);
+  assert(html.includes("logo_url"), `${file} must retain project logo state in the command center`);
   assert(html.includes(publicPath), `${file} must use the locale-specific public path`);
 
   for (const id of sharedRequiredIds) {
