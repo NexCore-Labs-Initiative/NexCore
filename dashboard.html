@@ -526,7 +526,6 @@
 
           <a href="hub.html" class="fade mt-0" title="NexCore Labs Hub"><span class="menu-dots-icon" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></span> Hub</a>
 
-          <a href="hub.html#projects" class="fade" title="Projects"><i class="fa-solid fa-diagram-project"></i> Projects</a>
 
           <div class="menu-section-title">NexCore</div>
 
@@ -778,6 +777,14 @@
             </div>
             <div class="field-grid">
               <div class="full">
+                <label>Project Logo URL (optional)</label>
+                <input id="profileLogoUrl" placeholder="https://..." type="url" />
+                <p class="field-help">A square, publicly accessible logo used in project shortcuts and previews.</p>
+                <div style="margin-top:10px;">
+                  <img id="logoPreview" alt="Project logo preview" class="img-preview" style="display:none;" />
+                </div>
+              </div>
+              <div class="full">
                 <label>Image URL (optional)</label>
                 <input id="profileImageUrl" placeholder="https://..." />
                 <div style="margin-top:10px;">
@@ -1025,6 +1032,7 @@
         slug: slugify(valueOf("cardSlug") || valueOf("cardName")),
         card_description: valueOf("cardDescription"),
         category: normalizeProjectCategory(getEl("cardCategory")?.value),
+        logo_url: valueOf("profileLogoUrl"),
         image_url: valueOf("profileImageUrl"),
         page_description: valueOf("pageDescription"),
         website: valueOf("profileWebsite"),
@@ -1140,10 +1148,11 @@
       const previewImage = getEl("previewImage");
       const commandImage = getEl("commandProjectImage");
       const commandInitial = getEl("commandProjectInitial");
-      if (values.image_url && hasHttpValue(values.image_url)) {
-        if (previewImage) previewImage.src = values.image_url;
+      const identityUrl = values.logo_url || values.image_url;
+      if (identityUrl && hasHttpValue(identityUrl)) {
+        if (previewImage) previewImage.src = identityUrl;
         if (commandImage) {
-          commandImage.src = values.image_url;
+          commandImage.src = identityUrl;
           commandImage.hidden = false;
         }
         if (commandInitial) commandInitial.hidden = true;
@@ -1265,7 +1274,7 @@
     }
 
     function initDashboardDirtyTracking() {
-      const ids = ["cardName", "cardSlug", "cardDescription", "cardCategory", "profileImageUrl", "pageDescription", "profileWebsite", "profileX", "profileInstagram", "profileGithub", "profileLinkedin"];
+      const ids = ["cardName", "cardSlug", "cardDescription", "cardCategory", "profileLogoUrl", "profileImageUrl", "pageDescription", "profileWebsite", "profileX", "profileInstagram", "profileGithub", "profileLinkedin"];
       ids.forEach((id) => {
         const el = getEl(id);
         if (!el) return;
@@ -1621,6 +1630,7 @@
       }
 
       // Profile fields
+      document.getElementById("profileLogoUrl").value = p.logo_url || "";
       document.getElementById("profileImageUrl").value = p.image_url || "";
       document.getElementById("pageDescription").value = p.page_description || "";
       document.getElementById("profileWebsite").value = p.website || "";
@@ -1635,6 +1645,18 @@
       a.textContent = link;
 
       // Image preview
+      const logo = document.getElementById("logoPreview");
+      if (p.logo_url && p.logo_url.startsWith("http")) {
+        logo.src = p.logo_url;
+        logo.style.display = "inline-block";
+        logo.onerror = () => {
+          showToast("Logo URL is not accessible. Make sure it is public.", true);
+          logo.style.display = "none";
+        };
+      } else {
+        logo.style.display = "none";
+      }
+
       const img = document.getElementById("imgPreview");
       if (p.image_url && p.image_url.startsWith("http")) {
         img.src = p.image_url;
@@ -1909,6 +1931,7 @@
       if (!project) return;
       const wasPublished = isProjectPublished(project);
 
+      const logo_url = document.getElementById("profileLogoUrl").value.trim();
       const image_url = document.getElementById("profileImageUrl").value.trim();
       const page_description = document.getElementById("pageDescription").value.trim();
       const website = document.getElementById("profileWebsite").value.trim();
@@ -1925,6 +1948,7 @@
       const { data, error } = await sb
         .from("projects")
         .update({
+          logo_url,
           image_url,
           page_description,
           website,
@@ -2143,6 +2167,21 @@
           };
         } else {
           img.style.display = "none";
+        }
+      });
+
+      document.getElementById("profileLogoUrl").addEventListener("input", (e) => {
+        const url = e.target.value.trim();
+        const logo = document.getElementById("logoPreview");
+        if (url.startsWith("http")) {
+          logo.src = url;
+          logo.style.display = "inline-block";
+          logo.onerror = () => {
+            showToast("Logo URL is not accessible. Make sure it is public.", true);
+            logo.style.display = "none";
+          };
+        } else {
+          logo.style.display = "none";
         }
       });
 

@@ -2402,6 +2402,135 @@ html[dir="rtl"] .dropdown-content .initiatives-shortcut-drawer a.initiative-shor
     transform: translateX(-3px);
 }
 
+.dropdown-content .projects-nav-group {
+    display: grid;
+    gap: 7px;
+    margin: 8px 0 5px;
+}
+
+.projects-shortcut-heading {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 3px 6px 0 16px;
+    color: rgba(234, 246, 251, .7);
+    font-size: .72rem;
+    font-weight: 800;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
+html[dir="rtl"] .projects-shortcut-heading {
+    padding: 3px 16px 0 6px;
+}
+
+.projects-shortcut-heading i {
+    width: 18px;
+    text-align: center;
+    color: #6ee7f3;
+    font-size: 13px;
+}
+
+.projects-shortcut-drawer {
+    display: grid;
+    gap: 7px;
+    padding: 0 0 0 24px;
+}
+
+html[dir="rtl"] .projects-shortcut-drawer {
+    padding: 0 24px 0 0;
+}
+
+.dropdown-content .projects-shortcut-drawer a.project-shortcut-link,
+.dropdown-content .projects-shortcut-drawer a.project-shortcut-all {
+    margin: 0;
+    border: 1px solid rgba(110, 231, 243, .12);
+    border-radius: 13px;
+    background: linear-gradient(135deg, rgba(110, 231, 243, .07), rgba(10, 11, 28, .72));
+    box-shadow: none;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+
+.dropdown-content .projects-shortcut-drawer a.project-shortcut-link {
+    display: grid;
+    grid-template-columns: 34px minmax(0, 1fr);
+    align-items: center;
+    gap: 9px;
+    padding: 8px 10px;
+}
+
+.project-shortcut-visual {
+    display: inline-grid;
+    width: 34px;
+    height: 34px;
+    place-items: center;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, .1);
+    border-radius: 10px;
+    color: #6ee7f3;
+    background: rgba(255, 255, 255, .05);
+}
+
+.project-shortcut-visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.project-shortcut-visual i {
+    width: auto;
+    font-size: 13px;
+}
+
+.project-shortcut-copy {
+    display: grid;
+    min-width: 0;
+    gap: 1px;
+}
+
+.project-shortcut-copy strong,
+.project-shortcut-copy span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.project-shortcut-copy strong {
+    color: #eaf6fb;
+    font-size: .88rem;
+    line-height: 1.2;
+}
+
+.project-shortcut-copy span {
+    color: var(--muted);
+    font-size: .68rem;
+    line-height: 1.3;
+}
+
+.dropdown-content .projects-shortcut-drawer a.project-shortcut-all {
+    display: inline-flex;
+    width: fit-content;
+    align-items: center;
+    gap: 7px;
+    padding: 7px 10px;
+    color: #acd9e5;
+    font-size: .76rem;
+    font-weight: 700;
+}
+
+.dropdown-content .projects-shortcut-drawer a.project-shortcut-link:hover,
+.dropdown-content .projects-shortcut-drawer a.project-shortcut-all:hover {
+    border-color: rgba(110, 231, 243, .36);
+    background: rgba(110, 231, 243, .1);
+    transform: translateX(3px);
+}
+
+html[dir="rtl"] .dropdown-content .projects-shortcut-drawer a.project-shortcut-link:hover,
+html[dir="rtl"] .dropdown-content .projects-shortcut-drawer a.project-shortcut-all:hover {
+    transform: translateX(-3px);
+}
+
 .menu-dots-icon {
     width: 18px;
     height: 18px;

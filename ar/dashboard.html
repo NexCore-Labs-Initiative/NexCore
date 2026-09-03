@@ -527,7 +527,6 @@
 
           <a href="hub.html" class="fade mt-0" title="مركز NexCore Labs"><span class="menu-dots-icon" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></span> المركز</a>
 
-          <a href="hub.html#projects" class="fade" title="المشاريع"><i class="fa-solid fa-diagram-project"></i> المشاريع</a>
 
           <div class="menu-section-title">نكسكور</div>
 
@@ -758,6 +757,7 @@
           <div class="dashboard-panel" role="tabpanel" data-dashboard-panel="profile">
             <div class="panel-title-row"><div><h3>الملف</h3><p class="muted">يظهر هذا المحتوى في صفحة مشروعك المخصصة.</p></div></div>
             <div class="field-grid">
+              <div class="full"><label>رابط شعار المشروع (اختياري)</label><input id="profileLogoUrl" placeholder="https://..." type="url" /><p class="field-help">شعار مربع ومتاح للعامة يُستخدم في اختصارات المشاريع والمعاينات.</p><div style="margin-top:10px;"><img id="logoPreview" alt="معاينة شعار المشروع" class="img-preview" style="display:none;" /></div></div>
               <div class="full"><label>رابط الصورة (اختياري)</label><input id="profileImageUrl" placeholder="https://..." /><div style="margin-top:10px;"><img id="imgPreview" alt="" class="img-preview" style="display:none;" /></div></div>
               <div class="full"><details class="help-box"><summary><i class="fa-solid fa-lightbulb"></i> نصائح رابط الصورة</summary><p style="margin-top:0;"><strong>يجب أن تكون الصورة متاحة للعامة.</strong> استخدم Google Drive أو ملفات GitHub الخام أو رابط استضافة صورة مباشر يعمل في تبويب جديد.</p></details></div>
               <div class="full"><label>الوصف التفصيلي (الصفحة)</label><textarea id="pageDescription" placeholder="عرّف العالم بمشروعك بالتفصيل..."></textarea><p class="field-help">معلومات تفصيلية تظهر في صفحة المشروع الكاملة.</p></div>
@@ -1126,6 +1126,7 @@
         slug: slugify(valueOf("cardSlug") || valueOf("cardName")),
         card_description: valueOf("cardDescription"),
         category: normalizeProjectCategory(getEl("cardCategory")?.value),
+        logo_url: valueOf("profileLogoUrl"),
         image_url: valueOf("profileImageUrl"),
         page_description: valueOf("pageDescription"),
         website: valueOf("profileWebsite"),
@@ -1241,10 +1242,11 @@
       const previewImage = getEl("previewImage");
       const commandImage = getEl("commandProjectImage");
       const commandInitial = getEl("commandProjectInitial");
-      if (values.image_url && hasHttpValue(values.image_url)) {
-        if (previewImage) previewImage.src = values.image_url;
+      const identityUrl = values.logo_url || values.image_url;
+      if (identityUrl && hasHttpValue(identityUrl)) {
+        if (previewImage) previewImage.src = identityUrl;
         if (commandImage) {
-          commandImage.src = values.image_url;
+          commandImage.src = identityUrl;
           commandImage.hidden = false;
         }
         if (commandInitial) commandInitial.hidden = true;
@@ -1366,7 +1368,7 @@
     }
 
     function initDashboardDirtyTracking() {
-      const ids = ["cardName", "cardSlug", "cardDescription", "cardCategory", "profileImageUrl", "pageDescription", "profileWebsite", "profileX", "profileInstagram", "profileGithub", "profileLinkedin"];
+      const ids = ["cardName", "cardSlug", "cardDescription", "cardCategory", "profileLogoUrl", "profileImageUrl", "pageDescription", "profileWebsite", "profileX", "profileInstagram", "profileGithub", "profileLinkedin"];
       ids.forEach((id) => {
         const el = getEl(id);
         if (!el) return;
@@ -1401,6 +1403,7 @@
         slug: slugify(valueOf("cardSlug") || valueOf("cardName")),
         card_description: valueOf("cardDescription"),
         category: normalizeProjectCategory(getEl("cardCategory")?.value),
+        logo_url: valueOf("profileLogoUrl"),
         image_url: valueOf("profileImageUrl"),
         page_description: valueOf("pageDescription"),
         website: valueOf("profileWebsite"),
@@ -1516,10 +1519,11 @@
       const previewImage = getEl("previewImage");
       const commandImage = getEl("commandProjectImage");
       const commandInitial = getEl("commandProjectInitial");
-      if (values.image_url && hasHttpValue(values.image_url)) {
-        if (previewImage) previewImage.src = values.image_url;
+      const identityUrl = values.logo_url || values.image_url;
+      if (identityUrl && hasHttpValue(identityUrl)) {
+        if (previewImage) previewImage.src = identityUrl;
         if (commandImage) {
-          commandImage.src = values.image_url;
+          commandImage.src = identityUrl;
           commandImage.hidden = false;
         }
         if (commandInitial) commandInitial.hidden = true;
@@ -1641,7 +1645,7 @@
     }
 
     function initDashboardDirtyTracking() {
-      const ids = ["cardName", "cardSlug", "cardDescription", "cardCategory", "profileImageUrl", "pageDescription", "profileWebsite", "profileX", "profileInstagram", "profileGithub", "profileLinkedin"];
+      const ids = ["cardName", "cardSlug", "cardDescription", "cardCategory", "profileLogoUrl", "profileImageUrl", "pageDescription", "profileWebsite", "profileX", "profileInstagram", "profileGithub", "profileLinkedin"];
       ids.forEach((id) => {
         const el = getEl(id);
         if (!el) return;
@@ -1854,6 +1858,7 @@
       }
 
       // Profile fields
+      document.getElementById("profileLogoUrl").value = p.logo_url || "";
       document.getElementById("profileImageUrl").value = p.image_url || "";
       document.getElementById("pageDescription").value = p.page_description || "";
       document.getElementById("profileWebsite").value = p.website || "";
@@ -1868,6 +1873,18 @@
       a.textContent = link;
 
       // Image preview
+      const logo = document.getElementById("logoPreview");
+      if (p.logo_url && p.logo_url.startsWith("http")) {
+        logo.src = p.logo_url;
+        logo.style.display = "inline-block";
+        logo.onerror = () => {
+          showToast("رابط الشعار غير قابل للوصول. تأكد أنه عام.", true);
+          logo.style.display = "none";
+        };
+      } else {
+        logo.style.display = "none";
+      }
+
       const img = document.getElementById("imgPreview");
       if (p.image_url && p.image_url.startsWith("http")) {
         img.src = p.image_url;
@@ -2142,6 +2159,7 @@
       if (!project) return;
       const wasPublished = isProjectPublished(project);
 
+      const logo_url = document.getElementById("profileLogoUrl").value.trim();
       const image_url = document.getElementById("profileImageUrl").value.trim();
       const page_description = document.getElementById("pageDescription").value.trim();
       const website = document.getElementById("profileWebsite").value.trim();
@@ -2158,6 +2176,7 @@
       const { data, error } = await sb
         .from("projects")
         .update({
+          logo_url,
           image_url,
           page_description,
           website,
@@ -2376,6 +2395,21 @@
           };
         } else {
           img.style.display = "none";
+        }
+      });
+
+      document.getElementById("profileLogoUrl").addEventListener("input", (e) => {
+        const url = e.target.value.trim();
+        const logo = document.getElementById("logoPreview");
+        if (url.startsWith("http")) {
+          logo.src = url;
+          logo.style.display = "inline-block";
+          logo.onerror = () => {
+            showToast("رابط الشعار غير قابل للوصول. تأكد أنه عام.", true);
+            logo.style.display = "none";
+          };
+        } else {
+          logo.style.display = "none";
         }
       });
 

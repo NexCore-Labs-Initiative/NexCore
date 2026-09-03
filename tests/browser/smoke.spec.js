@@ -49,6 +49,47 @@ for (const route of ["/index.html", "/ar/index.html"]) {
   });
 }
 
+for (const [route, isArabic] of [["/hub.html", false], ["/ar/hub.html", true]]) {
+  test(`${route} renders published project shortcuts in the menu`, async ({ page }) => {
+    await page.setViewportSize({ width: isArabic ? 390 : 1280, height: 844 });
+    await page.goto(route, { waitUntil: "domcontentloaded" });
+    await page.evaluate(() => {
+      window.supabaseClient = {
+        from() {
+          const query = {
+            select() { return query; },
+            eq() { return query; },
+            order() { return query; },
+            limit() {
+              return Promise.resolve({
+                data: [{ slug: "atlas", name: "Atlas Study Hub", public_id: "Proj-12", category: "education", image_url: "" }],
+                error: null
+              });
+            }
+          };
+          return query;
+        }
+      };
+      window.NexCoreProjectsMenu.init();
+    });
+    await page.locator("#coreMenu").click({ force: true });
+
+    const drawer = page.locator("[data-projects-nav-group]");
+    await expect(drawer).toBeVisible();
+    await expect(drawer.locator(".project-shortcut-link")).toHaveAttribute(
+      "href",
+      isArabic ? "/ar/project.html?slug=atlas" : "/project.html?slug=atlas"
+    );
+    await expect(drawer.locator(".project-shortcut-all")).toHaveAttribute(
+      "href",
+      isArabic ? "/ar/hub.html#projects" : "/hub.html#projects"
+    );
+
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth);
+    expect(overflow).toBe(false);
+  });
+}
+
 for (const route of ["/how-to-use.html", "/ar/how-to-use.html"]) {
   test(`${route} guide panels transition between paths`, async ({ page }) => {
     await page.emulateMedia({ reducedMotion: "no-preference" });
@@ -91,6 +132,23 @@ for (const route of ["/how-to-use.html", "/ar/how-to-use.html"]) {
 }
 
 for (const route of ["/dashboard.html", "/ar/dashboard.html"]) {
+  test(`${route} exposes an optional project logo field`, async ({ page }) => {
+    await page.goto(route, { waitUntil: "domcontentloaded" });
+    await page.waitForFunction(() => typeof window.setDashboardTab === "function");
+    await page.evaluate(() => {
+      document.getElementById("noProject").style.display = "none";
+      document.getElementById("hasProject").style.display = "block";
+      window.setDashboardTab("profile");
+    });
+
+    const logoInput = page.locator("#profileLogoUrl");
+    const logoPreview = page.locator("#logoPreview");
+    await expect(logoInput).toBeVisible();
+    await expect(logoPreview).toHaveCount(1);
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth);
+    expect(overflow).toBe(false);
+  });
+
   test(`${route} presents a responsive no-project setup flow`, async ({ page }) => {
     await page.goto(route, { waitUntil: "domcontentloaded" });
     await page.waitForFunction(() => typeof window.setDashboardTab === "function");
