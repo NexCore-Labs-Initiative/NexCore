@@ -114,6 +114,10 @@ for (const route of ["/dashboard.html", "/ar/dashboard.html"]) {
     await page.emulateMedia({ reducedMotion: "no-preference" });
     await page.goto(route, { waitUntil: "domcontentloaded" });
     await page.waitForFunction(() => typeof window.setDashboardTab === "function");
+    await page.evaluate(() => {
+      document.getElementById("noProject").style.display = "none";
+      document.getElementById("hasProject").style.display = "block";
+    });
 
     await page.evaluate(() => window.initDashboardTabs());
     const profileTab = page.locator('[data-dashboard-tab="profile"]');
