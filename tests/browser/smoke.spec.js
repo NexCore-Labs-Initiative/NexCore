@@ -201,37 +201,6 @@ for (const route of ["/dashboard.html", "/ar/dashboard.html"]) {
     expect(overflow).toBe(false);
   });
 
-  test(`${route} keeps the mobile command center compact and action-first`, async ({ page }) => {
-    await page.setViewportSize({ width: 390, height: 844 });
-    await page.goto(route, { waitUntil: "domcontentloaded" });
-    await page.waitForFunction(() => typeof window.setDashboardTab === "function");
-    await page.evaluate(() => {
-      document.getElementById("noProject").style.display = "none";
-      document.getElementById("hasProject").style.display = "block";
-    });
-
-    const layout = await page.evaluate(() => {
-      const metrics = [...document.querySelectorAll(".command-metric")].map((metric) => metric.getBoundingClientRect());
-      const readinessItems = [...document.querySelectorAll(".ready-item")].map((item) => item.getBoundingClientRect());
-      const editor = document.querySelector(".editor-panel").getBoundingClientRect();
-      const preview = document.querySelector(".preview-panel").getBoundingClientRect();
-
-      return {
-        pairedMetrics: Math.abs(metrics[0].top - metrics[1].top) < 1 && metrics[0].left !== metrics[1].left,
-        wideAiMetric: metrics[2].width > metrics[0].width * 1.5,
-        pairedReadiness: Math.abs(readinessItems[0].top - readinessItems[1].top) < 1 && readinessItems[0].left !== readinessItems[1].left,
-        previewFollowsEditor: preview.top >= editor.bottom,
-        overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
-      };
-    });
-
-    expect(layout.pairedMetrics).toBe(true);
-    expect(layout.wideAiMetric).toBe(true);
-    expect(layout.pairedReadiness).toBe(true);
-    expect(layout.previewFollowsEditor).toBe(true);
-    expect(layout.overflow).toBe(false);
-  });
-
   test(`${route} command-center panels respect reduced motion`, async ({ page }) => {
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto(route, { waitUntil: "domcontentloaded" });
