@@ -226,6 +226,8 @@ test.describe("living release beacon", () => {
     await expect(shell).toContainText("جديد في NexCore");
     await expect(shell.locator(".living-release__highlights li")).toHaveCount(3);
     await expect(shell.locator(".living-release__cta")).toHaveAttribute("href", "/ar/releases#v3-3-1");
+    await expect(shell.locator(".living-release__cta")).toHaveClass(/btn/);
+    await expect(shell.locator(".living-release__cta")).toHaveClass(/primary/);
     const panelBox = await shell.locator(".living-release__panel").boundingBox();
     expect(panelBox.x).toBeGreaterThanOrEqual(0);
     expect(panelBox.x + panelBox.width).toBeLessThanOrEqual(1280);
