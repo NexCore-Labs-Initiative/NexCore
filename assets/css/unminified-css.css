@@ -1431,7 +1431,8 @@ a.project-card:hover .id {
     border-bottom-color: #6ee7f3
 }
 
-.google-btn {
+.google-btn,
+.auth-gateway__google {
     width: 100%;
     padding: .875rem 1.5rem;
     background: hsla(0, 0%, 100%, .3);
@@ -1449,14 +1450,16 @@ a.project-card:hover .id {
     margin-top: 1.5rem
 }
 
-.google-btn:hover:not(:disabled) {
+.google-btn:hover:not(:disabled),
+.auth-gateway__google:hover:not(:disabled) {
     transform: scale(1.01);
     border-color: #fff;
     background-color: hsla(0, 0%, 100%, .4);
     box-shadow: 0 4px 12px hsla(0, 0%, 100%, .25)
 }
 
-.google-btn:disabled {
+.google-btn:disabled,
+.auth-gateway__google:disabled {
     opacity: .6;
     cursor: not-allowed
 }
@@ -1503,7 +1506,8 @@ a.project-card:hover .id {
         padding: .75rem 1rem
     }
 
-    .google-btn {
+    .google-btn,
+    .auth-gateway__google {
         font-size: .9rem;
         padding: .75rem 1.25rem
     }
@@ -1574,7 +1578,7 @@ a.project-card:hover .id {
     line-height: 1.65
 }
 
-.auth-gateway__google.google-btn {
+.auth-gateway__google {
     min-height: 50px;
     margin: 0;
     border-color: rgba(255, 255, 255, .16);
@@ -1582,7 +1586,7 @@ a.project-card:hover .id {
     font-weight: 600
 }
 
-.auth-gateway__google.google-btn:hover:not(:disabled) {
+.auth-gateway__google:hover:not(:disabled) {
     border-color: var(--border-accent);
     background: rgba(110, 231, 243, .1)
 }
