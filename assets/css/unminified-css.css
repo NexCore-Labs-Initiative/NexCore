@@ -3040,6 +3040,10 @@ html[dir="rtl"] .dropdown-content a:not(.lang-switch-pill, .magic-signup, .ai-li
     line-height: 1.45
 }
 
+.docs-feedback-status:empty {
+    display: none
+}
+
 .docs-feedback-status.is-error {
     color: var(--text-danger)
 }
@@ -3112,10 +3116,6 @@ html[dir=rtl] .docs-feedback-panel {
         margin-top: 28px;
         padding-top: 24px;
         border-top: 0.5px solid var(--border)
-    }
-
-    .docs-feedback-status:empty {
-        display: none
     }
 
     .docs-feedback-survey .docs-feedback-link {
