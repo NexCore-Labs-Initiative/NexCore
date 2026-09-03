@@ -4990,7 +4990,7 @@ html[lang="ar"] .living-release {
 
 .nexcore-toast-region {
     position: fixed;
-    top: 20px;
+    top: 132px;
     inset-inline-end: 20px;
     z-index: 10001;
     width: min(400px, calc(100vw - 32px));
@@ -5106,7 +5106,7 @@ html[lang="ar"] .living-release {
 
 @media screen and (max-width: 600px) {
     .nexcore-toast-region {
-        top: 12px;
+        top: 120px;
         inset-inline: 12px;
         width: auto;
     }
