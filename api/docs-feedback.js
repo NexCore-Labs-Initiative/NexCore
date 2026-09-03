@@ -7,12 +7,10 @@ const { checkRateLimit } = require("../lib/api/rateLimit");
 
 const VALID_LOCALES = new Set(["en", "ar"]);
 const VALID_VOTES = new Set(["yes", "no"]);
-const PAGE_KEY = "how-to-use";
-const ALLOWED_PATHS = new Set([
-  "/how-to-use",
-  "/how-to-use.html",
-  "/ar/how-to-use",
-  "/ar/how-to-use.html"
+const DEFAULT_PAGE_KEY = "how-to-use";
+const ALLOWED_PATHS_BY_PAGE_KEY = new Map([
+  ["how-to-use", new Set(["/how-to-use", "/ar/how-to-use"])],
+  ["faq", new Set(["/faq", "/ar/faq"])]
 ]);
 
 function parseBody(body) {
@@ -31,6 +29,8 @@ function normalizePagePath(value) {
   path = path.length > 1 ? path.replace(/\/+$/g, "") : path;
   if (path === "/how-to-use.html") return "/how-to-use";
   if (path === "/ar/how-to-use.html") return "/ar/how-to-use";
+  if (path === "/faq.html") return "/faq";
+  if (path === "/ar/faq.html") return "/ar/faq";
   return path;
 }
 
@@ -75,13 +75,13 @@ function buildClientHash(req, env = process.env) {
 
 function normalizeFeedbackPayload(body) {
   const payload = parseBody(body);
-  const pageKey = String(payload.page_key || PAGE_KEY).trim().toLowerCase();
+  const pageKey = String(payload.page_key || DEFAULT_PAGE_KEY).trim().toLowerCase();
   const pagePath = normalizePagePath(payload.page_path);
   const locale = String(payload.locale || "").trim().toLowerCase();
   const vote = String(payload.vote || "").trim().toLowerCase();
 
-  if (pageKey !== PAGE_KEY) return { error: "invalid_page" };
-  if (!ALLOWED_PATHS.has(pagePath)) return { error: "invalid_page" };
+  const allowedPaths = ALLOWED_PATHS_BY_PAGE_KEY.get(pageKey);
+  if (!allowedPaths || !allowedPaths.has(pagePath)) return { error: "invalid_page" };
   if (!VALID_LOCALES.has(locale)) return { error: "invalid_locale" };
   if (!VALID_VOTES.has(vote)) return { error: "invalid_vote" };
 

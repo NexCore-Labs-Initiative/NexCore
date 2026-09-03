@@ -104,6 +104,8 @@ for (const route of ["/faq.html", "/ar/faq.html"]) {
     await expect(page.locator('.faq-cat-btn')).toHaveCount(6);
     await expect(page.locator('.faq-cat-btn i.ti')).toHaveCount(6);
     await expect(page.locator('.faq-divider')).toBeVisible();
+    await expect(page.locator('.docs-feedback-footer')).toBeVisible();
+    await expect(page.locator('[data-docs-feedback][data-feedback-page-key="faq"]')).toBeVisible();
     for (const [category, iconClass] of [
       ["general", "ti-help-circle"],
       ["services", "ti-box"],
