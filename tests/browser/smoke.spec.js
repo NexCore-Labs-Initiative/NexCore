@@ -241,7 +241,6 @@ for (const route of ["/faq.html", "/ar/faq.html"]) {
   test(`${route} FAQ categories transition between sections`, async ({ page }) => {
     await page.emulateMedia({ reducedMotion: "no-preference" });
     await page.goto(route, { waitUntil: "domcontentloaded" });
-    await page.locator(".living-release__close").click();
 
     const generalSection = page.locator('.faq-category-section[data-section="general"]');
     const serviceSection = page.locator('.faq-category-section[data-section="services"]');
@@ -289,7 +288,6 @@ for (const route of ["/faq.html", "/ar/faq.html"]) {
     await page.setViewportSize({ width: 320, height: 700 });
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto(route, { waitUntil: "domcontentloaded" });
-    await page.locator(".living-release__close").click();
     await page.locator('.faq-cat-btn[data-category="services"]').click();
     const serviceSection = page.locator('.faq-category-section[data-section="services"]');
     await expect(serviceSection).toHaveClass(/active/);
@@ -311,7 +309,6 @@ for (const route of ["/faq.html", "/ar/faq.html"]) {
     });
 
     await page.goto(route, { waitUntil: "domcontentloaded" });
-    await page.locator(".living-release__close").click();
 
     const feedbackPanel = page.locator('[data-docs-feedback][data-feedback-page-key="faq"]');
     await expect(feedbackPanel.locator("[data-feedback-status]")).toHaveCount(0);
@@ -361,8 +358,6 @@ for (const route of ["/terms.html", "/ar/terms.html", "/pricing-policy.html", "/
     await expect(page.locator(".policy-meta-pills")).toBeVisible();
     await expect(page.locator(".policy-meta-pill")).toHaveCount(route.includes("pricing-policy") ? 3 : 2);
     if (route.includes("pricing-policy")) {
-      const releaseClose = page.locator(".living-release__close");
-      if (await releaseClose.isVisible()) await releaseClose.click({ force: true });
       await page.locator("#coreMenu").click({ force: true });
       await expect(page.locator('#myDropdown a[href="terms.html"]')).toBeVisible();
       await expect(page.locator('#myDropdown a[href="terms.html"]')).toHaveClass(/fade/);
@@ -382,86 +377,61 @@ for (const route of ["/releases.html", "/ar/releases.html"]) {
   });
 }
 
-test.describe("living release beacon", () => {
-  test("opens once, collapses, reopens, and dismisses for the promoted version", async ({ page }) => {
-    test.slow();
+test.describe("version highlights beacon", () => {
+  test("opens, closes, and records the read state", async ({ page }) => {
     await page.goto("/index.html", { waitUntil: "domcontentloaded" });
-    const beacon = page.locator(".living-release__beacon");
-    const panel = page.locator(".living-release__panel");
-    await expect(panel).toBeVisible();
-    await expect(panel).toContainText("v3.3.1 — Credits & Initiative Logos");
-    await expect(beacon).toHaveAttribute("aria-expanded", "true");
+    const beacon = page.locator("#beaconBtn");
+    const panel = page.locator("#panel");
+    await expect(beacon).toHaveAttribute("aria-expanded", "false");
+    await expect(panel).not.toHaveClass(/open/);
 
-    await page.locator(".living-release__close").click();
-    await expect(panel).toBeHidden();
-    await expect(beacon).toBeFocused();
-    await page.reload({ waitUntil: "domcontentloaded" });
-    await expect(page.locator(".living-release__panel")).toBeHidden();
-    await page.locator(".living-release__beacon").click();
-    await expect(page.locator(".living-release__panel")).toBeVisible();
+    await beacon.click();
+    await expect(panel).toHaveClass(/open/);
+    await expect(panel).toContainText("v1.4.0");
+    await expect(panel).toContainText("Study Hub redesigned");
+    await expect(beacon).toHaveAttribute("aria-expanded", "true");
     await page.mouse.click(1180, 650);
-    await expect(page.locator(".living-release__panel")).toBeHidden();
-    await page.locator(".living-release__beacon").click();
-    await page.locator(".living-release__dismiss").click();
-    await expect(page.locator(".living-release")).toHaveCount(0);
-    await page.reload({ waitUntil: "domcontentloaded" });
-    await expect(page.locator(".living-release")).toHaveCount(0);
+    await expect(panel).not.toHaveClass(/open/);
+
+    await beacon.click();
+    await page.locator("#markReadBtn").click();
+    await expect(page.locator("#panelFooter")).toContainText("All caught up");
+    await expect(beacon).toHaveClass(/read/);
+    await expect(page.locator("#badge")).toHaveClass(/hidden/);
   });
 
-  test("supports Arabic RTL content and a version-specific release link", async ({ page }) => {
+  test("supports Arabic RTL content and the full changelog link", async ({ page }) => {
     await page.goto("/ar/index.html", { waitUntil: "domcontentloaded" });
-    const shell = page.locator(".living-release");
+    const shell = page.locator(".beacon-wrap");
+    const panel = page.locator("#panel");
     await expect(shell).toHaveAttribute("dir", "rtl");
-    await expect(shell).toContainText("جديد في NexCore");
-    await expect(shell.locator(".living-release__highlights li")).toHaveCount(3);
-    await expect(shell.locator(".living-release__cta")).toHaveAttribute("href", "/ar/releases#v3-3-1");
-    await expect(shell.locator(".living-release__cta")).toHaveClass(/btn/);
-    await expect(shell.locator(".living-release__cta")).toHaveClass(/primary/);
-    const panelBox = await shell.locator(".living-release__panel").boundingBox();
+    await page.locator("#beaconBtn").click();
+    await expect(panel).toContainText("ما الجديد في NexCore");
+    await expect(panel.locator(".entry")).toHaveCount(4);
+    await expect(panel.locator(".footer-link")).toHaveAttribute("href", "releases.html");
+    const panelBox = await panel.boundingBox();
     expect(panelBox.x).toBeGreaterThanOrEqual(0);
     expect(panelBox.x + panelBox.width).toBeLessThanOrEqual(1280);
   });
 
   test("is limited to public routes and omitted from the release timeline", async ({ page }) => {
     await page.goto("/auth.html", { waitUntil: "domcontentloaded" });
-    await expect(page.locator(".living-release")).toHaveCount(0);
+    await expect(page.locator(".beacon-wrap")).toHaveCount(0);
     await page.goto("/releases.html", { waitUntil: "domcontentloaded" });
-    await expect(page.locator(".living-release")).toHaveCount(0);
-  });
-
-  test("shows a newly promoted version after an older announcement was dismissed", async ({ page }) => {
-    await page.addInitScript(() => localStorage.setItem("nx_release_v3-3-0_dismissed", "1"));
-    await page.route("**/assets/data/releases.json", (route) => route.fulfill({
-      status: 200,
-      contentType: "application/json",
-      body: JSON.stringify({ releases: [{
-        version: "v3.3.1",
-        title: { en: "A New Chapter", ar: "فصل جديد" },
-        visitor_announcement: {
-          enabled: true,
-          benefit: { en: "A fresh visitor-facing improvement.", ar: "تحسين جديد موجه للزوار." },
-          highlights: {
-            en: ["First improvement", "Second improvement", "Third improvement"],
-            ar: ["التحسين الأول", "التحسين الثاني", "التحسين الثالث"]
-          }
-        }
-      }] })
-    }));
-    await page.goto("/hub.html", { waitUntil: "domcontentloaded" });
-    await expect(page.locator(".living-release__panel")).toBeVisible();
-    await expect(page.locator(".living-release__panel")).toContainText("v3.3.1 — A New Chapter");
+    await expect(page.locator(".beacon-wrap")).toHaveCount(0);
   });
 
   test("restores focus with Escape and fits a 320px viewport", async ({ page }) => {
     await page.setViewportSize({ width: 320, height: 700 });
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto("/index.html", { waitUntil: "domcontentloaded" });
-    await expect(page.locator(".living-release__panel")).toBeVisible();
+    await page.locator("#beaconBtn").click();
+    await expect(page.locator("#panel")).toHaveClass(/open/);
     await page.keyboard.press("Escape");
-    await expect(page.locator(".living-release__beacon")).toBeFocused();
-    await page.locator(".living-release__beacon").click();
-    await expect(page.locator(".living-release__panel")).toBeVisible();
-    await expect(page.locator(".living-release__beacon")).toHaveCSS("animation-name", "none");
+    await expect(page.locator("#beaconBtn")).toBeFocused();
+    await page.locator("#beaconBtn").click();
+    await expect(page.locator("#panel")).toHaveClass(/open/);
+    await expect(page.locator("#pulseRing")).toHaveCSS("animation-name", "none");
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth);
     expect(overflow).toBe(false);
   });
