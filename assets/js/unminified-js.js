@@ -760,7 +760,7 @@ function initVersionHighlightBeacon({ isArabic, locale }) {
   btn.setAttribute("aria-label", copy.open);
   btn.setAttribute("aria-expanded", "false");
   btn.setAttribute("aria-controls", "panel");
-  const badge = create("span", "badge", "3");
+  const badge = create("span", "badge", "4");
   badge.id = "badge";
   const btnIcon = makeIcon("ti ti-sparkles btn-icon");
   btnIcon.id = "btnIcon";
