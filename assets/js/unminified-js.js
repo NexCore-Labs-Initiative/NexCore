@@ -706,32 +706,32 @@ function initVersionHighlightBeacon({ isArabic, locale }) {
 
   const copy = isArabic ? {
     open: "ما الجديد",
-    version: "v1.4.0",
+    version: "v3.3.1",
     date: "سبتمبر 2026",
     title: "ما الجديد في NexCore",
     newTag: "جديد",
-    fixTag: "إصلاح",
+    improvedTag: "تحسين",
     entries: [
-      "إعادة تصميم Study Hub مع شبكة لاختيار الكلية وفلاتر للفصل والنوع.",
-      "إعادة بناء الأدوات الأساسية ضمن شبكة مصنفة تضم أكثر من 30 أداة عبر 6 فئات.",
-      "تحسين تصفية فئات الأسئلة الشائعة مع تجميع أكثر سلاسة وبحث مدمج.",
-      "تصحيح تجاوز قائمة الهاتف على الشاشات الضيقة."
+      "إضافة سطر اعتماد خفيف لـ Uicons by Flaticon إلى التذييلات القياسية.",
+      "إضافة حقل رابط الشعار للمبادرات في لوحة المشرف.",
+      "أصبحت اختصارات المبادرات تفضّل الشعار المدمج ثم صورة المبادرة.",
+      "تحسين مؤشر الإصدار ليظهر كإشارة حالة أصغر مع حركة تراعي تقليل الحركة."
     ],
     changelog: "سجل التغييرات الكامل",
     markRead: "تعيين كمقروء",
     caughtUp: "تم الاطلاع على كل جديد"
   } : {
     open: "What's new",
-    version: "v1.4.0",
+    version: "v3.3.1",
     date: "Sep 2026",
     title: "What's new in NexCore",
     newTag: "New",
-    fixTag: "Fix",
+    improvedTag: "Improved",
     entries: [
-      "Study Hub redesigned - college selector grid with semester and type filters.",
-      "Core Tools rebuilt as a categorized grid of 30+ tools across 6 categories.",
-      "FAQ category filter sidebar with smoother grouping and inline search.",
-      "Mobile nav overflow corrected on narrow viewports."
+      "Added a quiet Uicons by Flaticon attribution line to standard footers.",
+      "Added an initiative Logo URL field in the admin dashboard.",
+      "Initiative shortcuts now prefer compact logos before initiative images.",
+      "Refined the release beacon into a smaller, reduced-motion-safe status signal."
     ],
     changelog: "Full changelog",
     markRead: "Mark as read",
@@ -784,8 +784,9 @@ function initVersionHighlightBeacon({ isArabic, locale }) {
   const changelog = create("div", "changelog");
   copy.entries.forEach((entryText, index) => {
     const entry = create("div", "entry");
-    const tagClasses = index === 3 ? "tag tag-fix" : "tag tag-new";
-    const tagText = index === 3 ? copy.fixTag : copy.newTag;
+    const isImprovement = index >= 2;
+    const tagClasses = isImprovement ? "tag tag-improved" : "tag tag-new";
+    const tagText = isImprovement ? copy.improvedTag : copy.newTag;
     entry.append(create("span", tagClasses, tagText), create("span", "entry-text", entryText));
     changelog.appendChild(entry);
   });
@@ -801,7 +802,7 @@ function initVersionHighlightBeacon({ isArabic, locale }) {
   panel.append(panelHeader, panelTitle, changelog, panelFooter);
   navContainer.appendChild(panel);
 
-  const storageKey = "nexcore_v140_read";
+  const storageKey = "nexcore_v331_read";
   let isOpen = false;
   let isRead = storage?.getItem(storageKey) === "true";
   const applyReadState = () => {

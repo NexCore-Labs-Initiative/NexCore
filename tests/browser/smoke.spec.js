@@ -387,8 +387,8 @@ test.describe("version highlights beacon", () => {
 
     await beacon.click();
     await expect(panel).toHaveClass(/open/);
-    await expect(panel).toContainText("v1.4.0");
-    await expect(panel).toContainText("Study Hub redesigned");
+    await expect(panel).toContainText("v3.3.1");
+    await expect(panel).toContainText("initiative Logo URL field");
     await expect(beacon).toHaveAttribute("aria-expanded", "true");
     await page.mouse.click(1180, 650);
     await expect(panel).not.toHaveClass(/open/);
