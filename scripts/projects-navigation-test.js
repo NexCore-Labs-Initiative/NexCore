@@ -40,6 +40,7 @@ assert(authUi.includes('window.NexCoreProjectsMenu?.init();'), "Auth navigation 
 for (const selector of [".projects-nav-group", ".projects-shortcut-drawer", ".project-shortcut-link", ".project-shortcut-visual", ".project-shortcut-all"]) {
   assert(sharedMenuCss.includes(selector), `Shared menu CSS must style ${selector}`);
 }
+assert(sharedMenuCss.includes(".dropdown-content a.mt-0:not(.lang-switch-pill, .magic-signup, .ai-link, .nav-user-action)"), "Menu links with .mt-0 must retain the shared row spacing");
 
 for (const file of ["dashboard.html", "ar/dashboard.html"]) {
   const html = read(file);
