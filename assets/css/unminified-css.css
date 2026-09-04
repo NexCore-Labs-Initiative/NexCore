@@ -27,6 +27,11 @@
     -webkit-font-smoothing: antialiased
 }
 
+::selection {
+    background-color: rgba(20, 184, 166, 0.35);
+    color: #ffffff;
+}
+
 * {
     transition: all .3s ease
 }
