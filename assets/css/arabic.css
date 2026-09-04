@@ -93,8 +93,8 @@
   text-align: center;
 }
 
-:lang(ar) .nav-container .logo #logo, .logo #logo span {
-  font-family: 'Inter', sans-serif;
+html[lang="ar"] .nav-container .logo div#logo {
+  font-family: "Michroma", sans-serif;
 }
 
 :lang(ar) .tool-card span {
