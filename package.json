@@ -50,7 +50,7 @@
   },
   "homepage": "https://nexcorelabs.vercel.app",
   "dependencies": {
-    "@google/genai": "^2.10.0",
+    "@google/genai": "^2.19.0",
     "@supabase/supabase-js": "^2.108.1"
   },
   "devDependencies": {
