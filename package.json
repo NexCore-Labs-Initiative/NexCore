@@ -34,7 +34,7 @@
     "routes:test": "node scripts/route-manifest-test.js",
     "release:evidence": "node scripts/release-evidence-test.js",
     "shell:sync": "node scripts/sync-shared-shell.js",
-    "assets:build": "terser assets/js/unminified-js.js --compress --mangle --output assets/js/script.js && cleancss -o assets/css/style.css assets/css/unminified-css.css",
+    "assets:build": "terser assets/js/unminified-js.js --compress --mangle --output assets/js/script.js && cleancss --inline none -o assets/css/style.css assets/css/unminified-css.css",
     "browser:test": "playwright test",
     "ci": "npm test && npm run routes:test && npm run release:evidence && npm run security:audit"
   },
