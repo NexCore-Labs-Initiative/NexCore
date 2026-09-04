@@ -5025,10 +5025,12 @@ html[lang="ar"] .beacon-wrap {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    border: .5px solid #1e3a4a;
-    border-radius: 12px;
-    background: #0f1923;
-    box-shadow: 0 18px 42px rgba(0, 0, 0, .42);
+    border: none;
+    border-radius: var(--radius);
+    background: rgba(10, 11, 28, .8);
+    box-shadow: 0 8px 32px 0 rgba(115, 189, 215, .06), inset 0 0 20px hsla(0, 0%, 100%, .1);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     text-align: start;
     opacity: 0;
     pointer-events: none;
