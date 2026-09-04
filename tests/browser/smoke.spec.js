@@ -382,6 +382,7 @@ test.describe("version highlights beacon", () => {
     await page.goto("/index.html", { waitUntil: "domcontentloaded" });
     const beacon = page.locator("#beaconBtn");
     const panel = page.locator("#panel");
+    await expect(page.locator("#badge")).toHaveCount(0);
     await expect(beacon).toHaveAttribute("aria-expanded", "false");
     await expect(panel).not.toHaveClass(/open/);
 
@@ -397,7 +398,6 @@ test.describe("version highlights beacon", () => {
     await page.locator("#markReadBtn").click();
     await expect(page.locator("#panelFooter")).toContainText("All caught up");
     await expect(beacon).toHaveClass(/read/);
-    await expect(page.locator("#badge")).toHaveClass(/hidden/);
   });
 
   test("supports Arabic RTL content and the full changelog link", async ({ page }) => {

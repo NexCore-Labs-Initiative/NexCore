@@ -760,14 +760,12 @@ function initVersionHighlightBeacon({ isArabic, locale }) {
   btn.setAttribute("aria-label", copy.open);
   btn.setAttribute("aria-expanded", "false");
   btn.setAttribute("aria-controls", "panel");
-  const badge = create("span", "badge", "4");
-  badge.id = "badge";
   const btnIcon = makeIcon("ti ti-sparkles btn-icon");
   btnIcon.id = "btnIcon";
   const tooltip = create("div", "tooltip", copy.open);
   tooltip.id = "tooltip";
   tooltip.setAttribute("role", "tooltip");
-  btn.append(badge, btnIcon);
+  btn.appendChild(btnIcon);
   beaconWrap.append(pulseRing, btn, tooltip);
   logo.appendChild(beaconWrap);
 
@@ -808,7 +806,6 @@ function initVersionHighlightBeacon({ isArabic, locale }) {
   const applyReadState = () => {
     beaconWrap.classList.toggle("is-read", isRead);
     btn.classList.toggle("read", isRead);
-    badge.classList.toggle("hidden", isRead);
     btnIcon.className = "ti ti-sparkles btn-icon";
   };
   const openPanel = () => {
@@ -819,7 +816,6 @@ function initVersionHighlightBeacon({ isArabic, locale }) {
     btn.classList.add("open");
     btn.setAttribute("aria-expanded", "true");
     btnIcon.className = "ti ti-x btn-icon";
-    badge.classList.add("hidden");
   };
   const closePanel = ({ restoreFocus = false } = {}) => {
     isOpen = false;
