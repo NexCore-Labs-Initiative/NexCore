@@ -5,7 +5,7 @@
     "al-faris": Object.freeze({
       credentialId: "NCL-0001",
       contactUrl: "https://blinq.me/cmgiwe8wn01zhs60mfmiu60fj",
-      qrImage: "team-id-ncl-0001.webp",
+      qrImage: "team-id-ncl-0001.png",
       name: Object.freeze({ en: "Al-Faris Mujahid AlZakwani", ar: "الفارس بن مجاهد الزكواني" }),
       title: Object.freeze({ en: "Founder", ar: "المؤسس" }),
       role: Object.freeze({ en: "Project Manager & Lead Developer", ar: "مدير المشروع وكبير المطورين" }),
@@ -14,7 +14,7 @@
     talal: Object.freeze({
       credentialId: "NCL-0002",
       contactUrl: "https://blinq.me/cmgj7rwqz0hies60mmtf2i2f6",
-      qrImage: "team-id-ncl-0002.webp",
+      qrImage: "team-id-ncl-0002.png",
       name: Object.freeze({ en: "Talal AlKalbani", ar: "طلال الكلباني" }),
       title: Object.freeze({ en: "Technical Operations", ar: "العمليات التقنية" }),
       role: Object.freeze({ en: "Technical Architect", ar: "المهندس التقني" }),

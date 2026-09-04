@@ -136,8 +136,8 @@ const PRECACHE_URLS = [
   '/assets/images/nexcore-logo.webp',
   '/assets/images/nexcore-icon.png',
   '/assets/images/ceopic.webp',
-  '/assets/images/team-id-ncl-0001.webp',
-  '/assets/images/team-id-ncl-0002.webp',
+  '/assets/images/team-id-ncl-0001.png',
+  '/assets/images/team-id-ncl-0002.png',
   '/assets/images/oman.webp',
 
   '/manifest.json',
