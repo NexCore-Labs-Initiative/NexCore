@@ -718,7 +718,7 @@ function initVersionHighlightBeacon({ isArabic, locale }) {
       "تحسين مؤشر الإصدار ليظهر كإشارة حالة أصغر مع حركة تراعي تقليل الحركة."
     ],
     changelog: "سجل التغييرات الكامل",
-    markRead: "تعيين كمقروء",
+    markRead: "إخفاء",
     caughtUp: "تم الاطلاع على كل جديد"
   } : {
     open: "What's new",
@@ -734,7 +734,7 @@ function initVersionHighlightBeacon({ isArabic, locale }) {
       "Refined the release beacon into a smaller, reduced-motion-safe status signal."
     ],
     changelog: "Full changelog",
-    markRead: "Mark as read",
+    markRead: "Dismiss",
     caughtUp: "All caught up"
   };
   const create = (tag, className, text) => {
