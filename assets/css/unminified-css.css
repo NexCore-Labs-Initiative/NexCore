@@ -2268,6 +2268,10 @@ textarea:focus {
     -webkit-backdrop-filter: blur(6px);
 }
 
+.dropdown-content a.mt-0:not(.lang-switch-pill, .magic-signup, .ai-link, .nav-user-action) {
+    margin-top: 5px !important;
+}
+
 .dropdown-content a:not(.lang-switch-pill, .magic-signup, .ai-link) i {
     width: 18px;
     text-align: center;
