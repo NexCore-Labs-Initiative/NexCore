@@ -45,8 +45,8 @@ for (const value of [
   "سبتمبر ٢٠٢٥",
   "https://blinq.me/cmgiwe8wn01zhs60mfmiu60fj",
   "https://blinq.me/cmgj7rwqz0hies60mmtf2i2f6",
-  "team-id-ncl-0001.png",
-  "team-id-ncl-0002.png",
+  "team-id-ncl-0001.webp",
+  "team-id-ncl-0002.webp",
   'aria-modal',
   'event.key === "Escape"',
   'event.key !== "Tab"',
@@ -75,7 +75,7 @@ assert(
   "ID-card panel must animate from the open state like the cookie modal"
 );
 
-for (const image of ["assets/images/team-id-ncl-0001.png", "assets/images/team-id-ncl-0002.png"]) {
+for (const image of ["assets/images/team-id-ncl-0001.webp", "assets/images/team-id-ncl-0002.webp"]) {
   assert(fs.existsSync(path.join(root, image)), `${image} must exist`);
   assert(fs.statSync(path.join(root, image)).size > 1000, `${image} must be a usable QR asset`);
 }
@@ -86,8 +86,8 @@ assert(serviceWorker.includes(`const CACHE_VERSION = '${releaseTag}';`), "Servic
 for (const asset of [
   "/assets/css/team-id-cards.css",
   "/assets/js/team-id-cards.js",
-  "/assets/images/team-id-ncl-0001.png",
-  "/assets/images/team-id-ncl-0002.png"
+  "/assets/images/team-id-ncl-0001.webp",
+  "/assets/images/team-id-ncl-0002.webp"
 ]) {
   assert(serviceWorker.includes(`'${asset}'`), `Service worker must precache ${asset}`);
 }
