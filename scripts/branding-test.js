@@ -38,8 +38,6 @@ const retiredCopy = [
 for (const file of [
   "index.html",
   "ar/index.html",
-  "thanks.html",
-  "ar/thanks.html",
   "manifest.json",
   "package.json",
   "README.md",

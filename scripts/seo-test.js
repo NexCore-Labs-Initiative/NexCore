@@ -15,7 +15,6 @@ const privateOrUtilityRoutes = [
   "/dashboard",
   "/account",
   "/admin-users",
-  "/unsubscribe",
   "/offline",
   "/order-confirmation",
   "/embed",

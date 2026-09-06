@@ -799,8 +799,6 @@
 
 
 
-            <p class="status-msg"><a id="unsubscribe-link" href="unsubscribe.html" style="color: #6EE7F3; text-decoration: underline;">Unsubscribe</a></p>
-
             -->
 
         </div>
@@ -952,26 +950,6 @@
           }
 
         });
-
-        // Update unsubscribe link with the typed email so users can click to unsubscribe
-
-        const unsubscribeLink = document.getElementById('unsubscribe-link');
-
-        if (unsubscribeLink && emailEl) {
-
-          function updateUnsubscribeHref() {
-
-            const val = (emailEl.value || '').trim().toLowerCase();
-
-            unsubscribeLink.href = val ? `unsubscribe.html?email=${encodeURIComponent(val)}` : 'unsubscribe.html';
-
-          }
-
-          emailEl.addEventListener('input', updateUnsubscribeHref);
-
-          updateUnsubscribeHref();
-
-        }
 
       });
 

@@ -178,9 +178,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const locale = isArabic ? {
     lang: "ar",
     dir: "rtl",
-    formRequired: "يرجى تعبئة جميع الحقول.",
+    formRequired: "يرجى تعبئة الحقول المطلوبة",
+    formEmailInvalid: "أدخل بريدًا إلكترونيًا صالحًا",
     formSending: "جارٍ الإرسال...",
-    formError: "تعذر إرسال الرسالة. حاول مرة أخرى.",
+    formSent: "تم الإرسال",
+    formSuccess: "تم إرسال رسالتك بنجاح.",
+    formFailed: "تعذر الإرسال",
     menuHint: "&#x1F44B; أنا القائمة",
     rotator: [
       `<div class="flag-includes"><img src="../assets/images/oman.webp" alt="علم عمان"><span>صُنع بفخر في عمان</span></div>`,
@@ -193,9 +196,12 @@ document.addEventListener("DOMContentLoaded", () => {
   } : {
     lang: "en",
     dir: "ltr",
-    formRequired: "Please fill all fields.",
+    formRequired: "Fill required fields",
+    formEmailInvalid: "Enter a valid email",
     formSending: "Sending...",
-    formError: "We couldn't send your message. Please try again.",
+    formSent: "Sent",
+    formSuccess: "Your message was sent successfully.",
+    formFailed: "Failed to send",
     menuHint: "&#x1F44B; I'm the menu",
     rotator: [
       `<div class="flag-includes"><img src="assets/images/oman.webp" alt="Oman flag"><span>Proudly Built in Oman</span></div>`,
@@ -207,9 +213,12 @@ document.addEventListener("DOMContentLoaded", () => {
     ],
   };
 
-  function setNotice(message, isError) {
-    if (window.showToast) {
-      window.showToast(message, isError);
+  function setNotice(message, isError = false, type) {
+    const tone = type || (isError ? "error" : "info");
+    if (window.NexCoreNotify?.show) {
+      window.NexCoreNotify.show({ message, type: tone });
+    } else if (window.showToast) {
+      window.showToast(message, tone);
     } else if (notice) {
       notice.textContent = message;
       notice.style.display = message ? "" : "none";
@@ -352,7 +361,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const yearEl = document.getElementById("year") || document.getElementById("yearHub");
   const form = document.getElementById("contactForm");
   const notice = document.getElementById("formNotice");
-  const resetBtn = document.getElementById("resetBtn");
   const logoImg = document.getElementById("logoImg");
   const mainContent = document.querySelector("main");
   const myDropdown = document.getElementById("myDropdown");
@@ -490,23 +498,96 @@ if (yearEl) {
 
   // Contact form handling
   if (form) {
-    form.addEventListener("submit", async (ev) => {
-      ev.preventDefault();
+    const contactFields = Array.from(form.querySelectorAll("input[name='name'], input[name='email'], textarea[name='message']"));
+    const submitButton = form.querySelector('button[type="submit"]');
+    const submitLabel = submitButton?.querySelector(".contact-submit-label");
+    const defaultButtonLabel = submitLabel?.textContent || submitButton?.textContent || "";
+    let contactButtonTimer = null;
 
-      const name = form.elements.namedItem("name")?.value.trim();
-      const email = form.elements.namedItem("email")?.value.trim();
-      const message = form.elements.namedItem("message")?.value.trim();
+    const setFieldState = (field) => {
+      const value = field.value.trim();
+      const invalid = (field.required && !value) || (value && field.type === "email" && !field.validity.valid);
+      field.classList.toggle("is-invalid", invalid);
+      field.setAttribute("aria-invalid", String(invalid));
+      return invalid;
+    };
 
-      if (!name || !email || !message) {
-        setNotice(locale.formRequired, true);
+    const announceContactStatus = (message) => {
+      if (notice) notice.textContent = message;
+    };
+
+    const clearButtonRestore = () => {
+      window.clearTimeout(contactButtonTimer);
+      contactButtonTimer = null;
+    };
+
+    const setButtonLabel = (label, state = "idle") => {
+      if (!submitButton) return;
+      clearButtonRestore();
+      submitButton.dataset.contactState = state;
+
+      if (!submitLabel) {
+        submitButton.textContent = label;
         return;
       }
 
-      const submitButton = form.querySelector('button[type="submit"]');
-      const originalButtonText = submitButton?.textContent;
+      submitLabel.classList.remove("is-changing");
+      void submitLabel.offsetWidth;
+      submitLabel.textContent = label;
+      submitLabel.classList.add("is-changing");
+    };
 
-      if (submitButton) submitButton.disabled = true;
-      setNotice(locale.formSending);
+    const restoreButtonAfter = (duration) => {
+      clearButtonRestore();
+      contactButtonTimer = window.setTimeout(() => {
+        setButtonLabel(defaultButtonLabel);
+        announceContactStatus("");
+      }, duration);
+    };
+
+    const getInvalidFields = () => contactFields.filter(setFieldState);
+
+    const showValidationState = (invalidFields) => {
+      const hasMissingField = invalidFields.some((field) => field.required && !field.value.trim());
+      const message = hasMissingField ? locale.formRequired : locale.formEmailInvalid;
+      setButtonLabel(message, hasMissingField ? "required" : "email-invalid");
+      announceContactStatus(message);
+    };
+
+    const resetContactState = () => {
+      delete form.dataset.validationAttempted;
+      contactFields.forEach((field) => {
+        field.classList.remove("is-invalid");
+        field.setAttribute("aria-invalid", "false");
+      });
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.setAttribute("aria-busy", "false");
+      }
+      setButtonLabel(defaultButtonLabel);
+      announceContactStatus("");
+    };
+
+    form.addEventListener("reset", resetContactState);
+
+    form.addEventListener("submit", async (ev) => {
+      ev.preventDefault();
+
+      form.dataset.validationAttempted = "true";
+      const invalidFields = getInvalidFields();
+      const firstInvalid = invalidFields[0];
+      if (firstInvalid) {
+        showValidationState(invalidFields);
+        firstInvalid.focus();
+        return;
+      }
+
+      if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.setAttribute("aria-busy", "true");
+      }
+      setButtonLabel(locale.formSending, "sending");
+      announceContactStatus(locale.formSending);
 
       try {
         const response = await fetch(form.action, {
@@ -520,22 +601,34 @@ if (yearEl) {
           throw new Error(result.message || "Web3Forms submission failed");
         }
 
-        window.location.assign(form.dataset.successUrl || "/thanks.html");
+        form.reset();
+        setNotice(locale.formSuccess, false, "success");
+        setButtonLabel(locale.formSent, "success");
+        announceContactStatus(locale.formSuccess);
+        restoreButtonAfter(1800);
       } catch (error) {
         console.error("Contact form submission failed:", error);
-        setNotice(locale.formError, true);
         if (submitButton) {
           submitButton.disabled = false;
-          submitButton.textContent = originalButtonText;
+          submitButton.setAttribute("aria-busy", "false");
         }
+        setButtonLabel(locale.formFailed, "error");
+        announceContactStatus(locale.formFailed);
+        restoreButtonAfter(2600);
       }
     });
-  }
 
-  if (resetBtn) {
-    resetBtn.addEventListener("click", () => {
-      if (form) form.reset();
-      if (notice) notice.textContent = "";
+    contactFields.forEach((field) => {
+      field.addEventListener("input", () => {
+        if (form.dataset.validationAttempted !== "true") return;
+        const invalidFields = getInvalidFields();
+        if (invalidFields.length) {
+          showValidationState(invalidFields);
+          return;
+        }
+        setButtonLabel(defaultButtonLabel);
+        announceContactStatus("");
+      });
     });
   }
 

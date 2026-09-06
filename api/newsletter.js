@@ -17,7 +17,7 @@ function createNewsletterHandler(getAdmin = getSupabaseAdmin) {
     const email = normalizeEmail(req.body?.email);
     const honeypot = String(req.body?.company || "").trim();
 
-    if (!["subscribe", "unsubscribe"].includes(action)) {
+    if (!["subscribe", "prepare_unsubscribe", "unsubscribe"].includes(action)) {
       return res.status(400).json({ error: "Invalid action" });
     }
 
@@ -29,7 +29,7 @@ function createNewsletterHandler(getAdmin = getSupabaseAdmin) {
     if (honeypot) {
       return res.status(200).json({
         ok: true,
-        status: action === "subscribe" ? "subscribed" : "unsubscribed"
+        status: action === "subscribe" ? "subscribed" : action === "prepare_unsubscribe" ? "ready" : "unsubscribed"
       });
     }
 
@@ -42,6 +42,12 @@ function createNewsletterHandler(getAdmin = getSupabaseAdmin) {
         .maybeSingle();
 
       if (selectError) throw selectError;
+
+      // The preflight intentionally returns the same response for every valid address.
+      // It confirms the request can continue without exposing subscription membership.
+      if (action === "prepare_unsubscribe") {
+        return res.status(200).json({ ok: true, status: "ready" });
+      }
 
       if (action === "subscribe") {
         if (subscriber?.is_active) {
@@ -76,19 +82,17 @@ function createNewsletterHandler(getAdmin = getSupabaseAdmin) {
         return res.status(200).json({ ok: true, status: "subscribed" });
       }
 
-      if (!subscriber?.is_active) {
-        return res.status(200).json({ ok: true, status: "not_subscribed" });
+      if (subscriber?.is_active) {
+        const { error: updateError } = await supabase
+          .from("email_subscribers")
+          .update({
+            is_active: false,
+            unsubscribed_at: new Date().toISOString()
+          })
+          .eq("id", subscriber.id);
+
+        if (updateError) throw updateError;
       }
-
-      const { error: updateError } = await supabase
-        .from("email_subscribers")
-        .update({
-          is_active: false,
-          unsubscribed_at: new Date().toISOString()
-        })
-        .eq("id", subscriber.id);
-
-      if (updateError) throw updateError;
 
       return res.status(200).json({ ok: true, status: "unsubscribed" });
     } catch (error) {
