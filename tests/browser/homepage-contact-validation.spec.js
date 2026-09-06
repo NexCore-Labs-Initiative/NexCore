@@ -21,6 +21,8 @@ for (const path of ["/index.html", "/ar/index.html"]) {
     };
     let shouldFail = false;
 
+    await page.emulateMedia({ reducedMotion: "no-preference" });
+
     await page.addInitScript(() => {
       localStorage.setItem("nexcore_cookie_preferences", JSON.stringify({ necessary: true, analytics: false, external_media: false, ai_services: false, timestamp: 1 }));
     });
@@ -88,11 +90,18 @@ for (const path of ["/index.html", "/ar/index.html"]) {
     await page.waitForTimeout(2700);
     await expect(submit).toHaveText(copy.default);
 
-    await page.locator("#name").fill("");
-    await expect(submit).toHaveText(copy.required);
+    await page.locator("#name").fill("NexCore");
+    await page.locator("#email").fill("hello@nexcore.test");
+    await page.locator("#message").fill("A test message.");
     await reset.click();
+    await expect(form).toHaveClass(/is-resetting/);
+    await expect(reset).toBeDisabled();
+    await page.waitForTimeout(220);
     await expect(submit).toHaveText(copy.default);
     await expect(page.locator("#name")).not.toHaveClass(/is-invalid/);
+    await expect(page.locator("#name")).toHaveValue("");
+    await expect(page.locator("#email")).toHaveValue("");
+    await expect(page.locator("#message")).toHaveValue("");
 
     const newsletter = page.locator(".newsletter-card");
     await newsletter.scrollIntoViewIfNeeded();
