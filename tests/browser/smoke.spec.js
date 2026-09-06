@@ -2,8 +2,11 @@
 
 const { test, expect } = require("@playwright/test");
 const AxeBuilder = require("@axe-core/playwright").default;
+const releaseData = require("../../assets/data/releases.json");
 
 const routes = ["/index.html", "/hub.html", "/contribute.html", "/roadmap.html", "/ar/index.html", "/ar/hub.html", "/ar/contribute.html", "/ar/roadmap.html"];
+const latestRelease = releaseData.releases[0];
+const latestReleaseId = latestRelease.version.replace(/\./g, "-");
 
 test.beforeEach(async ({ page }) => {
   await page.addInitScript(() => {
@@ -447,9 +450,9 @@ for (const route of ["/terms.html", "/ar/terms.html", "/pricing-policy.html", "/
 for (const route of ["/releases.html", "/ar/releases.html"]) {
   test(`${route} renders the complete release timeline`, async ({ page }) => {
     await page.goto(route, { waitUntil: "domcontentloaded" });
-    await expect(page.locator(".rl-card")).toHaveCount(22);
-    await expect(page.locator(".rl-card").first()).toContainText("v3.3.1");
-    await expect(page.locator(".rl-card").first()).toHaveAttribute("id", "v3-3-1");
+    await expect(page.locator(".rl-card")).toHaveCount(releaseData.releases.length);
+    await expect(page.locator(".rl-card").first()).toContainText(latestRelease.version);
+    await expect(page.locator(".rl-card").first()).toHaveAttribute("id", latestReleaseId);
     await expect(page.locator("#rlTl")).not.toContainText(/Could not load release data|تعذر تحميل بيانات الإصدارات/);
   });
 }
@@ -465,8 +468,9 @@ test.describe("version highlights beacon", () => {
 
     await beacon.click();
     await expect(panel).toHaveClass(/open/);
-    await expect(panel).toContainText("v3.3.1");
-    await expect(panel).toContainText("initiative Logo URL field");
+    await expect(panel).toContainText(latestRelease.version);
+    await expect(panel).toContainText("What's new in NexCore");
+    await expect(panel.locator(".entry")).toHaveCount(4);
     await expect(beacon).toHaveAttribute("aria-expanded", "true");
     await page.mouse.click(1180, 650);
     await expect(panel).not.toHaveClass(/open/);
