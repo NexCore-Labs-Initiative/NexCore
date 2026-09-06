@@ -2,6 +2,29 @@
 
 const { test, expect } = require("@playwright/test");
 
+for (const [path, message] of [
+  ["/auth.html", "You have been logged out successfully."],
+  ["/ar/auth.html", "تم تسجيل الخروج بنجاح."]
+]) {
+  test(`${path} shows the queued logout notification once`, async ({ page }) => {
+    await page.route(/^https:\/\//, route => route.abort());
+    await page.route("**/assets/js/supabase-client.js", route => route.fulfill({
+      contentType: "application/javascript",
+      body: "window.supabaseClient = { auth: { getSession: () => new Promise(() => {}), onAuthStateChange: () => ({ data: {} }) } };"
+    }));
+    await page.addInitScript(() => {
+      sessionStorage.setItem("nexcore_logout_toast", "success");
+      localStorage.setItem("nexcore_cookie_preferences", JSON.stringify({ necessary: true, analytics: false, external_media: false, ai_services: false, timestamp: 1 }));
+    });
+    await page.goto(path, { waitUntil: "domcontentloaded" });
+
+    const toast = page.locator(".nexcore-toast--success");
+    await expect(toast).toBeVisible();
+    await expect(toast).toContainText(message);
+    await expect.poll(() => page.evaluate(() => sessionStorage.getItem("nexcore_logout_toast"))).toBeNull();
+  });
+}
+
 for (const path of ["/account.html", "/ar/account.html"]) {
   test(`${path} account messages use shared notifications`, async ({ page }) => {
     await page.setViewportSize({ width: path.startsWith("/ar/") ? 390 : 1280, height: 844 });

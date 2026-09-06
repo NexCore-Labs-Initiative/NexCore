@@ -9,6 +9,7 @@
 
     const sb = window.supabaseClient;
     const AUTH_NOTICE_KEY = 'auth_notice';
+    const LOGOUT_TOAST_KEY = 'nexcore_logout_toast';
     let isEnforcingEmailDomain = false;
     const isArabicPage = (document.documentElement.getAttribute('lang') || '').toLowerCase().startsWith('ar') ||
         /(^|\/)ar(\/|$)/.test(window.location.pathname);
@@ -28,6 +29,7 @@
         accountActionsTitle: 'إجراءات الحساب',
         logoutTitle: 'تسجيل الخروج',
         logout: 'تسجيل الخروج',
+        logoutSuccess: 'تم تسجيل الخروج بنجاح.',
         logoutFailed: 'تعذر تسجيل الخروج. يرجى المحاولة مرة أخرى.',
     } : {
         lang: 'en',
@@ -44,6 +46,7 @@
         accountActionsTitle: 'Account actions',
         logoutTitle: 'Logout',
         logout: 'Logout',
+        logoutSuccess: 'You have been logged out successfully.',
         logoutFailed: 'Failed to logout. Please try again.',
     };
 
@@ -99,6 +102,39 @@
         try {
             sessionStorage.setItem(AUTH_NOTICE_KEY, message);
         } catch (_) {}
+    }
+
+    function queueLogoutToast() {
+        try {
+            sessionStorage.setItem(LOGOUT_TOAST_KEY, 'success');
+            return true;
+        } catch (_) {
+            return false;
+        }
+    }
+
+    function showQueuedLogoutToast() {
+        const isAuthPage = /(^|\/)auth(?:\.html)?$/.test(window.location.pathname);
+        if (!isAuthPage) return;
+
+        try {
+            if (sessionStorage.getItem(LOGOUT_TOAST_KEY) !== 'success') return;
+            sessionStorage.removeItem(LOGOUT_TOAST_KEY);
+        } catch (_) {
+            return;
+        }
+
+        const options = {
+            message: copy.logoutSuccess,
+            type: 'success',
+            icon: 'right-from-bracket'
+        };
+
+        if (window.NexCoreNotify?.show) {
+            window.NexCoreNotify.show(options);
+        } else if (window.showToast) {
+            window.showToast(options.message, options.type);
+        }
     }
 
     async function enforceEmailDomain(session) {
@@ -298,11 +334,16 @@
             const { error } = await sb.auth.signOut();
             if (error) throw error;
 
+            queueLogoutToast();
             // Redirect to auth page
             window.location.href = `${routePrefix}/auth.html`;
         } catch (error) {
             console.error('Logout error:', error);
-            alert(copy.logoutFailed);
+            if (window.NexCoreNotify?.show) {
+                window.NexCoreNotify.show({ message: copy.logoutFailed, type: 'error' });
+            } else {
+                alert(copy.logoutFailed);
+            }
         }
     }
 
@@ -326,6 +367,7 @@
         ensureContributeNavigation();
         window.NexCoreInitiativesMenu?.init();
         window.NexCoreProjectsMenu?.init();
+        showQueuedLogoutToast();
         // Ensure nav elements exist
         ensureNavElements();
 
@@ -361,6 +403,7 @@
 
     // Expose updateAuthUI globally for manual calls if needed
     window.updateAuthUI = updateAuthUI;
+    window.NexCoreAuth = { queueLogoutToast };
 
     async function adminAccessRequest(method, payload) {
         const { data: { session } } = await sb.auth.getSession();
