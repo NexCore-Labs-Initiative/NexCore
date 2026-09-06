@@ -36,11 +36,20 @@ function request(overrides = {}) {
   };
 }
 
-function createSupabase({ user = { id: "user-1" }, authError = null, rpc } = {}) {
+function createSupabase({ user = { id: "user-1" }, authError = null, rpc, usage = { used: 1 } } = {}) {
+  const usageQuery = {
+    select() { return usageQuery; },
+    eq() { return usageQuery; },
+    maybeSingle: async () => ({ data: usage, error: null }),
+  };
+
   return {
     auth: { getUser: async () => ({ data: { user }, error: authError }) },
+    from: (table) => {
+      if (table !== "ai_usage_daily") throw new Error(`Unexpected table: ${table}`);
+      return usageQuery;
+    },
     rpc: rpc || (async (name) => {
-      if (name === "get_ai_usage") return { data: { used: 1, remaining: 2, max: 3 }, error: null };
       if (name === "consume_ai_use") return { data: 1, error: null };
       throw new Error(`Unexpected RPC: ${name}`);
     }),
@@ -164,6 +173,19 @@ async function run() {
     query: { usage: "1" },
   }), usageResponse);
   assert.deepStrictEqual(usageResponse.body, { used: 1, remaining: 2, max: 3 });
+
+  const unusedHandler = createAiHandler({
+    createClientImpl: () => createSupabase({ usage: null }),
+    GoogleGenAIImpl: SuccessfulGoogleGenAI,
+    env: validEnv,
+    logger: { error() {} },
+  });
+  const unusedUsageResponse = responseMock();
+  await unusedHandler(request({
+    headers: { authorization: "Bearer good-token" },
+    query: { usage: "1" },
+  }), unusedUsageResponse);
+  assert.deepStrictEqual(unusedUsageResponse.body, { used: 0, remaining: 3, max: 3 });
 
   const disabledChatResponse = responseMock();
   await handler(request({

@@ -225,6 +225,23 @@ for (const route of ["/dashboard.html", "/ar/dashboard.html"]) {
     );
   });
 
+  test(`${route} renders the current AI quota in the command band`, async ({ page }) => {
+    await page.route("**/api/ai?usage=1", (routeRequest) => routeRequest.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({ used: 1, remaining: 2, max: 3 })
+    }));
+    await page.goto(route, { waitUntil: "domcontentloaded" });
+    await page.waitForFunction(() => typeof window.initAiRemainingUI === "function");
+    await page.evaluate(async () => {
+      window.supabaseClient.auth.getSession = async () => ({ data: { session: { access_token: "test-token" } } });
+      window.__aiRemainingInitDone = false;
+      await window.initAiRemainingUI();
+    });
+
+    await expect(page.locator("#commandAiRemaining")).toHaveText("2 / 3");
+  });
+
   test(`${route} command-center panels respect reduced motion`, async ({ page }) => {
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto(route, { waitUntil: "domcontentloaded" });
