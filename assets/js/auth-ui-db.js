@@ -12,6 +12,7 @@
     const LOGOUT_TOAST_KEY = 'nexcore_logout_toast';
     const GOOGLE_AUTH_ATTEMPT_KEY = 'nexcore_google_auth_attempt';
     const GOOGLE_AUTH_ATTEMPT_MAX_AGE = 10 * 60 * 1000;
+    const CANONICAL_ORIGIN = 'https://nexcorelabs.vercel.app';
     let isEnforcingEmailDomain = false;
     const isArabicPage = (document.documentElement.getAttribute('lang') || '').toLowerCase().startsWith('ar') ||
         /(^|\/)ar(\/|$)/.test(window.location.pathname);
@@ -135,6 +136,12 @@
         } catch (_) {
             return false;
         }
+    }
+
+    function getOAuthCallbackUrl(path) {
+        const isLocalhost = ['localhost', '127.0.0.1'].includes(window.location.hostname);
+        const origin = isLocalhost ? window.location.origin : CANONICAL_ORIGIN;
+        return `${origin}${path.startsWith('/') ? path : `/${path}`}`;
     }
 
     function showQueuedLogoutToast() {
@@ -431,7 +438,8 @@
         queueLogoutToast,
         beginGoogleAuthAttempt,
         clearGoogleAuthAttempt,
-        consumeGoogleAuthAttempt
+        consumeGoogleAuthAttempt,
+        getOAuthCallbackUrl
     };
 
     async function adminAccessRequest(method, payload) {

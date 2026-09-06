@@ -343,7 +343,7 @@
                     const { data, error } = await sb.auth.signInWithOAuth({
                         provider: 'google',
                         options: {
-                            redirectTo: `${window.location.origin}/ar/auth.html`
+                            redirectTo: window.NexCoreAuth?.getOAuthCallbackUrl?.('/ar/auth.html') || 'https://nexcorelabs.vercel.app/ar/auth.html'
                         }
                     });
 
