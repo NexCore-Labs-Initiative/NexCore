@@ -548,8 +548,11 @@
               <input id="newsletter-company" name="company" type="text" tabindex="-1" autocomplete="off">
             </div>
 
+            <div id="newsletter-unsubscribe-confirmation" class="newsletter-unsubscribe-confirmation" hidden aria-hidden="true">
+              <button id="newsletter-confirm-unsubscribe" type="button" class="btn danger">إلغاء الاشتراك</button>
+            </div>
             <p id="newsletter-message" class="newsletter-message" role="status" aria-live="polite"></p>
-            <p class="newsletter-note">دون رسائل مزعجة. يمكنك إلغاء الاشتراك في أي وقت من <a href="unsubscribe.html">صفحة إلغاء الاشتراك</a>.</p>
+            <p class="newsletter-note">دون رسائل مزعجة. <button id="newsletter-manage" class="newsletter-manage" type="button" aria-expanded="false">إدارة الاشتراك</button>.</p>
           </form>
         </div>
       </div>

@@ -24,7 +24,6 @@
     { "source": "/releases", "destination": "/releases.html" },
     { "source": "/roadmap", "destination": "/roadmap.html" },
     { "source": "/terms", "destination": "/terms.html" },
-    { "source": "/unsubscribe", "destination": "/unsubscribe.html" },
     { "source": "/intelligence", "destination": "/intelligence.html" },
     { "source": "/admin-users", "destination": "/admin-users.html" },
     { "source": "/embed", "destination": "/embed.html" },
@@ -48,7 +47,6 @@
     { "source": "/ar/project", "destination": "/ar/project.html" },
     { "source": "/ar/releases", "destination": "/ar/releases.html" },
     { "source": "/ar/roadmap", "destination": "/ar/roadmap.html" },
-    { "source": "/ar/terms", "destination": "/ar/terms.html" },
-    { "source": "/ar/unsubscribe", "destination": "/ar/unsubscribe.html" }
+    { "source": "/ar/terms", "destination": "/ar/terms.html" }
   ]
 }

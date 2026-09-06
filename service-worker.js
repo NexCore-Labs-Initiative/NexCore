@@ -1,6 +1,6 @@
 /* Improved Service Worker — robust caching, offline fallback, and runtime strategies */
 const CACHE_VERSION = 'v3.3.1';
-const CACHE_BUILD = '20260906.2';
+const CACHE_BUILD = '20260906.3';
 const CACHE_PREFIX = 'nexcore-cache-';
 const CACHE_NAME = `${CACHE_PREFIX}${CACHE_VERSION}-${CACHE_BUILD}`;
 const IMAGE_CACHE_PREFIX = 'nexcore-images-';
@@ -86,10 +86,6 @@ const PRECACHE_URLS = [
   '/order-confirmation.html',
   '/ar/order-confirmation',
   '/ar/order-confirmation.html',
-  '/unsubscribe',
-  '/unsubscribe.html',
-  '/ar/unsubscribe',
-  '/ar/unsubscribe.html',
   '/offline',
   '/offline.html',
   '/ar/offline',
@@ -114,7 +110,6 @@ const PRECACHE_URLS = [
   '/assets/js/auth-ui-db.js',
   '/assets/js/unminified-js.js',
   '/assets/js/newsletter.js',
-  '/assets/js/unsubscribe.js',
   '/assets/js/cookie-consent.js',
   '/assets/js/cookies.js',
   '/assets/js/project-categories.js',

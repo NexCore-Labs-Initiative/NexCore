@@ -785,7 +785,7 @@
             "evidence": [
               "file:api/newsletter.js",
               "file:assets/js/newsletter.js",
-              "file:ar/unsubscribe.html"
+              "file:ar/index.html"
             ]
           },
           {
@@ -1013,7 +1013,7 @@
             },
             "evidence": [
               "file:api/newsletter.js",
-              "file:assets/js/unsubscribe.js"
+              "file:assets/js/newsletter.js"
             ]
           }
         ],

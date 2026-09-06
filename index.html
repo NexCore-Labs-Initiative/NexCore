@@ -571,8 +571,11 @@
               <input id="newsletter-company" name="company" type="text" tabindex="-1" autocomplete="off">
             </div>
 
+            <div id="newsletter-unsubscribe-confirmation" class="newsletter-unsubscribe-confirmation" hidden aria-hidden="true">
+              <button id="newsletter-confirm-unsubscribe" type="button" class="btn danger">Unsubscribe</button>
+            </div>
             <p id="newsletter-message" class="newsletter-message" role="status" aria-live="polite"></p>
-            <p class="newsletter-note">No spam. Unsubscribe anytime from the <a href="unsubscribe.html">unsubscribe page</a>.</p>
+            <p class="newsletter-note">No spam. <button id="newsletter-manage" class="newsletter-manage" type="button" aria-expanded="false">Manage subscription</button>.</p>
           </form>
         </div>
       </div>

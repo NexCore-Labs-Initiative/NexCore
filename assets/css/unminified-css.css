@@ -4719,6 +4719,36 @@ html[dir="rtl"] .lang-switch-pill:hover .pill-slider {
     text-underline-offset: 3px;
 }
 
+.newsletter-manage {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #6ee7f3;
+    font: inherit;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.newsletter-manage:hover {
+    color: #b9f7fc;
+}
+
+.newsletter-manage:focus-visible {
+    outline: 2px solid #6ee7f3;
+    outline-offset: 3px;
+    border-radius: 2px;
+}
+
+.newsletter-unsubscribe-confirmation {
+    display: flex;
+    justify-content: center;
+    margin: 2px 0;
+}
+
+.newsletter-unsubscribe-confirmation[hidden] {
+    display: none;
+}
+
 .newsletter-honeypot {
     position: absolute !important;
     left: -10000px !important;
@@ -4908,6 +4938,10 @@ html[dir="rtl"] .lang-switch-pill:hover .pill-slider {
 
     .newsletter-controls button {
         margin: 0 auto;
+        width: 70%;
+    }
+
+    .newsletter-unsubscribe-confirmation .btn {
         width: 70%;
     }
 }
