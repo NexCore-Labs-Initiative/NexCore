@@ -184,21 +184,45 @@ for (const route of ["/dashboard.html", "/ar/dashboard.html"]) {
     });
 
     await page.evaluate(() => window.initDashboardTabs());
+    const hubTab = page.locator('[data-dashboard-tab="hub"]');
+    const hubPanel = page.locator('[data-dashboard-panel="hub"]');
     const profileTab = page.locator('[data-dashboard-tab="profile"]');
-    const overviewPanel = page.locator('[data-dashboard-panel="overview"]');
     const profilePanel = page.locator('[data-dashboard-panel="profile"]');
+    await expect(hubTab).toHaveAttribute("aria-selected", "true");
+    await expect(hubPanel).toHaveClass(/active/);
+    await expect(page.locator('[data-dashboard-tab="overview"]')).toHaveCount(0);
+    await expect(page.locator('[data-dashboard-panel="overview"]')).toHaveCount(0);
+    await expect(page.locator(".next-action")).toHaveCount(0);
     await profileTab.click();
     await expect(profileTab).toHaveAttribute("aria-selected", "true");
     await expect(profilePanel).toHaveClass(/is-entering/);
-    await expect(overviewPanel).toHaveClass(/is-leaving/);
+    await expect(hubPanel).toHaveClass(/is-leaving/);
     await page.waitForTimeout(280);
     await expect(profilePanel).toHaveClass(/active/);
     await expect(profilePanel).not.toHaveClass(/is-entering|is-visible/);
-    await expect(overviewPanel).not.toHaveClass(/active|is-leaving/);
+    await expect(hubPanel).not.toHaveClass(/active|is-leaving/);
 
     await page.setViewportSize({ width: 390, height: 844 });
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth);
     expect(overflow).toBe(false);
+  });
+
+  test(`${route} opens the locale-specific public project page from the action dock`, async ({ page }) => {
+    await page.goto(route, { waitUntil: "domcontentloaded" });
+    await page.waitForFunction(() => typeof window.initCommandActions === "function");
+    await page.evaluate(() => {
+      document.getElementById("noProject").style.display = "none";
+      document.getElementById("hasProject").style.display = "block";
+      document.getElementById("cardSlug").value = "atlas";
+      window.__openedProjectPage = "";
+      window.open = (url) => { window.__openedProjectPage = url; };
+      window.initCommandActions();
+    });
+
+    await page.locator("#commandOpenPublicBtn").click();
+    await expect.poll(() => page.evaluate(() => window.__openedProjectPage)).toBe(
+      route.startsWith("/ar/") ? "/ar/project.html?slug=atlas" : "/project.html?slug=atlas"
+    );
   });
 
   test(`${route} command-center panels respect reduced motion`, async ({ page }) => {
