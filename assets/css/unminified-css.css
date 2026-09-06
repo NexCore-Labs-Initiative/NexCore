@@ -1078,6 +1078,35 @@ a.project-card:hover .id {
     box-shadow: 0 0 0 3px rgba(255, 120, 120, .14), 0 0 18px rgba(255, 90, 110, .16)
 }
 
+.contact-form.is-resetting .field input,
+.contact-form.is-resetting .field textarea {
+    animation: contact-field-clear-out .16s ease-in forwards;
+    pointer-events: none;
+}
+
+.contact-form.is-reset-complete .field input,
+.contact-form.is-reset-complete .field textarea {
+    animation: contact-field-clear-in .18s ease-out both;
+}
+
+@keyframes contact-field-clear-out {
+    to {
+        opacity: 0;
+        transform: translateY(-2px);
+    }
+}
+
+@keyframes contact-field-clear-in {
+    from {
+        opacity: 0;
+        transform: translateY(2px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .contact-submit,
 .newsletter-status-button {
     min-inline-size: 178px;
@@ -1168,6 +1197,19 @@ html[dir="rtl"] .newsletter-status-button {
     box-shadow: 0 0 20px rgba(255, 100, 116, .3);
 }
 
+.newsletter-status-button[data-newsletter-state="unsubscribe"] {
+    background: rgba(142, 57, 67, .28);
+    border-color: rgba(255, 132, 143, .62);
+    box-shadow: 0 0 16px rgba(255, 100, 116, .16);
+    color: #ffc0c6;
+}
+
+.newsletter-status-button[data-newsletter-state="unsubscribe"]:hover {
+    background: rgba(167, 55, 67, .38);
+    border-color: rgba(255, 151, 160, .8);
+    box-shadow: 0 0 20px rgba(255, 100, 116, .3);
+}
+
 @keyframes contact-submit-label-in {
     from {
         opacity: .45;
@@ -1181,7 +1223,11 @@ html[dir="rtl"] .newsletter-status-button {
 
 @media (prefers-reduced-motion: reduce) {
     .contact-submit-label.is-changing,
-    .newsletter-status-label.is-changing {
+    .newsletter-status-label.is-changing,
+    .contact-form.is-resetting .field input,
+    .contact-form.is-resetting .field textarea,
+    .contact-form.is-reset-complete .field input,
+    .contact-form.is-reset-complete .field textarea {
         animation: none;
     }
 }
@@ -4822,16 +4868,6 @@ html[dir="rtl"] .lang-switch-pill:hover .pill-slider {
     border-radius: 2px;
 }
 
-.newsletter-unsubscribe-confirmation {
-    display: flex;
-    justify-content: center;
-    margin: 2px 0;
-}
-
-.newsletter-unsubscribe-confirmation[hidden] {
-    display: none;
-}
-
 .newsletter-honeypot {
     position: absolute !important;
     left: -10000px !important;
@@ -5024,9 +5060,6 @@ html[dir="rtl"] .lang-switch-pill:hover .pill-slider {
         width: 70%;
     }
 
-    .newsletter-unsubscribe-confirmation .btn {
-        width: 70%;
-    }
 }
 
 /* Shared legal-document metadata, matching the release page pill treatment. */

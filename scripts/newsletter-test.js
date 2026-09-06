@@ -122,8 +122,8 @@ function runStaticTests() {
     const html = read(file);
     assert(html.includes('id="newsletter-manage"'), `${file} must expose the manage subscription control`);
     assert(html.includes('class="btn primary newsletter-status-button"'), `${file} must use the status-aware newsletter submit button`);
-    assert(html.includes('id="newsletter-unsubscribe-confirmation"'), `${file} must expose the unsubscribe confirmation`);
-    assert(html.includes('id="newsletter-confirm-unsubscribe"'), `${file} must expose the final unsubscribe button`);
+    assert(!html.includes('id="newsletter-unsubscribe-confirmation"'), `${file} must not render a separate unsubscribe confirmation button`);
+    assert(!html.includes('id="newsletter-confirm-unsubscribe"'), `${file} must reuse the primary action for unsubscribe confirmation`);
     assert(html.includes('id="newsletter-message" class="sr-only"'), `${file} must keep newsletter status announcements screen-reader-only`);
     assert(!html.includes('href="unsubscribe.html"'), `${file} must not link to the removed unsubscribe page`);
   }

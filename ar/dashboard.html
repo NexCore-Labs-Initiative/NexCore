@@ -32,6 +32,7 @@
         <link rel="stylesheet" href="../assets/css/project-categories.css">
         <link rel="manifest" href="../manifest.json">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont/tabler-icons.min.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
@@ -406,10 +407,15 @@
     .ready-item.blocked span:last-child{color:#ff7878}
     .command-grid{display:grid;grid-template-columns:minmax(0,1.38fr) minmax(330px,.62fr);gap:12px;align-items:start}
     .editor-panel,.preview-panel{border-radius:16px;overflow:hidden}
-    .dashboard-tabs{display:flex;align-items:center;gap:4px;padding:14px 16px 0;border-bottom:1px solid rgba(255,255,255,.08);overflow-x:auto;scrollbar-width:thin}
-    .dashboard-tab{display:inline-flex;align-items:center;gap:8px;padding:12px 14px;border:0;border-bottom:2px solid transparent;background:transparent;color:rgba(232,233,240,.7);font:inherit;font-size:14px;white-space:nowrap;cursor:pointer}
-    .dashboard-tab.active{color:#6ee7f3;border-bottom-color:#6ee7f3}
-    .dashboard-tab.danger{color:#ff9898}
+    .dashboard-tabs{display:flex;align-items:center;gap:2px;padding:8px 14px;border-bottom:1px solid rgba(255,255,255,.08);overflow-x:auto;scrollbar-width:thin}
+    .dashboard-tab{display:inline-flex;align-items:center;gap:6px;padding:6px 11px;border:0;border-radius:7px;background:transparent;color:rgba(255,255,255,.4);font:inherit;font-size:14px;font-weight:400;white-space:nowrap;cursor:pointer;transition:background .15s ease,color .15s ease}
+    .dashboard-tab i{font-size:15px;line-height:1}
+    .dashboard-tab:hover:not(.active):not(.danger){background:rgba(255,255,255,.06);color:rgba(255,255,255,.65)}
+    .dashboard-tab.active{background:rgba(45,212,191,.12);color:#2dd4bf;font-weight:500}
+    .dashboard-tab:focus-visible{outline:2px solid rgba(45,212,191,.7);outline-offset:2px}
+    .dashboard-tab.danger{color:rgba(248,113,113,.5)}
+    .dashboard-tab.danger:hover:not(.active){background:rgba(248,113,113,.08);color:#f87171}
+    .dashboard-tab-separator{width:.5px;height:20px;flex:0 0 .5px;margin:0 6px;background:rgba(255,255,255,.1)}
     .dashboard-panel-stage{position:relative;overflow:hidden;transition:height 220ms ease-out}
     .dashboard-panel{display:none;padding:18px}
     .dashboard-panel.active{display:block}
@@ -474,7 +480,7 @@
       .summary-row{padding:8px 0;font-size:12px}
       .summary-row:last-child{grid-column:1/-1}
       .dashboard-panel,.preview-panel,.command-band{padding:14px}
-      .dashboard-tab{padding:11px 10px;font-size:13px}
+      .dashboard-tab{font-size:13px}
     }
     @media(max-width:460px){
       .dock-actions,.dock-actions .btn,.dashboard-actions .btn{width:100%}
@@ -692,12 +698,13 @@
       <div class="command-grid">
         <section class="editor-panel" aria-label="محرر المشروع">
           <div class="dashboard-tabs" role="tablist" aria-label="أقسام لوحة التحكم">
-            <button class="dashboard-tab active" type="button" role="tab" aria-selected="true" data-dashboard-tab="overview"><i class="fa-solid fa-list-check"></i> نظرة عامة</button>
-            <button class="dashboard-tab" type="button" role="tab" aria-selected="false" data-dashboard-tab="hub"><i class="fa-solid fa-pager"></i> بطاقة المركز</button>
-            <button class="dashboard-tab" type="button" role="tab" aria-selected="false" data-dashboard-tab="profile"><i class="fa-regular fa-user"></i> الملف</button>
-            <button class="dashboard-tab" type="button" role="tab" aria-selected="false" data-dashboard-tab="links"><i class="fa-solid fa-link"></i> الروابط</button>
-            <button class="dashboard-tab" type="button" role="tab" aria-selected="false" data-dashboard-tab="ai"><i class="fa-solid fa-wand-magic-sparkles"></i> مساعد الذكاء</button>
-            <button class="dashboard-tab danger" type="button" role="tab" aria-selected="false" data-dashboard-tab="danger"><i class="fa-solid fa-triangle-exclamation"></i> منطقة الخطر</button>
+            <button class="dashboard-tab active" type="button" role="tab" aria-selected="true" data-dashboard-tab="overview"><i class="ti ti-layout-grid" aria-hidden="true"></i> نظرة عامة</button>
+            <button class="dashboard-tab" type="button" role="tab" aria-selected="false" data-dashboard-tab="hub"><i class="ti ti-id-badge" aria-hidden="true"></i> بطاقة المركز</button>
+            <button class="dashboard-tab" type="button" role="tab" aria-selected="false" data-dashboard-tab="profile"><i class="ti ti-user" aria-hidden="true"></i> الملف</button>
+            <button class="dashboard-tab" type="button" role="tab" aria-selected="false" data-dashboard-tab="links"><i class="ti ti-link" aria-hidden="true"></i> الروابط</button>
+            <button class="dashboard-tab" type="button" role="tab" aria-selected="false" data-dashboard-tab="ai"><i class="ti ti-sparkles" aria-hidden="true"></i> مساعد الذكاء</button>
+            <span class="dashboard-tab-separator" aria-hidden="true"></span>
+            <button class="dashboard-tab danger" type="button" role="tab" aria-selected="false" data-dashboard-tab="danger"><i class="ti ti-alert-triangle" aria-hidden="true"></i> منطقة الخطر</button>
           </div>
 
           <div class="dashboard-panel-stage">

@@ -500,9 +500,12 @@ if (yearEl) {
   if (form) {
     const contactFields = Array.from(form.querySelectorAll("input[name='name'], input[name='email'], textarea[name='message']"));
     const submitButton = form.querySelector('button[type="submit"]');
+    const resetButton = form.querySelector('button[type="reset"]');
     const submitLabel = submitButton?.querySelector(".contact-submit-label");
     const defaultButtonLabel = submitLabel?.textContent || submitButton?.textContent || "";
     let contactButtonTimer = null;
+    let resetAnimationTimer = null;
+    let isApplyingReset = false;
 
     const setFieldState = (field) => {
       const value = field.value.trim();
@@ -568,7 +571,38 @@ if (yearEl) {
       announceContactStatus("");
     };
 
-    form.addEventListener("reset", resetContactState);
+    const applyReset = () => {
+      isApplyingReset = true;
+      form.reset();
+      isApplyingReset = false;
+    };
+
+    form.addEventListener("reset", (event) => {
+      if (isApplyingReset) {
+        resetContactState();
+        return;
+      }
+
+      event.preventDefault();
+      window.clearTimeout(resetAnimationTimer);
+
+      const hasEnteredValues = contactFields.some((field) => field.value.trim());
+      if (!hasEnteredValues || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        applyReset();
+        return;
+      }
+
+      resetButton.disabled = true;
+      form.classList.remove("is-reset-complete");
+      form.classList.add("is-resetting");
+      resetAnimationTimer = window.setTimeout(() => {
+        applyReset();
+        form.classList.remove("is-resetting");
+        form.classList.add("is-reset-complete");
+        resetButton.disabled = false;
+        window.setTimeout(() => form.classList.remove("is-reset-complete"), 180);
+      }, 160);
+    });
 
     form.addEventListener("submit", async (ev) => {
       ev.preventDefault();
@@ -601,7 +635,7 @@ if (yearEl) {
           throw new Error(result.message || "Web3Forms submission failed");
         }
 
-        form.reset();
+        applyReset();
         setNotice(locale.formSuccess, false, "success");
         setButtonLabel(locale.formSent, "success");
         announceContactStatus(locale.formSuccess);
