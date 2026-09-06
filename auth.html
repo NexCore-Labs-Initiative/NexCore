@@ -356,7 +356,7 @@
                     // Show backend error message directly
 
                     const authError = `${error || ''} ${errorDescription || ''}`.toLowerCase();
-                    const message = /authorized|restricted|pre-approved|squ email/.test(authError)
+                    const message = /database error saving new user|authorized|restricted|pre-approved|squ email/.test(authError)
                         ? RESTRICTED_EMAIL_NOTICE
                         : (errorDescription || error || 'Authentication failed');
 

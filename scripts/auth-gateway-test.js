@@ -26,6 +26,7 @@ for (const [file, pausedCopy, callbackPath] of [
   assert(!html.includes("approved NexCore users") && !html.includes("المستخدمون المعتمدون"), `${file} must not advertise external approval`);
   assert(html.includes("NexCoreAuth?.beginGoogleAuthAttempt?.()"), `${file} must preserve Google sign-in context until the callback returns`);
   assert(html.includes("NexCoreAuth?.consumeGoogleAuthAttempt?.()"), `${file} must show the eligibility notice after a rejected Google callback`);
+  assert(html.includes("database error saving new user"), `${file} must replace Supabase's generic rejected-account error with the eligibility notice`);
   assert(html.includes(`getOAuthCallbackUrl?.('${callbackPath}')`), `${file} must return Google sign-in callbacks to the auth page`);
 }
 
