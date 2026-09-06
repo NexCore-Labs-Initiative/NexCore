@@ -5039,7 +5039,7 @@ html[lang="ar"] .beacon-wrap {
     color: #67e8f9;
 }
 
-.tooltip {
+.beacon-wrap .tooltip {
     position: absolute;
     bottom: calc(100% + 8px);
     left: 50%;
@@ -5063,7 +5063,7 @@ html[lang="ar"] .beacon-wrap {
     opacity: 1;
 }
 
-.tooltip::after {
+.beacon-wrap .tooltip::after {
     position: absolute;
     top: 100%;
     left: 50%;
