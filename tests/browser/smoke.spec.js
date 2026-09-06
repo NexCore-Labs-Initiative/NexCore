@@ -225,6 +225,36 @@ for (const route of ["/dashboard.html", "/ar/dashboard.html"]) {
     );
   });
 
+  test(`${route} renders the current AI quota in the command band`, async ({ page }) => {
+    await page.addInitScript(() => {
+      const query = {
+        eq() { return query; },
+        maybeSingle: async () => ({ data: null, error: null }),
+        select() { return query; },
+        upsert: async () => ({ error: null })
+      };
+      window.supabase = {
+        createClient: () => ({
+          auth: {
+            getSession: async () => ({
+              data: { session: { access_token: "test-token", user: { id: "test-user", email: "test@example.com" } } }
+            })
+          },
+          from: () => query
+        })
+      };
+    });
+    await page.route("**/api/ai?usage=1", (routeRequest) => routeRequest.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({ used: 1, remaining: 2, max: 3 })
+    }));
+    await page.goto(route, { waitUntil: "domcontentloaded" });
+    await page.waitForFunction(() => typeof window.initAiRemainingUI === "function");
+
+    await expect(page.locator("#commandAiRemaining")).toHaveText("2 / 3");
+  });
+
   test(`${route} command-center panels respect reduced motion`, async ({ page }) => {
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto(route, { waitUntil: "domcontentloaded" });
