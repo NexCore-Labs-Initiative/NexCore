@@ -833,32 +833,32 @@ function initVersionHighlightBeacon({ isArabic, locale }) {
 
   const copy = isArabic ? {
     open: "ما الجديد",
-    version: "v3.3.1",
+    version: "v3.4.0",
     date: "سبتمبر 2026",
     title: "ما الجديد في NexCore",
     newTag: "جديد",
     improvedTag: "تحسين",
     entries: [
-      "إضافة سطر اعتماد خفيف لـ Uicons by Flaticon إلى التذييلات القياسية.",
-      "إضافة حقل رابط الشعار للمبادرات في لوحة المشرف.",
-      "أصبحت اختصارات المبادرات تفضّل الشعار المدمج ثم صورة المبادرة.",
-      "تحسين مؤشر الإصدار ليظهر كإشارة حالة أصغر مع حركة تراعي تقليل الحركة."
+      "مركز قيادة المشاريع يجمع الإعداد والنشر والمعاينة في مساحة واحدة للمالك.",
+      "إدارة النشرة أصبحت داخل الصفحة الرئيسية مع طلبات إلغاء اشتراك تراعي الخصوصية.",
+      "أصبحت ملاحظات التواصل والنشرة والدعم أوضح عبر الأزرار والإشعارات الموحدة.",
+      "عودة ذكاء NexCore إلى قائمة Core بهوية متحركة مخصصة."
     ],
     changelog: "سجل التغييرات الكامل",
     markRead: "إخفاء",
     caughtUp: "تم الاطلاع على كل جديد"
   } : {
     open: "What's new",
-    version: "v3.3.1",
+    version: "v3.4.0",
     date: "Sep 2026",
     title: "What's new in NexCore",
     newTag: "New",
     improvedTag: "Improved",
     entries: [
-      "Added a quiet Uicons by Flaticon attribution line to standard footers.",
-      "Added an initiative Logo URL field in the admin dashboard.",
-      "Initiative shortcuts now prefer compact logos before initiative images.",
-      "Refined the release beacon into a smaller, reduced-motion-safe status signal."
+      "Project Command Center brings setup, publishing, and previews into one owner workspace.",
+      "Newsletter management now stays on the homepage with privacy-preserving unsubscribe requests.",
+      "Contact, newsletter, and support feedback now use clearer button and toast states.",
+      "NexCore Intelligence returns to the Core menu with a dedicated animated identity."
     ],
     changelog: "Full changelog",
     markRead: "Dismiss",
@@ -927,7 +927,7 @@ function initVersionHighlightBeacon({ isArabic, locale }) {
   panel.append(panelHeader, panelTitle, changelog, panelFooter);
   navContainer.appendChild(panel);
 
-  const storageKey = "nexcore_v331_read";
+  const storageKey = "nexcore_v340_read";
   let isOpen = false;
   let isRead = storage?.getItem(storageKey) === "true";
   const applyReadState = () => {
