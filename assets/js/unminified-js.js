@@ -1000,6 +1000,37 @@ function filterFunction() {
   }
 }
 
+(function initIntelligenceMenu() {
+  function isArabic() {
+    return (document.documentElement.lang || "").toLowerCase().startsWith("ar") ||
+      /(^|\/)ar(\/|$)/.test(window.location.pathname);
+  }
+
+  function init() {
+    const menu = document.getElementById("myDropdown");
+    if (!menu || menu.querySelector("[data-intelligence-nav]")) return;
+
+    const accessLink = menu.querySelector(".magic-signup");
+    if (!accessLink) return;
+
+    const locale = isArabic() ? "ar" : "en";
+    const link = document.createElement("a");
+    link.className = "ai-link fade";
+    link.dataset.intelligenceNav = "true";
+    link.href = locale === "ar" ? "/ar/intelligence" : "/intelligence";
+    link.title = locale === "ar" ? "ذكاء NexCore" : "NexCore Intelligence";
+    link.innerHTML = `<svg class="ai-link-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M7 6.5 12 10.4l5-3.9M12 10.4V17.5M7 6.5v5l5 6 5-6v-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="m12 8.1 2.3 2.3-2.3 2.3-2.3-2.3L12 8.1Z" fill="currentColor"/><circle cx="7" cy="6.5" r="1.7" fill="currentColor"/><circle cx="17" cy="6.5" r="1.7" fill="currentColor"/><circle cx="12" cy="17.5" r="1.7" fill="currentColor"/></svg> ${locale === "ar" ? "ذكاء NexCore" : "NexCore Intelligence"}`;
+
+    if (window.location.pathname.replace(/\.html$/, "").replace(/\/$/, "") === link.getAttribute("href")) {
+      link.setAttribute("aria-current", "page");
+    }
+
+    accessLink.insertAdjacentElement("afterend", link);
+  }
+
+  window.NexCoreIntelligenceMenu = Object.freeze({ init });
+})();
+
 (function() {
   const STATUS = {
     launched: { en: "Launched", ar: "تم الإطلاق" },
@@ -1403,6 +1434,7 @@ if (bookmarkBtn) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  window.NexCoreIntelligenceMenu?.init();
   window.NexCoreInitiativesMenu?.init();
   window.NexCoreProjectsMenu?.init();
 });

@@ -49,6 +49,29 @@ for (const route of ["/index.html", "/ar/index.html"]) {
   });
 }
 
+for (const [route, isArabic] of [["/index.html", false], ["/ar/index.html", true]]) {
+  test(`${route} menu includes the localized Intelligence link`, async ({ page }) => {
+    await page.goto(route, { waitUntil: "domcontentloaded" });
+    await page.locator("#coreMenu").click({ force: true });
+
+    const intelligenceLink = page.locator("[data-intelligence-nav]");
+    await expect(intelligenceLink).toBeVisible();
+    await expect(intelligenceLink).toHaveAttribute("href", isArabic ? "/ar/intelligence" : "/intelligence");
+    await expect(intelligenceLink).toHaveText(isArabic ? "ذكاء NexCore" : "NexCore Intelligence");
+    await expect(intelligenceLink.locator("svg.ai-link-icon")).toBeVisible();
+  });
+}
+
+for (const route of ["/intelligence.html", "/ar/intelligence.html"]) {
+  test(`${route} uses the pulsing Intelligence identity in its card header`, async ({ page }) => {
+    await page.goto(route, { waitUntil: "domcontentloaded" });
+    const identity = page.locator(".cc-intelligence-mark");
+    await expect(identity).toBeVisible();
+    await expect(identity.locator("svg")).toBeVisible();
+    await expect(identity).toHaveCSS("animation-name", "cc-intelligence-pulse");
+  });
+}
+
 for (const [route, isArabic] of [["/hub.html", false], ["/ar/hub.html", true]]) {
   test(`${route} renders published project shortcuts in the menu`, async ({ page }) => {
     await page.setViewportSize({ width: isArabic ? 390 : 1280, height: 844 });

@@ -2803,13 +2803,13 @@ html[dir="rtl"] .dropdown-content .projects-shortcut-drawer a.project-shortcut-a
 
 .ai-link:hover .ai-link-icon,
 .ai-link:focus-visible .ai-link-icon {
-    transform: rotate(-8deg) scale(1.02);
+    transform: translateY(-1px) scale(1.05);
     filter: drop-shadow(0 0 10px rgba(85, 240, 230, 0.6));
 }
 
 .ai-link:active .ai-link-icon,
 .ai-link:focus-visible .ai-link-icon {
-    transform: rotate(-90deg) scale(1.06) translateY(4px);
+    transform: translateY(1px) scale(.96);
 }
 
 
