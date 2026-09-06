@@ -1,5 +1,36 @@
 # Changelog
 
+## v3.4.0 - 6 September 2026
+
+### Command Center & Connected Experience
+
+A substantial bilingual experience release that gives project owners a focused Command Center, makes newsletter management privacy-preserving, clarifies SQU-only access, and smooths the everyday feedback, navigation, and support flows across NexCore.
+
+#### New Features
+
+- Introduced the bilingual **Project Command Center** for managing hub details, project profiles, links, publishing actions, previews, and readiness from one owner workspace.
+- Moved newsletter management into the homepage card. Visitors can prepare and confirm an unsubscribe request through the primary action without exposing subscription membership.
+- Restored **NexCore Intelligence** in the Core menu with a dedicated animated identity on its English and Arabic status pages.
+
+#### Improvements
+
+- Contact and newsletter forms now use their primary buttons for concise validation, sending, success, and failure states. Successful contact submissions remain on the homepage and confirm through the shared toast system.
+- Added smooth, reduced-motion-safe transitions to FAQ categories and How to Use guide panels, with aligned category icons and improved support feedback footers.
+- Refined policy metadata and menus, mobile dashboards, account settings, menu spacing, selection color, release-beacon presentation, and toast placement.
+
+#### Fixes
+
+- Repaired the project dashboard AI quota display and consolidated repeated overview and in-panel save actions into the command dock.
+- Fixed Google sign-in returns and replaced the non-SQU database-saving error with a clear localized access message.
+- Fixed FAQ category switching so selected English and Arabic content remains visible.
+
+#### Developer Notes
+
+- Extended focused regression coverage for dashboard actions, AI quota rendering, newsletter privacy behavior, access feedback, account avatar interaction, and bilingual Intelligence navigation.
+- Kept the daily AI quota read within the authenticated Supabase path and its existing row-level access boundary.
+
+---
+
 ## v3.3.1 - 12 August 2026
 
 ### Credits & Initiative Logos

@@ -2,6 +2,134 @@
   "schema_version": 1,
   "releases": [
     {
+      "version": "v3.4.0",
+      "date": "2026-09-06",
+      "title": { "en": "Command Center & Connected Experience", "ar": "مركز القيادة وتجربة متصلة" },
+      "summary": {
+        "en": "A substantial bilingual experience release that gives project owners a focused Command Center, makes newsletter management privacy-preserving, clarifies SQU-only access, and smooths the everyday feedback, navigation, and support flows across NexCore.",
+        "ar": "إصدار كبير للتجربة ثنائية اللغة يمنح مالكي المشاريع مركز قيادة مركزاً، ويجعل إدارة الاشتراك في النشرة تراعي الخصوصية، ويوضح الوصول المخصص لبريد SQU، ويحسن تدفقات الملاحظات والتنقل والدعم اليومية عبر NexCore."
+      },
+      "visitor_announcement": {
+        "enabled": true,
+        "benefit": {
+          "en": "NexCore is now easier to manage and easier to trust, with a clearer project workspace, calmer feedback, and private control over newsletter subscriptions.",
+          "ar": "أصبح NexCore أسهل في الإدارة وأكثر وضوحاً وثقة، مع مساحة مشاريع أوضح وملاحظات أهدأ وتحكم خاص في اشتراك النشرة."
+        },
+        "highlights": {
+          "en": [
+            "Project Command Center for owners",
+            "Private newsletter subscription management",
+            "Clearer bilingual status and access feedback"
+          ],
+          "ar": [
+            "مركز قيادة المشاريع للمالكين",
+            "إدارة خاصة لاشتراك النشرة",
+            "ملاحظات أوضح للحالة والوصول باللغتين"
+          ]
+        }
+      },
+      "tags": ["feature", "improvement", "fix"],
+      "user_updates": {
+        "features": [
+          {
+            "text": {
+              "en": "Introduced the bilingual Project Command Center, giving project owners a dedicated workspace for hub details, profile content, links, AI assistance, publishing actions, preview details, and project readiness.",
+              "ar": "إطلاق مركز قيادة المشاريع ثنائي اللغة، ليمنح مالكي المشاريع مساحة مخصصة لبيانات المركز ومحتوى الملف والروابط والمساعدة الذكية وإجراءات النشر والمعاينة وجاهزية المشروع."
+            },
+            "evidence": ["file:dashboard.html", "file:ar/dashboard.html", "file:assets/css/unminified-css.css", "file:scripts/dashboard-command-test.js"]
+          },
+          {
+            "text": {
+              "en": "Moved newsletter management into the homepage card: subscribers can prepare and confirm an unsubscribe request with one primary action, without exposing whether an email address is subscribed.",
+              "ar": "نقل إدارة النشرة إلى بطاقتها في الصفحة الرئيسية: يمكن للمشتركين تجهيز طلب إلغاء الاشتراك وتأكيده عبر الإجراء الأساسي نفسه دون كشف ما إذا كان البريد مشتركاً."
+            },
+            "evidence": ["file:api/newsletter.js", "file:assets/js/newsletter.js", "file:index.html", "file:ar/index.html", "file:scripts/newsletter-test.js"]
+          },
+          {
+            "text": {
+              "en": "Restored NexCore Intelligence in the Core menu with a dedicated animated identity, while keeping the current under-development status clear on its English and Arabic pages.",
+              "ar": "إعادة ذكاء NexCore إلى قائمة Core بهوية متحركة مخصصة مع الحفاظ على وضوح حالة قيد التطوير في صفحتيه الإنجليزية والعربية."
+            },
+            "evidence": ["file:assets/js/unminified-js.js", "file:intelligence.html", "file:ar/intelligence.html", "file:tests/browser/smoke.spec.js"]
+          }
+        ],
+        "improvements": [
+          {
+            "text": {
+              "en": "Made contact and newsletter feedback more immediate: validation, sending, success, and failure states now appear on the primary action while successful sends use the shared toast system instead of a separate thank-you page.",
+              "ar": "جعل ملاحظات نموذج التواصل والنشرة أكثر فورية: تظهر حالات التحقق والإرسال والنجاح والفشل على الإجراء الأساسي، بينما تستخدم عمليات الإرسال الناجحة نظام الإشعارات الموحد بدلاً من صفحة شكر منفصلة."
+            },
+            "evidence": ["file:index.html", "file:ar/index.html", "file:assets/js/unminified-js.js", "file:assets/js/newsletter.js"]
+          },
+          {
+            "text": {
+              "en": "Refined FAQ and How to Use navigation with reduced-motion-safe panel transitions, matching category icons, support feedback footers, and more consistent legal-policy metadata and menus.",
+              "ar": "تحسين تنقل الأسئلة الشائعة وصفحة كيفية الاستخدام بانتقالات آمنة لإعداد تقليل الحركة، وأيقونات فئات متطابقة، وتذييلات لملاحظات الدعم، وبيانات وقوائم أكثر اتساقاً للسياسات القانونية."
+            },
+            "evidence": ["file:faq.html", "file:ar/faq.html", "file:how-to-use.html", "file:ar/how-to-use.html", "file:privacy-policy.html", "file:pricing-policy.html"]
+          },
+          {
+            "text": {
+              "en": "Polished mobile dashboards, account settings, menu spacing, text selection, the release beacon, and toast placement so the interface remains calm and usable on compact screens.",
+              "ar": "صقل لوحات التحكم على الهاتف وإعدادات الحساب وتباعد القائمة وتحديد النص ومؤشر الإصدار وموضع الإشعارات للحفاظ على واجهة هادئة وسهلة الاستخدام على الشاشات الصغيرة."
+            },
+            "evidence": ["file:dashboard.html", "file:ar/dashboard.html", "file:account.html", "file:ar/account.html", "file:assets/css/unminified-css.css"]
+          }
+        ],
+        "fixes": [
+          {
+            "text": {
+              "en": "Fixed the project dashboard AI quota display by reading the authenticated user’s daily usage record, and removed redundant overview and in-panel save actions in favor of the command dock.",
+              "ar": "إصلاح عرض حصة الذكاء في لوحة المشروع عبر قراءة سجل الاستخدام اليومي للمستخدم الموثق، وإزالة نظرة عامة وإجراءات حفظ داخلية مكررة لصالح شريط الأوامر."
+            },
+            "evidence": ["file:lib/ai/assist.js", "file:dashboard.html", "file:ar/dashboard.html", "file:scripts/ai-api-test.js"]
+          },
+          {
+            "text": {
+              "en": "Repaired the Google sign-in return path and made rejected non-SQU attempts show a clear, localized access message instead of a database-saving error.",
+              "ar": "إصلاح مسار العودة من تسجيل الدخول عبر Google وجعل محاولات غير المؤهلين من خارج SQU تعرض رسالة وصول واضحة ومترجمة بدلاً من خطأ حفظ في قاعدة البيانات."
+            },
+            "evidence": ["file:auth.html", "file:ar/auth.html", "file:assets/js/auth-ui-db.js", "file:scripts/auth-gateway-test.js"]
+          },
+          {
+            "text": {
+              "en": "Fixed FAQ category switching so every selected category renders its content reliably in English and Arabic.",
+              "ar": "إصلاح تبديل فئات الأسئلة الشائعة حتى تعرض كل فئة محددة محتواها بشكل موثوق بالإنجليزية والعربية."
+            },
+            "evidence": ["file:faq.html", "file:ar/faq.html", "file:tests/browser/smoke.spec.js"]
+          }
+        ]
+      },
+      "developer_notes": {
+        "technical_changes": [
+          {
+            "text": {
+              "en": "Consolidated shared status handling around the existing toast, form-status, and navigation helpers while extending dashboard and newsletter regression coverage.",
+              "ar": "توحيد معالجة الحالة المشتركة حول أدوات الإشعارات وحالة النماذج والتنقل الحالية مع توسيع تغطية اختبارات لوحة التحكم والنشرة."
+            },
+            "evidence": ["file:assets/js/unminified-js.js", "file:assets/js/newsletter.js", "file:tests/browser/smoke.spec.js", "file:scripts/newsletter-test.js"]
+          },
+          {
+            "text": {
+              "en": "Kept the daily AI quota read inside the authenticated Supabase client path and reused the existing row-level access boundary.",
+              "ar": "الإبقاء على قراءة الحصة اليومية للذكاء ضمن مسار عميل Supabase الموثق وإعادة استخدام حد الوصول الحالي على مستوى الصف."
+            },
+            "evidence": ["file:lib/ai/assist.js", "file:supabase/migrations/20260809082345_production_schema_baseline.sql", "file:scripts/ai-api-test.js"]
+          }
+        ],
+        "internal_improvements": [
+          {
+            "text": {
+              "en": "Expanded focused automated coverage for dashboard actions, AI quota rendering, newsletter privacy behavior, authentication messaging, account avatar interaction, and bilingual menu and Intelligence identity rendering.",
+              "ar": "توسيع التغطية الآلية المركزة لإجراءات لوحة التحكم وعرض حصة الذكاء وسلوك خصوصية النشرة ورسائل المصادقة وتفاعل صورة الحساب وعرض القائمة وهوية الذكاء باللغتين."
+            },
+            "evidence": ["file:scripts/dashboard-command-test.js", "file:scripts/ai-api-test.js", "file:scripts/newsletter-test.js", "file:scripts/account-ux-test.js", "file:tests/browser/smoke.spec.js"]
+          }
+        ]
+      },
+      "source": { "base_tag": "v3.3.1", "target": "v3.4.0", "commit_range": "v3.3.1..v3.4.0" }
+    },
+    {
       "version": "v3.3.1",
       "date": "2026-08-12",
       "title": { "en": "Credits & Initiative Logos", "ar": "الاعتمادات وشعارات المبادرات" },
