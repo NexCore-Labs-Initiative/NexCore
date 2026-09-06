@@ -90,6 +90,22 @@
       border:1px solid rgba(110,231,243,.35);
       box-shadow:0 0 0 2px rgba(110,231,243,.08);
       background:rgba(255,255,255,.06);
+      cursor:zoom-in;
+      position:relative;
+      transition:transform .2s ease,box-shadow .2s ease;
+    }
+    .account-avatar:focus-visible{
+      outline:2px solid rgba(110,231,243,.75);
+      outline-offset:3px;
+    }
+    .account-avatar.is-expanded{
+      cursor:zoom-out;
+      transform:scale(2.25);
+      z-index:5;
+      box-shadow:0 0 0 2px rgba(110,231,243,.25),0 10px 22px rgba(0,0,0,.48);
+    }
+    @media (prefers-reduced-motion:reduce){
+      .account-avatar{transition:none}
     }
 
     .help-text{font-size:.82rem;opacity:.7;margin-top:4px}
@@ -500,19 +516,18 @@
           <p style="margin-bottom:16px;">Are you sure you want to log out of your NexCore Labs account?</p>
 
           <div class="modal-actions">
-            <button class="btn logout" id="confirmLogoutBtn">
-
-              <i class="fa-solid fa-right-from-bracket"></i> Yes, Log Out
-
-            </button>
-
             <button class="btn primary ghost" id="cancelLogoutBtn">
 
               <i class="fa-solid fa-xmark"></i> Cancel
 
             </button>
-          </div>
 
+            <button class="btn logout" id="confirmLogoutBtn">
+
+              <i class="fa-solid fa-right-from-bracket"></i> Yes, Log Out
+
+            </button>
+          </div>
         </div>
       </div>
 
@@ -600,22 +615,21 @@
           </div>
 
           <div class="modal-actions">
-            <button class="btn danger" id="confirmDeleteProjectBtn">
-
-              <i class="fa-solid fa-trash"></i> Delete My Project
-
-            </button>
-
             <button class="btn primary ghost" id="cancelDeleteProjectBtn">
 
               <i class="fa-solid fa-xmark"></i> Cancel
 
             </button>
-          </div>
 
+            <button class="btn danger" id="confirmDeleteProjectBtn">
+
+              <i class="fa-solid fa-trash"></i> Delete My Project
+
+            </button>
+          </div>
           </div>
         </div>
-      </div>
+
 
       <!-- Delete Account Confirmation Modal -->
 
@@ -663,19 +677,18 @@
 
 
           <div class="modal-actions">
-            <button class="btn danger" id="confirmDeleteBtn" disabled>
-
-              <i class="fa-solid fa-trash"></i> Delete My Account
-
-            </button>
-
             <button class="btn primary ghost" id="cancelDeleteBtn">
 
               <i class="fa-solid fa-xmark"></i> Cancel
 
             </button>
-          </div>
 
+            <button class="btn danger" id="confirmDeleteBtn" disabled>
+
+              <i class="fa-solid fa-trash"></i> Delete My Account
+
+            </button>
+          </div>
         </div>
       </div>
 
@@ -789,6 +802,39 @@
         }
       }
       return null;
+    }
+
+    function initAccountAvatarPreview() {
+      const avatar = document.getElementById("accountAvatar");
+      if (!avatar) return;
+
+      const closePreview = () => {
+        avatar.classList.remove("is-expanded");
+        avatar.setAttribute("aria-expanded", "false");
+      };
+
+      const togglePreview = (event) => {
+        event.stopPropagation();
+        const isExpanded = avatar.classList.toggle("is-expanded");
+        avatar.setAttribute("aria-expanded", String(isExpanded));
+      };
+
+      avatar.setAttribute("role", "button");
+      avatar.setAttribute("tabindex", "0");
+      avatar.setAttribute("aria-expanded", "false");
+      avatar.setAttribute("aria-label", "Expand profile image");
+      avatar.addEventListener("click", togglePreview);
+      avatar.addEventListener("keydown", (event) => {
+        if (event.key !== "Enter" && event.key !== " ") return;
+        event.preventDefault();
+        togglePreview(event);
+      });
+      document.addEventListener("click", (event) => {
+        if (!avatar.contains(event.target)) closePreview();
+      });
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") closePreview();
+      });
     }
 
     async function loadAccountInfo(session) {
@@ -1970,6 +2016,8 @@ Total Projects: ${projectCount}`;
       });
 
       await loadAccountInfo(session);
+
+      initAccountAvatarPreview();
 
       document.getElementById("logoutBtn").addEventListener("click", openLogoutModal);
 
