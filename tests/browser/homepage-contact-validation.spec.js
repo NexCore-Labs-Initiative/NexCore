@@ -8,6 +8,11 @@ for (const path of ["/index.html", "/ar/index.html"]) {
       localStorage.setItem("nexcore_cookie_preferences", JSON.stringify({ necessary: true, analytics: false, external_media: false, ai_services: false, timestamp: 1 }));
     });
     await page.route(/^https:\/\//, route => route.abort());
+    await page.route("https://api.web3forms.com/submit", route => route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({ success: true })
+    }));
     await page.goto(path, { waitUntil: "domcontentloaded" });
 
     const form = page.locator("#contactForm");
@@ -24,6 +29,13 @@ for (const path of ["/index.html", "/ar/index.html"]) {
     await page.locator("#name").fill("NexCore");
     await expect(page.locator("#name")).not.toHaveClass(/is-invalid/);
     await expect(page.locator("#email")).toHaveClass(/is-invalid/);
+
+    await page.locator("#email").fill("hello@nexcore.test");
+    await page.locator("#message").fill("A test message.");
+    await form.locator('button[type="submit"]').click();
+    await expect(page.locator(".nexcore-toast--success")).toBeVisible();
+    await expect(form.locator("#name")).toHaveValue("");
+    await expect(page).toHaveURL(new RegExp(`${path.replace(".", "\\.")}$`));
 
     const newsletter = page.locator(".newsletter-card");
     await newsletter.scrollIntoViewIfNeeded();

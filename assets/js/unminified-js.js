@@ -180,6 +180,7 @@ document.addEventListener("DOMContentLoaded", () => {
     dir: "rtl",
     formRequired: "يرجى تعبئة جميع الحقول.",
     formSending: "جارٍ الإرسال...",
+    formSuccess: "تم إرسال رسالتك بنجاح.",
     formError: "تعذر إرسال الرسالة. حاول مرة أخرى.",
     menuHint: "&#x1F44B; أنا القائمة",
     rotator: [
@@ -195,6 +196,7 @@ document.addEventListener("DOMContentLoaded", () => {
     dir: "ltr",
     formRequired: "Please fill all fields.",
     formSending: "Sending...",
+    formSuccess: "Your message was sent successfully.",
     formError: "We couldn't send your message. Please try again.",
     menuHint: "&#x1F44B; I'm the menu",
     rotator: [
@@ -207,9 +209,12 @@ document.addEventListener("DOMContentLoaded", () => {
     ],
   };
 
-  function setNotice(message, isError) {
-    if (window.showToast) {
-      window.showToast(message, isError);
+  function setNotice(message, isError = false, type) {
+    const tone = type || (isError ? "error" : "info");
+    if (window.NexCoreNotify?.show) {
+      window.NexCoreNotify.show({ message, type: tone });
+    } else if (window.showToast) {
+      window.showToast(message, tone);
     } else if (notice) {
       notice.textContent = message;
       notice.style.display = message ? "" : "none";
@@ -552,7 +557,18 @@ if (yearEl) {
           throw new Error(result.message || "Web3Forms submission failed");
         }
 
-        window.location.assign(form.dataset.successUrl || "/thanks.html");
+        form.reset();
+        delete form.dataset.validationAttempted;
+        contactFields.forEach((field) => {
+          field.classList.remove("is-invalid");
+          field.setAttribute("aria-invalid", "false");
+        });
+        hideValidationNotice();
+        setNotice(locale.formSuccess, false, "success");
+        if (submitButton) {
+          submitButton.disabled = false;
+          submitButton.textContent = originalButtonText;
+        }
       } catch (error) {
         console.error("Contact form submission failed:", error);
         setNotice(locale.formError, true);
