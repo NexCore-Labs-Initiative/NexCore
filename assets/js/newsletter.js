@@ -41,12 +41,18 @@
     form.setAttribute("aria-busy", String(isLoading));
   }
 
+  function setEmailValidity() {
+    const invalid = !emailInput.value.trim() || !emailInput.checkValidity();
+    emailInput.classList.toggle("is-invalid", invalid);
+    emailInput.setAttribute("aria-invalid", String(invalid));
+    return invalid;
+  }
+
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
 
     const email = emailInput.value.trim().toLowerCase();
     emailInput.value = email;
-    emailInput.setAttribute("aria-invalid", "false");
     setMessage("");
 
     if (honeypot.value.trim()) {
@@ -55,8 +61,8 @@
       return;
     }
 
-    if (!email || !emailInput.checkValidity()) {
-      emailInput.setAttribute("aria-invalid", "true");
+    form.dataset.validationAttempted = "true";
+    if (setEmailValidity()) {
       setMessage(copy.invalid, true);
       emailInput.focus();
       return;
@@ -94,6 +100,13 @@
   });
 
   emailInput.addEventListener("input", () => {
+    if (form.dataset.validationAttempted !== "true") return;
+    if (!setEmailValidity()) setMessage("");
+  });
+
+  form.addEventListener("reset", () => {
+    delete form.dataset.validationAttempted;
+    emailInput.classList.remove("is-invalid");
     emailInput.setAttribute("aria-invalid", "false");
     setMessage("");
   });

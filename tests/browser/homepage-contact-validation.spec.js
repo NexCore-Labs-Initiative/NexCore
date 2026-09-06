@@ -29,5 +29,15 @@ for (const path of ["/index.html", "/ar/index.html"]) {
     await newsletter.scrollIntoViewIfNeeded();
     await expect(newsletter).toHaveClass(/visible/);
     await expect(newsletter).toHaveCSS("opacity", "1");
+
+    const newsletterForm = page.locator("#newsletter-form");
+    const newsletterEmail = page.locator("#newsletter-email");
+    await expect(newsletterForm).toHaveJSProperty("noValidate", true);
+    await newsletterForm.locator('button[type="submit"]').click();
+    await expect(newsletterEmail).toHaveClass(/is-invalid/);
+    await expect(newsletterEmail).toHaveAttribute("aria-invalid", "true");
+    await newsletterEmail.fill("updates@nexcore.test");
+    await expect(newsletterEmail).not.toHaveClass(/is-invalid/);
+    await expect(newsletterEmail).toHaveAttribute("aria-invalid", "false");
   });
 }

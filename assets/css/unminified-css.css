@@ -4672,9 +4672,17 @@ html[dir="rtl"] .lang-switch-pill:hover .pill-slider {
     gap: 10px;
 }
 
+.newsletter-controls input.is-invalid,
 .newsletter-controls input[aria-invalid="true"] {
-    border-color: rgba(255, 120, 120, 0.8);
-    box-shadow: 0 0 12px rgba(255, 120, 120, 0.12);
+    border-color: rgba(255, 120, 120, .82);
+    background: rgba(130, 25, 39, .12);
+    box-shadow: 0 0 0 3px rgba(255, 120, 120, .08), 0 0 14px rgba(255, 90, 110, .12);
+}
+
+.newsletter-controls input.is-invalid:focus,
+.newsletter-controls input[aria-invalid="true"]:focus {
+    border-color: rgba(255, 142, 142, .96);
+    box-shadow: 0 0 0 3px rgba(255, 120, 120, .14), 0 0 18px rgba(255, 90, 110, .16);
 }
 
 .newsletter-controls button {
