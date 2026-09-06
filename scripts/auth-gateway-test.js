@@ -26,7 +26,7 @@ for (const [file, pausedCopy, callbackPath] of [
   assert(!html.includes("approved NexCore users") && !html.includes("المستخدمون المعتمدون"), `${file} must not advertise external approval`);
   assert(html.includes("NexCoreAuth?.beginGoogleAuthAttempt?.()"), `${file} must preserve Google sign-in context until the callback returns`);
   assert(html.includes("NexCoreAuth?.consumeGoogleAuthAttempt?.()"), `${file} must show the eligibility notice after a rejected Google callback`);
-  assert(html.includes(`redirectTo: \`${'${window.location.origin}'}${callbackPath}\``), `${file} must return Google sign-in callbacks to the auth page`);
+  assert(html.includes(`getOAuthCallbackUrl?.('${callbackPath}')`), `${file} must return Google sign-in callbacks to the auth page`);
 }
 
 const authUi = read("assets/js/auth-ui-db.js");
@@ -34,5 +34,7 @@ assert(authUi.includes("External access is paused."), "Shared auth UI must use t
 assert(authUi.includes("الوصول الخارجي متوقف مؤقتاً."), "Shared auth UI must localize the paused external-access message");
 assert(authUi.includes("GOOGLE_AUTH_ATTEMPT_KEY"), "Shared auth UI must retain the pending Google sign-in marker");
 assert(authUi.includes("GOOGLE_AUTH_ATTEMPT_MAX_AGE"), "Pending Google sign-in markers must expire");
+assert(authUi.includes("const CANONICAL_ORIGIN = 'https://nexcorelabs.vercel.app'"), "OAuth callbacks must use the canonical production origin");
+assert(authUi.includes("function getOAuthCallbackUrl(path)"), "Shared auth UI must build OAuth callbacks consistently");
 
 console.log("Auth gateway tests passed.");

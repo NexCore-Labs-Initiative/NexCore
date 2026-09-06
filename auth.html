@@ -457,7 +457,7 @@
 
                         options: {
 
-                            redirectTo: `${window.location.origin}/auth.html`
+                            redirectTo: window.NexCoreAuth?.getOAuthCallbackUrl?.('/auth.html') || 'https://nexcorelabs.vercel.app/auth.html'
 
                         }
 
