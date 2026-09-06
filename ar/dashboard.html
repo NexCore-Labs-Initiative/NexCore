@@ -589,7 +589,7 @@
         <h1>مركز قيادة المشروع</h1>
         <p class="muted" id="userLine">جار التحميل...</p>
       </div>
-      <span class="save-state-pill clean" id="commandSaveState">محفوظ</span>
+      <span class="save-state-pill clean" id="commandSaveState" hidden>محفوظ</span>
     </div>
 
     <section id="noProject" class="project-empty-state" style="display:none;">
@@ -768,10 +768,6 @@
                 </div>
               </div>
             </div>
-            <div class="dashboard-actions">
-              <button class="btn primary ghost" id="saveCardBtn">حفظ البطاقة</button>
-              <button class="btn primary" id="togglePublishBtn">نشر</button>
-            </div>
           </div>
 
           <div class="dashboard-panel" role="tabpanel" data-dashboard-panel="profile">
@@ -782,7 +778,6 @@
               <div class="full"><details class="help-box"><summary><i class="fa-solid fa-lightbulb"></i> نصائح رابط الصورة</summary><p style="margin-top:0;"><strong>يجب أن تكون الصورة متاحة للعامة.</strong> استخدم Google Drive أو ملفات GitHub الخام أو رابط استضافة صورة مباشر يعمل في تبويب جديد.</p></details></div>
               <div class="full"><label>الوصف التفصيلي (الصفحة)</label><textarea id="pageDescription" placeholder="عرّف العالم بمشروعك بالتفصيل..."></textarea><p class="field-help">معلومات تفصيلية تظهر في صفحة المشروع الكاملة.</p></div>
             </div>
-            <div class="dashboard-actions"><button class="btn primary ghost" id="saveProfileBtn">حفظ الملف</button></div>
           </div>
 
           <div class="dashboard-panel" role="tabpanel" data-dashboard-panel="links">
@@ -793,10 +788,6 @@
               <div><label>رابط Instagram (اختياري)</label><input id="profileInstagram" placeholder="https://instagram.com/..." type="url" /></div>
               <div><label>رابط GitHub (اختياري)</label><input id="profileGithub" placeholder="https://github.com/..." type="url" /></div>
               <div><label>رابط LinkedIn (اختياري)</label><input id="profileLinkedin" placeholder="https://linkedin.com/..." type="url" /></div>
-            </div>
-            <div class="dashboard-actions">
-              <button class="btn primary ghost" id="saveLinksBtn" type="button">حفظ الروابط</button>
-              <button class="btn copy" id="copyProjectPageLink" title="نسخ رابط الصفحة العامة"><i class="fa-solid fa-copy"></i> نسخ رابط الصفحة</button>
             </div>
           </div>
 
@@ -1016,7 +1007,7 @@
     }
 
     function disableButtons(disabled) {
-      const btns = ["createProjectBtn", "saveCardBtn", "saveProfileBtn", "saveLinksBtn", "togglePublishBtn", "deleteBtn", "commandSaveBtn", "commandPublishBtn", "commandOpenPublicBtn", "commandNextAction"];
+      const btns = ["createProjectBtn", "deleteBtn", "commandSaveBtn", "commandPublishBtn", "commandOpenPublicBtn", "commandNextAction"];
       btns.forEach(id => {
         const el = document.getElementById(id);
         if (el) el.disabled = disabled;
@@ -1165,6 +1156,8 @@
     function setSaveState(state, text) {
       const el = getEl("commandSaveState");
       if (!el) return;
+      el.hidden = !project;
+      if (!project) return;
       el.className = `save-state-pill ${state || "clean"}`;
       el.textContent = text || DASHBOARD_COPY.saved;
     }
@@ -1403,7 +1396,6 @@
         if (active === "profile" || active === "links") await saveProfile();
         else await saveCard();
       });
-      getEl("saveLinksBtn")?.addEventListener("click", saveProfile);
       getEl("commandPublishBtn")?.addEventListener("click", togglePublish);
       getEl("commandOpenPublicBtn")?.addEventListener("click", () => {
         const link = getEl("publicLink");
@@ -1442,6 +1434,8 @@
     function setSaveState(state, text) {
       const el = getEl("commandSaveState");
       if (!el) return;
+      el.hidden = !project;
+      if (!project) return;
       el.className = `save-state-pill ${state || "clean"}`;
       el.textContent = text || DASHBOARD_COPY.saved;
     }
@@ -1680,7 +1674,6 @@
         if (active === "profile" || active === "links") await saveProfile();
         else await saveCard();
       });
-      getEl("saveLinksBtn")?.addEventListener("click", saveProfile);
       getEl("commandPublishBtn")?.addEventListener("click", togglePublish);
       getEl("commandOpenPublicBtn")?.addEventListener("click", () => {
         const link = getEl("publicLink");
@@ -1838,6 +1831,8 @@
 
     function render(p) {
       project = p;
+      const saveState = getEl("commandSaveState");
+      if (saveState) saveState.hidden = !p;
 
       document.getElementById("noProject").style.display = p ? "none" : "block";
       document.getElementById("hasProject").style.display = p ? "block" : "none";
@@ -1859,9 +1854,6 @@
       document.getElementById("publicId").textContent = p.public_id || "";
   const published = isProjectPublished(p);
   document.getElementById("statusText").textContent = published ? "منشور ✓" : "مسودة";
-
-      const publishBtn = document.getElementById("togglePublishBtn");
-  publishBtn.textContent = published ? "إلغاء النشر" : "نشر";
 
   setPublishStatus(published ? "✓ ظاهر في المركز" : "");
   renderModerationStatus(p);
@@ -2348,10 +2340,6 @@
       initCommandActions();
 
       document.getElementById("createProjectBtn").addEventListener("click", createProject);
-      document.getElementById("copyProjectPageLink").addEventListener("click", copyProjectPageLink);
-      document.getElementById("saveCardBtn").addEventListener("click", saveCard);
-      document.getElementById("saveProfileBtn").addEventListener("click", saveProfile);
-      document.getElementById("togglePublishBtn").addEventListener("click", togglePublish);
       document.getElementById("deleteBtn").addEventListener("click", openDeleteProjectModal);
 
       // Delete project modal listeners
@@ -2718,34 +2706,6 @@
       console.log("✅ All AI handlers initialized");
     });
 
-    async function copyProjectPageLink() {
-      const publicLinkEl = document.getElementById("publicLink");
-      const copyBtn = document.getElementById("copyProjectPageLink");
-
-      if (!publicLinkEl.href || publicLinkEl.href === "#") return;
-
-      try {
-        // Get the full URL from href
-        const fullUrl = new URL(publicLinkEl.href, window.location.origin).href;
-        await navigator.clipboard.writeText(fullUrl);
-
-        // Visual feedback
-        const originalHTML = copyBtn.innerHTML;
-        copyBtn.classList.add("copied");
-        copyBtn.innerHTML = '<i class="fa-solid fa-check"></i> تم النسخ!';
-
-        setTimeout(() => {
-          copyBtn.classList.remove("copied");
-          copyBtn.innerHTML = originalHTML;
-        }, 2000);
-      } catch (error) {
-        console.error("فشل النسخ:", error);
-        copyBtn.innerHTML = '<i class="fa-solid fa-xmark"></i> فشل';
-        setTimeout(() => {
-          copyBtn.innerHTML = '<i class="fa-solid fa-copy"></i> نسخ رابط الصفحة';
-        }, 2000);
-      }
-    }
   </script>
   <script>
     // ── Custom dropdowns (portalled to body) ──────
