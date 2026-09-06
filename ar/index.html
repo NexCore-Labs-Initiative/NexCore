@@ -504,12 +504,12 @@
             </label>
 
             <div class="form-actions">
-              <button type="submit" class="btn primary">إرسال الرسالة</button>
+              <button type="submit" class="btn primary contact-submit" aria-busy="false"><span class="contact-submit-label">إرسال الرسالة</span></button>
 
               <button type="reset" id="resetBtn" class="btn ghost">مسح الكل</button>
             </div>
 
-            <p class="notice contact-validation-notice" id="formNotice" aria-live="polite" aria-atomic="true" hidden></p>
+            <p class="sr-only" id="formNotice" aria-live="polite" aria-atomic="true"></p>
           </form>
 
         </div>
@@ -538,8 +538,8 @@
                 maxlength="254"
                 required
               >
-              <button id="newsletter-submit" type="submit" class="btn primary">
-                <span>اشترك</span>
+              <button id="newsletter-submit" type="submit" class="btn primary newsletter-status-button" aria-busy="false">
+                <span class="newsletter-status-label">اشترك</span>
               </button>
             </div>
 
@@ -549,9 +549,9 @@
             </div>
 
             <div id="newsletter-unsubscribe-confirmation" class="newsletter-unsubscribe-confirmation" hidden aria-hidden="true">
-              <button id="newsletter-confirm-unsubscribe" type="button" class="btn danger">إلغاء الاشتراك</button>
+              <button id="newsletter-confirm-unsubscribe" type="button" class="btn danger newsletter-status-button newsletter-unsubscribe-button" aria-busy="false"><span class="newsletter-status-label">إلغاء الاشتراك</span></button>
             </div>
-            <p id="newsletter-message" class="newsletter-message" role="status" aria-live="polite"></p>
+            <p id="newsletter-message" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></p>
             <p class="newsletter-note">دون رسائل مزعجة. <button id="newsletter-manage" class="newsletter-manage" type="button" aria-expanded="false">إدارة الاشتراك</button>.</p>
           </form>
         </div>

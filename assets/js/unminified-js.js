@@ -178,10 +178,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const locale = isArabic ? {
     lang: "ar",
     dir: "rtl",
-    formRequired: "يرجى تعبئة جميع الحقول.",
+    formRequired: "يرجى تعبئة الحقول المطلوبة",
+    formEmailInvalid: "أدخل بريدًا إلكترونيًا صالحًا",
     formSending: "جارٍ الإرسال...",
+    formSent: "تم الإرسال",
     formSuccess: "تم إرسال رسالتك بنجاح.",
-    formError: "تعذر إرسال الرسالة. حاول مرة أخرى.",
+    formFailed: "تعذر الإرسال",
     menuHint: "&#x1F44B; أنا القائمة",
     rotator: [
       `<div class="flag-includes"><img src="../assets/images/oman.webp" alt="علم عمان"><span>صُنع بفخر في عمان</span></div>`,
@@ -194,10 +196,12 @@ document.addEventListener("DOMContentLoaded", () => {
   } : {
     lang: "en",
     dir: "ltr",
-    formRequired: "Please fill all fields.",
+    formRequired: "Fill required fields",
+    formEmailInvalid: "Enter a valid email",
     formSending: "Sending...",
+    formSent: "Sent",
     formSuccess: "Your message was sent successfully.",
-    formError: "We couldn't send your message. Please try again.",
+    formFailed: "Failed to send",
     menuHint: "&#x1F44B; I'm the menu",
     rotator: [
       `<div class="flag-includes"><img src="assets/images/oman.webp" alt="Oman flag"><span>Proudly Built in Oman</span></div>`,
@@ -357,7 +361,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const yearEl = document.getElementById("year") || document.getElementById("yearHub");
   const form = document.getElementById("contactForm");
   const notice = document.getElementById("formNotice");
-  const resetBtn = document.getElementById("resetBtn");
   const logoImg = document.getElementById("logoImg");
   const mainContent = document.querySelector("main");
   const myDropdown = document.getElementById("myDropdown");
@@ -496,7 +499,10 @@ if (yearEl) {
   // Contact form handling
   if (form) {
     const contactFields = Array.from(form.querySelectorAll("input[name='name'], input[name='email'], textarea[name='message']"));
-    let contactNoticeTimer = null;
+    const submitButton = form.querySelector('button[type="submit"]');
+    const submitLabel = submitButton?.querySelector(".contact-submit-label");
+    const defaultButtonLabel = submitLabel?.textContent || submitButton?.textContent || "";
+    let contactButtonTimer = null;
 
     const setFieldState = (field) => {
       const value = field.value.trim();
@@ -506,44 +512,82 @@ if (yearEl) {
       return invalid;
     };
 
-    const hideValidationNotice = () => {
-      if (!notice || notice.hidden) return;
-      window.clearTimeout(contactNoticeTimer);
-      notice.classList.remove("is-visible");
-      notice.classList.add("is-fading");
-      window.setTimeout(() => {
-        notice.hidden = true;
-        notice.classList.remove("is-fading");
-      }, 180);
+    const announceContactStatus = (message) => {
+      if (notice) notice.textContent = message;
     };
 
-    const showValidationNotice = () => {
-      if (!notice) return;
-      window.clearTimeout(contactNoticeTimer);
-      notice.textContent = locale.formRequired;
-      notice.hidden = false;
-      notice.classList.remove("is-visible", "is-fading");
-      window.requestAnimationFrame(() => notice.classList.add("is-visible"));
-      contactNoticeTimer = window.setTimeout(hideValidationNotice, 3200);
+    const clearButtonRestore = () => {
+      window.clearTimeout(contactButtonTimer);
+      contactButtonTimer = null;
     };
+
+    const setButtonLabel = (label, state = "idle") => {
+      if (!submitButton) return;
+      clearButtonRestore();
+      submitButton.dataset.contactState = state;
+
+      if (!submitLabel) {
+        submitButton.textContent = label;
+        return;
+      }
+
+      submitLabel.classList.remove("is-changing");
+      void submitLabel.offsetWidth;
+      submitLabel.textContent = label;
+      submitLabel.classList.add("is-changing");
+    };
+
+    const restoreButtonAfter = (duration) => {
+      clearButtonRestore();
+      contactButtonTimer = window.setTimeout(() => {
+        setButtonLabel(defaultButtonLabel);
+        announceContactStatus("");
+      }, duration);
+    };
+
+    const getInvalidFields = () => contactFields.filter(setFieldState);
+
+    const showValidationState = (invalidFields) => {
+      const hasMissingField = invalidFields.some((field) => field.required && !field.value.trim());
+      const message = hasMissingField ? locale.formRequired : locale.formEmailInvalid;
+      setButtonLabel(message, hasMissingField ? "required" : "email-invalid");
+      announceContactStatus(message);
+    };
+
+    const resetContactState = () => {
+      delete form.dataset.validationAttempted;
+      contactFields.forEach((field) => {
+        field.classList.remove("is-invalid");
+        field.setAttribute("aria-invalid", "false");
+      });
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.setAttribute("aria-busy", "false");
+      }
+      setButtonLabel(defaultButtonLabel);
+      announceContactStatus("");
+    };
+
+    form.addEventListener("reset", resetContactState);
 
     form.addEventListener("submit", async (ev) => {
       ev.preventDefault();
 
       form.dataset.validationAttempted = "true";
-      const invalidFields = contactFields.filter(setFieldState);
+      const invalidFields = getInvalidFields();
       const firstInvalid = invalidFields[0];
       if (firstInvalid) {
-        showValidationNotice();
+        showValidationState(invalidFields);
         firstInvalid.focus();
         return;
       }
 
-      const submitButton = form.querySelector('button[type="submit"]');
-      const originalButtonText = submitButton?.textContent;
-
-      if (submitButton) submitButton.disabled = true;
-      setNotice(locale.formSending);
+      if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.setAttribute("aria-busy", "true");
+      }
+      setButtonLabel(locale.formSending, "sending");
+      announceContactStatus(locale.formSending);
 
       try {
         const response = await fetch(form.action, {
@@ -558,51 +602,33 @@ if (yearEl) {
         }
 
         form.reset();
-        delete form.dataset.validationAttempted;
-        contactFields.forEach((field) => {
-          field.classList.remove("is-invalid");
-          field.setAttribute("aria-invalid", "false");
-        });
-        hideValidationNotice();
         setNotice(locale.formSuccess, false, "success");
-        if (submitButton) {
-          submitButton.disabled = false;
-          submitButton.textContent = originalButtonText;
-        }
+        setButtonLabel(locale.formSent, "success");
+        announceContactStatus(locale.formSuccess);
+        restoreButtonAfter(1800);
       } catch (error) {
         console.error("Contact form submission failed:", error);
-        setNotice(locale.formError, true);
         if (submitButton) {
           submitButton.disabled = false;
-          submitButton.textContent = originalButtonText;
+          submitButton.setAttribute("aria-busy", "false");
         }
+        setButtonLabel(locale.formFailed, "error");
+        announceContactStatus(locale.formFailed);
+        restoreButtonAfter(2600);
       }
     });
 
     contactFields.forEach((field) => {
       field.addEventListener("input", () => {
         if (form.dataset.validationAttempted !== "true") return;
-        setFieldState(field);
-        if (!form.querySelector(".is-invalid")) hideValidationNotice();
+        const invalidFields = getInvalidFields();
+        if (invalidFields.length) {
+          showValidationState(invalidFields);
+          return;
+        }
+        setButtonLabel(defaultButtonLabel);
+        announceContactStatus("");
       });
-    });
-  }
-
-  if (resetBtn) {
-    resetBtn.addEventListener("click", () => {
-      if (form) form.reset();
-      if (form) {
-        delete form.dataset.validationAttempted;
-        form.querySelectorAll(".is-invalid").forEach((field) => {
-          field.classList.remove("is-invalid");
-          field.setAttribute("aria-invalid", "false");
-        });
-      }
-      if (notice) {
-        notice.textContent = "";
-        notice.hidden = true;
-        notice.classList.remove("is-visible", "is-fading");
-      }
     });
   }
 

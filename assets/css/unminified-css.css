@@ -1078,21 +1078,83 @@ a.project-card:hover .id {
     box-shadow: 0 0 0 3px rgba(255, 120, 120, .14), 0 0 18px rgba(255, 90, 110, .16)
 }
 
-.contact-validation-notice {
-    color: #ff9b9b;
-    opacity: 0;
-    transform: translateY(-4px);
-    transition: opacity .18s ease, transform .18s ease
+.contact-submit,
+.newsletter-status-button {
+    min-inline-size: 178px;
+    justify-content: center;
+    transition: background .2s ease, border-color .2s ease, box-shadow .2s ease, color .2s ease;
 }
 
-.contact-validation-notice.is-visible {
-    opacity: 1;
-    transform: translateY(0)
+html[dir="rtl"] .contact-submit,
+html[dir="rtl"] .newsletter-status-button {
+    min-inline-size: 190px;
 }
 
-.contact-validation-notice.is-fading {
-    opacity: 0;
-    transform: translateY(-3px)
+.contact-submit-label,
+.newsletter-status-label {
+    display: block;
+    white-space: nowrap;
+}
+
+.contact-submit-label.is-changing,
+.newsletter-status-label.is-changing {
+    animation: contact-submit-label-in .2s ease-out both;
+}
+
+.contact-submit[aria-busy="true"],
+.newsletter-status-button[aria-busy="true"] {
+    cursor: wait;
+}
+
+.contact-submit[data-contact-state="required"],
+.contact-submit[data-contact-state="email-invalid"],
+.newsletter-status-button[data-newsletter-state="invalid"] {
+    background: rgba(186, 117, 23, .28);
+    border-color: rgba(246, 193, 107, .62);
+    box-shadow: 0 0 16px rgba(246, 193, 107, .16);
+    color: #ffe2a8;
+}
+
+.contact-submit[data-contact-state="sending"],
+.newsletter-status-button[data-newsletter-state="loading"] {
+    background: linear-gradient(65deg, #6ee7f3, #acd9e5 50%, #6bd3c9);
+    border-color: rgba(110, 231, 243, .72);
+    box-shadow: 0 0 18px rgba(110, 231, 243, .34);
+    color: #031017;
+}
+
+.contact-submit[data-contact-state="success"],
+.newsletter-status-button[data-newsletter-state="success"] {
+    background: linear-gradient(65deg, #63c99c, #b7ebcf 52%, #71d6ae);
+    border-color: rgba(123, 227, 174, .72);
+    box-shadow: 0 0 18px rgba(91, 205, 151, .3);
+    color: #062217;
+}
+
+.contact-submit[data-contact-state="error"],
+.newsletter-status-button[data-newsletter-state="error"] {
+    background: rgba(167, 55, 67, .3);
+    border-color: rgba(255, 132, 143, .66);
+    box-shadow: 0 0 18px rgba(255, 100, 116, .18);
+    color: #ffc0c6;
+}
+
+@keyframes contact-submit-label-in {
+    from {
+        opacity: .45;
+        transform: translateY(2px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .contact-submit-label.is-changing,
+    .newsletter-status-label.is-changing {
+        animation: none;
+    }
 }
 
 .pricing-container {
@@ -4694,17 +4756,9 @@ html[dir="rtl"] .lang-switch-pill:hover .pill-slider {
     opacity: 0.68;
 }
 
-.newsletter-message {
-    min-height: 24px;
-    margin: 0;
-    color: #6ee7f3;
-    font-size: 14px;
-}
-
-.newsletter-message.is-error {
-    color: #ff9090;
-    margin-top: 4px;
-    text-align: center;
+.newsletter-status-button[data-newsletter-state="success"]:disabled {
+    cursor: default;
+    opacity: 1;
 }
 
 .newsletter-note {

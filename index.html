@@ -527,12 +527,12 @@
             </label>
 
             <div class="form-actions">
-              <button type="submit" class="btn primary">Send Message</button>
+              <button type="submit" class="btn primary contact-submit" aria-busy="false"><span class="contact-submit-label">Send Message</span></button>
 
               <button type="reset" id="resetBtn" class="btn ghost">Reset</button>
             </div>
 
-            <p class="notice contact-validation-notice" id="formNotice" aria-live="polite" aria-atomic="true" hidden></p>
+            <p class="sr-only" id="formNotice" aria-live="polite" aria-atomic="true"></p>
           </form>
 
         </div>
@@ -561,8 +561,8 @@
                 maxlength="254"
                 required
               >
-              <button id="newsletter-submit" type="submit" class="btn primary">
-                <span>Subscribe</span>
+              <button id="newsletter-submit" type="submit" class="btn primary newsletter-status-button" aria-busy="false">
+                <span class="newsletter-status-label">Subscribe</span>
               </button>
             </div>
 
@@ -572,9 +572,9 @@
             </div>
 
             <div id="newsletter-unsubscribe-confirmation" class="newsletter-unsubscribe-confirmation" hidden aria-hidden="true">
-              <button id="newsletter-confirm-unsubscribe" type="button" class="btn danger">Unsubscribe</button>
+              <button id="newsletter-confirm-unsubscribe" type="button" class="btn danger newsletter-status-button newsletter-unsubscribe-button" aria-busy="false"><span class="newsletter-status-label">Unsubscribe</span></button>
             </div>
-            <p id="newsletter-message" class="newsletter-message" role="status" aria-live="polite"></p>
+            <p id="newsletter-message" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></p>
             <p class="newsletter-note">No spam. <button id="newsletter-manage" class="newsletter-manage" type="button" aria-expanded="false">Manage subscription</button>.</p>
           </form>
         </div>
