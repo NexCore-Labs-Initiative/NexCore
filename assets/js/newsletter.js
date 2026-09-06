@@ -8,8 +8,6 @@
   const honeypot = document.getElementById("newsletter-company");
   const submitButton = document.getElementById("newsletter-submit");
   const manageButton = document.getElementById("newsletter-manage");
-  const confirmation = document.getElementById("newsletter-unsubscribe-confirmation");
-  const confirmUnsubscribeButton = document.getElementById("newsletter-confirm-unsubscribe");
   const message = document.getElementById("newsletter-message");
   const isArabic = document.documentElement.lang.toLowerCase().startsWith("ar");
   const statusTimers = new Map();
@@ -25,7 +23,7 @@
     backToSubscribe: "العودة إلى الاشتراك",
     check: "تحقق من البريد",
     checking: "جارٍ التحقق...",
-    ready: "جاهز لتأكيد الإلغاء",
+    ready: "يمكنك الآن تأكيد إلغاء الاشتراك.",
     unsubscribe: "إلغاء الاشتراك",
     unsubscribing: "جارٍ إلغاء الاشتراك...",
     updated: "تم تحديث التفضيلات",
@@ -44,7 +42,7 @@
     backToSubscribe: "Back to subscribe",
     check: "Check email",
     checking: "Checking...",
-    ready: "Ready to unsubscribe",
+    ready: "You can now confirm unsubscription.",
     unsubscribe: "Unsubscribe",
     unsubscribing: "Unsubscribing...",
     updated: "Preferences updated",
@@ -89,22 +87,18 @@
     return mode === "manage" ? copy.check : copy.subscribe;
   }
 
-  function restoreButton(button, label) {
-    setButtonStatus(button, label, "");
+  function restoreButton(label, state) {
+    setButtonStatus(submitButton, label, state || "");
   }
 
-  function restoreButtonAfter(button, label, duration) {
-    clearStatusTimer(button);
-    statusTimers.set(button, window.setTimeout(() => {
-      restoreButton(button, label());
-      statusTimers.delete(button);
+  function restoreSubmitAfter(duration) {
+    clearStatusTimer(submitButton);
+    statusTimers.set(submitButton, window.setTimeout(() => {
+      const isPrepared = Boolean(preparedEmail);
+      restoreButton(isPrepared ? copy.unsubscribe : defaultSubmitLabel(), isPrepared ? "unsubscribe" : "");
+      statusTimers.delete(submitButton);
       setMessage("");
     }, duration));
-  }
-
-  function setConfirmationVisible(visible) {
-    confirmation.hidden = !visible;
-    confirmation.setAttribute("aria-hidden", String(!visible));
   }
 
   function setMode(nextMode) {
@@ -114,20 +108,16 @@
     manageButton.setAttribute("aria-expanded", String(mode === "manage"));
     manageButton.textContent = mode === "manage" ? copy.backToSubscribe : copy.manage;
     submitButton.disabled = false;
-    confirmUnsubscribeButton.disabled = false;
-    restoreButton(submitButton, defaultSubmitLabel());
-    restoreButton(confirmUnsubscribeButton, copy.unsubscribe);
-    setConfirmationVisible(false);
+    restoreButton(defaultSubmitLabel());
     setMessage("");
   }
 
-  function setLoading(isLoading, button, label) {
+  function setLoading(isLoading, label) {
     submitButton.disabled = isLoading;
     manageButton.disabled = isLoading;
-    confirmUnsubscribeButton.disabled = isLoading;
     emailInput.readOnly = isLoading;
     form.setAttribute("aria-busy", String(isLoading));
-    if (isLoading) setButtonStatus(button, label, "loading");
+    if (isLoading) setButtonStatus(submitButton, label, "loading");
   }
 
   function setEmailValidity() {
@@ -158,11 +148,9 @@
     setMode("subscribe");
   }
 
-  function showPreparedConfirmation(email) {
+  function showUnsubscribeAction(email) {
     preparedEmail = email;
-    setConfirmationVisible(true);
-    setButtonStatus(submitButton, copy.ready, "success");
-    submitButton.disabled = true;
+    setButtonStatus(submitButton, copy.unsubscribe, "unsubscribe");
     setMessage(copy.ready);
   }
 
@@ -185,32 +173,50 @@
       return;
     }
 
+    const isManaging = mode === "manage";
+    const isConfirmingUnsubscribe = isManaging && preparedEmail === email;
+
     if (honeypot.value.trim()) {
-      if (mode === "manage") {
-        showPreparedConfirmation(email);
+      if (isConfirmingUnsubscribe) {
+        setButtonStatus(submitButton, copy.updated, "success");
+        window.setTimeout(resetToSubscribe, 1200);
+      } else if (isManaging) {
+        showUnsubscribeAction(email);
       } else {
         setButtonStatus(submitButton, copy.subscribed, "success");
-        restoreButtonAfter(submitButton, defaultSubmitLabel, 1800);
+        restoreSubmitAfter(1800);
       }
       return;
     }
 
-    const isManaging = mode === "manage";
-    setLoading(true, submitButton, isManaging ? copy.checking : copy.subscribing);
+    const action = isConfirmingUnsubscribe ? "unsubscribe" : isManaging ? "prepare_unsubscribe" : "subscribe";
+    const loadingLabel = isConfirmingUnsubscribe ? copy.unsubscribing : isManaging ? copy.checking : copy.subscribing;
+    let completedUnsubscribe = false;
+    setLoading(true, loadingLabel);
 
     try {
-      const result = await sendRequest(isManaging ? "prepare_unsubscribe" : "subscribe", email);
+      const result = await sendRequest(action, email);
+
+      if (isConfirmingUnsubscribe) {
+        if (result.status !== "unsubscribed") throw new Error("Unexpected unsubscribe response");
+        setButtonStatus(submitButton, copy.updated, "success");
+        setMessage(copy.unsubscribed);
+        notify(copy.unsubscribed, "success");
+        completedUnsubscribe = true;
+        window.setTimeout(resetToSubscribe, 1200);
+        return;
+      }
 
       if (isManaging) {
         if (result.status !== "ready") throw new Error("Unexpected preparation response");
-        showPreparedConfirmation(email);
+        showUnsubscribeAction(email);
         return;
       }
 
       if (result.status === "already_subscribed") {
         setButtonStatus(submitButton, copy.alreadySubscribed, "success");
         setMessage(copy.duplicate);
-        restoreButtonAfter(submitButton, defaultSubmitLabel, 2600);
+        restoreSubmitAfter(2600);
         return;
       }
 
@@ -218,58 +224,22 @@
       setMessage(copy.success);
       notify(copy.success, "success");
       form.reset();
-      restoreButtonAfter(submitButton, defaultSubmitLabel, 1800);
+      restoreSubmitAfter(1800);
     } catch (error) {
       console.error("Unexpected newsletter request error:", error);
       setButtonStatus(submitButton, isManaging ? copy.unsubscribeFailed : copy.failed, "error");
       setMessage(isManaging ? copy.unsubscribeFailed : copy.failed);
-      restoreButtonAfter(submitButton, defaultSubmitLabel, 2600);
+      restoreSubmitAfter(2600);
     } finally {
       setLoading(false);
-      if (isManaging && preparedEmail) submitButton.disabled = true;
-    }
-  });
-
-  confirmUnsubscribeButton.addEventListener("click", async () => {
-    const email = emailInput.value.trim().toLowerCase();
-    emailInput.value = email;
-
-    if (!preparedEmail || email !== preparedEmail || setEmailValidity()) {
-      setConfirmationVisible(false);
-      preparedEmail = "";
-      submitButton.disabled = false;
-      showInvalidEmail();
-      emailInput.focus();
-      return;
-    }
-
-    let completed = false;
-    setLoading(true, confirmUnsubscribeButton, copy.unsubscribing);
-    try {
-      const result = await sendRequest("unsubscribe", email);
-      if (result.status !== "unsubscribed") throw new Error("Unexpected unsubscribe response");
-      setButtonStatus(confirmUnsubscribeButton, copy.updated, "success");
-      setMessage(copy.unsubscribed);
-      notify(copy.unsubscribed, "success");
-      completed = true;
-      window.setTimeout(resetToSubscribe, 1200);
-    } catch (error) {
-      console.error("Unexpected newsletter unsubscribe error:", error);
-      setButtonStatus(confirmUnsubscribeButton, copy.unsubscribeFailed, "error");
-      setMessage(copy.unsubscribeFailed);
-      restoreButtonAfter(confirmUnsubscribeButton, () => copy.unsubscribe, 2600);
-    } finally {
-      setLoading(false);
-      if (completed) confirmUnsubscribeButton.disabled = true;
+      if (completedUnsubscribe) submitButton.disabled = true;
     }
   });
 
   emailInput.addEventListener("input", () => {
     if (preparedEmail && emailInput.value.trim().toLowerCase() !== preparedEmail) {
       preparedEmail = "";
-      setConfirmationVisible(false);
-      submitButton.disabled = false;
-      restoreButton(submitButton, defaultSubmitLabel());
+      restoreButton(defaultSubmitLabel());
     }
     if (form.dataset.validationAttempted !== "true") return;
     if (setEmailValidity()) {
@@ -277,7 +247,7 @@
       return;
     }
     if (!preparedEmail) {
-      restoreButton(submitButton, defaultSubmitLabel());
+      restoreButton(defaultSubmitLabel());
       setMessage("");
     }
   });
@@ -287,7 +257,6 @@
     emailInput.classList.remove("is-invalid");
     emailInput.setAttribute("aria-invalid", "false");
     preparedEmail = "";
-    setConfirmationVisible(false);
   });
 
   setMode("subscribe");

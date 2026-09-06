@@ -42,7 +42,7 @@ for (const path of ["/index.html", "/ar/index.html"]) {
         subscribed: "تم الاشتراك",
         check: "تحقق من البريد",
         checking: "جارٍ التحقق...",
-        ready: "جاهز لتأكيد الإلغاء",
+        unsubscribe: "إلغاء الاشتراك",
         unsubscribing: "جارٍ إلغاء الاشتراك...",
         updated: "تم تحديث التفضيلات",
         failed: "تعذر إتمام الاشتراك"
@@ -53,7 +53,7 @@ for (const path of ["/index.html", "/ar/index.html"]) {
         subscribed: "Subscribed",
         check: "Check email",
         checking: "Checking...",
-        ready: "Ready to unsubscribe",
+        unsubscribe: "Unsubscribe",
         unsubscribing: "Unsubscribing...",
         updated: "Preferences updated",
         failed: "Failed to subscribe"
@@ -81,17 +81,15 @@ for (const path of ["/index.html", "/ar/index.html"]) {
       await expect(submit).toHaveText(labels.check);
       await submit.click();
       await expect(submit).toHaveText(labels.checking);
-      await expect(page.locator("#newsletter-unsubscribe-confirmation")).toBeVisible();
-      await expect(submit).toHaveText(labels.ready);
-      await expect(submit).toBeDisabled();
+      await expect(submit).toHaveText(labels.unsubscribe);
+      await expect(submit).toHaveAttribute("data-newsletter-state", "unsubscribe");
+      await expect(submit).toBeEnabled();
       await expect(page.locator("#newsletter-message")).not.toHaveText(/subscribed|مشترك/i);
 
-      const confirmButton = page.locator("#newsletter-confirm-unsubscribe");
-      await confirmButton.click();
-      await expect(confirmButton).toHaveText(labels.unsubscribing);
-      await expect(confirmButton).toHaveText(labels.updated);
+      await submit.click();
+      await expect(submit).toHaveText(labels.unsubscribing);
+      await expect(submit).toHaveText(labels.updated);
       await expect(page.locator(".nexcore-toast--success").last()).toBeVisible();
-      await expect(page.locator("#newsletter-unsubscribe-confirmation")).toBeHidden();
       await expect(form).toHaveAttribute("data-newsletter-mode", "subscribe");
       await expect(email).toHaveValue("");
 
