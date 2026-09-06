@@ -41,6 +41,16 @@ assert(
   authUi.includes("window.location.href = `${routePrefix}/auth.html`"),
   "Logout must redirect to the locale-aware auth page"
 );
+assert(authUi.includes("const LOGOUT_TOAST_KEY = 'nexcore_logout_toast'"), "Logout must queue a one-time toast across the redirect");
+assert(authUi.includes("queueLogoutToast();"), "Successful navbar logout must queue the success toast");
+assert(authUi.includes("showQueuedLogoutToast();"), "Auth pages must consume the queued logout toast");
+assert(authUi.includes("type: 'success'"), "Queued logout toast must use the success tone");
+
+for (const file of ["account.html", "ar/account.html"]) {
+  const html = read(file);
+  assert(html.includes("window.NexCoreAuth?.queueLogoutToast?.();"), `${file} must queue the shared logout toast`);
+  assert(html.includes("const { error } = await sb.auth.signOut();"), `${file} must confirm sign-out before redirecting`);
+}
 assert(
   authUi.includes("fa-cube") && !authUi.includes("fa-sparkles"),
   "Injected Initiatives navigation must use a Font Awesome Free icon"

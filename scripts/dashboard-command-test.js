@@ -30,12 +30,15 @@ const sharedRequiredIds = [
   "commandSaveBtn",
   "commandPublishBtn",
   "commandOpenPublicBtn",
+  "deleteBtn"
+];
+
+const removedPanelControlIds = [
   "saveCardBtn",
   "saveProfileBtn",
   "saveLinksBtn",
   "togglePublishBtn",
-  "copyProjectPageLink",
-  "deleteBtn"
+  "copyProjectPageLink"
 ];
 
 const behaviorHooks = [
@@ -78,6 +81,13 @@ for (const [file, heading, publicPath] of [
     const matches = html.match(new RegExp(`id="${id}"`, "g")) || [];
     assert.strictEqual(matches.length, 1, `${file} must contain exactly one #${id}`);
   }
+
+  for (const id of removedPanelControlIds) {
+    assert(!html.includes(`id="${id}"`), `${file} must keep project actions in the shared dock only`);
+  }
+
+  assert(html.includes('id="commandSaveState" hidden'), `${file} must hide the save state until a project exists`);
+  assert(html.includes("el.hidden = !project;"), `${file} must hide command save state without a project`);
 
   for (const hook of behaviorHooks) {
     assert(html.includes(hook), `${file} must include ${hook}`);

@@ -1095,17 +1095,11 @@
 
 
 
-        await sb.auth.signOut();
+        const { error } = await sb.auth.signOut();
+        if (error) throw error;
 
-        setMsg("logoutMsg", "Logged out successfully. Redirecting...");
-
-
-
-        setTimeout(() => {
-
-          window.location.href = "/auth.html";
-
-        }, 1000);
+        window.NexCoreAuth?.queueLogoutToast?.();
+        window.location.href = "/auth.html";
 
       } catch (error) {
 

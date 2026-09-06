@@ -1096,17 +1096,11 @@
 
 
 
-        await sb.auth.signOut();
+        const { error } = await sb.auth.signOut();
+        if (error) throw error;
 
-        setMsg("logoutMsg", "تم تسجيل الخروج بنجاح. جار التحويل...");
-
-
-
-        setTimeout(() => {
-
-          window.location.href = "/ar/auth.html";
-
-        }, 1000);
+        window.NexCoreAuth?.queueLogoutToast?.();
+        window.location.href = "/ar/auth.html";
 
       } catch (error) {
 

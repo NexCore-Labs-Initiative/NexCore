@@ -278,10 +278,15 @@
                 } catch (_) {}
             }
 
+            function clearGoogleAuthAttempt() {
+                window.NexCoreAuth?.clearGoogleAuthAttempt?.();
+            }
+
             async function enforceSquEmail(session) {
                 const email = session?.user?.email || '';
                 if (!session?.user || isAllowedEmail(email)) return true;
 
+                clearGoogleAuthAttempt();
                 stashAuthNotice(RESTRICTED_EMAIL_NOTICE);
                 suppressSignedOutNote = true;
                 try {
@@ -303,6 +308,8 @@
                 if (session) {
                     const allowed = await enforceSquEmail(session);
                     if (!allowed) return false;
+
+                    clearGoogleAuthAttempt();
 
                     // User is already logged in, redirect to dashboard
 
@@ -333,6 +340,7 @@
                 const storedNotice = sessionStorage.getItem(AUTH_NOTICE_KEY);
 
                 if (authNotice === 'restricted_email' || storedNotice) {
+                    clearGoogleAuthAttempt();
                     showNote(storedNotice || RESTRICTED_EMAIL_NOTICE, true);
                     sessionStorage.removeItem(AUTH_NOTICE_KEY);
                     const cleanUrl = window.location.pathname;
@@ -343,6 +351,7 @@
 
 
                 if (error || errorDescription) {
+                    clearGoogleAuthAttempt();
 
                     // Show backend error message directly
 
@@ -363,6 +372,11 @@
 
                     return true;
 
+                }
+
+                if (window.NexCoreAuth?.consumeGoogleAuthAttempt?.()) {
+                    showNote(RESTRICTED_EMAIL_NOTICE, true);
+                    return true;
                 }
 
                 return false;
@@ -431,6 +445,7 @@
                     // Store current mode in sessionStorage
 
                     sessionStorage.setItem('auth_mode', currentMode);
+                    window.NexCoreAuth?.beginGoogleAuthAttempt?.();
 
 
 
@@ -442,7 +457,7 @@
 
                         options: {
 
-                            redirectTo: `${window.location.origin}/dashboard.html`
+                            redirectTo: `${window.location.origin}/auth.html`
 
                         }
 
@@ -463,6 +478,7 @@
                 } catch (error) {
 
                     console.error('Sign in error:', error);
+                    clearGoogleAuthAttempt();
 
                     // Show backend error message directly
 
