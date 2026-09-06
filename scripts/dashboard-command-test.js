@@ -13,7 +13,6 @@ const sharedRequiredIds = [
   "commandProjectName",
   "commandAiRemaining",
   "commandAiFill",
-  "commandNextAction",
   "readinessName",
   "readinessSlug",
   "readinessCard",
@@ -76,6 +75,11 @@ for (const [file, heading, publicPath] of [
   assert(html.includes('class="action-dock"'), `${file} must include the action dock`);
   assert(html.includes("logo_url"), `${file} must retain project logo state in the command center`);
   assert(html.includes(publicPath), `${file} must use the locale-specific public path`);
+  assert(!html.includes('data-dashboard-tab="overview"'), `${file} must remove the redundant overview tab`);
+  assert(!html.includes('data-dashboard-panel="overview"'), `${file} must remove the redundant overview panel`);
+  assert(!html.includes('class="next-action"'), `${file} must remove the command band's next-action box`);
+  assert(!html.includes('id="commandNextAction"'), `${file} must not retain the removed next-action control`);
+  assert(html.includes('commandOpenPublicBtn') && html.includes('window.open('), `${file} must open the public page directly from the action dock`);
 
   for (const id of sharedRequiredIds) {
     const matches = html.match(new RegExp(`id="${id}"`, "g")) || [];

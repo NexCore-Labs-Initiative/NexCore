@@ -376,7 +376,7 @@
       backdrop-filter:blur(8px);
     }
     .command-band{border-radius:18px;padding:18px;margin-bottom:12px}
-    .command-main{display:grid;grid-template-columns:minmax(260px,1.1fr) repeat(3,minmax(120px,.45fr)) minmax(220px,.75fr);gap:16px;align-items:center}
+    .command-main{display:grid;grid-template-columns:minmax(260px,1.1fr) repeat(3,minmax(120px,.45fr));gap:16px;align-items:center}
     .project-identity{display:flex;align-items:center;gap:14px;min-width:0}
     .project-avatar{width:52px;height:52px;border-radius:12px;border:1px solid rgba(110,231,243,.22);background:rgba(110,231,243,.08);display:flex;align-items:center;justify-content:center;overflow:hidden;flex:0 0 auto}
     .project-avatar img{width:100%;height:100%;object-fit:cover}
@@ -387,13 +387,9 @@
     .command-metric{min-width:0;padding-inline:14px;border-inline-start:1px solid rgba(255,255,255,.08)}
     .command-label{display:flex;align-items:center;gap:8px;color:rgba(232,233,240,.62);font-size:12px;margin-bottom:8px}
     .command-value{color:#fff;font-size:15px;font-weight:800}
-    .command-link{display:flex;align-items:center;gap:8px;color:#6ee7f3;font-size:13px;text-decoration:none;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
     .ai-quota-line{display:flex;align-items:center;gap:10px}
     .ai-quota-bar{height:5px;min-width:76px;flex:1;border-radius:999px;background:rgba(255,255,255,.12);overflow:hidden}
     .ai-quota-fill{display:block;height:100%;width:0;border-radius:inherit;background:linear-gradient(90deg,#6ee7f3,#6bd3c9)}
-    .next-action{display:flex;justify-content:space-between;gap:14px;align-items:center;padding-inline-start:16px;border-inline-start:1px solid rgba(255,255,255,.1)}
-    .next-action small{display:block;color:rgba(232,233,240,.58);font-size:12px;margin-bottom:5px}
-    .next-action strong{display:flex;align-items:center;gap:8px;color:#6ee7f3;font-size:15px}
     .readiness-band{border-radius:16px;padding:14px 16px;margin-bottom:12px;display:grid;grid-template-columns:160px 1fr;gap:16px;align-items:center}
     .readiness-title{margin:0;color:#eaf6fb;font-size:14px;font-weight:800}
     .readiness-items{display:grid;grid-template-columns:repeat(6,minmax(110px,1fr));gap:10px}
@@ -448,7 +444,6 @@
     .danger-panel{border-color:rgba(255,120,120,.22);background:rgba(255,120,120,.045)}
     @media(max-width:1120px){
       .command-main{grid-template-columns:minmax(260px,1fr) repeat(2,minmax(120px,.45fr));}
-      .next-action{grid-column:1/-1;border-inline-start:0;border-top:1px solid rgba(255,255,255,.08);padding:14px 0 0}
       .readiness-band{grid-template-columns:1fr}
       .readiness-items{grid-template-columns:repeat(3,minmax(120px,1fr))}
       .command-grid{grid-template-columns:1fr}
@@ -466,7 +461,6 @@
       .project-identity{grid-column:1/-1;padding-bottom:14px}
       .command-metric{border-inline-start:0;padding:12px 0 10px;border-top:1px solid rgba(255,255,255,.08)}
       .command-metric:nth-of-type(4){grid-column:1/-1}
-      .next-action{grid-column:1/-1;border-inline-start:0;padding:12px 0 0;border-top:1px solid rgba(255,255,255,.08)}
       .readiness-band{padding:14px}
       .readiness-items{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
       .ready-item{align-items:center;gap:8px;padding:9px 8px;border:1px solid rgba(255,255,255,.07);border-radius:10px;background:rgba(255,255,255,.018)}
@@ -673,13 +667,6 @@
             <span class="command-label"><i class="fa-solid fa-wand-magic-sparkles"></i> استخدامات الذكاء الاصطناعي</span>
             <span class="command-value ai-quota-line"><span id="commandAiRemaining">- / 3</span><span class="ai-quota-bar"><span class="ai-quota-fill" id="commandAiFill"></span></span></span>
           </div>
-          <div class="next-action">
-            <div>
-              <small>الخطوة المقترحة</small>
-              <strong id="commandNextActionText"><i class="fa-regular fa-circle-check"></i> راجع الجاهزية</strong>
-            </div>
-            <button class="btn copy" id="commandNextAction" type="button" title="انتقل إلى الخطوة المقترحة"><i class="fa-solid fa-arrow-left"></i></button>
-          </div>
         </div>
       </section>
 
@@ -698,8 +685,7 @@
       <div class="command-grid">
         <section class="editor-panel" aria-label="محرر المشروع">
           <div class="dashboard-tabs" role="tablist" aria-label="أقسام لوحة التحكم">
-            <button class="dashboard-tab active" type="button" role="tab" aria-selected="true" data-dashboard-tab="overview"><i class="ti ti-layout-grid" aria-hidden="true"></i> نظرة عامة</button>
-            <button class="dashboard-tab" type="button" role="tab" aria-selected="false" data-dashboard-tab="hub"><i class="ti ti-id-badge" aria-hidden="true"></i> بطاقة المركز</button>
+            <button class="dashboard-tab active" type="button" role="tab" aria-selected="true" data-dashboard-tab="hub"><i class="ti ti-id-badge" aria-hidden="true"></i> بطاقة المركز</button>
             <button class="dashboard-tab" type="button" role="tab" aria-selected="false" data-dashboard-tab="profile"><i class="ti ti-user" aria-hidden="true"></i> الملف</button>
             <button class="dashboard-tab" type="button" role="tab" aria-selected="false" data-dashboard-tab="links"><i class="ti ti-link" aria-hidden="true"></i> الروابط</button>
             <button class="dashboard-tab" type="button" role="tab" aria-selected="false" data-dashboard-tab="ai"><i class="ti ti-sparkles" aria-hidden="true"></i> مساعد الذكاء</button>
@@ -708,30 +694,7 @@
           </div>
 
           <div class="dashboard-panel-stage">
-          <div class="dashboard-panel active" role="tabpanel" data-dashboard-panel="overview">
-            <div class="panel-title-row">
-              <div>
-                <h3>نظرة عامة</h3>
-                <p class="muted">راجع حالة المشروع واستخدم شريط الإجراءات عندما تكون جاهزاً.</p>
-              </div>
-            </div>
-            <div class="field-grid">
-              <div>
-                <label>الصفحة العامة</label>
-                <a id="publicLink" class="command-link" href="#" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square"></i> فتح الصفحة العامة</a>
-              </div>
-              <div>
-                <label>حالة النشر</label>
-                <p class="muted mt-4" id="commandPublishState">مسودة</p>
-              </div>
-              <div class="full">
-                <label>ملاحظات النشر</label>
-                <p id="publishStatus" class="muted mt-4"></p>
-              </div>
-            </div>
-          </div>
-
-          <div class="dashboard-panel" role="tabpanel" data-dashboard-panel="hub">
+          <div class="dashboard-panel active" role="tabpanel" data-dashboard-panel="hub">
             <div class="panel-title-row">
               <div>
                 <h3>بطاقة المركز</h3>
@@ -1007,7 +970,7 @@
     }
 
     function disableButtons(disabled) {
-      const btns = ["createProjectBtn", "deleteBtn", "commandSaveBtn", "commandPublishBtn", "commandOpenPublicBtn", "commandNextAction"];
+      const btns = ["createProjectBtn", "deleteBtn", "commandSaveBtn", "commandPublishBtn", "commandOpenPublicBtn"];
       btns.forEach(id => {
         const el = document.getElementById(id);
         if (el) el.disabled = disabled;
@@ -1218,7 +1181,7 @@
         { id: "readinessCard", key: "card", complete: values.card_description.length >= 12, label: values.card_description.length >= 12 ? DASHBOARD_COPY.complete : DASHBOARD_COPY.pending, tab: "hub", focus: "cardDescription" },
         { id: "readinessPage", key: "page", complete: values.page_description.length >= 40, label: values.page_description.length >= 40 ? DASHBOARD_COPY.complete : DASHBOARD_COPY.pending, tab: "profile", focus: "pageDescription" },
         { id: "readinessImage", key: "image", complete: !values.image_url || isValidImageUrl(values.image_url), blocked: !!values.image_url && !isValidImageUrl(values.image_url), label: values.image_url ? (isValidImageUrl(values.image_url) ? DASHBOARD_COPY.complete : DASHBOARD_COPY.invalid) : DASHBOARD_COPY.pending, tab: "profile", focus: "profileImageUrl" },
-        { id: "readinessModeration", key: "moderation", complete: moderation === "approved", blocked: moderation === "blocked", label: getModerationLabel(moderation), tab: "overview", focus: "moderationBadge" }
+        { id: "readinessModeration", key: "moderation", complete: moderation === "approved", blocked: moderation === "blocked", label: getModerationLabel(moderation), tab: "hub", focus: "moderationBadge" }
       ];
     }
 
@@ -1278,34 +1241,16 @@
       const published = isProjectPublished(project);
       const moderation = normalizeModerationStatus(project?.moderation_status);
       const moderationLabel = getModerationLabel(moderation);
-      const link = `/ar/project.html?slug=${encodeURIComponent(values.slug || project?.slug || "")}`;
       const linksCount = ["website", "x_url", "github_url", "linkedin_url", "instagram_url"].filter((key) => hasHttpValue(values[key])).length;
 
       updateProjectPreview(values);
-      const readiness = updateReadiness(values);
-      const next = readiness.find((item) => !item.complete || item.blocked);
-      const nextLabels = {
-        name: DASHBOARD_COPY.addName,
-        slug: DASHBOARD_COPY.addSlug,
-        card: DASHBOARD_COPY.addCard,
-        page: DASHBOARD_COPY.addPage,
-        image: next?.blocked ? DASHBOARD_COPY.fixImage : DASHBOARD_COPY.addImage,
-        moderation: moderation === "blocked" ? DASHBOARD_COPY.blocked : DASHBOARD_COPY.requestReview
-      };
+      updateReadiness(values);
 
       setText("commandModerationInline", moderationLabel);
-      setText("commandPublishState", published ? DASHBOARD_COPY.published : DASHBOARD_COPY.draft);
       setText("summaryStatus", published ? DASHBOARD_COPY.published : DASHBOARD_COPY.draft);
       setText("summaryModeration", moderationLabel);
       setText("summaryLinks", linksCount ? `${linksCount} روابط مضافة` : DASHBOARD_COPY.noLinks);
       setText("summaryUpdated", formatDate(project?.updated_at || project?.created_at));
-      setText("commandNextActionText", next ? nextLabels[next.key] : (published ? DASHBOARD_COPY.openPublic : DASHBOARD_COPY.readyPublish));
-
-      const publicLink = getEl("publicLink");
-      if (publicLink) {
-        publicLink.href = link;
-        publicLink.innerHTML = `<i class="fa-solid fa-arrow-up-right-from-square"></i> ${link}`;
-      }
 
       const openBtn = getEl("commandOpenPublicBtn");
       if (openBtn) openBtn.disabled = !values.slug;
@@ -1364,7 +1309,7 @@
     }
 
     function getActiveDashboardTab() {
-      return document.querySelector("[data-dashboard-tab].active")?.dataset.dashboardTab || "overview";
+      return document.querySelector("[data-dashboard-tab].active")?.dataset.dashboardTab || "hub";
     }
 
     function focusDashboardStep(step) {
@@ -1398,14 +1343,9 @@
       });
       getEl("commandPublishBtn")?.addEventListener("click", togglePublish);
       getEl("commandOpenPublicBtn")?.addEventListener("click", () => {
-        const link = getEl("publicLink");
-        if (link?.href && link.getAttribute("href") !== "#") window.open(link.href, "_blank", "noopener");
-      });
-      getEl("commandNextAction")?.addEventListener("click", () => {
-        const next = getReadiness().find((item) => !item.complete || item.blocked);
-        if (next) focusDashboardStep(next);
-        else if (isProjectPublished(project)) getEl("commandOpenPublicBtn")?.click();
-        else focusDashboardStep({ tab: "overview", focus: "commandPublishBtn" });
+        const values = getDashboardValues();
+        const slug = values.slug || project?.slug || "";
+        if (slug) window.open(`/ar/project.html?slug=${encodeURIComponent(slug)}`, "_blank", "noopener");
       });
     }
 
@@ -1496,7 +1436,7 @@
         { id: "readinessCard", key: "card", complete: values.card_description.length >= 12, label: values.card_description.length >= 12 ? DASHBOARD_COPY.complete : DASHBOARD_COPY.pending, tab: "hub", focus: "cardDescription" },
         { id: "readinessPage", key: "page", complete: values.page_description.length >= 40, label: values.page_description.length >= 40 ? DASHBOARD_COPY.complete : DASHBOARD_COPY.pending, tab: "profile", focus: "pageDescription" },
         { id: "readinessImage", key: "image", complete: !values.image_url || isValidImageUrl(values.image_url), blocked: !!values.image_url && !isValidImageUrl(values.image_url), label: values.image_url ? (isValidImageUrl(values.image_url) ? DASHBOARD_COPY.complete : DASHBOARD_COPY.invalid) : DASHBOARD_COPY.pending, tab: "profile", focus: "profileImageUrl" },
-        { id: "readinessModeration", key: "moderation", complete: moderation === "approved", blocked: moderation === "blocked", label: getModerationLabel(moderation), tab: "overview", focus: "moderationBadge" }
+        { id: "readinessModeration", key: "moderation", complete: moderation === "approved", blocked: moderation === "blocked", label: getModerationLabel(moderation), tab: "hub", focus: "moderationBadge" }
       ];
     }
 
@@ -1556,34 +1496,16 @@
       const published = isProjectPublished(project);
       const moderation = normalizeModerationStatus(project?.moderation_status);
       const moderationLabel = getModerationLabel(moderation);
-      const link = `/ar/project.html?slug=${encodeURIComponent(values.slug || project?.slug || "")}`;
       const linksCount = ["website", "x_url", "github_url", "linkedin_url", "instagram_url"].filter((key) => hasHttpValue(values[key])).length;
 
       updateProjectPreview(values);
-      const readiness = updateReadiness(values);
-      const next = readiness.find((item) => !item.complete || item.blocked);
-      const nextLabels = {
-        name: DASHBOARD_COPY.addName,
-        slug: DASHBOARD_COPY.addSlug,
-        card: DASHBOARD_COPY.addCard,
-        page: DASHBOARD_COPY.addPage,
-        image: next?.blocked ? DASHBOARD_COPY.fixImage : DASHBOARD_COPY.addImage,
-        moderation: moderation === "blocked" ? DASHBOARD_COPY.blocked : DASHBOARD_COPY.requestReview
-      };
+      updateReadiness(values);
 
       setText("commandModerationInline", moderationLabel);
-      setText("commandPublishState", published ? DASHBOARD_COPY.published : DASHBOARD_COPY.draft);
       setText("summaryStatus", published ? DASHBOARD_COPY.published : DASHBOARD_COPY.draft);
       setText("summaryModeration", moderationLabel);
       setText("summaryLinks", linksCount ? `${linksCount} روابط مضافة` : DASHBOARD_COPY.noLinks);
       setText("summaryUpdated", formatDate(project?.updated_at || project?.created_at));
-      setText("commandNextActionText", next ? nextLabels[next.key] : (published ? DASHBOARD_COPY.openPublic : DASHBOARD_COPY.readyPublish));
-
-      const publicLink = getEl("publicLink");
-      if (publicLink) {
-        publicLink.href = link;
-        publicLink.innerHTML = `<i class="fa-solid fa-arrow-up-right-from-square"></i> ${link}`;
-      }
 
       const openBtn = getEl("commandOpenPublicBtn");
       if (openBtn) openBtn.disabled = !values.slug;
@@ -1642,7 +1564,7 @@
     }
 
     function getActiveDashboardTab() {
-      return document.querySelector("[data-dashboard-tab].active")?.dataset.dashboardTab || "overview";
+      return document.querySelector("[data-dashboard-tab].active")?.dataset.dashboardTab || "hub";
     }
 
     function focusDashboardStep(step) {
@@ -1676,14 +1598,9 @@
       });
       getEl("commandPublishBtn")?.addEventListener("click", togglePublish);
       getEl("commandOpenPublicBtn")?.addEventListener("click", () => {
-        const link = getEl("publicLink");
-        if (link?.href && link.getAttribute("href") !== "#") window.open(link.href, "_blank", "noopener");
-      });
-      getEl("commandNextAction")?.addEventListener("click", () => {
-        const next = getReadiness().find((item) => !item.complete || item.blocked);
-        if (next) focusDashboardStep(next);
-        else if (isProjectPublished(project)) getEl("commandOpenPublicBtn")?.click();
-        else focusDashboardStep({ tab: "overview", focus: "commandPublishBtn" });
+        const values = getDashboardValues();
+        const slug = values.slug || project?.slug || "";
+        if (slug) window.open(`/ar/project.html?slug=${encodeURIComponent(slug)}`, "_blank", "noopener");
       });
     }
 
@@ -1878,11 +1795,6 @@
       document.getElementById("profileGithub").value = p.github_url || "";
       document.getElementById("profileLinkedin").value = p.linkedin_url || "";
       document.getElementById("profileInstagram").value = p.instagram_url || "";
-
-      const link = `/ar/project.html?slug=${encodeURIComponent(p.slug || "")}`;
-      const a = document.getElementById("publicLink");
-      a.href = link;
-      a.textContent = link;
 
       // Image preview
       const logo = document.getElementById("logoPreview");
