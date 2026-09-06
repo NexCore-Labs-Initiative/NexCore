@@ -25,6 +25,29 @@ for (const [path, message] of [
   });
 }
 
+for (const [path, message] of [
+  ["/auth.html", "Access is currently limited to eligible SQU email addresses. External access is paused."],
+  ["/ar/auth.html", "الوصول متاح حالياً لحسابات جامعة السلطان قابوس المؤهلة فقط. الوصول الخارجي متوقف مؤقتاً."]
+]) {
+  test(`${path} explains a rejected non-SQU Google sign-in`, async ({ page }) => {
+    await page.route(/^https:\/\//, route => route.abort());
+    await page.route("**/assets/js/supabase-client.js", route => route.fulfill({
+      contentType: "application/javascript",
+      body: "window.supabaseClient = { auth: { getSession: async () => ({ data: { session: null } }), onAuthStateChange: () => ({ data: {} }) } };"
+    }));
+    await page.addInitScript(() => {
+      sessionStorage.setItem("nexcore_google_auth_attempt", String(Date.now()));
+      localStorage.setItem("nexcore_cookie_preferences", JSON.stringify({ necessary: true, analytics: false, external_media: false, ai_services: false, timestamp: 1 }));
+    });
+    await page.goto(path, { waitUntil: "domcontentloaded" });
+
+    const toast = page.locator(".nexcore-toast--error");
+    await expect(toast).toBeVisible();
+    await expect(toast).toContainText(message);
+    await expect.poll(() => page.evaluate(() => sessionStorage.getItem("nexcore_google_auth_attempt"))).toBeNull();
+  });
+}
+
 for (const path of ["/account.html", "/ar/account.html"]) {
   test(`${path} account messages use shared notifications`, async ({ page }) => {
     await page.setViewportSize({ width: path.startsWith("/ar/") ? 390 : 1280, height: 844 });

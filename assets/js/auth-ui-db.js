@@ -10,6 +10,8 @@
     const sb = window.supabaseClient;
     const AUTH_NOTICE_KEY = 'auth_notice';
     const LOGOUT_TOAST_KEY = 'nexcore_logout_toast';
+    const GOOGLE_AUTH_ATTEMPT_KEY = 'nexcore_google_auth_attempt';
+    const GOOGLE_AUTH_ATTEMPT_MAX_AGE = 10 * 60 * 1000;
     let isEnforcingEmailDomain = false;
     const isArabicPage = (document.documentElement.getAttribute('lang') || '').toLowerCase().startsWith('ar') ||
         /(^|\/)ar(\/|$)/.test(window.location.pathname);
@@ -108,6 +110,28 @@
         try {
             sessionStorage.setItem(LOGOUT_TOAST_KEY, 'success');
             return true;
+        } catch (_) {
+            return false;
+        }
+    }
+
+    function beginGoogleAuthAttempt() {
+        try {
+            sessionStorage.setItem(GOOGLE_AUTH_ATTEMPT_KEY, String(Date.now()));
+        } catch (_) {}
+    }
+
+    function clearGoogleAuthAttempt() {
+        try {
+            sessionStorage.removeItem(GOOGLE_AUTH_ATTEMPT_KEY);
+        } catch (_) {}
+    }
+
+    function consumeGoogleAuthAttempt() {
+        try {
+            const startedAt = Number(sessionStorage.getItem(GOOGLE_AUTH_ATTEMPT_KEY));
+            sessionStorage.removeItem(GOOGLE_AUTH_ATTEMPT_KEY);
+            return Number.isFinite(startedAt) && Date.now() - startedAt >= 0 && Date.now() - startedAt <= GOOGLE_AUTH_ATTEMPT_MAX_AGE;
         } catch (_) {
             return false;
         }
@@ -403,7 +427,12 @@
 
     // Expose updateAuthUI globally for manual calls if needed
     window.updateAuthUI = updateAuthUI;
-    window.NexCoreAuth = { queueLogoutToast };
+    window.NexCoreAuth = {
+        queueLogoutToast,
+        beginGoogleAuthAttempt,
+        clearGoogleAuthAttempt,
+        consumeGoogleAuthAttempt
+    };
 
     async function adminAccessRequest(method, payload) {
         const { data: { session } } = await sb.auth.getSession();

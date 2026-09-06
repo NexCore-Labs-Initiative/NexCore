@@ -238,9 +238,14 @@
                 } catch (_) {}
             }
 
+            function clearGoogleAuthAttempt() {
+                window.NexCoreAuth?.clearGoogleAuthAttempt?.();
+            }
+
             async function enforceSquEmail(session) {
                 const email = session?.user?.email || '';
                 if (!session?.user || isAllowedEmail(email)) return true;
+                clearGoogleAuthAttempt();
                 stashAuthNotice(RESTRICTED_EMAIL_NOTICE);
                 suppressSignedOutNote = true;
                 try {
@@ -258,6 +263,7 @@
                 if (session) {
                     const allowed = await enforceSquEmail(session);
                     if (!allowed) return false;
+                    clearGoogleAuthAttempt();
                     window.location.href = '/ar/dashboard.html';
                     return true;
                 }
@@ -273,6 +279,7 @@
                 const storedNotice = sessionStorage.getItem(AUTH_NOTICE_KEY);
 
                 if (authNotice === 'restricted_email' || storedNotice) {
+                    clearGoogleAuthAttempt();
                     showNote(storedNotice || RESTRICTED_EMAIL_NOTICE, true);
                     sessionStorage.removeItem(AUTH_NOTICE_KEY);
                     const cleanUrl = window.location.pathname;
@@ -281,6 +288,7 @@
                 }
 
                 if (error || errorDescription) {
+                    clearGoogleAuthAttempt();
                     const authError = `${error || ''} ${errorDescription || ''}`.toLowerCase();
                     const message = /authorized|restricted|pre-approved|squ email/.test(authError)
                         ? RESTRICTED_EMAIL_NOTICE
@@ -288,6 +296,11 @@
                     showNote(message, true);
                     const cleanUrl = window.location.pathname;
                     window.history.replaceState({}, '', cleanUrl);
+                    return true;
+                }
+
+                if (window.NexCoreAuth?.consumeGoogleAuthAttempt?.()) {
+                    showNote(RESTRICTED_EMAIL_NOTICE, true);
                     return true;
                 }
 
@@ -325,11 +338,12 @@
                     googleBtn.disabled = true;
                     btnText.textContent = 'إعادة التوجيه…';
                     sessionStorage.setItem('auth_mode', currentMode);
+                    window.NexCoreAuth?.beginGoogleAuthAttempt?.();
 
                     const { data, error } = await sb.auth.signInWithOAuth({
                         provider: 'google',
                         options: {
-                            redirectTo: `${window.location.origin}/ar/dashboard.html`
+                            redirectTo: `${window.location.origin}/ar/auth.html`
                         }
                     });
 
@@ -339,6 +353,7 @@
 
                 } catch (error) {
                     console.error('خطأ في تسجيل الدخول:', error);
+                    clearGoogleAuthAttempt();
                     showNote(error.message || 'فشل تسجيل الدخول. يرجى المحاولة مرة أخرى.', true);
                     googleBtn.disabled = false;
                     btnText.textContent = 'المتابعة بواسطة جوجل';
