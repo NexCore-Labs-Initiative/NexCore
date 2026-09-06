@@ -588,7 +588,7 @@
         <h1>Project Command Center</h1>
         <p class="muted" id="userLine">Loading...</p>
       </div>
-      <span class="save-state-pill clean" id="commandSaveState">Saved</span>
+      <span class="save-state-pill clean" id="commandSaveState" hidden>Saved</span>
     </div>
 
     <section id="noProject" class="project-empty-state" style="display:none;">
@@ -782,10 +782,6 @@
                 </div>
               </div>
             </div>
-            <div class="dashboard-actions">
-              <button class="btn primary ghost" id="saveCardBtn">Save Card</button>
-              <button class="btn primary" id="togglePublishBtn">Publish</button>
-            </div>
           </div>
 
           <div class="dashboard-panel" role="tabpanel" data-dashboard-panel="profile">
@@ -823,9 +819,6 @@
                 <p class="field-help">Detailed information displayed on the full project page.</p>
               </div>
             </div>
-            <div class="dashboard-actions">
-              <button class="btn primary ghost" id="saveProfileBtn">Save Profile</button>
-            </div>
           </div>
 
           <div class="dashboard-panel" role="tabpanel" data-dashboard-panel="links">
@@ -841,10 +834,6 @@
               <div><label>Instagram URL (optional)</label><input id="profileInstagram" placeholder="https://instagram.com/..." type="url" /></div>
               <div><label>GitHub URL (optional)</label><input id="profileGithub" placeholder="https://github.com/..." type="url" /></div>
               <div><label>LinkedIn URL (optional)</label><input id="profileLinkedin" placeholder="https://linkedin.com/..." type="url" /></div>
-            </div>
-            <div class="dashboard-actions">
-              <button class="btn primary ghost" id="saveLinksBtn" type="button">Save Links</button>
-              <button class="btn copy" id="copyProjectPageLink" title="Copy public page link"><i class="fa-solid fa-copy"></i> Copy Page Link</button>
             </div>
           </div>
 
@@ -1071,6 +1060,8 @@
     function setSaveState(state, text) {
       const el = getEl("commandSaveState");
       if (!el) return;
+      el.hidden = !project;
+      if (!project) return;
       el.className = `save-state-pill ${state || "clean"}`;
       el.textContent = text || DASHBOARD_COPY.saved;
     }
@@ -1309,7 +1300,6 @@
         if (active === "profile" || active === "links") await saveProfile();
         else await saveCard();
       });
-      getEl("saveLinksBtn")?.addEventListener("click", saveProfile);
       getEl("commandPublishBtn")?.addEventListener("click", togglePublish);
       getEl("commandOpenPublicBtn")?.addEventListener("click", () => {
         const link = getEl("publicLink");
@@ -1342,7 +1332,7 @@
     }
 
     function disableButtons(disabled) {
-      const btns = ["createProjectBtn", "saveCardBtn", "saveProfileBtn", "saveLinksBtn", "togglePublishBtn", "deleteBtn", "commandSaveBtn", "commandPublishBtn", "commandOpenPublicBtn", "commandNextAction"];
+      const btns = ["createProjectBtn", "deleteBtn", "commandSaveBtn", "commandPublishBtn", "commandOpenPublicBtn", "commandNextAction"];
       btns.forEach(id => {
         const el = document.getElementById(id);
         if (el) el.disabled = disabled;
@@ -1610,6 +1600,8 @@
 
     function render(p) {
       project = p;
+      const saveState = getEl("commandSaveState");
+      if (saveState) saveState.hidden = !p;
 
       document.getElementById("noProject").style.display = p ? "none" : "block";
       document.getElementById("hasProject").style.display = p ? "block" : "none";
@@ -1631,9 +1623,6 @@
       document.getElementById("publicId").textContent = p.public_id || "";
   const published = isProjectPublished(p);
   document.getElementById("statusText").textContent = published ? "Published ✓" : "Draft";
-
-      const publishBtn = document.getElementById("togglePublishBtn");
-  publishBtn.textContent = published ? "Unpublish" : "Publish";
 
   setPublishStatus(published ? "✓ Live on hub" : "");
   renderModerationStatus(p);
@@ -2120,10 +2109,6 @@
       initCommandActions();
 
       document.getElementById("createProjectBtn").addEventListener("click", createProject);
-      document.getElementById("copyProjectPageLink").addEventListener("click", copyProjectPageLink);
-      document.getElementById("saveCardBtn").addEventListener("click", saveCard);
-      document.getElementById("saveProfileBtn").addEventListener("click", saveProfile);
-      document.getElementById("togglePublishBtn").addEventListener("click", togglePublish);
       document.getElementById("deleteBtn").addEventListener("click", openDeleteProjectModal);
 
       // Delete project modal listeners
@@ -2490,34 +2475,6 @@
       console.log("✅ All AI handlers initialized");
     });
 
-    async function copyProjectPageLink() {
-      const publicLinkEl = document.getElementById("publicLink");
-      const copyBtn = document.getElementById("copyProjectPageLink");
-
-      if (!publicLinkEl.href || publicLinkEl.href === "#") return;
-
-      try {
-        // Get the full URL from href
-        const fullUrl = new URL(publicLinkEl.href, window.location.origin).href;
-        await navigator.clipboard.writeText(fullUrl);
-
-        // Visual feedback
-        const originalHTML = copyBtn.innerHTML;
-        copyBtn.classList.add("copied");
-        copyBtn.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
-
-        setTimeout(() => {
-          copyBtn.classList.remove("copied");
-          copyBtn.innerHTML = originalHTML;
-        }, 2000);
-      } catch (error) {
-        console.error("Failed to copy:", error);
-        copyBtn.innerHTML = '<i class="fa-solid fa-xmark"></i> Failed';
-        setTimeout(() => {
-          copyBtn.innerHTML = '<i class="fa-solid fa-copy"></i> Copy Page Link';
-        }, 2000);
-      }
-    }
   </script>
   <script>
     // ── Custom dropdowns (portalled to body) ──────
