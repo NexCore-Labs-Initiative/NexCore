@@ -481,7 +481,7 @@
             </button>
           </div>
 
-          <form id="contactForm" class="contact-form reveal" action="https://api.web3forms.com/submit" method="POST" data-success-url="thanks.html">
+          <form id="contactForm" class="contact-form reveal" action="https://api.web3forms.com/submit" method="POST" data-success-url="thanks.html" novalidate>
             <input type="hidden" name="access_key" value="ba811578-09f0-4f90-b1eb-7acc03fe745d">
 
             <input type="hidden" name="from_name" value="NexCore Website">
@@ -491,7 +491,7 @@
             <input type="checkbox" name="botcheck" class="hidden" title="فحص البوت">
 
             <label class="field">
-              <input name="name" id="name" type="text" placeholder="اسمك" autocomplete="given-name">
+              <input name="name" id="name" type="text" placeholder="اسمك" autocomplete="given-name" required>
             </label>
 
             <label class="field">
@@ -509,7 +509,7 @@
               <button type="reset" id="resetBtn" class="btn ghost">مسح الكل</button>
             </div>
 
-            <p class="notice" id="formNotice" aria-live="polite" style="display:none"></p>
+            <p class="notice contact-validation-notice" id="formNotice" aria-live="polite" aria-atomic="true" hidden></p>
           </form>
 
         </div>

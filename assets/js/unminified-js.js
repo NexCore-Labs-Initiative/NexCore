@@ -490,15 +490,47 @@ if (yearEl) {
 
   // Contact form handling
   if (form) {
+    const contactFields = Array.from(form.querySelectorAll("input[name='name'], input[name='email'], textarea[name='message']"));
+    let contactNoticeTimer = null;
+
+    const setFieldState = (field) => {
+      const value = field.value.trim();
+      const invalid = (field.required && !value) || (value && field.type === "email" && !field.validity.valid);
+      field.classList.toggle("is-invalid", invalid);
+      field.setAttribute("aria-invalid", String(invalid));
+      return invalid;
+    };
+
+    const hideValidationNotice = () => {
+      if (!notice || notice.hidden) return;
+      window.clearTimeout(contactNoticeTimer);
+      notice.classList.remove("is-visible");
+      notice.classList.add("is-fading");
+      window.setTimeout(() => {
+        notice.hidden = true;
+        notice.classList.remove("is-fading");
+      }, 180);
+    };
+
+    const showValidationNotice = () => {
+      if (!notice) return;
+      window.clearTimeout(contactNoticeTimer);
+      notice.textContent = locale.formRequired;
+      notice.hidden = false;
+      notice.classList.remove("is-visible", "is-fading");
+      window.requestAnimationFrame(() => notice.classList.add("is-visible"));
+      contactNoticeTimer = window.setTimeout(hideValidationNotice, 3200);
+    };
+
     form.addEventListener("submit", async (ev) => {
       ev.preventDefault();
 
-      const name = form.elements.namedItem("name")?.value.trim();
-      const email = form.elements.namedItem("email")?.value.trim();
-      const message = form.elements.namedItem("message")?.value.trim();
-
-      if (!name || !email || !message) {
-        setNotice(locale.formRequired, true);
+      form.dataset.validationAttempted = "true";
+      const invalidFields = contactFields.filter(setFieldState);
+      const firstInvalid = invalidFields[0];
+      if (firstInvalid) {
+        showValidationNotice();
+        firstInvalid.focus();
         return;
       }
 
@@ -530,12 +562,31 @@ if (yearEl) {
         }
       }
     });
+
+    contactFields.forEach((field) => {
+      field.addEventListener("input", () => {
+        if (form.dataset.validationAttempted !== "true") return;
+        setFieldState(field);
+        if (!form.querySelector(".is-invalid")) hideValidationNotice();
+      });
+    });
   }
 
   if (resetBtn) {
     resetBtn.addEventListener("click", () => {
       if (form) form.reset();
-      if (notice) notice.textContent = "";
+      if (form) {
+        delete form.dataset.validationAttempted;
+        form.querySelectorAll(".is-invalid").forEach((field) => {
+          field.classList.remove("is-invalid");
+          field.setAttribute("aria-invalid", "false");
+        });
+      }
+      if (notice) {
+        notice.textContent = "";
+        notice.hidden = true;
+        notice.classList.remove("is-visible", "is-fading");
+      }
     });
   }
 

@@ -1065,6 +1065,36 @@ a.project-card:hover .id {
     margin: 0
 }
 
+.contact-form .field input.is-invalid,
+.contact-form .field textarea.is-invalid {
+    border-color: rgba(255, 120, 120, .82);
+    background: rgba(130, 25, 39, .12);
+    box-shadow: 0 0 0 3px rgba(255, 120, 120, .08), 0 0 14px rgba(255, 90, 110, .12)
+}
+
+.contact-form .field input.is-invalid:focus,
+.contact-form .field textarea.is-invalid:focus {
+    border-color: rgba(255, 142, 142, .96);
+    box-shadow: 0 0 0 3px rgba(255, 120, 120, .14), 0 0 18px rgba(255, 90, 110, .16)
+}
+
+.contact-validation-notice {
+    color: #ff9b9b;
+    opacity: 0;
+    transform: translateY(-4px);
+    transition: opacity .18s ease, transform .18s ease
+}
+
+.contact-validation-notice.is-visible {
+    opacity: 1;
+    transform: translateY(0)
+}
+
+.contact-validation-notice.is-fading {
+    opacity: 0;
+    transform: translateY(-3px)
+}
+
 .pricing-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -4584,6 +4614,34 @@ html[dir="rtl"] .lang-switch-pill:hover .pill-slider {
     box-shadow: 0 18px 50px rgba(2, 6, 23, 0.45);
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
+}
+
+.newsletter-card.reveal {
+    opacity: 0;
+    transform: translateY(28px) scale(.985);
+    transition: opacity .62s ease-out, transform .72s cubic-bezier(.2, .9, .3, 1);
+}
+
+.newsletter-card.reveal.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.newsletter-card.reveal .newsletter-copy,
+.newsletter-card.reveal .newsletter-form {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity .42s ease-out, transform .48s cubic-bezier(.2, .9, .3, 1);
+}
+
+.newsletter-card.reveal.visible .newsletter-copy,
+.newsletter-card.reveal.visible .newsletter-form {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.newsletter-card.reveal .newsletter-form {
+    transition-delay: .1s;
 }
 
 .newsletter-kicker {

@@ -1,0 +1,33 @@
+"use strict";
+
+const { test, expect } = require("@playwright/test");
+
+for (const path of ["/index.html", "/ar/index.html"]) {
+  test(`${path} uses inline contact validation and reveals the newsletter card`, async ({ page }) => {
+    await page.addInitScript(() => {
+      localStorage.setItem("nexcore_cookie_preferences", JSON.stringify({ necessary: true, analytics: false, external_media: false, ai_services: false, timestamp: 1 }));
+    });
+    await page.route(/^https:\/\//, route => route.abort());
+    await page.goto(path, { waitUntil: "domcontentloaded" });
+
+    const form = page.locator("#contactForm");
+    await expect(form).toHaveJSProperty("noValidate", true);
+    await form.locator('button[type="submit"]').click();
+
+    for (const field of ["#name", "#email", "#message"]) {
+      await expect(page.locator(field)).toHaveClass(/is-invalid/);
+      await expect(page.locator(field)).toHaveAttribute("aria-invalid", "true");
+    }
+    await expect(page.locator("#formNotice")).toBeVisible();
+    await expect(page.locator(".nexcore-toast")).toHaveCount(0);
+
+    await page.locator("#name").fill("NexCore");
+    await expect(page.locator("#name")).not.toHaveClass(/is-invalid/);
+    await expect(page.locator("#email")).toHaveClass(/is-invalid/);
+
+    const newsletter = page.locator(".newsletter-card");
+    await newsletter.scrollIntoViewIfNeeded();
+    await expect(newsletter).toHaveClass(/visible/);
+    await expect(newsletter).toHaveCSS("opacity", "1");
+  });
+}
