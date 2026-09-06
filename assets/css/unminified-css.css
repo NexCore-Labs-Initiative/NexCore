@@ -1115,12 +1115,27 @@ html[dir="rtl"] .newsletter-status-button {
     color: #ffe2a8;
 }
 
+.contact-submit[data-contact-state="required"]:hover,
+.contact-submit[data-contact-state="email-invalid"]:hover,
+.newsletter-status-button[data-newsletter-state="invalid"]:hover {
+    background: rgba(186, 117, 23, .34);
+    border-color: rgba(255, 211, 133, .78);
+    box-shadow: 0 0 18px rgba(246, 193, 107, .28);
+}
+
 .contact-submit[data-contact-state="sending"],
 .newsletter-status-button[data-newsletter-state="loading"] {
     background: linear-gradient(65deg, #6ee7f3, #acd9e5 50%, #6bd3c9);
     border-color: rgba(110, 231, 243, .72);
     box-shadow: 0 0 18px rgba(110, 231, 243, .34);
     color: #031017;
+}
+
+.contact-submit[data-contact-state="sending"]:hover,
+.newsletter-status-button[data-newsletter-state="loading"]:hover {
+    background: linear-gradient(65deg, #6ee7f3, #acd9e5 50%, #6bd3c9);
+    border-color: rgba(110, 231, 243, .82);
+    box-shadow: 0 0 20px rgba(110, 231, 243, .42);
 }
 
 .contact-submit[data-contact-state="success"],
@@ -1131,12 +1146,26 @@ html[dir="rtl"] .newsletter-status-button {
     color: #062217;
 }
 
+.contact-submit[data-contact-state="success"]:hover,
+.newsletter-status-button[data-newsletter-state="success"]:hover {
+    background: linear-gradient(65deg, #63c99c, #b7ebcf 52%, #71d6ae);
+    border-color: rgba(123, 227, 174, .82);
+    box-shadow: 0 0 20px rgba(91, 205, 151, .42);
+}
+
 .contact-submit[data-contact-state="error"],
 .newsletter-status-button[data-newsletter-state="error"] {
     background: rgba(167, 55, 67, .3);
     border-color: rgba(255, 132, 143, .66);
     box-shadow: 0 0 18px rgba(255, 100, 116, .18);
     color: #ffc0c6;
+}
+
+.contact-submit[data-contact-state="error"]:hover,
+.newsletter-status-button[data-newsletter-state="error"]:hover {
+    background: rgba(167, 55, 67, .38);
+    border-color: rgba(255, 151, 160, .8);
+    box-shadow: 0 0 20px rgba(255, 100, 116, .3);
 }
 
 @keyframes contact-submit-label-in {
