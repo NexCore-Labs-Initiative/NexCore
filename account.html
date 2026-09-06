@@ -721,15 +721,10 @@
     const sb = window.supabaseClient;
 
     let currentUser = null;
-    let _toastTimer = null;
 
     function setMsg(_elId, text, isError = false) {
       if (!text) return;
-      const toast = document.getElementById('toast');
-      toast.textContent = text;
-      toast.className = 'show' + (isError ? ' error' : '');
-      clearTimeout(_toastTimer);
-      _toastTimer = setTimeout(() => toast.classList.remove('show'), 3800);
+      window.showToast(text, isError);
     }
 
     function downloadText(filename, text) {
