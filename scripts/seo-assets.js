@@ -95,6 +95,19 @@ const FAQ_AR = [
 
 const PAGE_PAIRS = [
   {
+    key: "careers", priority: "0.75",
+    en: {
+      file: "careers.html", path: "/careers", title: "NexCore Labs | Careers Beta",
+      description: "Join the independent NexCore Labs student team. Explore marketing and social media opportunities and apply through Careers Beta.",
+      breadcrumb: "Careers",
+    },
+    ar: {
+      file: "ar/careers.html", path: "/ar/careers", title: "NexCore Labs | فرص الانضمام — نسخة تجريبية",
+      description: "انضم إلى فريق NexCore Labs الطلابي المستقل. اكتشف فرص التسويق والتواصل الاجتماعي وقدّم طلبك عبر النسخة التجريبية لفرص الانضمام.",
+      breadcrumb: "فرص الانضمام",
+    },
+  },
+  {
     key: "home",
     priority: "1.00",
     en: {

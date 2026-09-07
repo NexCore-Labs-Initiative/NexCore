@@ -2,6 +2,8 @@
   "$schema": "../docs/route-manifest.schema.json",
   "canonicalOrigin": "https://nexcorelabs.vercel.app",
   "routes": [
+    { "route": "/careers", "file": "careers.html", "locale": "en", "pair": "/ar/careers", "indexed": true, "precache": true, "priority": 0.75 },
+    { "route": "/ar/careers", "file": "ar/careers.html", "locale": "ar", "pair": "/careers", "indexed": true, "precache": true, "priority": 0.75 },
     { "route": "/", "file": "index.html", "locale": "en", "pair": "/ar", "indexed": true, "precache": true, "priority": 1.0 },
     { "route": "/ar", "file": "ar/index.html", "locale": "ar", "pair": "/", "indexed": true, "precache": true, "priority": 1.0 },
     { "route": "/hub", "file": "hub.html", "locale": "en", "pair": "/ar/hub", "indexed": true, "precache": true, "priority": 0.85 },

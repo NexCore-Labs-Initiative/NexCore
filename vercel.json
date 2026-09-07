@@ -8,6 +8,8 @@
     { "source": "/ar/intelligence.html", "destination": "/ar/intelligence", "permanent": true }
   ],
   "rewrites": [
+    { "source": "/careers", "destination": "/careers.html" },
+    { "source": "/ar/careers", "destination": "/ar/careers.html" },
     { "source": "/account", "destination": "/account.html" },
     { "source": "/auth", "destination": "/auth.html" },
     { "source": "/dashboard", "destination": "/dashboard.html" },

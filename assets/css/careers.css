@@ -1,0 +1,28 @@
+.careers-page .careers-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; align-items: start; }
+.careers-page .careers-intro { max-width: 760px; }
+.careers-page .careers-notice { margin-top: 24px; color: var(--muted); line-height: 1.7; max-width: 80ch; }
+.careers-page .careers-beta { padding: 4px 8px; border: 1px solid rgba(110,231,243,.25); border-radius: 6px; font-size: .7rem; letter-spacing: .04em; }
+.careers-page .contribute-card:hover { transform: none; }
+.careers-page details { margin-bottom: 24px; }
+.careers-page summary { cursor: pointer; color: var(--primary-accent); padding-block: 12px; }
+.careers-page details ul { padding-inline-start: 22px; color: var(--muted); line-height: 1.7; }
+.careers-page .career-form { max-width: 850px; margin-inline: auto; }
+.careers-page .career-form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 20px; }
+.careers-page .field label { display: block; margin-bottom: 8px; }
+.careers-page .field input, .careers-page .field textarea, .careers-page .field select { width: 100%; max-width: none; min-width: 0; font: inherit; }
+.careers-page .field select { padding: 12px; border: 1px solid rgba(255,255,255,.15); border-radius: 8px; background: #0a0b1c; color: #eaf6fb; }
+.careers-page .career-wide { grid-column: 1 / -1; }
+.careers-page .career-error { display: block; color: #ffb8bf; font-size: .85rem; min-height: 1.3em; }
+.careers-page [aria-invalid="true"] { border-color: #ffb8bf; }
+.careers-page .career-consent { display: flex; gap: 10px; align-items: flex-start; line-height: 1.6; }
+.careers-page .career-consent input { width: 18px; height: 18px; flex-shrink: 0; margin-top: 5px; }
+.careers-page #career-status { margin-block: 18px; line-height: 1.6; }
+.careers-page :is(summary, input, textarea, select, button, a):focus-visible { outline: 2px solid var(--primary-accent); outline-offset: 4px; }
+.careers-page #apply, .careers-page #open-roles { scroll-margin-top: 100px; }
+@media (max-width: 680px) {
+  .careers-page .careers-grid, .careers-page .career-form-grid { grid-template-columns: minmax(0, 1fr); }
+  .careers-page .contribute-shell { width: calc(100% - 32px); }
+  .careers-page .contribute-hero { padding-top: 120px; }
+  .careers-page .contact-form { padding: 16px; }
+}
+.careers-page { background-color: var(--dark-base); }
