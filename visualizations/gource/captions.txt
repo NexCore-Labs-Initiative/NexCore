@@ -1,0 +1,9 @@
+1759283029|NexCore Labs begins - the initial platform
+1762025780|v1.1.0 - Performance Foundations
+1770697271|v2.0.0 - Platform Graduation
+1773942678|v2.6.0 - Roadmap and Feature Requests
+1775932786|v2.7.0 - RAG AI Assistant
+1781960103|v3.0.0 - Multilingual Intelligence Breakthrough
+1783621924|v3.2.0 - Contributor Center Launch
+1786277343|v3.3.0 - Trust and Foundations
+1788701962|v3.4.0 - Command Center and Connected Experience
