@@ -1,0 +1,54 @@
+{
+  "source": {
+    "path": "visualizations/gource/output/nexcore-labs-development-history.mp4",
+    "sha256": "5F22DAE9E74AE13D3F05EACCF6E836C2A4A0443F5AF62A6C7117493B845E8FEF",
+    "durationSeconds": 136.6,
+    "resolution": "1920x1080",
+    "frameRate": 60
+  },
+  "retiming": [
+    { "sourceStart": 0.0, "sourceEnd": 17.0, "speed": 1.0, "outputStart": 0.0, "outputEnd": 17.0 },
+    { "sourceStart": 17.0, "sourceEnd": 22.0, "speed": 0.825, "outputStart": 17.0, "outputEnd": 23.061 },
+    { "sourceStart": 22.0, "sourceEnd": 28.0, "speed": 1.25, "outputStart": 23.061, "outputEnd": 27.861 },
+    { "sourceStart": 28.0, "sourceEnd": 29.0, "speed": 1.0, "outputStart": 27.861, "outputEnd": 28.861 },
+    { "sourceStart": 29.0, "sourceEnd": 38.0, "speed": 0.825, "outputStart": 28.861, "outputEnd": 39.770 },
+    { "sourceStart": 38.0, "sourceEnd": 74.0, "speed": 1.0, "outputStart": 39.770, "outputEnd": 75.770 },
+    { "sourceStart": 74.0, "sourceEnd": 86.0, "speed": 1.25, "outputStart": 75.770, "outputEnd": 85.370 },
+    { "sourceStart": 86.0, "sourceEnd": 88.0, "speed": 1.0, "outputStart": 85.370, "outputEnd": 87.370 },
+    { "sourceStart": 88.0, "sourceEnd": 102.0, "speed": 0.825, "outputStart": 87.370, "outputEnd": 104.339 },
+    { "sourceStart": 102.0, "sourceEnd": 111.0, "speed": 1.0, "outputStart": 104.339, "outputEnd": 113.339 },
+    { "sourceStart": 111.0, "sourceEnd": 118.0, "speed": 0.825, "outputStart": 113.339, "outputEnd": 121.824 },
+    { "sourceStart": 118.0, "sourceEnd": 124.0, "speed": 1.25, "outputStart": 121.824, "outputEnd": 126.624 },
+    { "sourceStart": 124.0, "sourceEnd": 130.0, "speed": 0.825, "outputStart": 126.624, "outputEnd": 133.897 },
+    { "sourceStart": 130.0, "sourceEnd": 136.6, "speed": 1.0, "outputStart": 133.897, "outputEnd": 140.497 }
+  ],
+  "intro": {
+    "outputStart": 0.0,
+    "outputEnd": 5.5,
+    "title": "NexCore Labs",
+    "subtitle": "Built Commit by Commit",
+    "period": "October 2025 — September 2026"
+  },
+  "milestones": [
+    { "outputStart": 15.000, "duration": 3.0, "label": "v1.0 — Initial Launch", "evidence": "CHANGELOG.md; no v1.0.0 Git tag exists" },
+    { "outputStart": 34.921, "duration": 3.0, "label": "v2.0 — Platform Graduation", "evidence": "tag v2.0.0; CHANGELOG.md" },
+    { "outputStart": 43.770, "duration": 3.0, "label": "v2.1 — AI Assist", "evidence": "tag v2.1.0; CHANGELOG.md" },
+    { "outputStart": 56.270, "duration": 3.0, "label": "v2.6 / v2.7 — Roadmap + RAG Assistant", "evidence": "tags v2.6.0 and v2.7.0; CHANGELOG.md" },
+    { "outputStart": 71.770, "duration": 3.0, "label": "v2.9 — Subscriptions + Control Panel", "evidence": "tags v2.9.0 and v2.9.1; CHANGELOG.md" },
+    { "outputStart": 95.855, "duration": 3.0, "label": "v3.0 — Multilingual Platform Expansion", "evidence": "tag v3.0.0; CHANGELOG.md" },
+    { "outputStart": 101.915, "duration": 3.0, "label": "v3.1 — Initiatives & Identity", "evidence": "tag v3.1.0; CHANGELOG.md" },
+    { "outputStart": 109.339, "duration": 3.0, "label": "v3.2 — Contributor Center", "evidence": "tag v3.2.0; CHANGELOG.md" },
+    { "outputStart": 114.552, "duration": 3.0, "label": "v3.3 — Trust & Security", "evidence": "tag v3.3.0; CHANGELOG.md" },
+    { "outputStart": 129.048, "duration": 3.0, "label": "v3.4 — Command Center", "evidence": "tag v3.4.0; CHANGELOG.md" }
+  ],
+  "outro": {
+    "sourceFreezeStart": 130.95,
+    "outputStart": 134.847,
+    "outputEnd": 140.497,
+    "commits": 701,
+    "fileEvents": 3879,
+    "period": "October 2025 — September 2026",
+    "website": "nexcorelabs.vercel.app",
+    "credit": "Built by the NexCore Labs Team"
+  }
+}
