@@ -20,6 +20,8 @@ Title, description, topics, course, semester, type, format, at least one languag
 
 ## API and database
 
+The five `/api/admin/*` URLs share one Vercel entry point, `api/admin/[route].js`, with their original implementations in `lib/admin-handlers/`. Dispatch uses the request path and a fixed allowlist; each handler retains its own authorization and method checks. Ingestion remains a separate HMAC-protected function. This packages Labs as 11 functions, within the Hobby plan's 12-function limit, without changing frontend URLs. `tests/admin-router.test.cjs` checks routing, authorization rejection, and the function-count budget. Any future rebuild of the reduced staging artifact must include this dispatcher and its handler dependencies; the historical staging artifact predates this packaging change.
+
 GET `/api/admin/study-hub` returns capabilities and metadata. `kind=resources|revisions|courses&offset=N` provides the shared queue in pages of 100. `kind=detail&id=UUID` returns a resource and its most recent 100 revisions; `kind=editors` is admin-only. This first release does not promise an unlimited history browser.
 
 POST accepts `{ action, id, version, payload }`. Actions: `create`, `save`, `submit`, `withdraw`, `return`, `publish`, `discard`, `revise`, `archive`, `restore`, `grant_editor`, `revoke_editor`, `semesters`. The API derives actor UUID/email from `auth.getUser(token)`, ignores client-supplied identity/role flags, checks live membership, and calls the service-only `study_hub_mutate` transaction. Its identity arguments are trusted server input, never a browser RPC contract. Direct RPC execution is revoked from PUBLIC, anon and authenticated. Database functions use SECURITY INVOKER and a fixed search path.

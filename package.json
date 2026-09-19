@@ -39,7 +39,7 @@
     "assets:build": "terser assets/js/unminified-js.js --compress --mangle --output assets/js/script.js && cleancss --inline none -o assets/css/style.css assets/css/unminified-css.css",
     "browser:test": "playwright test",
     "ci": "npm test && npm run routes:test && npm run release:evidence && npm run security:audit",
-    "study-hub:test": "node --test tests/study-hub.test.cjs tests/study-hub-intake.test.cjs tests/study-hub-ingest.test.cjs tests/study-hub-apps-script.test.cjs",
+    "study-hub:test": "node --test tests/study-hub.test.cjs tests/study-hub-intake.test.cjs tests/study-hub-ingest.test.cjs tests/study-hub-apps-script.test.cjs tests/admin-router.test.cjs",
     "study-hub:browser": "playwright test --config playwright.study-hub.config.js",
     "study-hub:db-test": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/test-study-hub-database.ps1"
   },

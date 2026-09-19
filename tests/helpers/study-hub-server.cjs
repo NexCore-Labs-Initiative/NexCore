@@ -4,7 +4,7 @@ const http = require("node:http");
 const fs = require("node:fs");
 const path = require("node:path");
 const { execFile } = require("node:child_process");
-const { createHandler } = require("../../api/admin/study-hub");
+const { createHandler } = require("../../lib/admin-handlers/study-hub");
 const labs = path.resolve(__dirname, "../..");
 const hub =
   process.env.STUDY_HUB_ROOT || path.resolve(labs, "../nexcore-study-hub");

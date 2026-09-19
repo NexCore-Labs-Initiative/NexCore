@@ -1,7 +1,7 @@
 const test = require("node:test");
 const assert = require("node:assert/strict");
 const { driveTarget, normalizeContent } = require("../lib/study-hub");
-const { createHandler } = require("../api/admin/study-hub");
+const { createHandler } = require("../lib/admin-handlers/study-hub");
 
 test("Drive normalization accepts files, folders, resource keys and shared file aliases", () => {
   assert.deepEqual(

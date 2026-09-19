@@ -7,8 +7,8 @@ const {
   sheetTime,
 } = require("../lib/study-hub-intake");
 
-const management = require("../api/admin/study-hub").createHandler;
-const sync = require("../api/admin/study-hub-sync").createHandler;
+const management = require("../lib/admin-handlers/study-hub").createHandler;
+const sync = require("../lib/admin-handlers/study-hub-sync").createHandler;
 const headers = Object.values(HEADERS).map((x) => x[0]);
 const columns = mapHeaders(headers).columns;
 const row = (overrides = {}) => {
