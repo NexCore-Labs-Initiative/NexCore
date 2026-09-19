@@ -4,7 +4,7 @@ const assert = require("assert");
 const fs = require("fs");
 const path = require("path");
 const { normalizeImageUrl, validateInitiative } = require("../lib/initiatives");
-const { createHandler } = require("../api/admin/initiatives");
+const { createHandler } = require("../lib/admin-handlers/initiatives");
 
 const root = path.resolve(__dirname, "..");
 const read = (file) => fs.readFileSync(path.join(root, file), "utf8");

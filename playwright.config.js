@@ -5,6 +5,8 @@ const port = process.env.PLAYWRIGHT_PORT || "4187";
 
 module.exports = defineConfig({
   testDir: "tests/browser",
+  // This suite needs its own isolated PostgreSQL harness and local API server.
+  testIgnore: "**/study-hub.spec.js",
   timeout: 30_000,
   retries: process.env.CI ? 1 : 0,
   reporter: process.env.CI ? "github" : "list",

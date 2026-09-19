@@ -257,6 +257,22 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // Keep the Careers entry in the existing shared navigation.
+  const careersMenu = document.getElementById("myDropdown");
+  if (careersMenu && !careersMenu.querySelector("[data-careers-nav]")) {
+    const arabic = document.documentElement.lang.startsWith("ar");
+    const link = document.createElement("a");
+    link.href = arabic ? "/ar/careers" : "/careers";
+    link.className = "fade";
+    link.dataset.careersNav = "true";
+    const icon = document.createElement("i");
+    icon.className = "fa-solid fa-briefcase";
+    icon.setAttribute("aria-hidden", "true");
+    link.append(icon, arabic ? " فرص الانضمام" : " Careers");
+    const team = careersMenu.querySelector('a[href*="#team"]');
+    if (team) team.after(link); else careersMenu.append(link);
+  }
+
   function initDocsFeedback() {
     document.querySelectorAll("[data-docs-feedback]").forEach((panel) => {
       const buttons = Array.from(panel.querySelectorAll("[data-feedback-vote]"));
@@ -804,7 +820,7 @@ function initVersionHighlightBeacon({ isArabic, locale }) {
     .replace(/\/$/, "") || "/";
   const publicPaths = new Set([
     "/", "/ar", "/hub", "/ar/hub", "/initiatives", "/ar/initiatives",
-    "/contribute", "/ar/contribute", "/how-to-use", "/ar/how-to-use",
+    "/contribute", "/ar/contribute", "/careers", "/ar/careers", "/how-to-use", "/ar/how-to-use",
     "/faq", "/ar/faq", "/roadmap", "/ar/roadmap", "/terms", "/ar/terms",
     "/privacy-policy", "/ar/privacy-policy", "/pricing-policy", "/ar/pricing-policy"
   ]);

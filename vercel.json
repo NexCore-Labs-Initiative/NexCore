@@ -1,13 +1,41 @@
 {
+  "functions": { "api/integrations/study-hub-ingest.js": { "maxDuration": 30 } },
   "redirects": [
     { "source": "/ai-chat", "destination": "/intelligence", "permanent": true },
-    { "source": "/ai-chat.html", "destination": "/intelligence", "permanent": true },
-    { "source": "/intelligence.html", "destination": "/intelligence", "permanent": true },
-    { "source": "/ar/ai-chat", "destination": "/ar/intelligence", "permanent": true },
-    { "source": "/ar/ai-chat.html", "destination": "/ar/intelligence", "permanent": true },
-    { "source": "/ar/intelligence.html", "destination": "/ar/intelligence", "permanent": true }
+    {
+      "source": "/ai-chat.html",
+      "destination": "/intelligence",
+      "permanent": true
+    },
+    {
+      "source": "/intelligence.html",
+      "destination": "/intelligence",
+      "permanent": true
+    },
+    {
+      "source": "/ar/ai-chat",
+      "destination": "/ar/intelligence",
+      "permanent": true
+    },
+    {
+      "source": "/ar/ai-chat.html",
+      "destination": "/ar/intelligence",
+      "permanent": true
+    },
+    {
+      "source": "/ar/intelligence.html",
+      "destination": "/ar/intelligence",
+      "permanent": true
+    }
   ],
   "rewrites": [
+    { "source": "/study-hub-admin", "destination": "/study-hub-admin.html" },
+    {
+      "source": "/ar/study-hub-admin",
+      "destination": "/ar/study-hub-admin.html"
+    },
+    { "source": "/careers", "destination": "/careers.html" },
+    { "source": "/ar/careers", "destination": "/ar/careers.html" },
     { "source": "/account", "destination": "/account.html" },
     { "source": "/auth", "destination": "/auth.html" },
     { "source": "/dashboard", "destination": "/dashboard.html" },
@@ -27,7 +55,10 @@
     { "source": "/intelligence", "destination": "/intelligence.html" },
     { "source": "/admin-users", "destination": "/admin-users.html" },
     { "source": "/embed", "destination": "/embed.html" },
-    { "source": "/order-confirmation", "destination": "/order-confirmation.html" },
+    {
+      "source": "/order-confirmation",
+      "destination": "/order-confirmation.html"
+    },
     { "source": "/ar", "destination": "/ar/index.html" },
     { "source": "/ar/account", "destination": "/ar/account.html" },
     { "source": "/ar/admin-users", "destination": "/ar/admin-users.html" },
@@ -40,10 +71,19 @@
     { "source": "/ar/initiatives", "destination": "/ar/initiatives.html" },
     { "source": "/ar/contribute", "destination": "/ar/contribute.html" },
     { "source": "/ar/offline", "destination": "/ar/offline.html" },
-    { "source": "/ar/order-confirmation", "destination": "/ar/order-confirmation.html" },
+    {
+      "source": "/ar/order-confirmation",
+      "destination": "/ar/order-confirmation.html"
+    },
     { "source": "/ar/pricing", "destination": "/ar/pricing.html" },
-    { "source": "/ar/pricing-policy", "destination": "/ar/pricing-policy.html" },
-    { "source": "/ar/privacy-policy", "destination": "/ar/privacy-policy.html" },
+    {
+      "source": "/ar/pricing-policy",
+      "destination": "/ar/pricing-policy.html"
+    },
+    {
+      "source": "/ar/privacy-policy",
+      "destination": "/ar/privacy-policy.html"
+    },
     { "source": "/ar/project", "destination": "/ar/project.html" },
     { "source": "/ar/releases", "destination": "/ar/releases.html" },
     { "source": "/ar/roadmap", "destination": "/ar/roadmap.html" },

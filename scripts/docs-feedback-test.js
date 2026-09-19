@@ -4,7 +4,7 @@ const assert = require("assert");
 const fs = require("fs");
 const path = require("path");
 const { createDocsFeedbackHandler, getCoarseRequestIdentity, normalizeFeedbackPayload } = require("../api/docs-feedback");
-const { createHandler: createDocsFeedbackStatsHandler } = require("../api/admin/docs-feedback");
+const { createHandler: createDocsFeedbackStatsHandler } = require("../lib/admin-handlers/docs-feedback");
 
 const root = path.resolve(__dirname, "..");
 const read = (file) => fs.readFileSync(path.join(root, file), "utf8");

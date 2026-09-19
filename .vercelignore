@@ -1,2 +1,13 @@
 disabled-payment-api/
 
+# A custom .vercelignore must explicitly exclude local credentials and tooling.
+.env*
+.vercel/
+.git/
+node_modules/
+test-results/
+playwright-report/
+tests/
+supabase/
+docs/
+

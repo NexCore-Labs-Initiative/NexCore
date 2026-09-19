@@ -7,7 +7,7 @@ NexCore Labs is a bilingual static multi-page application hosted on Vercel. The 
 - Public pages may use the Supabase Data API only for deliberately public records protected by RLS.
 - Sensitive lists, analytics tables, newsletter records, moderation data, counters, and paused orders are server-owned.
 - `api/public-metrics.js` exposes aggregate counts, not raw analytics rows.
-- `api/admin/access.js` validates a bearer token, verifies the administrator against the server-owned list, and performs approved-user/admin mutations with the service role.
+- `lib/admin-handlers/access.js` validates a bearer token, verifies the administrator against the server-owned list, and performs approved-user/admin mutations with the service role.
 - `lib/api/` standardizes authentication, validation, safe JSON errors, basic rate limiting, and structured logs.
 
 ## Shared static shell
