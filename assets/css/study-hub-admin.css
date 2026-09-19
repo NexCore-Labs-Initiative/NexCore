@@ -1,0 +1,366 @@
+:root {
+  color-scheme: light;
+  --ink: #172434;
+  --muted: #596577;
+  --line: #dce3eb;
+  --brand: #164e63;
+  --paper: #fff;
+  --wash: #f4f7fa;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  background: var(--wash);
+  color: var(--ink);
+  font:
+    16px/1.6 system-ui,
+    sans-serif;
+}
+a {
+  color: var(--brand);
+}
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+button,
+.button {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 9px 16px;
+  background: var(--paper);
+  color: var(--ink);
+  cursor: pointer;
+  text-decoration: none;
+}
+button.primary {
+  background: var(--brand);
+  color: white;
+  border-color: var(--brand);
+}
+button.danger {
+  color: #a12b26;
+}
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid #0891b2;
+  outline-offset: 3px;
+}
+[hidden] {
+  display: none !important;
+}
+.topbar {
+  border-bottom: 1px solid var(--line);
+  background: white;
+  padding: 18px max(24px, calc((100vw - 1280px) / 2));
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+.topbar nav {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.brand {
+  font-weight: 750;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+}
+.shell {
+  max-width: 1280px;
+  margin: 36px auto;
+  padding: 0 24px;
+}
+h1 {
+  font-size: clamp(28px, 4vw, 40px);
+  line-height: 1.2;
+  margin: 8px 0;
+}
+h2 {
+  font-size: 22px;
+  margin-top: 0;
+}
+h3 {
+  font-size: 17px;
+}
+.eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--brand);
+}
+.muted {
+  color: var(--muted);
+}
+.intro {
+  margin-bottom: 28px;
+  max-width: 760px;
+}
+.toolbar,
+.actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 16px 0;
+}
+.toolbar input {
+  flex: 1;
+  min-width: 180px;
+}
+.workspace {
+  display: grid;
+  grid-template-columns: minmax(250px, 340px) minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+.panel {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 24px;
+  min-width: 0;
+}
+.queue {
+  padding: 10px;
+  max-height: 75vh;
+  overflow: auto;
+}
+.queue-item {
+  display: block;
+  text-align: start;
+  width: 100%;
+  margin-bottom: 8px;
+  padding: 16px;
+}
+.queue-item strong,
+.queue-item small {
+  display: block;
+}
+.queue-item small {
+  color: var(--muted);
+}
+.queue-item[aria-pressed="true"] {
+  border-color: var(--brand);
+  background: #ecf7fa;
+}
+.badge {
+  display: inline-block;
+  border-radius: 5px;
+  background: #edf2f7;
+  padding: 2px 8px;
+  font-size: 12px;
+}
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+.wide {
+  grid-column: 1/-1;
+}
+label {
+  display: block;
+  font-weight: 600;
+}
+label small {
+  font-weight: 400;
+  color: var(--muted);
+}
+input:not([type="checkbox"]),
+select,
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #b6c3d2;
+  border-radius: 7px;
+  background: white;
+  color: var(--ink);
+}
+textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+fieldset {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 14px;
+  min-width: 0;
+}
+fieldset fieldset label {
+  display: inline-flex;
+  gap: 8px;
+  margin-inline-end: 20px;
+  font-weight: 400;
+}
+legend {
+  font-weight: 600;
+}
+.check {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-weight: 400;
+}
+.note {
+  padding: 12px 16px;
+  border-inline-start: 4px solid #0891b2;
+  background: #edf8fc;
+  margin: 18px 0;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+.note.error {
+  border-color: #b42318;
+  background: #fff1ef;
+}
+.preview {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 20px;
+  background: #f9fbfd;
+  margin-top: 20px;
+}
+.preview h3 {
+  font-size: 23px;
+  line-height: 1.4;
+  margin: 12px 0;
+}
+.preview p {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.comparison {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.comparison th,
+.comparison td {
+  text-align: start;
+  border-bottom: 1px solid var(--line);
+  padding: 10px;
+  vertical-align: top;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.comparison td {
+  max-width: 220px;
+}
+.comparison tr.changed {
+  background: #fff8e6;
+}
+details {
+  margin-top: 20px;
+}
+summary {
+  cursor: pointer;
+  font-weight: 650;
+}
+.history {
+  max-height: 240px;
+  overflow: auto;
+  padding-inline-start: 22px;
+}
+.admin-tools {
+  margin-top: 28px;
+}
+.editor-entry {
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  overflow-wrap: anywhere;
+}
+.split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.statusbar {
+  min-height: 30px;
+}
+footer {
+  margin-top: 36px;
+  color: var(--muted);
+  font-size: 13px;
+}
+@media (max-width: 820px) {
+  .workspace,
+  .split {
+    grid-template-columns: 1fr;
+  }
+  .queue {
+    max-height: 300px;
+  }
+  .shell {
+    margin: 24px auto;
+    padding: 0 16px;
+  }
+  .panel {
+    padding: 18px;
+  }
+  .topbar {
+    padding: 16px;
+    align-items: flex-start;
+  }
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  .wide {
+    grid-column: auto;
+  }
+  .comparison {
+    font-size: 12px;
+  }
+  .comparison th,
+  .comparison td {
+    padding: 6px;
+  }
+  .topbar nav {
+    gap: 10px;
+    font-size: 14px;
+  }
+}
+
+.toolbar > input {
+  width: auto;
+}
+.toolbar > select {
+  width: 220px;
+}
+.intake {
+  margin-block: 1.5rem;
+}
+.intake-queue {
+  display: grid;
+  gap: 0.65rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+  margin-block: 1rem;
+}
+#submissionReview {
+  margin-block-end: 1rem;
+  overflow-wrap: anywhere;
+}
+#submissionReview details {
+  margin-block: 1rem;
+}
+#submissionReview textarea {
+  width: 100%;
+  min-height: 5rem;
+}

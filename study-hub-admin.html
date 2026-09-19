@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>Study Hub Editorial · NexCore Labs</title>
+    <link rel="icon" href="assets/images/nexcore-icon.png" />
+    <link rel="stylesheet" href="assets/css/study-hub-admin.css?v=1" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="index.html">NexCore Labs</a>
+      <nav aria-label="Navigation">
+        <a href="dashboard.html" data-i18n="dashboard">Dashboard</a>
+        <a
+          href="admin-users.html"
+          id="labsAdminLink"
+          hidden
+          data-i18n="labsAdmin"
+          >Labs administration</a
+        >
+        <a href="ar/study-hub-admin.html" lang="ar" id="localeLink">العربية</a>
+      </nav>
+    </header>
+    <main class="shell">
+      <div class="intro">
+        <span class="eyebrow">NexCore Study Hub</span>
+        <h1 data-i18n="heading">Resource workspace</h1>
+        <p class="muted" data-i18n="intro">
+          Prepare resources from reviewed contributions. Drafts stay private
+          until a Labs administrator publishes them.
+        </p>
+      </div>
+      <div
+        id="message"
+        class="note statusbar"
+        role="status"
+        aria-live="polite"
+        data-i18n="loading"
+      >
+        Checking access…
+      </div>
+      <p id="signIn" hidden>
+        <a class="button" href="auth.html" data-i18n="signIn"
+          >Sign in to NexCore Labs</a
+        >
+      </p>
+      <div id="app" hidden>
+        <div class="toolbar">
+          <input
+            id="queueSearch"
+            type="search"
+            aria-label="Search resources"
+            data-placeholder="search"
+            placeholder="Search title or course"
+          />
+          <select id="queueFilter" aria-label="Resource status">
+            <option value="all" data-i18n="all">All resources</option>
+            <option value="draft" data-i18n="draft">Draft</option>
+            <option value="submitted" data-i18n="submitted">
+              Awaiting review
+            </option>
+            <option value="published" data-i18n="published">Published</option>
+            <option value="archived" data-i18n="archived">Archived</option>
+          </select>
+          <button id="refresh" data-i18n="refresh">Refresh queue</button
+          ><button id="newResource" class="primary" data-i18n="new">
+            New resource
+          </button>
+        </div>
+        <div class="workspace">
+          <aside
+            class="panel queue"
+            id="queue"
+            aria-label="Resource queue"
+          ></aside>
+          <section class="panel" id="editorPanel">
+            <h2 id="editorHeading" data-i18n="choose">
+              Choose a resource or create a draft
+            </h2>
+            <p id="workflowStatus" class="muted"></p>
+            <form id="resourceForm" hidden novalidate>
+              <fieldset id="contentFields">
+                <legend data-i18n="metadata">Resource details</legend>
+                <div class="form-grid">
+                  <label class="wide"
+                    ><span data-i18n="title">Title</span
+                    ><input id="title" maxlength="200" required dir="auto"
+                  /></label>
+                  <label class="wide"
+                    ><span data-i18n="course">Course</span
+                    ><select id="course_id" required></select
+                  ></label>
+                  <div id="courseProposal" class="wide form-grid" hidden>
+                    <label
+                      ><span data-i18n="courseCode">Course code</span
+                      ><input id="course_code" maxlength="30" dir="ltr"
+                    /></label>
+                    <label
+                      ><span data-i18n="college">College</span
+                      ><select id="college_id"></select
+                    ></label>
+                    <label
+                      ><span data-i18n="courseTitle">Course title</span
+                      ><input id="course_title" maxlength="200" dir="auto"
+                    /></label>
+                    <label
+                      ><span data-i18n="courseTitleAr"
+                        >Arabic course title (optional)</span
+                      ><input id="course_title_ar" maxlength="200" dir="rtl"
+                    /></label>
+                  </div>
+                  <label
+                    ><span data-i18n="semester">Semester</span
+                    ><select id="semester" required></select
+                  ></label>
+                  <label
+                    ><span data-i18n="type">Resource type</span
+                    ><select id="type" required></select
+                  ></label>
+                  <label class="wide"
+                    ><span data-i18n="description">Description</span
+                    ><textarea
+                      id="description"
+                      maxlength="10000"
+                      required
+                      dir="auto"
+                    ></textarea>
+                  </label>
+                  <label class="wide"
+                    ><span data-i18n="topics"
+                      >Topics (separate with commas)</span
+                    ><input id="topics" required dir="auto"
+                  /></label>
+                  <label
+                    ><span data-i18n="format">Format</span
+                    ><select id="format" required></select
+                  ></label>
+                  <fieldset>
+                    <legend data-i18n="language">Language</legend>
+                    <label
+                      ><input type="checkbox" id="lang_ar" />
+                      <span data-i18n="arabic">Arabic</span></label
+                    ><label
+                      ><input type="checkbox" id="lang_en" />
+                      <span data-i18n="english">English</span></label
+                    >
+                  </fieldset>
+                  <label class="wide"
+                    ><span data-i18n="url">Google Drive file or folder URL</span
+                    ><input
+                      id="drive_url"
+                      type="url"
+                      maxlength="2000"
+                      required
+                      dir="ltr"
+                  /></label>
+                  <label class="wide"
+                    ><span data-i18n="credit"
+                      >Contributor / source credit (optional)</span
+                    ><input id="credit" maxlength="200" dir="auto"
+                  /></label>
+                  <label class="wide check"
+                    ><input type="checkbox" id="credit_permission" /><span
+                      data-i18n="permission"
+                      >We have permission to display this credit publicly.</span
+                    ></label
+                  >
+                </div>
+                <details>
+                  <summary data-i18n="translations">
+                    Reviewed translations (optional)
+                  </summary>
+                  <div class="form-grid">
+                    <label
+                      ><span data-i18n="arabicTitle">Arabic title</span
+                      ><input id="ar_title" maxlength="200" dir="rtl"
+                    /></label>
+                    <label
+                      ><span data-i18n="englishTitle">English title</span
+                      ><input id="en_title" maxlength="200" dir="ltr"
+                    /></label>
+                    <label
+                      ><span data-i18n="arabicDescription"
+                        >Arabic description</span
+                      ><textarea
+                        id="ar_description"
+                        dir="rtl"
+                        maxlength="10000"
+                      ></textarea>
+                    </label>
+                    <label
+                      ><span data-i18n="englishDescription"
+                        >English description</span
+                      ><textarea
+                        id="en_description"
+                        dir="ltr"
+                        maxlength="10000"
+                      ></textarea>
+                    </label>
+                    <label
+                      ><span data-i18n="arabicTopics">Arabic topics</span
+                      ><input id="ar_topics" dir="rtl"
+                    /></label>
+                    <label
+                      ><span data-i18n="englishTopics">English topics</span
+                      ><input id="en_topics" dir="ltr"
+                    /></label>
+                  </div>
+                </details>
+              </fieldset>
+              <div class="actions" id="actions"></div>
+            </form>
+            <div id="warnings" class="note" hidden></div>
+            <div id="preview" class="preview" hidden></div>
+            <details id="comparisonPanel" hidden>
+              <summary data-i18n="compare">
+                Compare approved content and proposal
+              </summary>
+              <table class="comparison" id="comparison"></table>
+            </details>
+            <div id="reviewPanel" hidden>
+              <label id="courseMatchPanel" hidden
+                ><span data-i18n="courseMatch"
+                  >Approve proposed course, or match an existing course</span
+                ><select id="courseMatch"></select></label
+              ><label
+                ><span data-i18n="reviewNote"
+                  >Note to the editor (required when returning)</span
+                ><textarea id="reviewNote" maxlength="2000"></textarea>
+              </label>
+              <label class="check"
+                ><input id="reviewConfirmed" type="checkbox" /><span
+                  data-i18n="reviewConfirm"
+                  >I checked the Drive link as a viewer, the metadata, sharing
+                  rights, and any new course proposal.</span
+                ></label
+              >
+            </div>
+            <details id="historyPanel" hidden>
+              <summary data-i18n="history">Review history</summary>
+              <ol id="history" class="history"></ol>
+            </details>
+          </section>
+        </div>
+        <section id="adminTools" class="admin-tools panel" hidden>
+          <h2 data-i18n="adminTools">Administrator tools</h2>
+          <div class="split">
+            <div>
+              <h3 data-i18n="editors">Study Hub Editors</h3>
+              <form id="grantForm">
+                <label
+                  ><span data-i18n="userEmail">Existing Labs user's email</span
+                  ><input id="editorEmail" type="email" required /></label
+                ><button type="submit" data-i18n="grant">
+                  Grant Editor access
+                </button>
+              </form>
+              <div id="editors"></div>
+            </div>
+            <div>
+              <h3 data-i18n="semesters">Semester settings</h3>
+              <form id="semestersForm">
+                <label
+                  ><span data-i18n="semesterHelp"
+                    >One semester per line, in display order. Existing values
+                    must be retained.</span
+                  ><textarea id="semesterValues" rows="10"></textarea></label
+                ><button type="submit" data-i18n="saveSemesters">
+                  Save semester list
+                </button>
+              </form>
+            </div>
+          </div>
+        </section>
+      </div>
+      <footer data-i18n="footer">
+        Contributions are gathered through Google Forms and reviewed manually.
+        Files remain on Google Drive.
+      </footer>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.1/dist/umd/supabase.min.js"></script>
+    <script src="assets/js/supabase-client.js"></script>
+    <script src="assets/js/study-hub-intake-ui.js?v=3"></script>
+    <script src="assets/js/study-hub-admin.js?v=2"></script>
+  </body>
+</html>

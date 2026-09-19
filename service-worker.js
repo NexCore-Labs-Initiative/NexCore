@@ -1,6 +1,6 @@
 /* Improved Service Worker — robust caching, offline fallback, and runtime strategies */
 const CACHE_VERSION = 'v3.4.0';
-const CACHE_BUILD = '20260907.1';
+const CACHE_BUILD = '20260909.study-hub-standalone.1';
 const CACHE_PREFIX = 'nexcore-cache-';
 const CACHE_NAME = `${CACHE_PREFIX}${CACHE_VERSION}-${CACHE_BUILD}`;
 const IMAGE_CACHE_PREFIX = 'nexcore-images-';
@@ -202,6 +202,8 @@ self.addEventListener('fetch', (event) => {
 
   // Ignore non-GET requests
   if (request.method !== 'GET') return;
+  // Never persist private editorial responses or management pages.
+  if ((url.pathname.startsWith('/api/admin/') || url.pathname.startsWith('/api/integrations/')) || /\/study-hub-admin(?:\.html)?$/.test(url.pathname)) return;
 
   // Navigation requests (HTML): network-first with fallback to cache => good for SPAs and content updates
   if (request.mode === 'navigate' || (request.headers.get('accept') || '').includes('text/html')) {

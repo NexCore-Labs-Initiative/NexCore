@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="ar-OM" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>إدارة موارد Study Hub · NexCore Labs</title>
+    <link rel="icon" href="../assets/images/nexcore-icon.png" />
+    <link rel="stylesheet" href="../assets/css/study-hub-admin.css?v=1" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="index.html">NexCore Labs</a>
+      <nav aria-label="Navigation">
+        <a href="dashboard.html" data-i18n="dashboard">لوحة التحكم</a>
+        <a
+          href="admin-users.html"
+          id="labsAdminLink"
+          hidden
+          data-i18n="labsAdmin"
+          >إدارة Labs</a
+        >
+        <a href="../study-hub-admin.html" lang="en" id="localeLink">English</a>
+      </nav>
+    </header>
+    <main class="shell">
+      <div class="intro">
+        <span class="eyebrow">NexCore Study Hub</span>
+        <h1 data-i18n="heading">مساحة إدارة الموارد</h1>
+        <p class="muted" data-i18n="intro">
+          جهّز الموارد من المساهمات التي راجعها الفريق. تبقى المسودات خاصة حتى
+          يعتمدها وينشرها مسؤول Labs.
+        </p>
+      </div>
+      <div
+        id="message"
+        class="note statusbar"
+        role="status"
+        aria-live="polite"
+        data-i18n="loading"
+      >
+        جارٍ التحقق من الصلاحية…
+      </div>
+      <p id="signIn" hidden>
+        <a class="button" href="auth.html" data-i18n="signIn"
+          >تسجيل الدخول إلى NexCore Labs</a
+        >
+      </p>
+      <div id="app" hidden>
+        <div class="toolbar">
+          <input
+            id="queueSearch"
+            type="search"
+            aria-label="Search resources"
+            data-placeholder="search"
+            placeholder="Search title or course"
+          />
+          <select id="queueFilter" aria-label="Resource status">
+            <option value="all" data-i18n="all">جميع الموارد</option>
+            <option value="draft" data-i18n="draft">مسودة</option>
+            <option value="submitted" data-i18n="submitted">
+              بانتظار المراجعة
+            </option>
+            <option value="published" data-i18n="published">منشور</option>
+            <option value="archived" data-i18n="archived">مؤرشف</option>
+          </select>
+          <button id="refresh" data-i18n="refresh">تحديث القائمة</button
+          ><button id="newResource" class="primary" data-i18n="new">
+            مورد جديد
+          </button>
+        </div>
+        <div class="workspace">
+          <aside
+            class="panel queue"
+            id="queue"
+            aria-label="Resource queue"
+          ></aside>
+          <section class="panel" id="editorPanel">
+            <h2 id="editorHeading" data-i18n="choose">
+              اختر موردًا أو أنشئ مسودة
+            </h2>
+            <p id="workflowStatus" class="muted"></p>
+            <form id="resourceForm" hidden novalidate>
+              <fieldset id="contentFields">
+                <legend data-i18n="metadata">بيانات المورد</legend>
+                <div class="form-grid">
+                  <label class="wide"
+                    ><span data-i18n="title">العنوان</span
+                    ><input id="title" maxlength="200" required dir="auto"
+                  /></label>
+                  <label class="wide"
+                    ><span data-i18n="course">المقرر</span
+                    ><select id="course_id" required></select
+                  ></label>
+                  <div id="courseProposal" class="wide form-grid" hidden>
+                    <label
+                      ><span data-i18n="courseCode">رمز المقرر</span
+                      ><input id="course_code" maxlength="30" dir="ltr"
+                    /></label>
+                    <label
+                      ><span data-i18n="college">الكلية</span
+                      ><select id="college_id"></select
+                    ></label>
+                    <label
+                      ><span data-i18n="courseTitle">اسم المقرر</span
+                      ><input id="course_title" maxlength="200" dir="auto"
+                    /></label>
+                    <label
+                      ><span data-i18n="courseTitleAr"
+                        >اسم المقرر بالعربية (اختياري)</span
+                      ><input id="course_title_ar" maxlength="200" dir="rtl"
+                    /></label>
+                  </div>
+                  <label
+                    ><span data-i18n="semester">الفصل الدراسي</span
+                    ><select id="semester" required></select
+                  ></label>
+                  <label
+                    ><span data-i18n="type">نوع المورد</span
+                    ><select id="type" required></select
+                  ></label>
+                  <label class="wide"
+                    ><span data-i18n="description">الوصف</span
+                    ><textarea
+                      id="description"
+                      maxlength="10000"
+                      required
+                      dir="auto"
+                    ></textarea>
+                  </label>
+                  <label class="wide"
+                    ><span data-i18n="topics"
+                      >الموضوعات (افصل بينها بفواصل)</span
+                    ><input id="topics" required dir="auto"
+                  /></label>
+                  <label
+                    ><span data-i18n="format">الصيغة</span
+                    ><select id="format" required></select
+                  ></label>
+                  <fieldset>
+                    <legend data-i18n="language">لغة المورد</legend>
+                    <label
+                      ><input type="checkbox" id="lang_ar" />
+                      <span data-i18n="arabic">العربية</span></label
+                    ><label
+                      ><input type="checkbox" id="lang_en" />
+                      <span data-i18n="english">الإنجليزية</span></label
+                    >
+                  </fieldset>
+                  <label class="wide"
+                    ><span data-i18n="url">رابط ملف أو مجلد Google Drive</span
+                    ><input
+                      id="drive_url"
+                      type="url"
+                      maxlength="2000"
+                      required
+                      dir="ltr"
+                  /></label>
+                  <label class="wide"
+                    ><span data-i18n="credit"
+                      >اسم المساهم أو المصدر (اختياري)</span
+                    ><input id="credit" maxlength="200" dir="auto"
+                  /></label>
+                  <label class="wide check"
+                    ><input type="checkbox" id="credit_permission" /><span
+                      data-i18n="permission"
+                      >لدينا موافقة على عرض اسم المساهم أو المصدر علنًا.</span
+                    ></label
+                  >
+                </div>
+                <details>
+                  <summary data-i18n="translations">
+                    ترجمات مراجعة (اختيارية)
+                  </summary>
+                  <div class="form-grid">
+                    <label
+                      ><span data-i18n="arabicTitle">العنوان بالعربية</span
+                      ><input id="ar_title" maxlength="200" dir="rtl"
+                    /></label>
+                    <label
+                      ><span data-i18n="englishTitle">العنوان بالإنجليزية</span
+                      ><input id="en_title" maxlength="200" dir="ltr"
+                    /></label>
+                    <label
+                      ><span data-i18n="arabicDescription">الوصف بالعربية</span
+                      ><textarea
+                        id="ar_description"
+                        dir="rtl"
+                        maxlength="10000"
+                      ></textarea>
+                    </label>
+                    <label
+                      ><span data-i18n="englishDescription"
+                        >الوصف بالإنجليزية</span
+                      ><textarea
+                        id="en_description"
+                        dir="ltr"
+                        maxlength="10000"
+                      ></textarea>
+                    </label>
+                    <label
+                      ><span data-i18n="arabicTopics">الموضوعات بالعربية</span
+                      ><input id="ar_topics" dir="rtl"
+                    /></label>
+                    <label
+                      ><span data-i18n="englishTopics"
+                        >الموضوعات بالإنجليزية</span
+                      ><input id="en_topics" dir="ltr"
+                    /></label>
+                  </div>
+                </details>
+              </fieldset>
+              <div class="actions" id="actions"></div>
+            </form>
+            <div id="warnings" class="note" hidden></div>
+            <div id="preview" class="preview" hidden></div>
+            <details id="comparisonPanel" hidden>
+              <summary data-i18n="compare">
+                مقارنة المحتوى المعتمد بالتعديل المقترح
+              </summary>
+              <table class="comparison" id="comparison"></table>
+            </details>
+            <div id="reviewPanel" hidden>
+              <label id="courseMatchPanel" hidden
+                ><span data-i18n="courseMatch"
+                  >اعتمد المقرر المقترح أو اختر مقررًا موجودًا</span
+                ><select id="courseMatch"></select></label
+              ><label
+                ><span data-i18n="reviewNote"
+                  >ملاحظة للمحرر (مطلوبة عند الإرجاع)</span
+                ><textarea id="reviewNote" maxlength="2000"></textarea>
+              </label>
+              <label class="check"
+                ><input id="reviewConfirmed" type="checkbox" /><span
+                  data-i18n="reviewConfirm"
+                  >تحققت من فتح رابط Drive بصفة مشاهد، وراجعت البيانات وحقوق
+                  المشاركة وأي مقرر جديد مقترح.</span
+                ></label
+              >
+            </div>
+            <details id="historyPanel" hidden>
+              <summary data-i18n="history">سجل المراجعة</summary>
+              <ol id="history" class="history"></ol>
+            </details>
+          </section>
+        </div>
+        <section id="adminTools" class="admin-tools panel" hidden>
+          <h2 data-i18n="adminTools">أدوات المسؤول</h2>
+          <div class="split">
+            <div>
+              <h3 data-i18n="editors">محررو Study Hub</h3>
+              <form id="grantForm">
+                <label
+                  ><span data-i18n="userEmail"
+                    >بريد مستخدم لديه حساب في Labs</span
+                  ><input id="editorEmail" type="email" required /></label
+                ><button type="submit" data-i18n="grant">
+                  منح صلاحية محرر
+                </button>
+              </form>
+              <div id="editors"></div>
+            </div>
+            <div>
+              <h3 data-i18n="semesters">إعدادات الفصول الدراسية</h3>
+              <form id="semestersForm">
+                <label
+                  ><span data-i18n="semesterHelp"
+                    >فصل دراسي واحد في كل سطر حسب ترتيب العرض. يجب الاحتفاظ
+                    بالقيم الحالية.</span
+                  ><textarea id="semesterValues" rows="10"></textarea></label
+                ><button type="submit" data-i18n="saveSemesters">
+                  حفظ قائمة الفصول
+                </button>
+              </form>
+            </div>
+          </div>
+        </section>
+      </div>
+      <footer data-i18n="footer">
+        تُجمع المساهمات عبر نماذج Google وتُراجع يدويًا. تبقى الملفات على Google
+        Drive.
+      </footer>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.1/dist/umd/supabase.min.js"></script>
+    <script src="../assets/js/supabase-client.js"></script>
+    <script src="../assets/js/study-hub-intake-ui.js?v=3"></script>
+    <script src="../assets/js/study-hub-admin.js?v=2"></script>
+  </body>
+</html>

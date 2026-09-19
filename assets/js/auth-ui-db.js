@@ -257,6 +257,7 @@
                         <a href="${routePrefix}/account.html" id="navAccount" class="nav-user-action" title="${copy.accountTitle}" aria-label="${copy.accountTitle}" lang="${copy.lang}" style="display: none;">
                         <i class="fa-solid fa-gear" aria-hidden="true"></i>
                         </a>
+                        <a href="${routePrefix}/study-hub-admin.html" class="nav-user-action">${copy.lang === "ar" ? "إدارة موارد Study Hub" : "Study Hub workspace"}</a>
                         <a href="${routePrefix}/admin-users.html" id="navAdmin" class="nav-user-action" title="${copy.adminTitle}" aria-label="${copy.adminTitle}" lang="${copy.lang}" style="display: none;">
                             <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
                         </a>
