@@ -289,7 +289,7 @@
               "en": "Repaired roadmap voting identity handling and removed direct browser reads from protected access and analytics data.",
               "ar": "إصلاح التعامل مع هوية التصويت في خارطة الطريق وإزالة القراءة المباشرة من المتصفح لبيانات الوصول والتحليلات المحمية."
             },
-            "evidence": ["file:docs/archive/sql/20260808125353_v3_3_trust_foundations.applied.sql", "file:api/public-metrics.js", "file:api/admin/access.js"]
+            "evidence": ["file:docs/archive/sql/20260808125353_v3_3_trust_foundations.applied.sql", "file:api/public-metrics.js", "file:lib/admin-handlers/access.js"]
           }
         ]
       },
@@ -300,7 +300,7 @@
               "en": "Centralized serverless authentication, validation, safe errors, rate limiting, logging, public metrics, and administrator access operations.",
               "ar": "توحيد مصادقة الخادم والتحقق والأخطاء الآمنة وتحديد المعدل والسجلات ومؤشرات العامة وعمليات وصول المشرفين."
             },
-            "evidence": ["file:lib/api/auth.js", "file:lib/api/http.js", "file:lib/api/validation.js", "file:api/public-metrics.js", "file:api/admin/access.js"]
+            "evidence": ["file:lib/api/auth.js", "file:lib/api/http.js", "file:lib/api/validation.js", "file:api/public-metrics.js", "file:lib/admin-handlers/access.js"]
           },
           {
             "text": {
@@ -816,7 +816,7 @@
             "evidence": [
               "file:admin-users.html",
               "file:assets/js/initiatives-admin.js",
-              "file:api/admin/initiatives.js",
+              "file:lib/admin-handlers/initiatives.js",
               "file:scripts/initiatives-admin-test.js"
             ]
           },
