@@ -28,6 +28,7 @@
         adminTitle: 'لوحة الإدارة',
         admin: 'لوحة الإدارة',
         accountTitle: 'إعدادات الحساب',
+        studyHubTitle: 'إدارة موارد Study Hub',
         account: 'إعدادات الحساب',
         accountActionsTitle: 'إجراءات الحساب',
         logoutTitle: 'تسجيل الخروج',
@@ -45,6 +46,7 @@
         adminTitle: 'Admin Panel',
         admin: 'Admin Panel',
         accountTitle: 'Account Settings',
+        studyHubTitle: 'Study Hub workspace',
         account: 'Account Settings',
         accountActionsTitle: 'Account actions',
         logoutTitle: 'Logout',
@@ -257,7 +259,9 @@
                         <a href="${routePrefix}/account.html" id="navAccount" class="nav-user-action" title="${copy.accountTitle}" aria-label="${copy.accountTitle}" lang="${copy.lang}" style="display: none;">
                         <i class="fa-solid fa-gear" aria-hidden="true"></i>
                         </a>
-                        <a href="${routePrefix}/study-hub-admin.html" class="nav-user-action">${copy.lang === "ar" ? "إدارة موارد Study Hub" : "Study Hub workspace"}</a>
+                        <a href="${routePrefix}/study-hub-admin.html" id="navStudyHub" class="nav-user-action" title="${copy.studyHubTitle}" aria-label="${copy.studyHubTitle}" lang="${copy.lang}" style="display: inline-flex;">
+                            <i class="fa-solid fa-book-open" aria-hidden="true"></i>
+                        </a>
                         <a href="${routePrefix}/admin-users.html" id="navAdmin" class="nav-user-action" title="${copy.adminTitle}" aria-label="${copy.adminTitle}" lang="${copy.lang}" style="display: none;">
                             <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
                         </a>
