@@ -159,7 +159,7 @@ function setupStudyHubIntake() {
       const formUrl = sheet.getParent().getFormUrl();
       if (!formUrl) studyHubFail_("linked_form_missing");
       // Authoritative read-only setting check; never change the Form configuration.
-      if (FormApp.openByUrl(formUrl).getAllowResponseEdits())
+      if (FormApp.openByUrl(formUrl).canEditResponse())
         studyHubFail_("editable_responses_require_review");
       studyHubColumn_(sheet, STUDY_HUB_ID_HEADER);
       studyHubColumn_(sheet, STUDY_HUB_STATUS_HEADER);
@@ -427,7 +427,7 @@ function onStudyHubFormSubmit(event) {
     return { result: studyHubDeliverRow_(cfg, event.range.getRow()) };
   });
 }
-function studyHubPending_(includeErrors) {
+function studyHubPending_(includeErrors, includeUnsent = false) {
   const cfg = studyHubConfig_();
   studyHubReady_(cfg);
   const sheet = studyHubSheet_(cfg),
@@ -453,11 +453,13 @@ function studyHubPending_(includeErrors) {
   order.forEach((n) => {
     const row = snapshot.rows[n - 1],
       status = String(row[statusColumn - 1] || "");
-    if (
-      row[snapshot.columns.timestamp] === "" ||
-      status === "delivered" ||
-      (!includeErrors && status.startsWith("error:"))
-    )
+    // A timer or manual retry must never turn untouched historical rows into
+    // submissions. Only explicit backfill may select a blank delivery status.
+    const eligible =
+      status.startsWith("retry:") ||
+      (includeErrors && status.startsWith("error:")) ||
+      (includeUnsent && status === "");
+    if (row[snapshot.columns.timestamp] === "" || !eligible)
       return;
     if (attempts >= 25 || Date.now() >= deadline) {
       summary.remaining++;
@@ -485,5 +487,5 @@ function retryStudyHubAutomatically() {
 }
 function backfillStudyHubResponses() {
   repairStudyHubIds();
-  return retryPendingStudyHub();
+  return studyHubGuard_(() => studyHubPending_(true, true));
 }

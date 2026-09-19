@@ -140,7 +140,8 @@ function harness(options = {}) {
     },
     FormApp: {
       openByUrl: () => ({
-        getAllowResponseEdits: () => options.editable || false,
+        // Match Google's Form API; there is no getAllowResponseEdits method.
+        canEditResponse: () => options.editable || false,
       }),
     },
     LockService: {
@@ -429,10 +430,52 @@ test("invalid row does not stop later rows; duplicate UUID blocks delivery and l
 test("bounded retry batches advance past persistent failures", () => {
   const h = harness({ networkFailure: true });
   for (let i = 0; i < 30; i++) h.rows.push([...h.rows[1]]);
-  h.run("setupStudyHubIntake(); backfillStudyHubResponses()");
+  h.run("setupStudyHubIntake(); repairStudyHubIds()");
+  const statusColumn = h.rows[0].indexOf("NexCore Delivery Status");
+  h.rows.slice(1).forEach((row) => { row[statusColumn] = "retry: network_failure"; });
+  h.run("retryStudyHubAutomatically()");
   assert.equal(h.requests.length, 25);
   h.run("retryStudyHubAutomatically()");
   assert.ok(h.requests.slice(25).some((r) => r.data.row_number === 32));
+});
+
+test("automatic and manual retry leave historical and unknown-status rows untouched", () => {
+  const h = harness();
+  h.run("setupStudyHubIntake()");
+  const statusColumn = h.rows[0].indexOf("NexCore Delivery Status");
+  for (const status of ["", "operator hold", "delivered"]) {
+    h.rows[1][statusColumn] = status;
+    const before = JSON.stringify(h.rows);
+    h.run("retryStudyHubAutomatically(); retryPendingStudyHub()");
+    assert.equal(JSON.stringify(h.rows), before);
+    assert.equal(h.requests.length, 0);
+  }
+});
+
+test("new form submission delivers without importing older blank-status rows", () => {
+  const h = harness();
+  h.rows.push([...h.rows[1]]);
+  h.run("setupStudyHubIntake()");
+  const previous = JSON.stringify(h.rows[1]);
+  h.context.event = { range: h.sheet.getRange(3, 1) };
+  h.run("onStudyHubFormSubmit(event); retryStudyHubAutomatically()");
+  assert.equal(h.requests.length, 1);
+  assert.equal(h.requests[0].data.row_number, 3);
+  assert.equal(JSON.stringify(h.rows[1]), previous);
+  assert.equal(h.rows[2].at(-1), "delivered");
+});
+
+test("backfill requires explicit subsequent batches; timer cannot continue unsent history", () => {
+  const h = harness();
+  for (let i = 0; i < 30; i++) h.rows.push([...h.rows[1]]);
+  h.run("setupStudyHubIntake()");
+  assert.equal(h.run("backfillStudyHubResponses()").remaining, 6);
+  assert.equal(h.requests.length, 25);
+  h.run("retryStudyHubAutomatically(); retryPendingStudyHub()");
+  assert.equal(h.requests.length, 25);
+  assert.equal(h.run("backfillStudyHubResponses()").remaining, 0);
+  assert.equal(h.requests.length, 31);
+  assert.equal(new Set(h.requests.map((r) => r.data.values[0])).size, 31);
 });
 test("missing or ambiguous headers fail setup; no unknown student data reaches endpoint", () => {
   for (const duplicate of [false, true]) {
